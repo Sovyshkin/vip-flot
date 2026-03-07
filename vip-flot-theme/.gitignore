@@ -1,0 +1,30 @@
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+
+# Временные файлы
+*.log
+*.tmp
+*~
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Зависимости (если используете)
+node_modules/
+vendor/
+composer.lock
+package-lock.json
+
+# Компилированные файлы
+*.css.map
+*.js.map
