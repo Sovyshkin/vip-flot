@@ -105,7 +105,7 @@
                 <label class="group-name" for="booking-date">Дата прогулки</label>
                 <input class="group-value" type="date" id="booking-date" name="date" />
               </div>
-              <button class="btn-book">Забронировать</button>
+              <button class="btn-book" @click="goToBooking">Забронировать</button>
               <p class="booking-note">Минимальное время аренды — 1 час</p>
             </div>
           </div>
@@ -121,16 +121,21 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { getBoatBySlug } from '../data/boats';
 
 const route = useRoute();
+const router = useRouter();
 const boat = ref(null);
 
 onMounted(() => {
   const slug = route.params.slug;
   boat.value = getBoatBySlug(slug);
 });
+
+function goToBooking() {
+  router.push({ path: '/', hash: '#booking' });
+}
 
 // Phone mask functions
 function formatPhoneDigits(digits) {

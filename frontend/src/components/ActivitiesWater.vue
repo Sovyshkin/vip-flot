@@ -274,13 +274,10 @@
     
     .actions {
         width: 100%;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding-bottom: 4px;
+        flex-wrap: wrap;
     }
     
     .action-btn {
-        white-space: nowrap;
         font-size: 14px;
         padding: 10px 14px;
     }

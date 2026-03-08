@@ -89,7 +89,7 @@
                 <label class="group-name" for="booking-date">Дата прогулки</label>
                 <input class="group-value" type="date" id="booking-date" name="date" />
               </div>
-              <button class="btn-book">Забронировать</button>
+              <button class="btn-book" @click="goToBooking">Забронировать</button>
               <p class="booking-note">Минимальная продолжительность: {{ route.duration }}</p>
             </div>
           </div>
@@ -105,16 +105,21 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { getRouteBySlug } from '../data/routes-tours';
 
 const vueRoute = useRoute();
+const router = useRouter();
 const route = ref(null);
 
 onMounted(() => {
   const slug = vueRoute.params.slug;
   route.value = getRouteBySlug(slug);
 });
+
+function goToBooking() {
+  router.push({ path: '/', hash: '#booking' });
+}
 
 // Phone mask functions
 function formatPhoneDigits(digits) {

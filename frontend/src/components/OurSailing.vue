@@ -184,7 +184,7 @@ function goToBooking() {
                         <span class="card-price">от 19 000 ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book">Забронировать</button>
+                        <button class="btn to-book" @click="goToBooking">Забронировать</button>
                         <button class="btn more" @click="goToBoat('cherry')">Подробнее</button>
                     </div>
                 </div>
@@ -348,11 +348,21 @@ function goToBooking() {
     font-size: 15px;
     line-height: 16px;
     letter-spacing: 0px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
 }
 
 .to-book {
     background-color: #0076FC;
     color: #FFFFFF;
+}
+
+.to-book:hover {
+    background-color: #0061D1;
 }
 
 .card-btn {

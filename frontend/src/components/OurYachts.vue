@@ -348,11 +348,21 @@ function goToBooking() {
     font-size: 15px;
     line-height: 16px;
     letter-spacing: 0px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
 }
 
 .to-book {
     background-color: #0076FC;
     color: #FFFFFF;
+}
+
+.to-book:hover {
+    background-color: #0061D1;
 }
 
 .card-btn {

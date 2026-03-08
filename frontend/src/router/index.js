@@ -20,6 +20,22 @@ const router = createRouter({
     if (savedPosition) {
       return savedPosition
     }
+    if (to.hash) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const element = document.querySelector(to.hash)
+          if (element) {
+            resolve({
+              el: to.hash,
+              behavior: 'smooth',
+              top: 100
+            })
+          } else {
+            resolve({ top: 0 })
+          }
+        }, 100)
+      })
+    }
     if (to.name === 'BoatDetail' || to.name === 'RouteDetail' || to.name === 'Catalog') {
       return { top: 0 }
     }
