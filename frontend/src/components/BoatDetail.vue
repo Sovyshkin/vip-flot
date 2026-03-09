@@ -2,7 +2,16 @@
   <div v-if="boat" class="boat-detail">
     <div class="hero-section">
       <div class="hero-image">
-        <img :src="boat.images[0]" :alt="boat.name">
+        <Carousel :interval="5000" :showDots="true" :showArrows="true">
+          <div v-for="(image, index) in boat.images" :key="index" class="slide-item">
+            <img :src="image" :alt="`${boat.name} - фото ${index + 1}`">
+          </div>
+        </Carousel>
+        <button class="fullscreen-btn" @click="openFullscreen" aria-label="Открыть на весь экран">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" fill="white"/>
+          </svg>
+        </button>
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <h1 class="boat-name">{{ boat.name }}</h1>
@@ -27,42 +36,36 @@
             <h2 class="section-title">Характеристики</h2>
             <div class="specs-grid">
               <div class="spec-item">
-                <img src="../assets/card-desc-icon-1.svg" alt="">
                 <div class="spec-content">
                   <span class="spec-label">Вместимость</span>
                   <span class="spec-value">до {{ boat.capacity }} гостей</span>
                 </div>
               </div>
               <div class="spec-item">
-                <img src="../assets/card-desc-icon-2.svg" alt="">
                 <div class="spec-content">
                   <span class="spec-label">Длина</span>
                   <span class="spec-value">{{ boat.length }} метров</span>
                 </div>
               </div>
               <div class="spec-item">
-                <div class="spec-icon">🚤</div>
                 <div class="spec-content">
                   <span class="spec-label">Двигатель</span>
                   <span class="spec-value">{{ boat.specifications.engine }}</span>
                 </div>
               </div>
               <div class="spec-item">
-                <div class="spec-icon">⚡</div>
                 <div class="spec-content">
                   <span class="spec-label">Макс. скорость</span>
                   <span class="spec-value">{{ boat.specifications.maxSpeed }}</span>
                 </div>
               </div>
               <div class="spec-item">
-                <div class="spec-icon">⛽</div>
                 <div class="spec-content">
                   <span class="spec-label">Топливо</span>
                   <span class="spec-value">{{ boat.specifications.fuelType }}</span>
                 </div>
               </div>
               <div class="spec-item">
-                <div class="spec-icon">🛏️</div>
                 <div class="spec-content">
                   <span class="spec-label">Каюты</span>
                   <span class="spec-value">{{ boat.specifications.cabins }}</span>
@@ -117,20 +120,67 @@
     <h1>Катер не найден</h1>
     <router-link to="/" class="btn-back">Вернуться на главную</router-link>
   </div>
+
+  <!-- Fullscreen Gallery Modal -->
+  <Teleport to="body">
+    <Transition name="modal">
+      <div v-if="isFullscreenOpen && boat" class="fullscreen-modal" @click.self="closeFullscreen">
+        <button class="close-btn" @click="closeFullscreen" aria-label="Закрыть">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="fullscreen-carousel-wrapper">
+          <Carousel :interval="0" :showDots="true" :showArrows="true">
+            <div v-for="(image, index) in boat.images" :key="index" class="slide-item">
+              <img :src="image" :alt="`${boat.name} - фото ${index + 1}`">
+            </div>
+          </Carousel>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getBoatBySlug } from '../data/boats';
+import Carousel from './Carousel.vue';
 
 const route = useRoute();
 const router = useRouter();
 const boat = ref(null);
+const isFullscreenOpen = ref(false);
 
 onMounted(() => {
   const slug = route.params.slug;
   boat.value = getBoatBySlug(slug);
+});
+
+function openFullscreen() {
+  isFullscreenOpen.value = true;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFullscreen() {
+  isFullscreenOpen.value = false;
+  document.body.style.overflow = '';
+}
+
+function handleEscKey(e) {
+  if (e.key === 'Escape' && isFullscreenOpen.value) {
+    closeFullscreen();
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleEscKey);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleEscKey);
+  document.body.style.overflow = '';
 });
 
 function goToBooking() {
@@ -274,14 +324,65 @@ function onPhoneKeydown(e) {
 .hero-image {
   position: relative;
   width: 100%;
-  height: 500px;
+  max-height: 500px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 }
 
-.hero-image img {
+/* Carousel inside hero-image should not have border-radius */
+.hero-image :deep(.carousel) {
+  border-radius: 0;
+  z-index: 0;
+}
+
+/* Arrows should be always visible and above the overlay */
+.hero-image :deep(.arrow) {
+  z-index: 10;
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.hero-image :deep(.arrow:hover) {
+  background: rgba(0, 0, 0, 0.85);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Dots should be visible and above the overlay */
+.hero-image :deep(.dots) {
+  z-index: 10;
+  bottom: 20px;
+  gap: 10px;
+}
+
+.hero-image :deep(.dot) {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.hero-image :deep(.dot--active) {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  transform: scale(1.3);
+}
+
+/* Ensure images don't stretch and maintain aspect ratio */
+.hero-image :deep(.slides img) {
+  object-fit: cover;
+  object-position: center;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: none;
 }
 
 .hero-overlay {
@@ -292,6 +393,7 @@ function onPhoneKeydown(e) {
   height: 100%;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
   z-index: 1;
+  pointer-events: none;
 }
 
 .hero-content {
@@ -303,6 +405,7 @@ function onPhoneKeydown(e) {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  pointer-events: none;
 }
 
 .boat-name {
@@ -734,6 +837,196 @@ function onPhoneKeydown(e) {
   
   .not-found h1 {
     font-size: 24px;
+  }
+}
+
+/* Fullscreen Gallery Styles */
+.fullscreen-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border: none;
+  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.fullscreen-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.fullscreen-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px 20px;
+}
+
+.close-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: rotate(90deg);
+}
+
+.fullscreen-carousel-wrapper {
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreen-carousel-wrapper :deep(.carousel) {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  border-radius: 12px;
+}
+
+.fullscreen-carousel-wrapper :deep(.slides) {
+  border-radius: 12px;
+}
+
+.fullscreen-carousel-wrapper :deep(.slide-item) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.fullscreen-carousel-wrapper :deep(.slide-item img) {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  position: static;
+  transform: none;
+}
+
+.fullscreen-carousel-wrapper :deep(.arrow) {
+  width: 56px;
+  height: 56px;
+  font-size: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  opacity: 1;
+}
+
+.fullscreen-carousel-wrapper :deep(.arrow:hover) {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.fullscreen-carousel-wrapper :deep(.dots) {
+  bottom: -50px;
+  gap: 12px;
+}
+
+.fullscreen-carousel-wrapper :deep(.dot) {
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.fullscreen-carousel-wrapper :deep(.dot--active) {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  transform: scale(1.4);
+}
+
+/* Modal transition animations */
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .fullscreen-carousel-wrapper,
+.modal-leave-active .fullscreen-carousel-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.modal-enter-from .fullscreen-carousel-wrapper {
+  transform: scale(0.9);
+}
+
+.modal-leave-to .fullscreen-carousel-wrapper {
+  transform: scale(0.9);
+}
+
+@media (max-width: 768px) {
+  .fullscreen-btn {
+    width: 40px;
+    height: 40px;
+    top: 15px;
+    right: 15px;
+  }
+
+  .fullscreen-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .close-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .fullscreen-modal {
+    padding: 80px 15px 60px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.arrow) {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.dots) {
+    bottom: -45px;
   }
 }
 </style>

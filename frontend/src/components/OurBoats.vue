@@ -29,12 +29,12 @@ function goToBooking() {
         </div>
            <div class="cards">
             <div v-for="boat in boats" :key="boat.id" class="card">
-                <div class="wrap-img" @click="goToBoatDetail(boat.slug)">
+                <div class="wrap-img">
                     <Carousel :interval="4500">
-                        <img :src="boat.images[0]" :alt="boat.name">
+                        <img v-for="(image, index) in boat.cardImage" :key="index" :src="image" :alt="boat.name">
                     </Carousel>
                 </div>
-                <div class="card-info">
+                <div class="card-info" @click="goToBoatDetail(boat.slug)" style="cursor: pointer;">
                     <div class="card-text">
                         <span class="card-title">{{ boat.name }}</span>
                         <div class="card-desc">
@@ -50,8 +50,8 @@ function goToBooking() {
                         <span class="card-price">от {{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Забронировать</button>
-                        <button class="btn more" @click="goToBoatDetail(boat.slug)">Подробнее</button>
+                        <button class="btn to-book" @click.stop="goToBooking">Забронировать</button>
+                        <button class="btn more" @click.stop="goToBoatDetail(boat.slug)">Подробнее</button>
                     </div>
                 </div>
             </div>
@@ -153,11 +153,28 @@ function goToBooking() {
     width: 100%;
     aspect-ratio: 16 / 9;
     cursor: pointer;
-    transition: transform 0.2s ease;
 }
 
-.wrap-img:hover {
-    transform: scale(1.02);
+/* Carousel controls styling for cards */
+.wrap-img :deep(.arrow) {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+}
+
+.wrap-img :deep(.arrow:hover) {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.wrap-img :deep(.dots) {
+    bottom: 10px;
+}
+
+.wrap-img :deep(.dot) {
+    width: 8px;
+    height: 8px;
 }
 
 .card-info {

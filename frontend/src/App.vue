@@ -4,7 +4,9 @@ import AppFooter from './components/AppFooter.vue'
 </script>
 <template>
   <AppHeader/>
-  <router-view/>
+  <main class="main-content">
+    <router-view/>
+  </main>
   <AppFooter/>
 </template>
 <style>
@@ -47,6 +49,11 @@ body,
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
+}
+
+.main-content {
+  padding-top: 85px;
+  flex: 1;
 }
 
 /* Links */
@@ -137,12 +144,20 @@ button:active {
     padding: 16px 24px;
     gap: 48px;
   }
+  
+  .main-content {
+    padding-top: 75px;
+  }
 }
 
 @media (max-width: 480px) {
   .wrap {
     padding: 12px 20px;
     gap: 40px;
+  }
+  
+  .main-content {
+    padding-top: 70px;
   }
 }
 

@@ -6,9 +6,16 @@
     </router-link>
 
     <nav class="vipflot-header__nav" :class="{ 'nav-open': mobileMenuOpen }">
-      <li class="vipflot-header__nav-item" @click="scrollToSection('boats')">Наш флот</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('routes')">Яхт-туры</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('routes')">Маршруты</li>
+      <li class="vipflot-header__nav-item dropdown" @mouseenter="showFleetDropdown" @mouseleave="startHideFleetDropdown">
+        Наш флот
+        <div v-if="fleetDropdownOpen" class="dropdown-menu" @mouseenter="cancelHideFleetDropdown" @mouseleave="hideFleetDropdown">
+          <div class="dropdown-item" @click="scrollToSection('boats')">Катера</div>
+          <div class="dropdown-item" @click="scrollToSection('yachts')">Яхты</div>
+          <div class="dropdown-item" @click="scrollToSection('sailing')">Парусные</div>
+        </div>
+      </li>
+      <li class="vipflot-header__nav-item" @click="scrollToSection('tours')">Яхт-туры</li>
+      <li class="vipflot-header__nav-item" @click="goToRoutes">Маршруты</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('activities')">Мероприятия</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('services')">Услуги</li>
     </nav>
@@ -32,14 +39,55 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const mobileMenuOpen = ref(false)
+const fleetDropdownOpen = ref(false)
+let hideTimer = null
 
 function toggleMobileMenu() {
   mobileMenuOpen.value = !mobileMenuOpen.value
 }
 
+function showFleetDropdown() {
+  // Cancel any pending hide
+  if (hideTimer) {
+    clearTimeout(hideTimer)
+    hideTimer = null
+  }
+  fleetDropdownOpen.value = true
+}
+
+function startHideFleetDropdown() {
+  // Add a small delay before hiding to allow mouse to enter dropdown menu
+  hideTimer = setTimeout(() => {
+    fleetDropdownOpen.value = false
+  }, 150)
+}
+
+function cancelHideFleetDropdown() {
+  // Cancel the hide if mouse enters dropdown menu
+  if (hideTimer) {
+    clearTimeout(hideTimer)
+    hideTimer = null
+  }
+}
+
+function hideFleetDropdown() {
+  // Hide immediately when leaving dropdown menu
+  if (hideTimer) {
+    clearTimeout(hideTimer)
+    hideTimer = null
+  }
+  fleetDropdownOpen.value = false
+}
+
+function goToRoutes() {
+  mobileMenuOpen.value = false
+  router.push({ name: 'Routes' })
+}
+
 function scrollToSection(sectionId) {
   // Close mobile menu if open
   mobileMenuOpen.value = false
+  fleetDropdownOpen.value = false
   
   // If not on main page, navigate first
   if (router.currentRoute.value.path !== '/') {
@@ -69,12 +117,18 @@ function scrollToElement(id) {
 
 <style scoped>
 .vipflot-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: transparent;
+  background-color: #f5f5f5;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
 }
 
 /* Header - Блок Логотипа */
@@ -122,6 +176,7 @@ function scrollToElement(id) {
   font-size: 14px;
   cursor: pointer;
   transition: color 0.3s ease;
+  position: relative;
 }
 
 .vipflot-header__nav-item:hover {
@@ -131,6 +186,65 @@ function scrollToElement(id) {
 .vipflot-header__nav-item a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  padding-top: 12px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 12px 8px 8px 8px;
+  min-width: 160px;
+  z-index: 1001;
+  animation: fadeInDown 0.2s ease;
+}
+
+/* Invisible bridge between menu item and dropdown */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: transparent;
+}
+
+.dropdown-item {
+  padding: 12px 16px;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: #0076FC;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 /* Header - Блок контактов */
@@ -218,7 +332,7 @@ function scrollToElement(id) {
     justify-content: center;
     align-items: center;
     gap: 32px;
-    z-index: 1000;
+    z-index: 1001;
     animation: fadeIn 0.3s ease;
   }
   

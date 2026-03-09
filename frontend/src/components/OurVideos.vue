@@ -1,7 +1,7 @@
 <template>
     <div class="comments-block">
         <div class="wrap-title">
-            <h1 class="title">Отзывы наших клиентов</h1>
+            <h1 class="title">Видео от наших гостей</h1>
             <div class="actions">
                 <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
                 <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
@@ -18,16 +18,16 @@
                @pointerup.passive="onPointerUp"
                @pointercancel.passive="onPointerUp">
            <div class="card">
-            <video class="video" ref="video1" src="../assets/video-1.mp4" controls playsinline preload="metadata" @play="onVideoPlay(0)"></video>
+            <video class="video" ref="video1" src="../assets/video-1.mp4" playsinline preload="metadata" @play="onVideoPlay(0)" @mouseenter="onVideoMouseEnter(0)" @mouseleave="onVideoMouseLeave(0)"></video>
            </div>
            <div class="card">
-            <video class="video" ref="video2" src="../assets/video-2.mp4" controls playsinline preload="metadata" @play="onVideoPlay(1)"></video>
+            <video class="video" ref="video2" src="../assets/video-2.mp4" playsinline preload="metadata" @play="onVideoPlay(1)" @mouseenter="onVideoMouseEnter(1)" @mouseleave="onVideoMouseLeave(1)"></video>
            </div>
            <div class="card">
-            <video class="video" ref="video3" src="../assets/video-3.mp4" controls playsinline preload="metadata" @play="onVideoPlay(2)"></video>
+            <video class="video" ref="video3" src="../assets/video-3.mp4" playsinline preload="metadata" @play="onVideoPlay(2)" @mouseenter="onVideoMouseEnter(2)" @mouseleave="onVideoMouseLeave(2)"></video>
            </div>
            <div class="card">
-            <video class="video" ref="video4" src="../assets/video-4.mp4" controls playsinline preload="metadata" @play="onVideoPlay(3)"></video>
+            <video class="video" ref="video4" src="../assets/video-4.mp4" playsinline preload="metadata" @play="onVideoPlay(3)" @mouseenter="onVideoMouseEnter(3)" @mouseleave="onVideoMouseLeave(3)"></video>
            </div>
         </div>
         <div class="cards-indicator" aria-hidden="true">
@@ -53,11 +53,22 @@ const allVideos = [video1, video2, video3, video4]
 
 // Pause all videos except the one playing
 function onVideoPlay(currentIndex) {
-  allVideos.forEach((videoRef, index) => {
-    if (index !== currentIndex && videoRef.value) {
-      videoRef.value.pause()
-    }
-  })
+    allVideos.forEach((videoRef, index) => {
+        if (index !== currentIndex && videoRef.value) {
+            videoRef.value.pause()
+        }
+    })
+}
+
+// Show controls only on hover
+function onVideoMouseEnter(index) {
+    const v = allVideos[index]
+    if (v && v.value) v.value.controls = true
+}
+
+function onVideoMouseLeave(index) {
+    const v = allVideos[index]
+    if (v && v.value) v.value.controls = false
 }
 
 // swipe / pointer state
@@ -231,9 +242,9 @@ onBeforeUnmount(() => {
 .cards::-webkit-scrollbar { display: none; }
 
 .card {
-    flex: 0 0 392px;
-    width: 392px;
-    height: 250px;
+    flex: 0 0 calc((100% - 45px) / 4);
+    min-width: 232px;
+    height: 360px;
     background-color: #fff;
     border-radius: 16px;
     overflow: hidden;

@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, onBeforeUnmount } from 'vue'
 import MainBlock from "./MainBlock.vue"
+// import YachtTours from "./YachtTours.vue"
 import RoutesTours from "./RoutesTours.vue"
 import ActivitiesWater from "./ActivitiesWater.vue"
 import OurBoats from "./OurBoats.vue"
@@ -44,11 +45,12 @@ onBeforeUnmount(() => {
 <template>
 	<div class="wrap">
 		<MainBlock/>
-		<div id="routes" class="animate-block" style="--delay: 0s;"><RoutesTours/></div>
+		<!-- <div id="tours" class="animate-block" style="--delay: 0s;"><YachtTours/></div> -->
+        <div class="animate-block" style="--delay: 0s;"><RoutesTours/></div>
         <div id="activities" class="animate-block" style="--delay: 0s;"><ActivitiesWater/></div>
         <div id="boats" class="animate-block" style="--delay: 0s;"><OurBoats/></div>
-        <div id="tours" class="animate-block" style="--delay: 0s;"><OurYachts/></div>
-        <div class="animate-block" style="--delay: 0s;"><OurSailing/></div>
+        <div id="yachts" class="animate-block" style="--delay: 0s;"><OurYachts/></div>
+        <div id="sailing" class="animate-block" style="--delay: 0s;"><OurSailing/></div>
         <div id="services" class="animate-block" style="--delay: 0s;"><BoardServices/></div>
         <div class="animate-block" style="--delay: 0s;"><HowToOrder/></div>
         <div id="booking" class="animate-block" style="--delay: 0s;"><RequestBook/></div>

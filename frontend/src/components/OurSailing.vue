@@ -287,11 +287,6 @@ function goToBooking() {
     width: 100%;
     aspect-ratio: 16 / 9;
     cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.wrap-img:hover {
-    transform: scale(1.02);
 }
 
 .card-info {

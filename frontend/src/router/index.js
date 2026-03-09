@@ -4,10 +4,12 @@ import BoatDetail from '../components/BoatDetail.vue'
 import BlogArticle from '../components/BlogArticle.vue'
 import RouteDetail from '../components/RouteDetail.vue'
 import CatalogPage from '../components/CatalogPage.vue'
+import RoutesPage from '../components/RoutesPage.vue'
 
 const routes = [
   { path: '/', name: 'Main', component: AppMain },
   { path: '/catalog', name: 'Catalog', component: CatalogPage },
+  { path: '/routes', name: 'Routes', component: RoutesPage },
   { path: '/boat/:slug', name: 'BoatDetail', component: BoatDetail },
   { path: '/blog/:slug', name: 'BlogArticle', component: BlogArticle },
   { path: '/route/:slug', name: 'RouteDetail', component: RouteDetail }

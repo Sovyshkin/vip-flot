@@ -106,7 +106,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getRouteBySlug } from '../data/routes-tours';
+import { getRouteBySlug } from '../data/routes';
+import { getTourBySlug } from '../data/tours';
 
 const vueRoute = useRoute();
 const router = useRouter();
@@ -114,7 +115,8 @@ const route = ref(null);
 
 onMounted(() => {
   const slug = vueRoute.params.slug;
-  route.value = getRouteBySlug(slug);
+  // Try to find in routes first, then in tours
+  route.value = getRouteBySlug(slug) || getTourBySlug(slug);
 });
 
 function goToBooking() {

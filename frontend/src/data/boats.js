@@ -5,11 +5,22 @@ export const boats = [
     name: 'Катер Мэверик',
     pricePerHour: 19000,
     capacity: 10,
-    length: 5.5,
-    year: 2022,
+    length: 12,
+    year: 2025,
     description: 'Современный и комфортабельный катер идеально подходит для прогулок по рекам и каналам Санкт-Петербурга. Оснащен всем необходимым для комфортного отдыха.',
+    cardImage: [
+      require('@/assets/cater-maverik-1.webp'),
+      require('@/assets/cater-maverik-2.webp'),
+    ],
     images: [
-      require('@/assets/our-boats-1.png'),
+      require('@/assets/meverik-1.jpg.webp'),
+      require('@/assets/meverik-2.jpg.webp'),
+      require('@/assets/meverik-3.jpg.webp'),
+      require('@/assets/meverik-4.jpg.webp'),
+      require('@/assets/meverik-5.jpg.webp'),
+      require('@/assets/meverik-6.jpg.webp'),
+      require('@/assets/meverik-7.jpg.webp'),
+      require('@/assets/meverik-8.jpg.webp'),
     ],
     features: [
       'Музыкальная система',
@@ -35,6 +46,9 @@ export const boats = [
     length: 5.5,
     year: 2021,
     description: 'Классический катер с элегантным дизайном. Отлично подходит для романтических прогулок и семейного отдыха на воде.',
+    cardImage: [
+      require('@/assets/our-boats-2.png'),
+    ],
     images: [
       require('@/assets/our-boats-2.png'),
     ],
@@ -62,6 +76,9 @@ export const boats = [
     length: 5.5,
     year: 2023,
     description: 'Новейший катер премиум-класса с роскошной отделкой. Идеален для деловых встреч и VIP-прогулок.',
+    cardImage: [
+      require('@/assets/our-boats-3.png'),
+    ],
     images: [
       require('@/assets/our-boats-3.png'),
     ],
@@ -89,6 +106,9 @@ export const boats = [
     length: 7.2,
     year: 2023,
     description: 'Просторный катер премиум-класса для больших компаний. Максимальный комфорт и безопасность на воде.',
+    cardImage: [
+      require('@/assets/our-boats-4.png'),
+    ],
     images: [
       require('@/assets/our-boats-4.png'),
     ],
@@ -117,6 +137,9 @@ export const boats = [
     length: 6.0,
     year: 2022,
     description: 'Комфортный катер для семейных и дружеских прогулок, с продуманной планировкой и мягкой меблировкой.',
+    cardImage: [
+      require('@/assets/yachts-5.png'),
+    ],
     images: [
       require('@/assets/yachts-5.png'),
     ],
@@ -143,6 +166,9 @@ export const boats = [
     length: 6.2,
     year: 2023,
     description: 'Стильный и быстрый катер с увеличенной палубой — отличное решение для активного отдыха на воде.',
+    cardImage: [
+      require('@/assets/yachts-6.png'),
+    ],
     images: [
       require('@/assets/yachts-6.png'),
     ],
@@ -168,6 +194,9 @@ export const boats = [
     length: 7.0,
     year: 2021,
     description: 'Парусная яхта для спокойных прогулок и обучения парусному делу, легко управляется и стабильна в море.',
+    cardImage: [
+      require('@/assets/sailing-1.png'),
+    ],
     images: [
       require('@/assets/sailing-1.png'),
     ],
@@ -193,6 +222,9 @@ export const boats = [
     length: 7.5,
     year: 2022,
     description: 'Современная парусная яхта с удобной кормовой зоной и хорошей управляемостью.',
+    cardImage: [
+      require('@/assets/sailing-2.png'),
+    ],
     images: [
       require('@/assets/sailing-2.png'),
     ],
@@ -218,6 +250,9 @@ export const boats = [
     length: 8.0,
     year: 2023,
     description: 'Просторная парусная яхта для больших компаний и длительных прогулок.',
+    cardImage: [
+      require('@/assets/sailing-3.png'),
+    ],
     images: [
       require('@/assets/sailing-3.png'),
     ],
