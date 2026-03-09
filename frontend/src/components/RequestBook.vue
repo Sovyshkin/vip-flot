@@ -382,7 +382,7 @@ p {
 import { ref } from 'vue'
 
 // API endpoint - замените на свой URL WordPress
-const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/wordpress/wp-json/vip-flot/v1/booking'
+const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php'
 
 // Данные формы
 const formData = ref({

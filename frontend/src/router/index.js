@@ -5,6 +5,8 @@ import BlogArticle from '../components/BlogArticle.vue'
 import RouteDetail from '../components/RouteDetail.vue'
 import CatalogPage from '../components/CatalogPage.vue'
 import RoutesPage from '../components/RoutesPage.vue'
+import ServiceDetail from '../components/ServiceDetail.vue'
+import ActivityDetail from '../components/ActivityDetail.vue'
 
 const routes = [
   { path: '/', name: 'Main', component: AppMain },
@@ -12,7 +14,9 @@ const routes = [
   { path: '/routes', name: 'Routes', component: RoutesPage },
   { path: '/boat/:slug', name: 'BoatDetail', component: BoatDetail },
   { path: '/blog/:slug', name: 'BlogArticle', component: BlogArticle },
-  { path: '/route/:slug', name: 'RouteDetail', component: RouteDetail }
+  { path: '/route/:slug', name: 'RouteDetail', component: RouteDetail },
+  { path: '/service/:slug', name: 'ServiceDetail', component: ServiceDetail },
+  { path: '/activity/:slug', name: 'ActivityDetail', component: ActivityDetail }
 ]
 
 const router = createRouter({
@@ -38,7 +42,7 @@ const router = createRouter({
         }, 100)
       })
     }
-    if (to.name === 'BoatDetail' || to.name === 'RouteDetail' || to.name === 'Catalog') {
+    if (to.name === 'BoatDetail' || to.name === 'RouteDetail' || to.name === 'ServiceDetail' || to.name === 'ActivityDetail' || to.name === 'Catalog') {
       return { top: 0 }
     }
     return null

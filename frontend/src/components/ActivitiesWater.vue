@@ -3,101 +3,101 @@
         <div class="wrap-title">
             <h1 class="title">Мероприятия на воде</h1>
             <div class="actions">
-                <button type="button" class="action-btn active">Праздники</button>
-                <button type="button" class="action-btn">Развлекательные программы</button>
+                <button type="button" class="action-btn" :class="{ active: activeTab === 'holidays' }" @click="activeTab = 'holidays'">Праздники</button>
+                <button type="button" class="action-btn" :class="{ active: activeTab === 'entertainment' }" @click="activeTab = 'entertainment'">Развлекательные программы</button>
             </div>
         </div>
 
-        <div class="row-cards">
-                <div class="row-1-card card">
-                    <img class="image-card" src="../assets/activities-water-1.png" alt="">
+        <!-- Праздники -->
+        <template v-if="activeTab === 'holidays'">
+            <div class="row-cards">
+                <div v-for="card in holidaysRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
+                    <img class="image-card" :src="card.image" :alt="card.name">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
-                                <img src="../assets/activities-water-icon-1.svg" alt="">
+                                <img :src="card.icon" :alt="card.name">
                             </div>
-                            <h2 class="title-card">Ваш банкет фуршет</h2>
+                            <h2 class="title-card">{{ card.name }}</h2>
                         </div>
                         <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
                     </div>
                 </div>
-            <div class="row-1-card card">
-                <img class="image-card" src="../assets/activities-water-2.png" alt="">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="wrap-icon">
-                            <img src="../assets/activities-water-icon-2.svg" alt="">
-                        </div>
-                        <h2 class="title-card">День рождения</h2>
-                    </div>
-                    <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
-                </div>
             </div>
-            <div class="row-1-card card">
-                <img class="image-card" src="../assets/activities-water-3.png" alt="">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="wrap-icon">
-                            <img src="../assets/activities-water-icon-3.svg" alt="">
-                        </div>
-                        <h2 class="title-card">Корпоративы</h2>
-                    </div>
-                    <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="row-cards">
-                <div class="row-2-card card">
-                    <img class="image-card" src="../assets/activities-water-4.png" alt="">
+            <div class="row-cards">
+                <div v-for="card in holidaysRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
+                    <img class="image-card" :src="card.image" :alt="card.name">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
-                                <img src="../assets/activities-water-icon-4.svg" alt="">
+                                <img :src="card.icon" :alt="card.name">
                             </div>
-                            <h2 class="title-card">Выпускной</h2>
+                            <h2 class="title-card">{{ card.name }}</h2>
                         </div>
                         <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
                     </div>
                 </div>
-            <div class="row-2-card card">
-                <img class="image-card" src="../assets/activities-water-5.png" alt="">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="wrap-icon">
-                            <img src="../assets/activities-water-icon-5.svg" alt="">
+            </div>
+        </template>
+
+        <!-- Развлекательные программы -->
+        <template v-if="activeTab === 'entertainment'">
+            <div class="row-cards">
+                <div v-for="card in entertainmentRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
+                    <img class="image-card" :src="card.image" :alt="card.name">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <div class="wrap-icon">
+                                <img :src="card.icon" :alt="card.name">
+                            </div>
+                            <h2 class="title-card">{{ card.name }}</h2>
                         </div>
-                        <h2 class="title-card">Свадьба</h2>
+                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
                     </div>
-                    <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
                 </div>
             </div>
-            <div class="row-2-card card">
-                <img class="image-card" src="../assets/activities-water-6.png" alt="">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="wrap-icon">
-                            <img src="../assets/activities-water-icon-6.svg" alt="">
+            <div class="row-cards">
+                <div v-for="card in entertainmentRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
+                    <img class="image-card" :src="card.image" :alt="card.name">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <div class="wrap-icon">
+                                <img :src="card.icon" :alt="card.name">
+                            </div>
+                            <h2 class="title-card">{{ card.name }}</h2>
                         </div>
-                        <h2 class="title-card">Девичник</h2>
+                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
                     </div>
-                    <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
                 </div>
             </div>
-              <div class="row-2-card card">
-                <img class="image-card" src="../assets/activities-water-7.png" alt="">
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="wrap-icon">
-                            <img src="../assets/activities-water-icon-7.svg" alt="">
-                        </div>
-                        <h2 class="title-card">Мальчишник</h2>
-                    </div>
-                    <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
-                </div>
-            </div>
-        </div>
+        </template>
     </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { getActivitiesByCategory } from '../data/activities'
+
+const router = useRouter()
+const activeTab = ref('holidays')
+
+// Праздники - первый ряд (3 карточки)
+const holidaysRow1 = getActivitiesByCategory('holidays').slice(0, 3)
+
+// Праздники - второй ряд (4 карточки)
+const holidaysRow2 = getActivitiesByCategory('holidays').slice(3, 7)
+
+// Развлекательные программы - первый ряд (3 карточки)
+const entertainmentRow1 = getActivitiesByCategory('entertainment').slice(0, 3)
+
+// Развлекательные программы - второй ряд (3 карточки)
+const entertainmentRow2 = getActivitiesByCategory('entertainment').slice(3, 6)
+
+function goToActivity(slug) {
+  router.push({ name: 'ActivityDetail', params: { slug } })
+}
+</script>
 
 <style scoped>
 .routes-tours-block {
@@ -167,6 +167,13 @@
     border-radius: 16px;
     padding: 16px;
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* Затемнение поверх изображения */
@@ -193,6 +200,11 @@
     object-fit: cover;
     border-radius: 24px;
     z-index: 0;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .image-card {
+    transform: scale(1.05);
 }
 
 .card-content {

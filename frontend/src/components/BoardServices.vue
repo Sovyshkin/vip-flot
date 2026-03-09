@@ -6,41 +6,41 @@
     </div>
     <div class="cards">
       <div class="row-cards">
-        <div class="row-1-card card">
+        <div class="row-1-card card" @click="goToService('catering')">
           <img class="image-card" src="../assets/services-1.png" alt="" />
           <span class="card-title">Кейтеринг</span>
         </div>
-        <div class="row-1-card card">
+        <div class="row-1-card card" @click="goToService('guide')">
           <img class="image-card" src="../assets/services-2.png" alt="" />
           <span class="card-title">Гид</span>
         </div>
-        <div class="row-1-card card">
+        <div class="row-1-card card" @click="goToService('chef')">
           <img class="image-card" src="../assets/services-3.png" alt="" />
           <span class="card-title">Повар</span>
         </div>
-        <div class="row-1-card card">
+        <div class="row-1-card card" @click="goToService('bartender')">
           <img class="image-card" src="../assets/services-4.png" alt="" />
           <span class="card-title">Бармен</span>
         </div>
-        <div class="row-1-card card">
+        <div class="row-1-card card" @click="goToService('photographer')">
           <img class="image-card" src="../assets/services-5.png" alt="" />
           <span class="card-title">Фотограф</span>
         </div>
       </div>
       <div class="row-cards">
-        <div class="row-2-card card">
+        <div class="row-2-card card" @click="goToService('decoration')">
           <img class="image-card" src="../assets/services-6.png" alt="" />
           <span class="card-title">Украшение палубы</span>
         </div>
-        <div class="row-2-card card">
+        <div class="row-2-card card" @click="goToService('host')">
           <img class="image-card" src="../assets/services-7.png" alt="" />
           <span class="card-title">Ведущий</span>
         </div>
-        <div class="row-2-card card">
+        <div class="row-2-card card" @click="goToService('dj')">
           <img class="image-card" src="../assets/services-8.png" alt="" />
           <span class="card-title">Диджей</span>
         </div>
-        <div class="row-2-card card">
+        <div class="row-2-card card" @click="goToService('live-music')">
           <img class="image-card" src="../assets/services-9.png" alt="" />
           <span class="card-title">Живая музыка</span>
         </div>
@@ -48,6 +48,16 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function goToService(slug) {
+  router.push({ name: 'ServiceDetail', params: { slug } })
+}
+</script>
 
 <style scoped>
 .board-services {
@@ -100,6 +110,13 @@
   padding: 16px 24px;
   border-radius: 12px;
   overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .card::before {
@@ -132,6 +149,11 @@
   object-fit: cover;
   border-radius: 12px;
   z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image-card {
+  transform: scale(1.05);
 }
 
 .card-title {

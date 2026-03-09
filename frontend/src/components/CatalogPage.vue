@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Carousel from './Carousel.vue'
 import { boats } from '../data/boats'
@@ -7,6 +7,19 @@ import { routes } from '../data/routes-tours'
 
 const router = useRouter()
 const activeTab = ref('fleet')
+
+// Состояние открытия фильтров
+const showFilters = ref(false)
+
+// Фильтры и поиск для флота
+const searchQuery = ref('')
+const capacityFilter = ref('all')
+const priceRangeFilter = ref('all')
+const sortBy = ref('none')
+
+// Фильтры для маршрутов
+const routeSearchQuery = ref('')
+const durationFilter = ref('all')
 
 function goToBoat(slug) {
   router.push({ name: 'BoatDetail', params: { slug } })
@@ -23,6 +36,102 @@ function setTab(tab) {
 function goToBooking() {
   router.push({ path: '/', hash: '#booking' })
 }
+
+function resetFilters() {
+  searchQuery.value = ''
+  capacityFilter.value = 'all'
+  priceRangeFilter.value = 'all'
+  sortBy.value = 'none'
+}
+
+function resetRouteFilters() {
+  routeSearchQuery.value = ''
+  durationFilter.value = 'all'
+}
+
+function toggleFilters() {
+  showFilters.value = !showFilters.value
+}
+
+// Отфильтрованный и отсортированный список лодок
+const filteredBoats = computed(() => {
+  let result = [...boats]
+
+  // Поиск по названию
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    result = result.filter(boat => boat.name.toLowerCase().includes(query))
+  }
+
+  // Фильтр по вместимости
+  if (capacityFilter.value !== 'all') {
+    if (capacityFilter.value === 'small') {
+      result = result.filter(boat => boat.capacity <= 10)
+    } else if (capacityFilter.value === 'medium') {
+      result = result.filter(boat => boat.capacity > 10 && boat.capacity <= 20)
+    } else if (capacityFilter.value === 'large') {
+      result = result.filter(boat => boat.capacity > 20)
+    }
+  }
+
+  // Фильтр по цене
+  if (priceRangeFilter.value !== 'all') {
+    if (priceRangeFilter.value === 'budget') {
+      result = result.filter(boat => boat.pricePerHour < 20000)
+    } else if (priceRangeFilter.value === 'medium') {
+      result = result.filter(boat => boat.pricePerHour >= 20000 && boat.pricePerHour < 35000)
+    } else if (priceRangeFilter.value === 'premium') {
+      result = result.filter(boat => boat.pricePerHour >= 35000)
+    }
+  }
+
+  // Сортировка
+  if (sortBy.value === 'price-asc') {
+    result.sort((a, b) => a.pricePerHour - b.pricePerHour)
+  } else if (sortBy.value === 'price-desc') {
+    result.sort((a, b) => b.pricePerHour - a.pricePerHour)
+  } else if (sortBy.value === 'capacity-asc') {
+    result.sort((a, b) => a.capacity - b.capacity)
+  } else if (sortBy.value === 'capacity-desc') {
+    result.sort((a, b) => b.capacity - a.capacity)
+  }
+
+  return result
+})
+
+// Отфильтрованный список маршрутов
+const filteredRoutes = computed(() => {
+  let result = [...routes]
+
+  // Поиск по названию
+  if (routeSearchQuery.value) {
+    const query = routeSearchQuery.value.toLowerCase()
+    result = result.filter(route => 
+      route.name.toLowerCase().includes(query) || 
+      route.description.toLowerCase().includes(query)
+    )
+  }
+
+  // Фильтр по длительности
+  if (durationFilter.value !== 'all') {
+    result = result.filter(route => {
+      const duration = route.duration.toLowerCase()
+      // Извлекаем число из строки
+      const hours = parseInt(duration.match(/\d+/)?.[0] || '0')
+      
+      if (durationFilter.value === 'short') {
+        return hours <= 2
+      } else if (durationFilter.value === 'medium') {
+        return hours >= 3 && hours <= 4
+      } else if (durationFilter.value === 'long') {
+        return hours >= 5
+      }
+      return true
+    })
+  }
+
+  return result
+})
 </script>
 
 <template>
@@ -45,8 +154,80 @@ function goToBooking() {
 
     <!-- Fleet Section -->
     <div v-show="activeTab === 'fleet'" class="fleet-section">
-      <div class="cards-grid">
-        <div v-for="boat in boats" :key="boat.id" class="card">
+      <!-- Кнопка переключения фильтров -->
+      <button @click="toggleFilters" class="toggle-filters-btn">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h12M6 10h8M8 14h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>{{ showFilters ? 'Скрыть фильтры' : 'Показать фильтры' }}</span>
+        <svg class="chevron" :class="{ open: showFilters }" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Фильтры для флота -->
+      <transition name="filters-slide">
+        <div v-show="showFilters" class="filters-container">
+          <div class="search-bar">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input 
+              type="text" 
+              v-model="searchQuery" 
+              placeholder="Поиск по названию..."
+              class="search-input"
+            >
+            <button v-if="searchQuery" @click="searchQuery = ''" class="clear-btn">✕</button>
+          </div>
+
+          <div class="filters-row">
+          <div class="filter-group">
+            <label class="filter-label">Вместимость:</label>
+            <select v-model="capacityFilter" class="filter-select">
+              <option value="all">Все</option>
+              <option value="small">До 10 гостей</option>
+              <option value="medium">10-20 гостей</option>
+              <option value="large">Более 20 гостей</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Цена:</label>
+            <select v-model="priceRangeFilter" class="filter-select">
+              <option value="all">Все</option>
+              <option value="budget">До 20 000 ₽</option>
+              <option value="medium">20 000 - 35 000 ₽</option>
+              <option value="premium">От 35 000 ₽</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Сортировка:</label>
+            <select v-model="sortBy" class="filter-select">
+              <option value="none">По умолчанию</option>
+              <option value="price-asc">Цена: по возрастанию</option>
+              <option value="price-desc">Цена: по убыванию</option>
+              <option value="capacity-asc">Вместимость: меньше</option>
+              <option value="capacity-desc">Вместимость: больше</option>
+            </select>
+          </div>
+
+          <button @click="resetFilters" class="reset-btn">Сбросить фильтры</button>
+        </div>
+
+          <div class="results-count">
+            Найдено: {{ filteredBoats.length }} из {{ boats.length }}
+          </div>
+        </div>
+      </transition>
+
+      <div v-if="filteredBoats.length === 0" class="no-results">
+        <p class="no-results-text">Ничего не найдено. Попробуйте изменить параметры поиска.</p>
+      </div>
+
+      <div v-else class="cards-grid">
+        <div v-for="boat in filteredBoats" :key="boat.id" class="card">
           <div class="wrap-img">
             <Carousel :interval="4500">
               <img v-for="(image, index) in boat.cardImage" :key="index" :src="image" :alt="boat.name">
@@ -78,8 +259,59 @@ function goToBooking() {
 
     <!-- Routes Section -->
     <div v-show="activeTab === 'routes'" class="routes-section">
-      <div class="routes-grid">
-        <div v-for="route in routes" :key="route.id" class="route-card">
+      <!-- Кнопка переключения фильтров -->
+      <button @click="toggleFilters" class="toggle-filters-btn">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h12M6 10h8M8 14h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>{{ showFilters ? 'Скрыть фильтры' : 'Показать фильтры' }}</span>
+        <svg class="chevron" :class="{ open: showFilters }" width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Фильтры для маршрутов -->
+      <transition name="filters-slide">
+        <div v-show="showFilters" class="filters-container">
+          <div class="search-bar">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input 
+              type="text" 
+              v-model="routeSearchQuery" 
+              placeholder="Поиск маршрутов..."
+              class="search-input"
+            >
+            <button v-if="routeSearchQuery" @click="routeSearchQuery = ''" class="clear-btn">✕</button>
+          </div>
+
+          <div class="filters-row">
+          <div class="filter-group">
+            <label class="filter-label">Длительность:</label>
+            <select v-model="durationFilter" class="filter-select">
+              <option value="all">Все</option>
+              <option value="short">До 2 часов</option>
+              <option value="medium">3-4 часа</option>
+              <option value="long">Более 5 часов</option>
+            </select>
+          </div>
+
+          <button @click="resetRouteFilters" class="reset-btn">Сбросить фильтры</button>
+        </div>
+
+          <div class="results-count">
+            Найдено: {{ filteredRoutes.length }} из {{ routes.length }}
+          </div>
+        </div>
+      </transition>
+
+      <div v-if="filteredRoutes.length === 0" class="no-results">
+        <p class="no-results-text">Ничего не найдено. Попробуйте изменить параметры поиска.</p>
+      </div>
+
+      <div v-else class="routes-grid">
+        <div v-for="route in filteredRoutes" :key="route.id" class="route-card">
           <div class="wrap-img">
             <img :src="route.images[0]" :alt="route.name">
             <div class="badge">{{ route.duration }}</div>
@@ -160,6 +392,221 @@ function goToBooking() {
 /* Fleet Cards Grid */
 .fleet-section {
   animation: fadeIn 0.4s ease;
+}
+
+/* Toggle Filters Button */
+.toggle-filters-btn {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #FFFFFF;
+  border: 2px solid #E6E6E6;
+  border-radius: 10px;
+  color: #1A1A1A;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+}
+
+.toggle-filters-btn:hover {
+  background: #F8F8F8;
+  border-color: #0076FC;
+  color: #0076FC;
+}
+
+.toggle-filters-btn:hover svg {
+  color: #0076FC;
+}
+
+.toggle-filters-btn .chevron {
+  transition: transform 0.3s ease;
+}
+
+.toggle-filters-btn .chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Filters Slide Animation */
+.filters-slide-enter-active {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.filters-slide-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.filters-slide-enter-from {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.filters-slide-leave-to {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.filters-slide-enter-to {
+  max-height: 600px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filters-slide-leave-from {
+  max-height: 600px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Filters Container */
+.filters-container {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  color: #949CA4;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 48px 14px 48px;
+  border: 2px solid #E6E6E6;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #1A1A1A;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0076FC;
+}
+
+.search-input::placeholder {
+  color: #949CA4;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #949CA4;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.clear-btn:hover {
+  color: #1A1A1A;
+}
+
+.filters-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.filter-select {
+  padding: 12px 16px;
+  border: 2px solid #E6E6E6;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #1A1A1A;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #0076FC;
+}
+
+.reset-btn {
+  padding: 12px 24px;
+  background: #F8F8F8;
+  border: 2px solid #E6E6E6;
+  border-radius: 12px;
+  color: #1A1A1A;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.reset-btn:hover {
+  background: #E6E6E6;
+  border-color: #D1D1D1;
+}
+
+.results-count {
+  font-size: 14px;
+  color: #949CA4;
+  font-weight: 500;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  background: #FFFFFF;
+  border-radius: 16px;
+}
+
+.no-results-text {
+  font-size: 18px;
+  color: #949CA4;
+  margin: 0;
 }
 
 .cards-grid {
@@ -388,6 +835,18 @@ function goToBooking() {
     font-size: 36px;
   }
 
+  .filters-container {
+    padding: 20px;
+  }
+
+  .filters-row {
+    gap: 12px;
+  }
+
+  .filter-group {
+    min-width: 180px;
+  }
+
   .cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
@@ -419,6 +878,35 @@ function goToBooking() {
     font-size: 15px;
   }
 
+  .toggle-filters-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .filters-container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .filters-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .filter-group {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .reset-btn {
+    width: 100%;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+
   .cards-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -443,6 +931,10 @@ function goToBooking() {
 }
 
 @media (max-width: 480px) {
+  .catalog-page {
+    padding: 20px;
+  }
+
   .catalog-title {
     font-size: 24px;
   }
@@ -450,6 +942,34 @@ function goToBooking() {
   .tab-btn {
     padding: 10px 16px;
     font-size: 14px;
+  }
+
+  .toggle-filters-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .filters-container {
+    padding: 12px;
+  }
+
+  .search-input {
+    padding: 12px 40px 12px 40px;
+    font-size: 13px;
+  }
+
+  .filter-label {
+    font-size: 13px;
+  }
+
+  .filter-select {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .no-results-text {
+    font-size: 16px;
   }
 
   .wrap-img {

@@ -95,22 +95,61 @@
               <span class="booking-price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
               <span class="booking-price-period">/час</span>
             </div>
-            <div class="booking-form">
+            
+            <!-- Сообщения -->
+            <div v-if="successMessage" class="message success-message">
+              {{ successMessage }}
+            </div>
+            <div v-if="errorMessage" class="message error-message">
+              {{ errorMessage }}
+            </div>
+            
+            <form @submit.prevent="goToBooking" class="booking-form">
               <div class="form-group">
                 <label class="group-name" for="booking-name">Имя</label>
-                <input class="group-value" type="text" id="booking-name" name="name" placeholder="Введите ваше имя"/>
+                <input 
+                  v-model="formData.name"
+                  class="group-value" 
+                  type="text" 
+                  id="booking-name" 
+                  name="name" 
+                  placeholder="Введите ваше имя"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label class="group-name" for="booking-phone">Телефон</label>
-                <input class="group-value" type="text" id="booking-phone" name="phone" placeholder="+7 (___) ___-__-__" inputmode="tel" autocomplete="tel" maxlength="18" @input="onPhoneInput" @paste="onPhonePaste" @keydown="onPhoneKeydown"/>
+                <input 
+                  v-model="formData.phone"
+                  class="group-value" 
+                  type="text" 
+                  id="booking-phone" 
+                  name="phone" 
+                  placeholder="+7 (___) ___-__-__" 
+                  inputmode="tel" 
+                  autocomplete="tel" 
+                  maxlength="18" 
+                  @input="onPhoneInput" 
+                  @paste="onPhonePaste" 
+                  @keydown="onPhoneKeydown"
+                  required
+                />
               </div>
               <div class="form-group">
                 <label class="group-name" for="booking-date">Дата прогулки</label>
-                <input class="group-value" type="date" id="booking-date" name="date" />
+                <input 
+                  v-model="formData.date"
+                  class="group-value" 
+                  type="date" 
+                  id="booking-date" 
+                  name="date" 
+                />
               </div>
-              <button class="btn-book" @click="goToBooking">Забронировать</button>
+              <button type="submit" class="btn-book" :disabled="isLoading">
+                {{ isLoading ? 'Отправка...' : 'Забронировать' }}
+              </button>
               <p class="booking-note">Минимальное время аренды — 1 час</p>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -144,14 +183,28 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { getBoatBySlug } from '../data/boats';
 import Carousel from './Carousel.vue';
 
 const route = useRoute();
-const router = useRouter();
 const boat = ref(null);
 const isFullscreenOpen = ref(false);
+
+// API endpoint
+const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php';
+
+// Данные формы бронирования
+const formData = ref({
+  name: '',
+  phone: '',
+  date: ''
+});
+
+// Состояния формы
+const isLoading = ref(false);
+const successMessage = ref('');
+const errorMessage = ref('');
 
 onMounted(() => {
   const slug = route.params.slug;
@@ -183,8 +236,64 @@ onUnmounted(() => {
   document.body.style.overflow = '';
 });
 
-function goToBooking() {
-  router.push({ path: '/', hash: '#booking' });
+// Функция отправки формы бронирования
+async function goToBooking() {
+  // Очистка сообщений
+  successMessage.value = '';
+  errorMessage.value = '';
+  
+  // Валидация
+  if (!formData.value.name.trim()) {
+    errorMessage.value = 'Пожалуйста, введите ваше имя';
+    return;
+  }
+  
+  if (!formData.value.phone.trim()) {
+    errorMessage.value = 'Пожалуйста, введите номер телефона';
+    return;
+  }
+  
+  if (!boat.value) {
+    errorMessage.value = 'Информация о катере не найдена';
+    return;
+  }
+  
+  isLoading.value = true;
+  
+  try {
+    const formDataToSend = new FormData();
+    formDataToSend.append('action', 'vip_flot_booking');
+    formDataToSend.append('name', formData.value.name);
+    formDataToSend.append('phone', formData.value.phone);
+    formDataToSend.append('date', formData.value.date);
+    formDataToSend.append('boat_id', boat.value.id || boat.value.slug);
+    formDataToSend.append('boat_name', boat.value.name);
+    formDataToSend.append('consent', 'true');
+    
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: formDataToSend
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      successMessage.value = data.data.message || 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.';
+      // Очистка формы
+      formData.value = {
+        name: '',
+        phone: '',
+        date: ''
+      };
+    } else {
+      errorMessage.value = data.data.message || 'Произошла ошибка при отправке заявки';
+    }
+  } catch (error) {
+    console.error('Ошибка при отправке заявки:', error);
+    errorMessage.value = 'Не удалось отправить заявку. Пожалуйста, попробуйте позже.';
+  } finally {
+    isLoading.value = false;
+  }
 }
 
 // Phone mask functions
@@ -216,6 +325,7 @@ function onPhoneInput(e) {
   let digits = raw.replace(/\D/g, '');
   if (!digits) {
     el.value = '';
+    formData.value.phone = '';
     return;
   }
   if (digits[0] !== '7') {
@@ -225,6 +335,7 @@ function onPhoneInput(e) {
   digits = digits.slice(0, 11);
   const formatted = formatPhoneDigits(digits);
   el.value = formatted;
+  formData.value.phone = formatted;
 }
 
 function onPhonePaste(e) {
@@ -651,6 +762,33 @@ function onPhoneKeydown(e) {
   font-weight: 400;
   text-align: center;
   margin: 0;
+}
+
+/* Сообщения */
+.message {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.success-message {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.error-message {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-book:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .not-found {
