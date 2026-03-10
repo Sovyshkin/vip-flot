@@ -301,7 +301,7 @@ function goToActivity(slug) {
     
     .row-1-card,
     .row-2-card {
-        height: 180px;
+        height: 120px;
         width: 100%;
     }
     
@@ -332,6 +332,12 @@ function goToActivity(slug) {
     
     .title-card {
         font-size: 16px;
+    }
+
+    .row-1-card,
+    .row-2-card {
+        height: 100px;
+        width: 100%;
     }
     
     .go-into-card {

@@ -164,13 +164,13 @@ function scrollNext() {
     if (!container) return
     const cards = container.querySelectorAll('.card')
     const idx = findFirstVisibleIndex()
-    const target = Math.min(idx + 2, cards.length - 1)
+    const target = Math.min(idx + 1, cards.length - 1)
     scrollToIndex(target)
 }
 
 function scrollPrev() {
     const idx = findFirstVisibleIndex()
-    const target = Math.max(idx - 2, 0)
+    const target = Math.max(idx - 1, 0)
     scrollToIndex(target)
 }
 
@@ -178,9 +178,9 @@ function updatePages() {
     const container = cardsContainer.value
     if (!container) return
     const total = container.querySelectorAll('.card').length
-    pagesCount.value = Math.max(1, Math.ceil(total / 2))
+    pagesCount.value = Math.max(1, total)
     const idx = findFirstVisibleIndex()
-    currentPage.value = Math.floor(idx / 2)
+    currentPage.value = idx
 }
 
 function onScroll() {

@@ -1048,17 +1048,22 @@ function onPhoneKeydown(e) {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .fullscreen-carousel-wrapper :deep(.carousel) {
+  position: relative;
   width: 100%;
-  height: auto;
+  height: 80vh;
   max-height: 100%;
   border-radius: 12px;
+  inset: auto;
 }
 
 .fullscreen-carousel-wrapper :deep(.slides) {
   border-radius: 12px;
+  height: 100%;
+  width: 100%;
 }
 
 .fullscreen-carousel-wrapper :deep(.slide-item) {
@@ -1066,6 +1071,8 @@ function onPhoneKeydown(e) {
   align-items: center;
   justify-content: center;
   background: #000;
+  height: 100%;
+  width: 100%;
 }
 
 .fullscreen-carousel-wrapper :deep(.slide-item img) {
@@ -1074,8 +1081,10 @@ function onPhoneKeydown(e) {
   max-height: 100%;
   width: auto;
   height: auto;
-  position: static;
-  transform: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .fullscreen-carousel-wrapper :deep(.arrow) {
@@ -1151,20 +1160,114 @@ function onPhoneKeydown(e) {
   .close-btn {
     width: 48px;
     height: 48px;
+    top: 15px;
+    right: 15px;
+  }
+
+  .close-btn svg {
+    width: 24px;
+    height: 24px;
   }
 
   .fullscreen-modal {
-    padding: 80px 15px 60px;
+    padding: 70px 10px 50px;
+  }
+
+  .fullscreen-carousel-wrapper {
+    max-width: 100%;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.carousel) {
+    height: 70vh;
   }
 
   .fullscreen-carousel-wrapper :deep(.arrow) {
-    width: 44px;
-    height: 44px;
-    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.arrow--prev) {
+    left: 5px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.arrow--next) {
+    right: 5px;
   }
 
   .fullscreen-carousel-wrapper :deep(.dots) {
-    bottom: -45px;
+    bottom: 10px;
+    position: absolute;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.dot) {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fullscreen-btn {
+    width: 36px;
+    height: 36px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .fullscreen-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .close-btn {
+    width: 44px;
+    height: 44px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .close-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .fullscreen-modal {
+    padding: 60px 5px 40px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.carousel) {
+    border-radius: 8px;
+    height: 60vh;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.arrow) {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    border-width: 1px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.arrow--prev) {
+    left: 2px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.arrow--next) {
+    right: 2px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.dots) {
+    bottom: 8px;
+    gap: 8px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.dot) {
+    width: 8px;
+    height: 8px;
+    border-width: 1px;
+  }
+
+  .fullscreen-carousel-wrapper :deep(.dot--active) {
+    transform: scale(1.2);
   }
 }
 </style>

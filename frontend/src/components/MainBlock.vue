@@ -175,7 +175,6 @@ function goToCatalog() {
     
     .block {
         width: calc(50% - 5px);
-        min-height: 200px;
     }
     
     .block-3 {
@@ -214,8 +213,8 @@ function goToCatalog() {
     
     .block {
         width: 100%;
-        height: 200px;
-        padding: 24px;
+        height: 140px;
+        padding: 20px;
     }
     
     .block-3 {
@@ -223,14 +222,15 @@ function goToCatalog() {
     }
     
     .go-into {
-        top: 24px;
-        right: 24px;
-        width: 40px;
-        height: 40px;
+        top: 20px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        padding: 12px 10px;
     }
     
     .title-block {
-        font-size: 20px;
+        font-size: 18px;
     }
     
     .title-block br {
@@ -251,6 +251,23 @@ function goToCatalog() {
     .badge {
         padding: 10px 14px;
         font-size: 13px;
+    }
+    
+    .block {
+        height: 120px;
+        padding: 16px;
+    }
+    
+    .go-into {
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        padding: 10px 8px;
+    }
+    
+    .title-block {
+        font-size: 16px;
     }
 }
 </style>

@@ -1,9 +1,18 @@
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { boats } from '../data/boats'
 import Carousel from './Carousel.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const cardsContainer = ref(null)
+const currentPage = ref(0)
+const pagesCount = ref(1)
+
+const touchStartX = ref(0)
+const touchDeltaX = ref(0)
+const isPointerDown = ref(false)
+const pointerStartX = ref(0)
 
 function goToBoatDetail(slug) {
   router.push({ name: 'BoatDetail', params: { slug } })
@@ -16,18 +25,152 @@ function goToCatalog() {
 function goToBooking() {
     router.push({ path: '/', hash: '#booking' })
 }
+
+function findFirstVisibleIndex() {
+    const container = cardsContainer.value
+    if (!container) return 0
+    const cards = Array.from(container.querySelectorAll('.card'))
+    const scrollLeft = container.scrollLeft
+    
+    let closestIndex = 0
+    let minDistance = Infinity
+    
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i]
+        const cardLeft = card.offsetLeft
+        const distance = Math.abs(scrollLeft - cardLeft)
+        
+        if (distance < minDistance) {
+            minDistance = distance
+            closestIndex = i
+        }
+    }
+    
+    return closestIndex
+}
+
+function scrollToIndex(index) {
+    const container = cardsContainer.value
+    if (!container) return
+    const cards = container.querySelectorAll('.card')
+    const target = cards[index]
+    if (!target) return
+    container.scrollTo({ left: target.offsetLeft, behavior: 'smooth' })
+}
+
+function scrollNext() {
+    const container = cardsContainer.value
+    if (!container) return
+    const cards = container.querySelectorAll('.card')
+    const idx = findFirstVisibleIndex()
+    const target = Math.min(idx + 1, cards.length - 1)
+    scrollToIndex(target)
+}
+
+function scrollPrev() {
+    const idx = findFirstVisibleIndex()
+    const target = Math.max(idx - 1, 0)
+    scrollToIndex(target)
+}
+
+function updatePages() {
+    const container = cardsContainer.value
+    if (!container) return
+    const cards = container.querySelectorAll('.card')
+    const total = cards.length
+    
+    // Определяем количество видимых карточек в зависимости от ширины экрана
+    let visibleCount = 3 // desktop default
+    const width = window.innerWidth
+    if (width <= 768) visibleCount = 1 // mobile
+    else if (width <= 1200) visibleCount = 2 // tablet
+    
+    // Количество возможных позиций прокрутки
+    pagesCount.value = Math.max(1, total - visibleCount + 1)
+    const idx = findFirstVisibleIndex()
+    currentPage.value = idx
+}
+
+function onScroll() {
+    updatePages()
+}
+
+function onTouchStart(e) {
+    touchStartX.value = e.touches[0].clientX
+    touchDeltaX.value = 0
+}
+
+function onTouchMove(e) {
+    touchDeltaX.value = e.touches[0].clientX - touchStartX.value
+}
+
+function onTouchEnd() {
+    const delta = touchDeltaX.value
+    if (Math.abs(delta) > 40) {
+        if (delta < 0) scrollNext()
+        else scrollPrev()
+    }
+    touchDeltaX.value = 0
+}
+
+function onPointerDown(e) {
+    isPointerDown.value = true
+    pointerStartX.value = e.clientX
+}
+
+function onPointerMove(e) {
+    if (!isPointerDown.value) return
+    touchDeltaX.value = e.clientX - pointerStartX.value
+}
+
+function onPointerUp() {
+    if (!isPointerDown.value) return
+    const delta = touchDeltaX.value
+    if (Math.abs(delta) > 40) {
+        if (delta < 0) scrollNext()
+        else scrollPrev()
+    }
+    isPointerDown.value = false
+    touchDeltaX.value = 0
+}
+
+let resizeObserver
+onMounted(() => {
+    updatePages()
+    resizeObserver = new ResizeObserver(() => updatePages())
+    if (cardsContainer.value) resizeObserver.observe(cardsContainer.value)
+})
+
+onBeforeUnmount(() => {
+    if (resizeObserver) resizeObserver.disconnect()
+})
 </script>
 
 <template>
     <div class="our-boats-block">
         <div class="wrap-title">
             <h1 class="title">Наши катера</h1>
-            <div class="view-catalog" @click="goToCatalog">
-                <span class="text-catalog">Смотреть весь каталог</span>
-                <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+            <div class="title-actions">
+                <div class="view-catalog" @click="goToCatalog">
+                    <span class="text-catalog">Смотреть весь каталог</span>
+                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+                </div>
+                <div class="actions">
+                    <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
+                    <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
+                </div>
             </div>
         </div>
-           <div class="cards">
+           <div class="cards"
+               ref="cardsContainer"
+               @scroll="onScroll"
+               @touchstart.passive="onTouchStart"
+               @touchmove.passive="onTouchMove"
+               @touchend.passive="onTouchEnd"
+               @pointerdown.passive="onPointerDown"
+               @pointermove.passive="onPointerMove"
+               @pointerup.passive="onPointerUp"
+               @pointercancel.passive="onPointerUp">
             <div v-for="boat in boats" :key="boat.id" class="card">
                 <div class="wrap-img">
                     <Carousel :interval="4500">
@@ -83,6 +226,29 @@ function goToBooking() {
     font-weight: 700;
 }
 
+.title-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.action-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+}
+
 .view-catalog {
     display: flex;
     align-items: center;
@@ -111,9 +277,17 @@ function goToBooking() {
 
 .cards {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+}
+
+.cards::-webkit-scrollbar {
+    display: none;
 }
 
 .cards-indicator {
@@ -137,13 +311,15 @@ function goToBooking() {
 }
 
 .card {
-        width: 100%;
+        min-width: calc(33.333% - 10px);
+        flex-shrink: 0;
         display: flex;
         min-height: 450px;
         flex-direction: column;
         gap: 24px;
         background-color: #fff;
         border-radius: 16px;
+        scroll-snap-align: start;
 }
 
 .wrap-img {
@@ -261,14 +437,18 @@ function goToBooking() {
 
 /* Responsive */
 @media (max-width: 1200px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
+    .card {
+        min-width: calc(50% - 7.5px);
     }
 }
 
 @media (max-width: 1024px) {
     .title {
         font-size: 28px;
+    }
+    
+    .title-actions {
+        gap: 16px;
     }
     
     .view-catalog {
@@ -282,6 +462,16 @@ function goToBooking() {
     .icon-catalog {
         width: 16px;
         height: 16px;
+    }
+    
+    .action-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .action-btn img {
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -300,8 +490,16 @@ function goToBooking() {
         font-size: 24px;
     }
     
+    .title-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .card {
+        min-width: 100%;
+    }
+    
     .cards {
-        grid-template-columns: 1fr;
         gap: 16px;
     }
     

@@ -1,8 +1,12 @@
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Carousel from './Carousel.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const cardsContainer = ref(null)
+const currentPage = ref(0)
+const pagesCount = ref(0)
 
 function goToBoat(slug) {
     router.push({ name: 'BoatDetail', params: { slug } })
@@ -15,18 +19,178 @@ function goToCatalog() {
 function goToBooking() {
     router.push({ path: '/', hash: '#booking' })
 }
+
+// Touch events
+const touchStart = ref({ x: 0, time: 0 })
+
+function onTouchStart(e) {
+    touchStart.value = {
+        x: e.touches[0].clientX,
+        time: Date.now()
+    }
+}
+
+function onTouchMove() {
+    // Дать возможность браузеру обрабатывать прокрутку нативно
+}
+
+function onTouchEnd(e) {
+    const deltaX = e.changedTouches[0].clientX - touchStart.value.x
+    const deltaTime = Date.now() - touchStart.value.time
+    
+    // Swipe детектирование (минимум 50px и максимум 300ms)
+    if (Math.abs(deltaX) > 50 && deltaTime < 300) {
+        if (deltaX > 0) {
+            scrollPrev()
+        } else {
+            scrollNext()
+        }
+    }
+}
+
+// Pointer events для мышки
+const pointerState = ref({ isDragging: false, startX: 0, scrollLeft: 0 })
+
+function onPointerDown(e) {
+    if (!cardsContainer.value) return
+    pointerState.value = {
+        isDragging: true,
+        startX: e.pageX - cardsContainer.value.offsetLeft,
+        scrollLeft: cardsContainer.value.scrollLeft
+    }
+    cardsContainer.value.style.cursor = 'grabbing'
+    cardsContainer.value.style.userSelect = 'none'
+}
+
+function onPointerMove(e) {
+    if (!pointerState.value.isDragging || !cardsContainer.value) return
+    e.preventDefault()
+    const x = e.pageX - cardsContainer.value.offsetLeft
+    const walk = (x - pointerState.value.startX) * 2
+    cardsContainer.value.scrollLeft = pointerState.value.scrollLeft - walk
+}
+
+function onPointerUp() {
+    if (!cardsContainer.value) return
+    pointerState.value.isDragging = false
+    cardsContainer.value.style.cursor = 'grab'
+    cardsContainer.value.style.userSelect = ''
+}
+
+// Scroll Navigation
+function findFirstVisibleIndex() {
+    const container = cardsContainer.value
+    if (!container) return 0
+    const cards = Array.from(container.querySelectorAll('.card'))
+    const scrollLeft = container.scrollLeft
+    
+    let closestIndex = 0
+    let minDistance = Infinity
+    
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i]
+        const cardLeft = card.offsetLeft
+        const distance = Math.abs(scrollLeft - cardLeft)
+        
+        if (distance < minDistance) {
+            minDistance = distance
+            closestIndex = i
+        }
+    }
+    
+    return closestIndex
+}
+
+function scrollToIndex(index) {
+    if (!cardsContainer.value) return
+    const container = cardsContainer.value
+    const cards = container.querySelectorAll('.card')
+    if (index >= 0 && index < cards.length) {
+        const card = cards[index]
+        // removed unused var
+        container.scrollTo({
+            left: card.offsetLeft,
+            behavior: 'smooth'
+        })
+    }
+}
+
+function scrollNext() {
+    const idx = findFirstVisibleIndex()
+    scrollToIndex(idx + 1)
+}
+
+function scrollPrev() {
+    const idx = findFirstVisibleIndex()
+    scrollToIndex(idx - 1)
+}
+
+function onScroll() {
+    updatePages()
+}
+
+function updatePages() {
+    if (!cardsContainer.value) return
+    const container = cardsContainer.value
+    const cards = container.querySelectorAll('.card')
+    const total = cards.length
+    
+    // Определяем количество видимых карточек в зависимости от ширины экрана
+    let visibleCount = 3 // desktop default
+    const width = window.innerWidth
+    if (width <= 768) visibleCount = 1 // mobile
+    else if (width <= 1200) visibleCount = 2 // tablet
+    
+    // Количество возможных позиций прокрутки
+    pagesCount.value = Math.max(1, total - visibleCount + 1)
+    currentPage.value = findFirstVisibleIndex()
+}
+
+let resizeObserver = null
+
+onMounted(() => {
+    if (cardsContainer.value) {
+        updatePages()
+        resizeObserver = new ResizeObserver(() => {
+            updatePages()
+        })
+        resizeObserver.observe(cardsContainer.value)
+    }
+})
+
+onBeforeUnmount(() => {
+    if (resizeObserver && cardsContainer.value) {
+        resizeObserver.unobserve(cardsContainer.value)
+    }
+})
 </script>
 
 <template>
     <div class="sailing-block">
         <div class="wrap-title">
             <h1 class="title">Наши парусные</h1>
-            <div class="view-catalog" @click="goToCatalog">
-                <span class="text-catalog">Смотреть весь каталог</span>
-                <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+            <div class="title-actions">
+                <div class="view-catalog" @click="goToCatalog">
+                    <span class="text-catalog">Смотреть весь каталог</span>
+                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+                </div>
+                <div class="navigation-btns">
+                    <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
+                    <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
+                </div>
             </div>
         </div>
-           <div class="cards">
+           <div 
+            ref="cardsContainer" 
+            class="cards" 
+            @scroll="onScroll"
+            @touchstart="onTouchStart"
+            @touchmove="onTouchMove"
+            @touchend="onTouchEnd"
+            @pointerdown="onPointerDown"
+            @pointermove="onPointerMove"
+            @pointerup="onPointerUp"
+        >
             <div class="card">
                 <div class="wrap-img">
                     <Carousel :interval="4500">
@@ -217,6 +381,28 @@ function goToBooking() {
     font-weight: 700;
 }
 
+.title-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.navigation-btns {
+    display: flex;
+    gap: 12px;
+}
+
+.action-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+}
+
 .view-catalog {
     display: flex;
     align-items: center;
@@ -245,9 +431,21 @@ function goToBooking() {
 
 .cards {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: grab;
+}
+
+.cards::-webkit-scrollbar {
+    display: none;
+}
+
+.cards:active {
+    cursor: grabbing;
 }
 
 .cards-indicator {
@@ -271,13 +469,15 @@ function goToBooking() {
 }
 
 .card {
-        width: 100%;
+        min-width: calc(33.333% - 10px);
+        flex-shrink: 0;
         display: flex;
         min-height: 450px;
         flex-direction: column;
         gap: 24px;
         background-color: #fff;
         border-radius: 16px;
+        scroll-snap-align: start;
 }
 
 .wrap-img {
@@ -372,17 +572,20 @@ function goToBooking() {
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+    .card {
+        min-width: calc(50% - 7.5px);
+    }
+}
+
 @media (max-width: 1024px) {
     .title {
         font-size: 28px;
     }
     
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
     .card {
         min-height: 400px;
+        min-width: calc(50% - 7.5px);
     }
     
     .card-title {
@@ -409,13 +612,14 @@ function goToBooking() {
         font-size: 24px;
     }
     
-    .cards {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .title-actions {
+        width: 100%;
+        justify-content: space-between;
     }
     
     .card {
         min-height: 380px;
+        min-width: 100%;
     }
     
     .wrap-img {
