@@ -73,7 +73,7 @@
           </label>
         </div>
         <button type="submit" class="btn to-book" :disabled="isLoading">
-          {{ isLoading ? 'Отправка...' : 'Забронировать' }}
+          {{ isLoading ? 'Отправка...' : 'Заказать подбор яхты' }}
         </button>
       </form>
     </div>

@@ -7,6 +7,10 @@
                 <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
             </div>
         </div>
+        <div class="tabs">
+            <button type="button" class="tab-btn" :class="{ active: activeTab === 'city' }" @click="switchTab('city')">Прогулки по городу</button>
+            <button type="button" class="tab-btn" :class="{ active: activeTab === 'tours' }" @click="switchTab('tours')">Длительные яхт-туры</button>
+        </div>
            <div class="cards"
                ref="cardsContainer"
                @scroll="onScroll"
@@ -17,97 +21,92 @@
                @pointermove.passive="onPointerMove"
                @pointerup.passive="onPointerUp"
                @pointercancel.passive="onPointerUp">
-            <div class="card">
-                <div class="wrap-img">
-                    <img src="../assets/card-1.jpg" alt="">
-                    <div class="badge">от 2-х часов</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Катера и яхты на развод мостов</span>
-                        <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+
+            <!-- Прогулки по городу -->
+            <template v-if="activeTab === 'city'">
+                <div class="card">
+                    <div class="wrap-img">
+                        <img src="../assets/card-1.jpg" alt="">
+                        <div class="badge">от 2-х часов</div>
                     </div>
-                    <button class="card-btn" @click="goToRoute('razvod-mostov')">Узнать подробнее</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <img src="../assets/card-2.png" alt="">
-                    <div class="badge">от 2-х часов</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Реки каналы</span>
-                        <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                    <div class="card-info">
+                        <div class="card-text">
+                            <span class="card-title">Катера и яхты на развод мостов</span>
+                            <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                        </div>
+                        <button class="card-btn" @click="goToRoute('razvod-mostov')">Узнать подробнее</button>
                     </div>
-                    <button class="card-btn" @click="goToRoute('reki-kanaly')">Узнать подробнее</button>
                 </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <img src="../assets/card-1.jpg" alt="">
-                    <div class="badge">от 2-х часов</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Катера и яхты на развод мостов</span>
-                        <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                <div class="card">
+                    <div class="wrap-img">
+                        <img src="../assets/card-2.png" alt="">
+                        <div class="badge">от 2-х часов</div>
                     </div>
-                    <button class="card-btn" @click="goToRoute('petergof-morskoy')">Узнать подробнее</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <img src="../assets/card-2.png" alt="">
-                    <div class="badge">от 2-х часов</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Реки каналыв</span>
-                        <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                    <div class="card-info">
+                        <div class="card-text">
+                            <span class="card-title">Реки и каналы</span>
+                            <span class="card-desc">Прогулка по историческому центру Петербурга — реки, каналы, старинные особняки</span>
+                        </div>
+                        <button class="card-btn" @click="goToRoute('reki-kanaly')">Узнать подробнее</button>
                     </div>
-                    <button class="card-btn" @click="goToRoute('kronshtadt-tour')">Узнать подробнее</button>
                 </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <img src="../assets/card-1.jpg" alt="">
-                    <div class="badge">от 2-х часов</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Катера и яхты на развод мостов</span>
-                        <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                <div class="card">
+                    <div class="wrap-img">
+                        <img src="../assets/card-1.jpg" alt="">
+                        <div class="badge">от 2-х часов</div>
                     </div>
-                    <button class="card-btn" @click="goToRoute('romantichnaya-progulka')">Узнать подробнее</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <img src="../assets/card-2.png" alt="">
-                    <div class="badge">от 2-х часов</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Реки каналы</span>
-                        <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                    <div class="card-info">
+                        <div class="card-text">
+                            <span class="card-title">Романтическая прогулка</span>
+                            <span class="card-desc">Незабываемый вечер на воде для двоих с видами на ночной Петербург</span>
+                        </div>
+                        <button class="card-btn" @click="goToRoute('romantichnaya-progulka')">Узнать подробнее</button>
                     </div>
-                    <button class="card-btn" @click="goToRoute('korporativnaya-progulka')">Узнать подробнее</button>
                 </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <img src="../assets/card-1.jpg" alt="">
-                    <div class="badge">от 2-х часов</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Катера и яхты на развод мостов</span>
-                        <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                <div class="card">
+                    <div class="wrap-img">
+                        <img src="../assets/card-2.png" alt="">
+                        <div class="badge">от 2-х часов</div>
                     </div>
-                    <button class="card-btn" @click="goToRoute('razvod-mostov')">Узнать подробнее</button>
+                    <div class="card-info">
+                        <div class="card-text">
+                            <span class="card-title">Корпоративная прогулка</span>
+                            <span class="card-desc">Корпоратив на воде — яркое мероприятие для команды с профессиональной организацией</span>
+                        </div>
+                        <button class="card-btn" @click="goToRoute('korporativnaya-progulka')">Узнать подробнее</button>
+                    </div>
                 </div>
-            </div>
+            </template>
+
+            <!-- Длительные яхт-туры -->
+            <template v-if="activeTab === 'tours'">
+                <div class="card">
+                    <div class="wrap-img">
+                        <img src="../assets/card-1.jpg" alt="">
+                        <div class="badge">от 3-х часов</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-text">
+                            <span class="card-title">Петергоф морем</span>
+                            <span class="card-desc">Путешествие до Петергофа по Финскому заливу — повторите путь царских особ</span>
+                        </div>
+                        <button class="card-btn" @click="goToRoute('petergof-morskoy')">Узнать подробнее</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="wrap-img">
+                        <img src="../assets/card-2.png" alt="">
+                        <div class="badge">от 4-х часов</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-text">
+                            <span class="card-title">Тур в Кронштадт</span>
+                            <span class="card-desc">Морское путешествие в легендарный Кронштадт — форты, история и морские виды</span>
+                        </div>
+                        <button class="card-btn" @click="goToRoute('kronshtadt-tour')">Узнать подробнее</button>
+                    </div>
+                </div>
+            </template>
         </div>
         <div class="cards-indicator" aria-hidden="true">
             <span v-for="n in pagesCount" :key="n" :class="['cards-indicator__dot', { 'cards-indicator__dot--active': (n - 1) === currentPage }]"></span>
@@ -116,16 +115,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const cardsContainer = ref(null)
 const currentPage = ref(0)
 const pagesCount = ref(1)
+const activeTab = ref('city')
 
 function goToRoute(slug) {
   router.push({ name: 'RouteDetail', params: { slug } })
+}
+
+function getVisibleCount() {
+  const width = window.innerWidth
+  if (width <= 768) return 1
+  if (width <= 1200) return 2
+  return 3
 }
 
 // swipe / pointer state
@@ -134,6 +141,16 @@ const touchDeltaX = ref(0)
 const isPointerDown = ref(false)
 const pointerStartX = ref(0)
 
+function switchTab(tab) {
+  activeTab.value = tab
+  nextTick(() => {
+    if (cardsContainer.value) {
+      cardsContainer.value.scrollTo({ left: 0, behavior: 'instant' })
+    }
+    updatePages()
+  })
+}
+
 function findFirstVisibleIndex() {
     const container = cardsContainer.value
     if (!container) return 0
@@ -141,7 +158,6 @@ function findFirstVisibleIndex() {
     const containerRect = container.getBoundingClientRect()
     for (let i = 0; i < cards.length; i++) {
         const rect = cards[i].getBoundingClientRect()
-        // check if card is at least partially visible
         if (rect.right > containerRect.left + 1) return i
     }
     return Math.max(cards.length - 1, 0)
@@ -164,13 +180,15 @@ function scrollNext() {
     if (!container) return
     const cards = container.querySelectorAll('.card')
     const idx = findFirstVisibleIndex()
-    const target = Math.min(idx + 1, cards.length - 1)
+    const step = getVisibleCount()
+    const target = Math.min(idx + step, cards.length - 1)
     scrollToIndex(target)
 }
 
 function scrollPrev() {
     const idx = findFirstVisibleIndex()
-    const target = Math.max(idx - 1, 0)
+    const step = getVisibleCount()
+    const target = Math.max(idx - step, 0)
     scrollToIndex(target)
 }
 
@@ -178,16 +196,16 @@ function updatePages() {
     const container = cardsContainer.value
     if (!container) return
     const total = container.querySelectorAll('.card').length
-    pagesCount.value = Math.max(1, total)
+    const visible = getVisibleCount()
+    pagesCount.value = Math.max(1, Math.ceil(total / visible))
     const idx = findFirstVisibleIndex()
-    currentPage.value = idx
+    currentPage.value = Math.floor(idx / visible)
 }
 
 function onScroll() {
     updatePages()
 }
 
-// Touch handlers
 function onTouchStart(e) {
     touchStartX.value = e.touches[0].clientX
     touchDeltaX.value = 0
@@ -206,7 +224,6 @@ function onTouchEnd() {
     touchDeltaX.value = 0
 }
 
-// Pointer handlers (desktop drag)
 function onPointerDown(e) {
     isPointerDown.value = true
     pointerStartX.value = e.clientX
@@ -231,7 +248,6 @@ function onPointerUp() {
 let resizeObserver
 onMounted(() => {
     updatePages()
-    // Observe resize to recalc pages
     if (window.ResizeObserver) {
         resizeObserver = new ResizeObserver(() => updatePages())
         resizeObserver.observe(document.body)
@@ -273,6 +289,33 @@ onBeforeUnmount(() => {
     gap: 12px;
 }
 
+.tabs {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    border-radius: 16px;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1A1A1A;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    border: none;
+}
+
+.tab-btn.active {
+    background-color: #0076FC;
+    color: #fff;
+}
+
+.tab-btn:hover:not(.active) {
+    background-color: #e8e8e8;
+}
+
 .action-btn {
     width: 44px;
     height: 44px;
@@ -293,7 +336,7 @@ onBeforeUnmount(() => {
     overflow-x: auto;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-
+}
 
 .cards::-webkit-scrollbar { display: none; }
 
@@ -316,11 +359,10 @@ onBeforeUnmount(() => {
     background: #1A1A1A;
     transform: scale(1.2);
 }
-}
 
 .card {
-    flex: 0 0 592px;
-    width: 592px;
+    flex: 0 0 calc(33.333% - 10px);
+    width: calc(33.333% - 10px);
     display: flex;
     min-height: 450px;
     flex-direction: column;
@@ -334,6 +376,13 @@ onBeforeUnmount(() => {
     overflow: hidden;
     border-radius: 16px;
     height: 238px;
+}
+
+.wrap-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .badge {
@@ -353,12 +402,14 @@ onBeforeUnmount(() => {
     flex-direction: column;
     gap: 32px;
     padding: 0 24px 24px 24px;
+    flex: 1;
 }
 
 .card-text {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    flex: 1;
 }
 
 .card-title {
@@ -395,8 +446,8 @@ onBeforeUnmount(() => {
     }
     
     .card {
-        flex: 0 0 480px;
-        width: 480px;
+        flex: 0 0 calc(50% - 7.5px);
+        width: calc(50% - 7.5px);
         min-height: 400px;
     }
     
@@ -411,7 +462,7 @@ onBeforeUnmount(() => {
 
 @media (max-width: 768px) {
     .routes-tours-block {
-        gap: 24px;
+        gap: 20px;
     }
     
     .wrap-title {
@@ -427,6 +478,15 @@ onBeforeUnmount(() => {
     .actions {
         width: 100%;
         justify-content: space-between;
+    }
+
+    .tabs {
+        gap: 8px;
+    }
+
+    .tab-btn {
+        font-size: 14px;
+        padding: 10px 16px;
     }
     
     .action-btn {

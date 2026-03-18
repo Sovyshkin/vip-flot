@@ -1,7 +1,10 @@
 <template>
     <div class="routes-tours-block">
         <div class="wrap-title">
-            <h1 class="title">Мероприятия на воде</h1>
+            <div class="info-title">
+                <h1 class="title">Мероприятия на воде</h1>
+                <p class="subtitle">Вам не нужно быть организатором, мы уже всё продумали</p>
+            </div>
             <div class="actions">
                 <button type="button" class="action-btn" :class="{ active: activeTab === 'holidays' }" @click="activeTab = 'holidays'">Праздники</button>
                 <button type="button" class="action-btn" :class="{ active: activeTab === 'entertainment' }" @click="activeTab = 'entertainment'">Развлекательные программы</button>
@@ -111,6 +114,22 @@ function goToActivity(slug) {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
+}
+
+.info-title {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+}
+
+.subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: #1A1A1A;
+    opacity: 0.7;
+    letter-spacing: 0;
 }
 
 .title {

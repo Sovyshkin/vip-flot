@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { boats } from '../data/boats'
 import Carousel from './Carousel.vue'
 import { useRouter } from 'vue-router'
@@ -8,6 +8,9 @@ const router = useRouter()
 const cardsContainer = ref(null)
 const currentPage = ref(0)
 const pagesCount = ref(1)
+const showAll = ref(false)
+
+const visibleBoats = computed(() => showAll.value ? boats : boats.slice(0, 6))
 
 const touchStartX = ref(0)
 const touchDeltaX = ref(0)
@@ -149,16 +152,16 @@ onBeforeUnmount(() => {
 <template>
     <div class="our-boats-block">
         <div class="wrap-title">
-            <h1 class="title">Наши катера</h1>
-            <div class="title-actions">
+            <div class="title-left">
+                <h1 class="title">Наши катера</h1>
                 <div class="view-catalog" @click="goToCatalog">
-                    <span class="text-catalog">Смотреть весь каталог</span>
+                    <span class="text-catalog">Перейти в каталог</span>
                     <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
                 </div>
-                <div class="actions">
-                    <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
-                    <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
-                </div>
+            </div>
+            <div class="actions">
+                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
+                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
             </div>
         </div>
            <div class="cards"
@@ -171,7 +174,7 @@ onBeforeUnmount(() => {
                @pointermove.passive="onPointerMove"
                @pointerup.passive="onPointerUp"
                @pointercancel.passive="onPointerUp">
-            <div v-for="boat in boats" :key="boat.id" class="card">
+            <div v-for="boat in visibleBoats" :key="boat.id" class="card">
                 <div class="wrap-img">
                     <Carousel :interval="4500">
                         <img v-for="(image, index) in boat.cardImage" :key="index" :src="image" :alt="boat.name">
@@ -193,7 +196,7 @@ onBeforeUnmount(() => {
                         <span class="card-price">от {{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book" @click.stop="goToBooking">Забронировать</button>
+                        <button class="btn to-book" @click.stop="goToBooking">Арендовать</button>
                         <button class="btn more" @click.stop="goToBoatDetail(boat.slug)">Подробнее</button>
                     </div>
                 </div>
@@ -202,6 +205,9 @@ onBeforeUnmount(() => {
         <div class="cards-indicator" aria-hidden="true">
             <span v-for="n in pagesCount" :key="n" :class="['cards-indicator__dot', { 'cards-indicator__dot--active': (n - 1) === currentPage }]"></span>
         </div>
+        <!-- <div v-if="!showAll && boats.length > 6" class="show-more-wrap">
+            <button class="show-more-btn" @click="showAll = true">Показать ещё</button>
+        </div> -->
     </div>
 </template>
 
@@ -215,27 +221,21 @@ onBeforeUnmount(() => {
 
 .wrap-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
-.title {
-    color: #1A1A1A;
-    text-transform: uppercase;
-    font-size: 36px;
-    font-weight: 700;
-}
-
-.title-actions {
+.title-left {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .actions {
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-top: 4px;
 }
 
 .action-btn {
@@ -247,6 +247,28 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: center;
     padding: 12px;
+}
+
+.show-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.show-more-btn {
+    padding: 16px 48px;
+    border-radius: 16px;
+    background-color: #F5F5F5;
+    color: #1A1A1A;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.show-more-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
 }
 
 .view-catalog {

@@ -6,18 +6,14 @@
     </router-link>
 
     <nav class="vipflot-header__nav" :class="{ 'nav-open': mobileMenuOpen }">
-      <li class="vipflot-header__nav-item dropdown" @mouseenter="showFleetDropdown" @mouseleave="startHideFleetDropdown">
-        Наш флот
-        <div v-if="fleetDropdownOpen" class="dropdown-menu" @mouseenter="cancelHideFleetDropdown" @mouseleave="hideFleetDropdown">
-          <div class="dropdown-item" @click="scrollToSection('boats')">Катера</div>
-          <div class="dropdown-item" @click="scrollToSection('yachts')">Яхты</div>
-          <div class="dropdown-item" @click="scrollToSection('sailing')">Парусные</div>
-        </div>
-      </li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('tours')">Яхт-туры</li>
+      <li class="vipflot-header__nav-item" @click="scrollToSection('boats')">Катера</li>
+      <li class="vipflot-header__nav-item" @click="scrollToSection('yachts')">Яхты</li>
+      <li class="vipflot-header__nav-item" @click="scrollToSection('sailing')">Парусные</li>
       <li class="vipflot-header__nav-item" @click="goToRoutes">Маршруты</li>
+      <li class="vipflot-header__nav-item" @click="scrollToSection('tours')">Длительные яхт-туры</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('activities')">Мероприятия</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('services')">Услуги</li>
+      <li class="vipflot-header__nav-item" @click="scrollToSection('booking')">Контакты</li>
     </nav>
 
     <div class="vipflot-header__contacts">
@@ -39,44 +35,9 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const mobileMenuOpen = ref(false)
-const fleetDropdownOpen = ref(false)
-let hideTimer = null
 
 function toggleMobileMenu() {
   mobileMenuOpen.value = !mobileMenuOpen.value
-}
-
-function showFleetDropdown() {
-  // Cancel any pending hide
-  if (hideTimer) {
-    clearTimeout(hideTimer)
-    hideTimer = null
-  }
-  fleetDropdownOpen.value = true
-}
-
-function startHideFleetDropdown() {
-  // Add a small delay before hiding to allow mouse to enter dropdown menu
-  hideTimer = setTimeout(() => {
-    fleetDropdownOpen.value = false
-  }, 150)
-}
-
-function cancelHideFleetDropdown() {
-  // Cancel the hide if mouse enters dropdown menu
-  if (hideTimer) {
-    clearTimeout(hideTimer)
-    hideTimer = null
-  }
-}
-
-function hideFleetDropdown() {
-  // Hide immediately when leaving dropdown menu
-  if (hideTimer) {
-    clearTimeout(hideTimer)
-    hideTimer = null
-  }
-  fleetDropdownOpen.value = false
 }
 
 function goToRoutes() {
@@ -87,7 +48,6 @@ function goToRoutes() {
 function scrollToSection(sectionId) {
   // Close mobile menu if open
   mobileMenuOpen.value = false
-  fleetDropdownOpen.value = false
   
   // If not on main page, navigate first
   if (router.currentRoute.value.path !== '/') {
@@ -166,7 +126,7 @@ function scrollToElement(id) {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 20px;
   list-style: none;
 }
 

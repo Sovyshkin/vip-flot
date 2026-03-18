@@ -27,60 +27,56 @@
         <div class="footer-column">
           <h3 class="footer-title">Аренда судна</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="scrollToSection('boats')">Аренда судна</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('boats')">Прогулка на яхте</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('boats')">Прогулка на катере</a></li>
-            <li><a href="#">Прогулка на парусной яхте</a></li>
+            <li><a href="#" @click.prevent="scrollToSection('boats')">Катера</a></li>
+            <li><a href="#" @click.prevent="scrollToSection('yachts')">Яхты</a></li>
+            <li><a href="#" @click.prevent="scrollToSection('sailing')">Парусные яхты</a></li>
+            <li><router-link to="/catalog">Весь каталог</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Услуги</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="scrollToSection('services')">Кейтеринг</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('activities')">Экскурсии</a></li>
-            <li><a href="#">Подарочные сертификаты</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('routes')">Маршруты</a></li>
+            <li><router-link to="/service/catering">Кейтеринг</router-link></li>
+            <li><router-link to="/service/photographer">Фотограф</router-link></li>
+            <li><router-link to="/service/decoration">Украшение палубы</router-link></li>
+            <li><router-link to="/service/live-music">Живая музыка</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Маршруты</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="scrollToSection('routes')">Развод мостов</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('routes')">По рекам и каналам</a></li>
-            <li><a href="#">Выход в залив</a></li>
+            <li><router-link to="/routes">Все маршруты</router-link></li>
+            <li><router-link to="/route/reki-kanaly">Реки и каналы</router-link></li>
+            <li><router-link to="/route/nevskiy-prospekt">Невский проспект</router-link></li>
+            <li><router-link to="/route/kronshtadt">Кронштадт</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
-          <h3 class="footer-title">Круизы</h3>
+          <h3 class="footer-title">Яхт-туры</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="scrollToSection('tours')">Валаам</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('tours')">Петергоф</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('tours')">Кронштадт</a></li>
-            <li><a href="#">Крепость Орешек</a></li>
+            <li><router-link to="/route/razvod-mostov">Развод мостов</router-link></li>
+            <li><router-link to="/route/petergof-morskoy">Петергоф морем</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Мероприятия</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="scrollToSection('activities')">День рождения на яхте</a></li>
-            <li><a href="#" @click.prevent="scrollToSection('activities')">Свадьба на яхте</a></li>
-            <li><a href="#">Девичники/Мальчишники</a></li>
-            <li><a href="#">Корпоратив на яхте</a></li>
+            <li><router-link to="/activity/den-rozhdeniya">День рождения на яхте</router-link></li>
+            <li><router-link to="/activity/svadba">Свадьба на яхте</router-link></li>
+            <li><router-link to="/activity/devichnik">Девичник на яхте</router-link></li>
+            <li><router-link to="/activity/malchishnik">Мальчишник на яхте</router-link></li>
+            <li><router-link to="/activity/korporativy">Корпоратив на яхте</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Информация</h3>
           <ul class="footer-links">
-            <li><a href="#">Контакты</a></li>
-            <li><a href="#">О нас</a></li>
             <li><a href="#" @click.prevent="scrollToSection('blog')">Новости и статьи</a></li>
-            <li><a href="#">Условия бронирования</a></li>
-            <li><a href="#">Политика конфиденциальности</a></li>
           </ul>
         </div>
       </div>

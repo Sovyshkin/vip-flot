@@ -46,7 +46,7 @@ onBeforeUnmount(() => {
 	<div class="wrap">
 		<MainBlock/>
 		<!-- <div id="tours" class="animate-block" style="--delay: 0s;"><YachtTours/></div> -->
-        <div class="animate-block" style="--delay: 0s;"><RoutesTours/></div>
+        <div id="tours" class="animate-block" style="--delay: 0s;"><RoutesTours/></div>
         <div id="activities" class="animate-block" style="--delay: 0s;"><ActivitiesWater/></div>
         <div id="boats" class="animate-block" style="--delay: 0s;"><OurBoats/></div>
         <div id="yachts" class="animate-block" style="--delay: 0s;"><OurYachts/></div>

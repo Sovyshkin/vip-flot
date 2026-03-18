@@ -148,16 +148,16 @@ onBeforeUnmount(() => {
 <template>
     <div class="yachts-block">
         <div class="wrap-title">
-            <h1 class="title">Наши яхты</h1>
-            <div class="title-actions">
+            <div class="title-left">
+                <h1 class="title">Наши яхты</h1>
                 <div class="view-catalog" @click="goToCatalog">
-                    <span class="text-catalog">Смотреть весь каталог</span>
+                    <span class="text-catalog">Перейти в каталог</span>
                     <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
                 </div>
-                <div class="actions">
-                    <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
-                    <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
-                </div>
+            </div>
+            <div class="actions">
+                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
+                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
             </div>
         </div>
            <div class="cards"
@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
                         <span class="card-price">от 19 000 ₽/час</span>
                     </div>
                         <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Забронировать</button>
+                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
                         <button class="btn more" @click="goToBoat('maverick')">Подробнее</button>
                     </div>
                 </div>
@@ -219,7 +219,7 @@ onBeforeUnmount(() => {
                         <span class="card-price">от 19 000 ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Забронировать</button>
+                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
                         <button class="btn more" @click="goToBoat('yalta')">Подробнее</button>
                     </div>
                 </div>
@@ -246,7 +246,7 @@ onBeforeUnmount(() => {
                         <span class="card-price">от 19 000 ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Забронировать</button>
+                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
                         <button class="btn more" @click="goToBoat('golandets')">Подробнее</button>
                     </div>
                 </div>
@@ -273,7 +273,7 @@ onBeforeUnmount(() => {
                         <span class="card-price">от 19 000 ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Забронировать</button>
+                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
                         <button class="btn more" @click="goToBoat('boat-4')">Подробнее</button>
                     </div>
                 </div>
@@ -300,7 +300,7 @@ onBeforeUnmount(() => {
                         <span class="card-price">от 19 000 ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Забронировать</button>
+                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
                         <button class="btn more" @click="goToBoat('francesco')">Подробнее</button>
                     </div>
                 </div>
@@ -327,7 +327,7 @@ onBeforeUnmount(() => {
                         <span class="card-price">от 19 000 ₽/час</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book">Забронировать</button>
+                        <button class="btn to-book">Арендовать</button>
                         <button class="btn more" @click="goToBoat('cherry')">Подробнее</button>
                     </div>
                 </div>
@@ -349,27 +349,21 @@ onBeforeUnmount(() => {
 
 .wrap-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
-.title {
-    color: #1A1A1A;
-    text-transform: uppercase;
-    font-size: 36px;
-    font-weight: 700;
-}
-
-.title-actions {
+.title-left {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .actions {
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-top: 4px;
 }
 
 .action-btn {

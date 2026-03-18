@@ -2,7 +2,7 @@
   <div class="board-services">
     <div class="wrap-title">
       <h2 class="title">Услуги на борту</h2>
-      <h3 class="subtitle">Дополнительные услуги, доступные при аренде:</h3>
+      <h3 class="subtitle">Подготовьте свой сценарий идеального отдыха. Мы предлагаем большой выбор дополнительных услуг.</h3>
     </div>
     <div class="cards">
       <div class="row-cards">
@@ -46,6 +46,9 @@
         </div>
       </div>
     </div>
+    <div class="consult-wrap">
+      <button class="consult-btn" @click="goToBooking">Получить консультацию по подбору</button>
+    </div>
   </div>
 </template>
 
@@ -56,6 +59,14 @@ const router = useRouter()
 
 function goToService(slug) {
   router.push({ name: 'ServiceDetail', params: { slug } })
+}
+
+function goToBooking() {
+  const el = document.getElementById('booking')
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.pageYOffset - 100
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
 }
 </script>
 
@@ -84,6 +95,28 @@ function goToService(slug) {
   letter-spacing: 0px;
   color: #1a1a1a;
   opacity: 0.7;
+  max-width: 600px;
+}
+
+.consult-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.consult-btn {
+  padding: 18px 40px;
+  background-color: #0076FC;
+  color: #fff;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.consult-btn:hover {
+  background-color: #0061D1;
+  transform: translateY(-2px);
 }
 
 .cards {
