@@ -462,45 +462,59 @@ onBeforeUnmount(() => {
 
 @media (max-width: 768px) {
     .routes-tours-block {
-        gap: 20px;
-    }
-    
-    .wrap-title {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 16px;
     }
     
+    .wrap-title {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+    
     .title {
-        font-size: 24px;
+        flex: 1;
+        font-size: 22px;
     }
     
     .actions {
-        width: 100%;
-        justify-content: space-between;
+        flex-shrink: 0;
+        justify-content: flex-end;
+    }
+
+    .action-btn {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
+    .action-btn img {
+        width: 18px;
+        height: 18px;
     }
 
     .tabs {
         gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        flex-wrap: nowrap;
     }
 
+    .tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
     .tab-btn {
-        font-size: 14px;
+        white-space: nowrap;
+        font-size: 13px;
         padding: 10px 16px;
-    }
-    
-    .action-btn {
-        padding: 10px;
-    }
-    
-    .action-btn img {
-        width: 20px;
-        height: 20px;
+        border-radius: 12px;
     }
     
     .card {
-        flex: 0 0 calc(100vw - 80px);
-        width: calc(100vw - 80px);
+        flex: 0 0 calc(100vw - 64px);
+        width: calc(100vw - 64px);
         min-height: 380px;
     }
     

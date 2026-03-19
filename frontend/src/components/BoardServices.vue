@@ -26,12 +26,13 @@
           <img class="image-card" src="../assets/services-5.png" alt="" />
           <span class="card-title">Фотограф</span>
         </div>
-      </div>
-      <div class="row-cards">
-        <div class="row-2-card card" @click="goToService('decoration')">
+        <div class="row-1-card card" @click="goToService('decoration')">
           <img class="image-card" src="../assets/services-6.png" alt="" />
           <span class="card-title">Украшение палубы</span>
         </div>
+      </div>
+      <div class="row-cards">
+        
         <div class="row-2-card card" @click="goToService('host')">
           <img class="image-card" src="../assets/services-7.png" alt="" />
           <span class="card-title">Ведущий</span>
@@ -40,10 +41,10 @@
           <img class="image-card" src="../assets/services-8.png" alt="" />
           <span class="card-title">Диджей</span>
         </div>
-        <div class="row-2-card card" @click="goToService('live-music')">
+        <!-- <div class="row-2-card card" @click="goToService('live-music')">
           <img class="image-card" src="../assets/services-9.png" alt="" />
           <span class="card-title">Живая музыка</span>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="consult-wrap">
@@ -230,22 +231,28 @@ function goToBooking() {
     }
     
     .row-cards {
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 8px;
     }
     
     .row-1-card,
     .row-2-card {
-        width: 100%;
+        flex: 0 0 calc(50% - 4px);
+        width: calc(50% - 4px);
         height: 140px;
     }
     
     .card {
-        padding: 12px 20px;
+        padding: 12px 16px;
     }
     
     .card-title {
-        font-size: 15px;
+        font-size: 14px;
+    }
+
+    .consult-btn {
+        width: 100%;
+        padding: 16px 24px;
     }
 }
 
@@ -257,14 +264,20 @@ function goToBooking() {
     .subtitle {
         font-size: 13px;
     }
+
+    .row-1-card,
+    .row-2-card {
+        flex: 0 0 calc(50% - 4px);
+        width: calc(50% - 4px);
+        height: 120px;
+    }
     
     .card {
-        height: 120px;
-        padding: 12px 16px;
+        padding: 10px 12px;
     }
     
     .card-title {
-        font-size: 14px;
+        font-size: 13px;
     }
 }
 </style>

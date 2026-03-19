@@ -218,107 +218,113 @@ function scrollToId(id) {
 @media (max-width: 768px) {
     .wrap-main-block {
         gap: 8px;
-        min-height: calc(100vh - 72px);
-        display: flex;
-        flex-direction: column;
     }
-    
+
     .main-block {
-        padding: 28px 20px;
-        gap: 12px;
-        flex: 1;
-        min-height: 0;
+        padding: 32px 20px 28px;
+        gap: 16px;
     }
-    
+
     .title-main-block {
-        font-size: 24px;
-        line-height: 30px;
+        font-size: 26px;
+        line-height: 32px;
     }
-    
+
     .title-main-block br {
         display: none;
     }
-    
+
     .subtitle-main-block {
         font-size: 11px;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
     }
-    
+
+    /* Вертикальный список вместо карусели */
     .blocks {
-        flex-direction: row;
-        gap: 8px;
-        flex-shrink: 0;
+        flex-direction: column;
+        gap: 6px;
     }
-    
-    .block {
-        width: 33%;
-        height: 130px;
-        padding: 16px 12px;
-    }
-    
+
+    .block,
     .block-3 {
-        width: 33%;
+        width: 100%;
+        height: 72px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 14px;
+        padding: 0 16px;
+        border-radius: 18px;
+    }
+
+    .block-icon {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        margin-bottom: 0;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(4px);
+    }
+
+    .title-block {
+        flex: 1;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: left;
+    }
+
+    .title-block br {
+        display: none;
+    }
+
+    .go-into {
+        position: static;
+        flex-shrink: 0;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        padding: 8px 7px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-block {
+        padding: 28px 16px 24px;
+    }
+
+    .title-main-block {
+        font-size: 22px;
+        line-height: 28px;
+    }
+
+    .badge {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .block,
+    .block-3 {
+        height: 68px;
+        border-radius: 16px;
+        gap: 12px;
     }
 
     .block-icon {
         width: 32px;
         height: 32px;
         border-radius: 8px;
-        margin-bottom: 4px;
-    }
-    
-    .go-into {
-        top: 12px;
-        right: 12px;
-        width: 28px;
-        height: 28px;
-        padding: 8px 6px;
-    }
-    
-    .title-block {
-        font-size: 13px;
-    }
-    
-    .title-block br {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .main-block {
-        padding: 24px 16px;
-    }
-    
-    .title-main-block {
-        font-size: 20px;
-        line-height: 25px;
-    }
-    
-    .badge {
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-    
-    .block {
-        height: 110px;
-        padding: 12px 10px;
     }
 
-    .block-icon {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .go-into {
-        top: 10px;
-        right: 10px;
-        width: 24px;
-        height: 24px;
-        padding: 6px 5px;
-    }
-    
     .title-block {
-        font-size: 11px;
+        font-size: 14px;
+    }
+
+    .go-into {
+        width: 30px;
+        height: 30px;
+        padding: 7px 6px;
+        border-radius: 8px;
     }
 }
 </style>

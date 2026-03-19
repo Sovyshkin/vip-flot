@@ -290,42 +290,61 @@ function goToActivity(slug) {
 
 @media (max-width: 768px) {
     .routes-tours-block {
-        gap: 24px;
+        gap: 20px;
     }
     
     .wrap-title {
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 12px;
     }
     
     .title {
         font-size: 24px;
     }
+
+    .subtitle {
+        font-size: 14px;
+    }
     
     .actions {
         width: 100%;
-        flex-wrap: wrap;
-    }
-    
-    .action-btn {
-        font-size: 14px;
-        padding: 10px 14px;
-    }
-    
-    .row-cards {
-        flex-direction: column;
         gap: 8px;
     }
     
-    .row-1-card,
+    .action-btn {
+        font-size: 13px;
+        padding: 8px 16px;
+        border-radius: 10px;
+    }
+    
+    .row-cards {
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        flex-wrap: nowrap;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .row-cards::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .row-1-card {
+        flex: 0 0 72%;
+        width: 72%;
+        height: 210px;
+    }
+
     .row-2-card {
-        height: 120px;
-        width: 100%;
+        flex: 0 0 62%;
+        width: 62%;
+        height: 170px;
     }
     
     .title-card {
-        font-size: 18px;
+        font-size: 17px;
     }
 }
 
@@ -334,6 +353,11 @@ function goToActivity(slug) {
         font-size: 20px;
     }
     
+    .action-btn {
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+
     .card {
         padding: 12px;
     }
@@ -350,13 +374,19 @@ function goToActivity(slug) {
     }
     
     .title-card {
-        font-size: 16px;
+        font-size: 15px;
     }
 
-    .row-1-card,
+    .row-1-card {
+        flex: 0 0 78%;
+        width: 78%;
+        height: 200px;
+    }
+
     .row-2-card {
-        height: 100px;
-        width: 100%;
+        flex: 0 0 68%;
+        width: 68%;
+        height: 160px;
     }
     
     .go-into-card {
