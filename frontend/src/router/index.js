@@ -42,10 +42,7 @@ const router = createRouter({
         }, 100)
       })
     }
-    if (to.name === 'BoatDetail' || to.name === 'RouteDetail' || to.name === 'ServiceDetail' || to.name === 'ActivityDetail' || to.name === 'Catalog') {
-      return { top: 0 }
-    }
-    return null
+    return { top: 0 }
   }
 })
 

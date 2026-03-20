@@ -5,17 +5,11 @@ import Carousel from './Carousel.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const cardsContainer = ref(null)
-const currentPage = ref(0)
-const pagesCount = ref(1)
 const showAll = ref(false)
+const isMobile = ref(false)
+function checkMobile() { isMobile.value = window.innerWidth <= 768 }
 
-const visibleBoats = computed(() => showAll.value ? boats : boats.slice(0, 6))
-
-const touchStartX = ref(0)
-const touchDeltaX = ref(0)
-const isPointerDown = ref(false)
-const pointerStartX = ref(0)
+const visibleBoats = computed(() => showAll.value ? boats : boats.slice(0, isMobile.value ? 4 : 6))
 
 function goToBoatDetail(slug) {
   router.push({ name: 'BoatDetail', params: { slug } })
@@ -29,123 +23,13 @@ function goToBooking() {
     router.push({ path: '/', hash: '#booking' })
 }
 
-function findFirstVisibleIndex() {
-    const container = cardsContainer.value
-    if (!container) return 0
-    const cards = Array.from(container.querySelectorAll('.card'))
-    const scrollLeft = container.scrollLeft
-    
-    let closestIndex = 0
-    let minDistance = Infinity
-    
-    for (let i = 0; i < cards.length; i++) {
-        const card = cards[i]
-        const cardLeft = card.offsetLeft
-        const distance = Math.abs(scrollLeft - cardLeft)
-        
-        if (distance < minDistance) {
-            minDistance = distance
-            closestIndex = i
-        }
-    }
-    
-    return closestIndex
-}
-
-function scrollToIndex(index) {
-    const container = cardsContainer.value
-    if (!container) return
-    const cards = container.querySelectorAll('.card')
-    const target = cards[index]
-    if (!target) return
-    container.scrollTo({ left: target.offsetLeft, behavior: 'smooth' })
-}
-
-function scrollNext() {
-    const container = cardsContainer.value
-    if (!container) return
-    const cards = container.querySelectorAll('.card')
-    const idx = findFirstVisibleIndex()
-    const target = Math.min(idx + 1, cards.length - 1)
-    scrollToIndex(target)
-}
-
-function scrollPrev() {
-    const idx = findFirstVisibleIndex()
-    const target = Math.max(idx - 1, 0)
-    scrollToIndex(target)
-}
-
-function updatePages() {
-    const container = cardsContainer.value
-    if (!container) return
-    const cards = container.querySelectorAll('.card')
-    const total = cards.length
-    
-    // Определяем количество видимых карточек в зависимости от ширины экрана
-    let visibleCount = 3 // desktop default
-    const width = window.innerWidth
-    if (width <= 768) visibleCount = 1 // mobile
-    else if (width <= 1200) visibleCount = 2 // tablet
-    
-    // Количество возможных позиций прокрутки
-    pagesCount.value = Math.max(1, total - visibleCount + 1)
-    const idx = findFirstVisibleIndex()
-    currentPage.value = idx
-}
-
-function onScroll() {
-    updatePages()
-}
-
-function onTouchStart(e) {
-    touchStartX.value = e.touches[0].clientX
-    touchDeltaX.value = 0
-}
-
-function onTouchMove(e) {
-    touchDeltaX.value = e.touches[0].clientX - touchStartX.value
-}
-
-function onTouchEnd() {
-    const delta = touchDeltaX.value
-    if (Math.abs(delta) > 40) {
-        if (delta < 0) scrollNext()
-        else scrollPrev()
-    }
-    touchDeltaX.value = 0
-}
-
-function onPointerDown(e) {
-    isPointerDown.value = true
-    pointerStartX.value = e.clientX
-}
-
-function onPointerMove(e) {
-    if (!isPointerDown.value) return
-    touchDeltaX.value = e.clientX - pointerStartX.value
-}
-
-function onPointerUp() {
-    if (!isPointerDown.value) return
-    const delta = touchDeltaX.value
-    if (Math.abs(delta) > 40) {
-        if (delta < 0) scrollNext()
-        else scrollPrev()
-    }
-    isPointerDown.value = false
-    touchDeltaX.value = 0
-}
-
-let resizeObserver
 onMounted(() => {
-    updatePages()
-    resizeObserver = new ResizeObserver(() => updatePages())
-    if (cardsContainer.value) resizeObserver.observe(cardsContainer.value)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
 })
 
 onBeforeUnmount(() => {
-    if (resizeObserver) resizeObserver.disconnect()
+    window.removeEventListener('resize', checkMobile)
 })
 </script>
 
@@ -159,21 +43,8 @@ onBeforeUnmount(() => {
                     <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
                 </div>
             </div>
-            <div class="actions">
-                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
-                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
-            </div>
         </div>
-           <div class="cards"
-               ref="cardsContainer"
-               @scroll="onScroll"
-               @touchstart.passive="onTouchStart"
-               @touchmove.passive="onTouchMove"
-               @touchend.passive="onTouchEnd"
-               @pointerdown.passive="onPointerDown"
-               @pointermove.passive="onPointerMove"
-               @pointerup.passive="onPointerUp"
-               @pointercancel.passive="onPointerUp">
+           <div class="cards">
             <div v-for="boat in visibleBoats" :key="boat.id" class="card">
                 <div class="wrap-img">
                     <Carousel :interval="4500">
@@ -202,12 +73,9 @@ onBeforeUnmount(() => {
                 </div>
             </div>
         </div>
-        <div class="cards-indicator" aria-hidden="true">
-            <span v-for="n in pagesCount" :key="n" :class="['cards-indicator__dot', { 'cards-indicator__dot--active': (n - 1) === currentPage }]"></span>
-        </div>
-        <!-- <div v-if="!showAll && boats.length > 6" class="show-more-wrap">
+        <div v-if="!showAll && boats.length > (isMobile ? 4 : 8)" class="show-more-wrap">
             <button class="show-more-btn" @click="showAll = true">Показать ещё</button>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -299,17 +167,9 @@ onBeforeUnmount(() => {
 
 .cards {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-behavior: smooth;
-}
-
-.cards::-webkit-scrollbar {
-    display: none;
 }
 
 .cards-indicator {
@@ -333,15 +193,13 @@ onBeforeUnmount(() => {
 }
 
 .card {
-        min-width: calc(33.333% - 10px);
-        flex-shrink: 0;
+        width: 100%;
         display: flex;
         min-height: 450px;
         flex-direction: column;
         gap: 24px;
         background-color: #fff;
         border-radius: 16px;
-        scroll-snap-align: start;
 }
 
 .wrap-img {
@@ -459,8 +317,8 @@ onBeforeUnmount(() => {
 
 /* Responsive */
 @media (max-width: 1200px) {
-    .card {
-        min-width: calc(50% - 7.5px);
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -503,25 +361,17 @@ onBeforeUnmount(() => {
     }
     
     .wrap-title {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
     }
     
     .title {
         font-size: 24px;
     }
     
-    .title-actions {
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .card {
-        min-width: 100%;
-    }
-    
     .cards {
+        grid-template-columns: 1fr;
         gap: 16px;
     }
     

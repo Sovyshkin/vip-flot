@@ -86,16 +86,16 @@ const router = useRouter()
 const activeTab = ref('holidays')
 
 // Праздники - первый ряд (3 карточки)
-const holidaysRow1 = getActivitiesByCategory('holidays').slice(0, 3)
+const holidaysRow1 = getActivitiesByCategory('holidays').slice(0, 4)
 
 // Праздники - второй ряд (4 карточки)
-const holidaysRow2 = getActivitiesByCategory('holidays').slice(3, 7)
+const holidaysRow2 = getActivitiesByCategory('holidays').slice(4, 7)
 
 // Развлекательные программы - первый ряд (3 карточки)
-const entertainmentRow1 = getActivitiesByCategory('entertainment').slice(0, 3)
+const entertainmentRow1 = getActivitiesByCategory('entertainment').slice(0, 4)
 
 // Развлекательные программы - второй ряд (3 карточки)
-const entertainmentRow2 = getActivitiesByCategory('entertainment').slice(3, 6)
+const entertainmentRow2 = getActivitiesByCategory('entertainment').slice(4, 6)
 
 function goToActivity(slug) {
   router.push({ name: 'ActivityDetail', params: { slug } })
@@ -310,41 +310,48 @@ function goToActivity(slug) {
     .actions {
         width: 100%;
         gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        flex-wrap: nowrap;
+    }
+
+    .actions::-webkit-scrollbar {
+        display: none;
     }
     
     .action-btn {
+        white-space: nowrap;
         font-size: 13px;
         padding: 8px 16px;
         border-radius: 10px;
     }
     
+    /* 2 карточки в ряд, без горизонтального скролла */
     .row-cards {
-        overflow-x: auto;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        flex-wrap: nowrap;
-        gap: 10px;
-        align-items: stretch;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        overflow: visible;
+        flex-wrap: unset;
     }
 
-    .row-cards::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .row-1-card {
-        flex: 0 0 72%;
-        width: 72%;
-        height: 210px;
-    }
-
+    .row-1-card,
     .row-2-card {
-        flex: 0 0 62%;
-        width: 62%;
-        height: 170px;
+        flex: none;
+        width: 100%;
+        height: 150px;
     }
     
     .title-card {
-        font-size: 17px;
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .wrap-icon {
+        width: 38px;
+        height: 38px;
+        padding: 9px;
     }
 }
 
@@ -355,17 +362,17 @@ function goToActivity(slug) {
     
     .action-btn {
         font-size: 12px;
-        padding: 7px 14px;
+        padding: 7px 12px;
     }
 
     .card {
-        padding: 12px;
+        padding: 10px;
     }
     
     .wrap-icon {
-        width: 40px;
-        height: 40px;
-        padding: 8px;
+        width: 34px;
+        height: 34px;
+        padding: 7px;
     }
     
     .wrap-icon img {
@@ -374,24 +381,17 @@ function goToActivity(slug) {
     }
     
     .title-card {
-        font-size: 15px;
+        font-size: 13px;
     }
 
-    .row-1-card {
-        flex: 0 0 78%;
-        width: 78%;
-        height: 200px;
-    }
-
+    .row-1-card,
     .row-2-card {
-        flex: 0 0 68%;
-        width: 68%;
-        height: 160px;
+        height: 130px;
     }
     
     .go-into-card {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
 }
 </style>

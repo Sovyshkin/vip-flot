@@ -50,7 +50,7 @@
                         <button class="card-btn" @click="goToRoute('reki-kanaly')">Узнать подробнее</button>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card" v-show="!isMobile || showAll">
                     <div class="wrap-img">
                         <img src="../assets/card-1.jpg" alt="">
                         <div class="badge">от 2-х часов</div>
@@ -63,7 +63,7 @@
                         <button class="card-btn" @click="goToRoute('romantichnaya-progulka')">Узнать подробнее</button>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card" v-show="!isMobile || showAll">
                     <div class="wrap-img">
                         <img src="../assets/card-2.png" alt="">
                         <div class="badge">от 2-х часов</div>
@@ -111,6 +111,11 @@
         <div class="cards-indicator" aria-hidden="true">
             <span v-for="n in pagesCount" :key="n" :class="['cards-indicator__dot', { 'cards-indicator__dot--active': (n - 1) === currentPage }]"></span>
         </div>
+        <button
+            v-if="isMobile && !showAll && activeTab === 'city'"
+            class="show-more-btn"
+            @click="showAll = true"
+        >Показать больше</button>
     </div>
 </template>
 
@@ -123,6 +128,8 @@ const cardsContainer = ref(null)
 const currentPage = ref(0)
 const pagesCount = ref(1)
 const activeTab = ref('city')
+const showAll = ref(false)
+const isMobile = ref(false)
 
 function goToRoute(slug) {
   router.push({ name: 'RouteDetail', params: { slug } })
@@ -143,6 +150,7 @@ const pointerStartX = ref(0)
 
 function switchTab(tab) {
   activeTab.value = tab
+  showAll.value = false
   nextTick(() => {
     if (cardsContainer.value) {
       cardsContainer.value.scrollTo({ left: 0, behavior: 'instant' })
@@ -245,14 +253,19 @@ function onPointerUp() {
     touchDeltaX.value = 0
 }
 
+function checkMobile() {
+    isMobile.value = window.innerWidth <= 768
+}
+
 let resizeObserver
 onMounted(() => {
+    checkMobile()
     updatePages()
     if (window.ResizeObserver) {
-        resizeObserver = new ResizeObserver(() => updatePages())
+        resizeObserver = new ResizeObserver(() => { checkMobile(); updatePages() })
         resizeObserver.observe(document.body)
     } else {
-        window.addEventListener('resize', updatePages)
+        window.addEventListener('resize', () => { checkMobile(); updatePages() })
     }
 })
 
@@ -464,33 +477,25 @@ onBeforeUnmount(() => {
     .routes-tours-block {
         gap: 16px;
     }
-    
+
     .wrap-title {
         flex-direction: row;
         align-items: center;
         gap: 8px;
     }
-    
+
     .title {
         flex: 1;
         font-size: 22px;
     }
-    
+
+    /* Стрелки скролла прячем — карточки теперь в сетке */
     .actions {
-        flex-shrink: 0;
-        justify-content: flex-end;
+        display: none;
     }
 
-    .action-btn {
-        width: 40px;
-        height: 40px;
-        padding: 10px;
-        border-radius: 10px;
-    }
-    
-    .action-btn img {
-        width: 18px;
-        height: 18px;
+    .cards-indicator {
+        display: none;
     }
 
     .tabs {
@@ -504,40 +509,102 @@ onBeforeUnmount(() => {
     .tabs::-webkit-scrollbar {
         display: none;
     }
-    
+
     .tab-btn {
         white-space: nowrap;
         font-size: 13px;
         padding: 10px 16px;
         border-radius: 12px;
     }
-    
+
+    /* Одна колонка вместо горизонтального скролла */
+    .cards {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: visible;
+    }
+
+    /* Карточка: горизонтальная — фото слева, текст справа */
     .card {
-        flex: 0 0 calc(100vw - 64px);
-        width: calc(100vw - 64px);
-        min-height: 380px;
+        flex: none;
+        width: 100%;
+        min-height: unset;
+        height: 110px;
+        flex-direction: row;
+        gap: 0;
+        border-radius: 16px;
+        overflow: hidden;
     }
-    
+
     .wrap-img {
-        height: 200px;
+        flex-shrink: 0;
+        width: 38%;
+        height: 100%;
+        border-radius: 0;
     }
-    
+
+    .badge {
+        font-size: 11px;
+        padding: 5px 9px;
+        border-radius: 0 12px 0 12px;
+    }
+
     .card-info {
-        gap: 24px;
-        padding: 0 20px 20px 20px;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 6px;
+        padding: 12px;
     }
-    
+
+    .card-text {
+        gap: 4px;
+        flex: 1;
+        overflow: hidden;
+    }
+
     .card-title {
-        font-size: 18px;
+        font-size: 13px;
+        letter-spacing: 0;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
-    
+
     .card-desc {
-        font-size: 15px;
+        font-size: 11px;
+        line-height: 1.35;
+        opacity: 0.7;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
-    
+
     .card-btn {
-        padding: 16px 24px;
+        width: 100%;
+        padding: 9px 10px;
+        font-size: 12px;
+        border-radius: 10px;
+        line-height: 1.2;
+    }
+
+    .show-more-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 14px;
+        background-color: #fff;
+        color: #1A1A1A;
+        font-weight: 600;
         font-size: 14px;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
     }
 }
 
@@ -545,28 +612,26 @@ onBeforeUnmount(() => {
     .title {
         font-size: 20px;
     }
-    
+
     .card {
-        flex: 0 0 calc(100vw - 60px);
-        width: calc(100vw - 60px);
-        min-height: 350px;
+        height: 145px;
     }
-    
+
     .wrap-img {
-        height: 180px;
+        width: 42%;
     }
-    
-    .badge {
-        font-size: 12px;
-        padding: 6px 10px;
+
+    .card-info {
+        padding: 12px 10px;
     }
-    
+
     .card-title {
-        font-size: 16px;
+        font-size: 12px;
     }
-    
-    .card-desc {
-        font-size: 14px;
+
+    .card-btn {
+        font-size: 11px;
+        padding: 8px 8px;
     }
 }
 </style>
