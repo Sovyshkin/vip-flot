@@ -126,8 +126,8 @@ onBeforeUnmount(() => {
 .show-more-btn {
     padding: 16px 48px;
     border-radius: 16px;
-    background-color: #F5F5F5;
-    color: #1A1A1A;
+    background-color: #0076FC;
+    color: #ffffff;
     font-weight: 600;
     font-size: 15px;
     cursor: pointer;
@@ -135,7 +135,7 @@ onBeforeUnmount(() => {
 }
 
 .show-more-btn:hover {
-    background-color: #e0e0e0;
+    background-color: #0061D1;
     transform: translateY(-2px);
 }
 
@@ -195,7 +195,6 @@ onBeforeUnmount(() => {
 .card {
         width: 100%;
         display: flex;
-        min-height: 450px;
         flex-direction: column;
         gap: 24px;
         background-color: #fff;
@@ -412,12 +411,12 @@ onBeforeUnmount(() => {
     }
     
     .wrap-btns {
-        flex-direction: column;
+        flex-direction: row;
         gap: 8px;
     }
     
     .btn {
-        padding: 14px 20px;
+        padding: 14px 10px;
         font-size: 13px;
     }
 }

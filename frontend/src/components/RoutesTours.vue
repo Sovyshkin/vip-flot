@@ -50,7 +50,7 @@
                         <button class="card-btn" @click="goToRoute('reki-kanaly')">Узнать подробнее</button>
                     </div>
                 </div>
-                <div class="card" v-show="!isMobile || showAll">
+                <div class="card">
                     <div class="wrap-img">
                         <img src="../assets/card-1.jpg" alt="">
                         <div class="badge">от 2-х часов</div>
