@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Carousel from './Carousel.vue'
 import { boats } from '../data/boats'
+import { yachts } from '../data/yachts'
 import { routes } from '../data/routes-tours'
 
 const router = useRouter()
@@ -53,9 +54,9 @@ function toggleFilters() {
   showFilters.value = !showFilters.value
 }
 
-// Отфильтрованный и отсортированный список лодок
+// Отфильтрованный и отсортированный список флота (катера + яхты)
 const filteredBoats = computed(() => {
-  let result = [...boats]
+  let result = [...boats, ...yachts]
 
   // Поиск по названию
   if (searchQuery.value) {
@@ -217,7 +218,7 @@ const filteredRoutes = computed(() => {
         </div>
 
           <div class="results-count">
-            Найдено: {{ filteredBoats.length }} из {{ boats.length }}
+            Найдено: {{ filteredBoats.length }} из {{ boats.length + yachts.length }}
           </div>
         </div>
       </transition>
@@ -246,7 +247,9 @@ const filteredRoutes = computed(() => {
                   <span>{{ boat.length }} метров</span>
                 </div>
               </div>
-              <span class="card-price">от {{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽/час</span>
+              <span class="card-price" v-if="boat.pricePerHour">от {{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽/час</span>
+              <span class="card-price" v-else>Цена по запросу</span>
+              <span class="card-price-day" v-if="boat.pricePerDay">от {{ boat.pricePerDay.toLocaleString('ru-RU') }} ₽/сутки</span>
             </div>
             <div class="wrap-btns">
               <button class="btn to-book" @click.stop="goToBooking">Забронировать</button>
@@ -712,6 +715,12 @@ const filteredRoutes = computed(() => {
   color: #0076FC;
   font-size: 22px;
   font-weight: 700;
+}
+
+.card-price-day {
+  color: #5a6a8a;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .wrap-btns {

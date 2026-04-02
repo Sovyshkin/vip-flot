@@ -15,10 +15,19 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <h1 class="boat-name">{{ boat.name }}</h1>
-          <div class="boat-price">
-            <span class="price-label">от</span>
-            <span class="price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
-            <span class="price-period">/час</span>
+          <div class="boat-price-block">
+            <div class="price-item" v-if="boat.pricePerHour">
+              <span class="price-label">от</span>
+              <span class="price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
+              <span class="price-period">/час</span>
+            </div>
+            <div class="price-sep" v-if="boat.pricePerHour && boat.pricePerDay"></div>
+            <div class="price-item" v-if="boat.pricePerDay">
+              <span class="price-label">от</span>
+              <span class="price-value price-value--day">{{ boat.pricePerDay.toLocaleString('ru-RU') }} ₽</span>
+              <span class="price-period">/сутки</span>
+            </div>
+            <span class="price-value" v-if="!boat.pricePerHour">Цена по запросу</span>
           </div>
         </div>
       </div>
@@ -29,7 +38,7 @@
         <div class="main-info">
           <section class="info-section">
             <h2 class="section-title">О катере</h2>
-            <p class="boat-description">{{ boat.description }}</p>
+            <div class="boat-description" v-html="formattedDescription"></div>
           </section>
 
           <section class="info-section">
@@ -47,7 +56,7 @@
                   <span class="spec-value">{{ boat.length }} метров</span>
                 </div>
               </div>
-              <div class="spec-item">
+              <div class="spec-item" v-if="boat.specifications && boat.specifications.engine">
                 <div class="spec-content">
                   <span class="spec-label">Двигатель</span>
                   <span class="spec-value">{{ boat.specifications.engine }}</span>
@@ -56,10 +65,10 @@
               <div class="spec-item">
                 <div class="spec-content">
                   <span class="spec-label">Макс. скорость</span>
-                  <span class="spec-value">{{ boat.specifications.maxSpeed }}</span>
+                  <span class="spec-value">{{ boat.specifications ? boat.specifications.maxSpeed : boat.maxSpeed }}</span>
                 </div>
               </div>
-              <div class="spec-item">
+              <div class="spec-item" v-if="boat.specifications && boat.specifications.fuelType">
                 <div class="spec-content">
                   <span class="spec-label">Топливо</span>
                   <span class="spec-value">{{ boat.specifications.fuelType }}</span>
@@ -68,7 +77,7 @@
               <div class="spec-item">
                 <div class="spec-content">
                   <span class="spec-label">Каюты</span>
-                  <span class="spec-value">{{ boat.specifications.cabins }}</span>
+                  <span class="spec-value">{{ boat.specifications ? boat.specifications.cabins : boat.cabins }}</span>
                 </div>
               </div>
             </div>
@@ -91,9 +100,12 @@
         <div class="sidebar">
           <div class="booking-card">
             <h3 class="booking-title">Забронировать</h3>
-            <div class="booking-price">
-              <span class="booking-price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
-              <span class="booking-price-period">/час</span>
+            <div class="booking-price-block">
+              <div class="booking-price-item" v-if="boat.pricePerHour">
+                <span class="booking-price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
+                <span class="booking-price-period">/час</span>
+              </div>
+              <span class="booking-price-value" v-if="!boat.pricePerHour">Цена по запросу</span>
             </div>
             
             <!-- Сообщения -->
@@ -154,6 +166,50 @@
         </div>
       </div>
     </div>
+
+    <!-- Смотрите также -->
+    <section class="also-section" v-if="relatedVessels.length">
+      <div class="also-header">
+        <h2 class="also-title">Смотрите также</h2>
+        <router-link :to="{ name: 'Catalog' }" class="section-link">Весь каталог →</router-link>
+      </div>
+      <div class="also-grid">
+        <div class="also-card" v-for="v in relatedVessels" :key="v.slug" @click="goToVessel(v.slug)">
+          <div class="also-img-wrap">
+            <img :src="v._image" :alt="v.name" class="also-img">
+            <span class="also-type-tag">{{ v._type }}</span>
+          </div>
+          <div class="also-info">
+            <span class="also-name">{{ v.name }}</span>
+            <div class="also-meta">
+              <span class="also-capacity">до {{ v.capacity }} чел.</span>
+              <span class="also-price" v-if="v.pricePerHour">от {{ v.pricePerHour.toLocaleString('ru-RU') }} ₽/ч</span>
+              <span class="also-price" v-else>Цена по запросу</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Популярные маршруты -->
+    <section class="routes-preview-section">
+      <div class="routes-preview-header">
+        <h2 class="routes-preview-title">Популярные маршруты</h2>
+        <router-link :to="{ name: 'Routes' }" class="section-link">Все маршруты →</router-link>
+      </div>
+      <div class="routes-preview-grid">
+        <div class="route-preview-card" v-for="r in previewRoutes" :key="r.id" @click="goToRoute(r.slug)">
+          <div class="route-preview-img-wrap">
+            <img :src="r.cardImage" :alt="r.name" class="route-preview-img">
+            <span class="route-duration-badge">{{ r.duration }}</span>
+          </div>
+          <div class="route-preview-info">
+            <span class="route-preview-name">{{ r.name }}</span>
+            <span class="route-preview-price">от {{ r.pricePerHour.toLocaleString('ru-RU') }} ₽/час</span>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
   <div v-else class="not-found">
     <h1>Катер не найден</h1>
@@ -182,14 +238,60 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { getBoatBySlug } from '../data/boats';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { boats, getBoatBySlug } from '../data/boats';
+import { yachts, getYachtBySlug } from '../data/yachts';
+import { sailingYachts, getSailingBySlug } from '../data/sailing';
+import { routes } from '../data/routes';
 import Carousel from './Carousel.vue';
 
 const route = useRoute();
+const router = useRouter();
 const boat = ref(null);
 const isFullscreenOpen = ref(false);
+
+const formattedDescription = computed(() => {
+  if (!boat.value?.description) return ''
+  return boat.value.description
+    .split(/\n{2,}/)
+    .map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`)
+    .join('')
+})
+
+const relatedVessels = computed(() => {
+  if (!boat.value) return [];
+  const currentSlug = boat.value.slug;
+  const all = [
+    ...boats.map(b => ({
+      slug: b.slug,
+      name: b.name,
+      capacity: b.capacity,
+      pricePerHour: b.pricePerHour,
+      _image: Array.isArray(b.cardImage) ? b.cardImage[0] : b.cardImage,
+      _type: 'Катер'
+    })),
+    ...yachts.map(y => ({
+      slug: y.slug,
+      name: y.name,
+      capacity: y.capacity,
+      pricePerHour: y.pricePerHour,
+      _image: Array.isArray(y.cardImage) ? y.cardImage[0] : y.cardImage,
+      _type: 'Яхта'
+    })),
+    ...sailingYachts.filter(s => s.slug).map(s => ({
+      slug: s.slug,
+      name: s.name,
+      capacity: s.capacity,
+      pricePerHour: s.pricePerHour,
+      _image: Array.isArray(s.img) ? s.img[0] : s.img,
+      _type: 'Парусная'
+    }))
+  ];
+  return all.filter(v => v.slug !== currentSlug).slice(0, 4);
+});
+
+const previewRoutes = computed(() => routes.slice(0, 4));
 
 // API endpoint
 const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php';
@@ -208,8 +310,15 @@ const errorMessage = ref('');
 
 onMounted(() => {
   const slug = route.params.slug;
-  boat.value = getBoatBySlug(slug);
+  boat.value = getBoatBySlug(slug) || getYachtBySlug(slug) || getSailingBySlug(slug);
 });
+
+function goToVessel(slug) {
+  router.push({ name: 'BoatDetail', params: { slug } });
+}
+function goToRoute(slug) {
+  router.push({ name: 'RouteDetail', params: { slug } });
+}
 
 function openFullscreen() {
   isFullscreenOpen.value = true;
@@ -528,14 +637,31 @@ function onPhoneKeydown(e) {
   margin: 0;
 }
 
-.boat-price {
+.boat-price-block {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   padding: 16px 24px;
   border-radius: 16px;
+}
+
+.price-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.price-sep {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 20px;
+  align-self: center;
+}
+
+.price-value--day {
+  font-size: 24px;
 }
 
 .price-label {
@@ -593,8 +719,16 @@ function onPhoneKeydown(e) {
   color: #1A1A1A;
   font-size: 16px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
+}
+
+.boat-description :deep(p) {
+  margin: 0 0 12px 0;
+}
+
+.boat-description :deep(p:last-child) {
+  margin-bottom: 0;
 }
 
 .specs-grid {
@@ -679,13 +813,18 @@ function onPhoneKeydown(e) {
   letter-spacing: 0px;
 }
 
-.booking-price {
+.booking-price-block {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
   margin-bottom: 24px;
   padding-bottom: 24px;
   border-bottom: 1px solid #E5E5E5;
+}
+
+.booking-price-item {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
 }
 
 .booking-price-value {
@@ -903,7 +1042,7 @@ function onPhoneKeydown(e) {
     font-size: 22px;
   }
   
-  .booking-price {
+  .booking-price-block {
     font-size: 28px;
   }
 }
@@ -955,10 +1094,10 @@ function onPhoneKeydown(e) {
     font-size: 20px;
   }
   
-  .booking-price {
+  .booking-price-block {
     font-size: 24px;
   }
-  
+
   .booking-label {
     font-size: 12px;
   }
@@ -1203,6 +1342,236 @@ function onPhoneKeydown(e) {
   .fullscreen-carousel-wrapper :deep(.dot) {
     width: 10px;
     height: 10px;
+  }
+}
+
+/* ─── Смотрите также ─────────────────────────── */
+.also-section {
+  padding: 0 40px 56px;
+}
+
+.also-header,
+.routes-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.also-title,
+.routes-preview-title {
+  color: #1A1A1A;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.section-link {
+  color: #0076FC;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.section-link:hover {
+  opacity: 0.7;
+}
+
+.also-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.also-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.also-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.also-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.also-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.also-card:hover .also-img {
+  transform: scale(1.06);
+}
+
+.also-type-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0, 118, 252, 0.85);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.also-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.also-name {
+  color: #1A1A1A;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.also-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.also-capacity {
+  color: #949CA4;
+  font-size: 13px;
+}
+
+.also-price {
+  color: #0076FC;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ─── Маршруты ───────────────────────────────── */
+.routes-preview-section {
+  padding: 0 40px 56px;
+}
+
+.routes-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.route-preview-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.route-preview-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.route-preview-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.route-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.route-preview-card:hover .route-preview-img {
+  transform: scale(1.06);
+}
+
+.route-duration-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.route-preview-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.route-preview-name {
+  color: #1A1A1A;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.route-preview-price {
+  color: #0076FC;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ─── Responsive ──────────────────────────────── */
+@media (max-width: 1024px) {
+  .also-grid,
+  .routes-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .also-section,
+  .routes-preview-section {
+    padding: 0 20px 40px;
+  }
+
+  .also-title,
+  .routes-preview-title {
+    font-size: 22px;
+  }
+
+  .also-grid,
+  .routes-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .also-grid,
+  .routes-preview-grid {
+    grid-template-columns: 1fr;
   }
 }
 

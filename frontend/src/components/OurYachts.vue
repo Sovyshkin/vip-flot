@@ -1,10 +1,17 @@
 <script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import Carousel from './Carousel.vue'
 import { useRouter } from 'vue-router'
+import { yachts } from '../data/yachts'
 
 const router = useRouter()
+const showAll = ref(false)
+const isMobile = ref(false)
+function checkMobile() { isMobile.value = window.innerWidth <= 768 }
 
-function goToBoat(slug) {
+const visibleYachts = computed(() => showAll.value ? yachts : yachts.slice(0, isMobile.value ? 4 : 6))
+
+function goToYacht(slug) {
     router.push({ name: 'BoatDetail', params: { slug } })
 }
 
@@ -15,6 +22,15 @@ function goToCatalog() {
 function goToBooking() {
     router.push({ path: '/', hash: '#booking' })
 }
+
+onMounted(() => {
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', checkMobile)
+})
 </script>
 
 <template>
@@ -28,169 +44,39 @@ function goToBooking() {
                 </div>
             </div>
         </div>
-           <div class="cards">
-            <div class="card">
+        <div class="cards">
+            <div v-for="yacht in visibleYachts" :key="yacht.id" class="card">
                 <div class="wrap-img">
                     <Carousel :interval="4500">
-                        <img src="../assets/yachts-1.png" alt="">
+                        <img v-for="(image, index) in yacht.cardImage" :key="index" :src="image" :alt="yacht.name">
                     </Carousel>
                 </div>
-                <div class="card-info">
+                <div class="card-info" @click="goToYacht(yacht.slug)" style="cursor: pointer;">
                     <div class="card-text">
-                        <span class="card-title">Катер Мэверик</span>
+                        <span class="card-title">{{ yacht.name }}</span>
                         <div class="card-desc">
                             <div class="item-desc">
                                 <img src="../assets/card-desc-icon-1.svg" alt="">
-                                <span>до 10 гостей</span>
+                                <span>до {{ yacht.capacity }} гостей</span>
                             </div>
                             <div class="item-desc">
                                 <img src="../assets/card-desc-icon-2.svg" alt="">
-                                <span>5.5 метров</span>
+                                <span>{{ yacht.length }} м</span>
                             </div>
                         </div>
-                        <span class="card-price">от 19 000 ₽/час</span>
-                    </div>
-                        <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
-                        <button class="btn more" @click="goToBoat('maverick')">Подробнее</button>
-                    </div>
-                </div>
-            </div>
-             <div class="card">
-                <div class="wrap-img">
-                    <Carousel :interval="4500">
-                        <img src="../assets/yachts-2.png" alt="">
-                    </Carousel>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Ялта</span>
-                        <div class="card-desc">
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
-                                <span>до 10 гостей</span>
-                            </div>
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
-                                <span>5.5 метров</span>
-                            </div>
-                        </div>
-                        <span class="card-price">от 19 000 ₽/час</span>
+                        <span class="card-price" v-if="yacht.pricePerHour">от {{ yacht.pricePerHour.toLocaleString('ru-RU') }} ₽/час</span>
+                        <span class="card-price" v-else>Цена по запросу</span>
+                        <span class="card-price-day" v-if="yacht.pricePerDay">от {{ yacht.pricePerDay.toLocaleString('ru-RU') }} ₽/сутки</span>
                     </div>
                     <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
-                        <button class="btn more" @click="goToBoat('yalta')">Подробнее</button>
+                        <button class="btn to-book" @click.stop="goToBooking">Арендовать</button>
+                        <button class="btn more" @click.stop="goToYacht(yacht.slug)">Подробнее</button>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <Carousel :interval="4500">
-                        <img src="../assets/yachts-3.png" alt="">
-                    </Carousel>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Голандец</span>
-                        <div class="card-desc">
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
-                                <span>до 10 гостей</span>
-                            </div>
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
-                                <span>5.5 метров</span>
-                            </div>
-                        </div>
-                        <span class="card-price">от 19 000 ₽/час</span>
-                    </div>
-                    <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
-                        <button class="btn more" @click="goToBoat('golandets')">Подробнее</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <Carousel :interval="4500">
-                        <img src="../assets/yachts-4.png" alt="">
-                    </Carousel>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Магнум</span>
-                        <div class="card-desc">
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
-                                <span>до 10 гостей</span>
-                            </div>
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
-                                <span>5.5 метров</span>
-                            </div>
-                        </div>
-                        <span class="card-price">от 19 000 ₽/час</span>
-                    </div>
-                    <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
-                        <button class="btn more" @click="goToBoat('boat-4')">Подробнее</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <Carousel :interval="4500">
-                        <img src="../assets/yachts-5.png" alt="">
-                    </Carousel>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Francesco</span>
-                        <div class="card-desc">
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
-                                <span>до 10 гостей</span>
-                            </div>
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
-                                <span>5.5 метров</span>
-                            </div>
-                        </div>
-                        <span class="card-price">от 19 000 ₽/час</span>
-                    </div>
-                    <div class="wrap-btns">
-                        <button class="btn to-book" @click="goToBooking">Арендовать</button>
-                        <button class="btn more" @click="goToBoat('francesco')">Подробнее</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="wrap-img">
-                    <Carousel :interval="4500">
-                        <img src="../assets/yachts-6.png" alt="">
-                    </Carousel>
-                </div>
-                <div class="card-info">
-                    <div class="card-text">
-                        <span class="card-title">Cherry</span>
-                        <div class="card-desc">
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
-                                <span>до 10 гостей</span>
-                            </div>
-                            <div class="item-desc">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
-                                <span>5.5 метров</span>
-                            </div>
-                        </div>
-                        <span class="card-price">от 19 000 ₽/час</span>
-                    </div>
-                    <div class="wrap-btns">
-                        <button class="btn to-book">Арендовать</button>
-                        <button class="btn more" @click="goToBoat('cherry')">Подробнее</button>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div v-if="!showAll && yachts.length > (isMobile ? 4 : 8)" class="show-more-wrap">
+            <button class="show-more-btn" @click="showAll = true">Показать ещё</button>
         </div>
     </div>
 </template>
@@ -289,7 +175,6 @@ function goToBooking() {
 .card {
         width: 100%;
         display: flex;
-        min-height: 450px;
         flex-direction: column;
         gap: 24px;
         background-color: #fff;
@@ -341,6 +226,12 @@ function goToBooking() {
     color: #0076FC;
     font-weight: 600;
     font-size: 19px;
+}
+
+.card-price-day {
+    color: #5a6a8a;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .wrap-btns {
@@ -426,10 +317,6 @@ function goToBooking() {
         height: 20px;
     }
     
-    .card {
-        min-height: 400px;
-    }
-    
     .card-title {
         font-size: 20px;
     }
@@ -459,11 +346,6 @@ function goToBooking() {
         gap: 16px;
     }
 
-    /* Максимум 4 карточки на мобильном */
-    .card:nth-child(n+5) {
-        display: none;
-    }
-    
     .card-title {
         font-size: 18px;
     }
@@ -483,10 +365,6 @@ function goToBooking() {
         font-size: 20px;
     }
     
-    .card {
-        min-height: 350px;
-    }
-    
     .wrap-img {
         height: 180px;
     }
@@ -502,5 +380,27 @@ function goToBooking() {
     .card-price {
         font-size: 17px;
     }
+}
+
+.show-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.show-more-btn {
+    padding: 16px 48px;
+    border-radius: 16px;
+    background-color: #0076FC;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.show-more-btn:hover {
+    background-color: #0061D1;
+    transform: translateY(-2px);
 }
 </style>

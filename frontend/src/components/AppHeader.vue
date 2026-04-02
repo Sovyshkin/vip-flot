@@ -10,7 +10,7 @@
       <li class="vipflot-header__nav-item" @click="scrollToSection('yachts')">Яхты</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('sailing')">Парусные</li>
       <li class="vipflot-header__nav-item" @click="goToRoutes">Маршруты</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('tours')">Длительные яхт-туры</li>
+      <li class="vipflot-header__nav-item" @click="goToTours">Длительные яхт-туры</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('activities')">Мероприятия</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('services')">Услуги</li>
       <li class="vipflot-header__nav-item" @click="scrollToSection('booking')">Контакты</li>
@@ -51,7 +51,7 @@
         </div>
 
         <!-- ЯХТ-ТУРЫ -->
-        <div class="mobile-drawer__item" @click="navigate('tours')">
+        <div class="mobile-drawer__item" @click="navigateTours">
           <span class="mobile-drawer__item-label">ЯХТ-ТУРЫ</span>
           <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -138,9 +138,19 @@ function navigateRoutes() {
   goToRoutes()
 }
 
+function navigateTours() {
+  toggleMobileMenu()
+  goToTours()
+}
+
 function goToRoutes() {
   mobileMenuOpen.value = false
   router.push({ name: 'Routes' })
+}
+
+function goToTours() {
+  mobileMenuOpen.value = false
+  router.push({ name: 'Tours' })
 }
 
 function scrollToSection(sectionId) {

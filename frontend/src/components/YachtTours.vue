@@ -36,7 +36,7 @@ function goToTour(slug) {
 }
 
 function goToRoutesPage() {
-  router.push({ name: 'Routes' })
+  router.push({ name: 'Tours' })
 }
 </script>
 

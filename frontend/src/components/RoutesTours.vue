@@ -103,7 +103,7 @@
                             <span class="card-title">Тур в Кронштадт</span>
                             <span class="card-desc">Морское путешествие в легендарный Кронштадт — форты, история и морские виды</span>
                         </div>
-                        <button class="card-btn" @click="goToRoute('kronshtadt-tour')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToRoute('kronshtadt')">Узнать подробнее</button>
                     </div>
                 </div>
             </template>
