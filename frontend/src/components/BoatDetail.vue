@@ -198,14 +198,16 @@
         <router-link :to="{ name: 'Routes' }" class="section-link">Все маршруты →</router-link>
       </div>
       <div class="routes-preview-grid">
-        <div class="route-preview-card" v-for="r in previewRoutes" :key="r.id" @click="goToRoute(r.slug)">
-          <div class="route-preview-img-wrap">
-            <img :src="r.cardImage" :alt="r.name" class="route-preview-img">
-            <span class="route-duration-badge">{{ r.duration }}</span>
+        <div class="route-preview-card" v-for="r in previewRoutes" :key="r.id" @click="handlePreviewRoute(r)">
+          <div class="route-preview-img-wrap" :class="{ 'route-preview-img-wrap--placeholder': !r.image }">
+            <img v-if="r.image" :src="r.image" :alt="r.title" class="route-preview-img">
+            <div v-else class="route-preview-placeholder">Ваш маршрут</div>
+            <span class="route-duration-badge">{{ r.duration || 'По договоренности' }}</span>
           </div>
           <div class="route-preview-info">
-            <span class="route-preview-name">{{ r.name }}</span>
-            <span class="route-preview-price">от {{ r.pricePerHour.toLocaleString('ru-RU') }} ₽/час</span>
+            <span class="route-preview-name">{{ r.title }}</span>
+            <span class="route-preview-desc">{{ getPreviewDescription(r) }}</span>
+            <button class="route-preview-btn" @click.stop="handlePreviewRoute(r)">{{ getPreviewActionText(r) }}</button>
           </div>
         </div>
       </div>
@@ -235,6 +237,7 @@
       </div>
     </Transition>
   </Teleport>
+  <BookingModal v-model="isBookingOpen" />
 </template>
 
 <script setup>
@@ -243,13 +246,16 @@ import { useRoute, useRouter } from 'vue-router';
 import { boats, getBoatBySlug } from '../data/boats';
 import { yachts, getYachtBySlug } from '../data/yachts';
 import { sailingYachts, getSailingBySlug } from '../data/sailing';
-import { routes } from '../data/routes';
+import { boatsRoutes } from '../data/boatsRoutes';
+import { yachtsRoutes } from '../data/yachtsRoutes';
 import Carousel from './Carousel.vue';
+import BookingModal from './BookingModal.vue';
 
 const route = useRoute();
 const router = useRouter();
 const boat = ref(null);
 const isFullscreenOpen = ref(false);
+const isBookingOpen = ref(false);
 
 const formattedDescription = computed(() => {
   if (!boat.value?.description) return ''
@@ -291,7 +297,14 @@ const relatedVessels = computed(() => {
   return all.filter(v => v.slug !== currentSlug).slice(0, 4);
 });
 
-const previewRoutes = computed(() => routes.slice(0, 4));
+
+const isYacht = computed(() => boat.value && yachts.some(y => y.slug === boat.value.slug));
+const isSailing = computed(() => boat.value && sailingYachts.some(s => s.slug === boat.value.slug));
+
+const previewRoutes = computed(() => {
+  const source = (isYacht.value || isSailing.value) ? yachtsRoutes : boatsRoutes;
+  return source.slice(0, 4);
+});
 
 // API endpoint
 const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php';
@@ -316,8 +329,26 @@ onMounted(() => {
 function goToVessel(slug) {
   router.push({ name: 'BoatDetail', params: { slug } });
 }
-function goToRoute(slug) {
-  router.push({ name: 'RouteDetail', params: { slug } });
+
+function handlePreviewRoute(route) {
+  if (route.link && !route.isPopup && route.link.startsWith('/')) {
+    router.push(route.link);
+    return;
+  }
+  isBookingOpen.value = true;
+}
+
+function getPreviewActionText(route) {
+  if (/свой маршрут/i.test(route.title)) return 'Обсудить';
+  if (route.link && !route.isPopup) return 'Подробнее';
+  return 'Оставить заявку';
+}
+
+function getPreviewDescription(route) {
+  if (/свой маршрут/i.test(route.title)) {
+    return 'Соберем индивидуальный маршрут под ваши пожелания.';
+  }
+  return route.description;
 }
 
 function openFullscreen() {
@@ -1495,6 +1526,7 @@ function onPhoneKeydown(e) {
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  background: #f2f4f7;
 }
 
 .route-preview-img {
@@ -1502,6 +1534,20 @@ function onPhoneKeydown(e) {
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
+}
+
+.route-preview-img-wrap--placeholder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  background: linear-gradient(135deg, rgba(0, 118, 252, 0.2), rgba(0, 118, 252, 0.05));
+}
+
+.route-preview-placeholder {
+  padding: 16px;
+  color: #1A1A1A;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .route-preview-card:hover .route-preview-img {
@@ -1536,10 +1582,31 @@ function onPhoneKeydown(e) {
   line-height: 1.2;
 }
 
-.route-preview-price {
-  color: #0076FC;
+.route-preview-desc {
+  color: #5a6a8a;
   font-size: 13px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.route-preview-btn {
+  margin-top: 4px;
+  padding: 10px 14px;
+  background: #0076FC;
+  color: #fff;
+  border-radius: 12px;
   font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.route-preview-btn:hover {
+  background: #0061D1;
+  transform: translateY(-1px);
 }
 
 /* ─── Responsive ──────────────────────────────── */

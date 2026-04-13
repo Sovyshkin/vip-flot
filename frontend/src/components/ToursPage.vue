@@ -47,7 +47,6 @@ function goToTour(slug) {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 48px;
 }
 
 .page-title {
@@ -174,9 +173,6 @@ function goToTour(slug) {
 }
 
 @media (max-width: 768px) {
-  .page-header {
-    margin-bottom: 32px;
-  }
 
   .page-title {
     font-size: 28px;

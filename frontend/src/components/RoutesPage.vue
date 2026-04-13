@@ -3,37 +3,79 @@
     <div class="wrap">
       <div class="page-header">
         <h1 class="page-title">Маршруты</h1>
-        <p class="page-subtitle">Выберите интересующий маршрут и отправляйтесь в увлекательное путешествие по водным просторам Санкт-Петербурга</p>
+        <p class="page-subtitle">Выберите маршрут для катера или яхты — покажем город с воды в самом красивом ракурсе</p>
+      </div>
+
+      <div class="tabs">
+        <button type="button" class="tab-btn" :class="{ active: activeTab === 'boats' }" @click="activeTab = 'boats'">Катера</button>
+        <button type="button" class="tab-btn" :class="{ active: activeTab === 'yachts' }" @click="activeTab = 'yachts'">Яхты</button>
       </div>
 
       <div class="routes-grid">
-        <div v-for="route in routes" :key="route.id" class="route-card" @click="goToRoute(route.slug)">
-          <div class="route-image">
-            <img :src="route.cardImage" :alt="route.name">
-            <div class="badge">{{ route.duration }}</div>
+        <article
+          v-for="route in routesForTab"
+          :key="route.id"
+          class="route-card"
+          :class="{ 'route-card--custom': isCustomRoute(route) }"
+          @click="handleRouteClick(route)">
+          <div v-if="!isCustomRoute(route)" class="route-media">
+            <img :src="route.image" :alt="route.title">
+            <div class="route-badge">{{ route.duration || 'По договоренности' }}</div>
           </div>
-          <div class="route-info">
-            <h2 class="route-title">{{ route.name }}</h2>
-            <p class="route-description">{{ route.description }}</p>
+          <div class="route-info" :class="{ 'route-info--custom': isCustomRoute(route) }">
+            <span v-if="isCustomRoute(route)" class="route-label">Индивидуальный формат</span>
+            <h2 class="route-title">{{ route.title }}</h2>
+            <p class="route-description" :class="{ 'route-description--custom': isCustomRoute(route) }">
+              {{ getCustomDescription(route) }}
+            </p>
+            <p v-if="isCustomRoute(route)" class="route-note">Согласуем время, точки посадки и высадки, маршрут и формат прогулки.</p>
             <div class="route-details">
-              <div class="route-price">от {{ route.pricePerHour.toLocaleString('ru-RU') }} ₽/час</div>
-              <button class="route-btn">Подробнее</button>
+              <button class="route-btn" @click.stop="handleRouteClick(route)">{{ getActionText(route) }}</button>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
+    <BookingModal v-model="isBookingOpen" />
   </div>
 </template>
 
 <script setup>
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { routes } from '../data/routes'
+import { boatsRoutes } from '../data/boatsRoutes'
+import { yachtsRoutes } from '../data/yachtsRoutes'
+import BookingModal from './BookingModal.vue'
 
 const router = useRouter()
+const activeTab = ref('boats')
+const isBookingOpen = ref(false)
 
-function goToRoute(slug) {
-  router.push({ name: 'RouteDetail', params: { slug } })
+const routesForTab = computed(() => (activeTab.value === 'boats' ? boatsRoutes : yachtsRoutes))
+
+function handleRouteClick(route) {
+  if (route.link && !route.isPopup) {
+    if (route.link.startsWith('/')) {
+      router.push(route.link)
+      return
+    }
+  }
+  isBookingOpen.value = true
+}
+
+function isCustomRoute(route) {
+  return route.hasImage === false || !route.image || /свой маршрут/i.test(route.title)
+}
+
+function getCustomDescription(route) {
+  if (!isCustomRoute(route)) return route.description
+  return 'Соберем индивидуальный маршрут под ваши пожелания, учтем формат прогулки и состав гостей.'
+}
+
+function getActionText(route) {
+  if (route.title.toLowerCase().includes('свой маршрут')) return 'Обсудить'
+  if (route.link && !route.isPopup) return 'Подробнее'
+  return 'Оставить заявку'
 }
 </script>
 
@@ -47,7 +89,6 @@ function goToRoute(slug) {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 48px;
 }
 
 .page-title {
@@ -62,6 +103,32 @@ function goToRoute(slug) {
   font-size: 18px;
   line-height: 1.6;
   max-width: 800px;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.tab-btn {
+  padding: 12px 24px;
+  border-radius: 16px;
+  background-color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1A1A1A;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  border: none;
+}
+
+.tab-btn.active {
+  background-color: #0076FC;
+  color: #fff;
+}
+
+.tab-btn:hover:not(.active) {
+  background-color: #e8e8e8;
 }
 
 .routes-grid {
@@ -83,20 +150,45 @@ function goToRoute(slug) {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.route-image {
+.route-card--custom {
+  background: linear-gradient(145deg, rgba(0, 118, 252, 0.12), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(0, 118, 252, 0.2);
+}
+
+.route-media {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  background: #f2f4f7;
 }
 
-.route-image img {
+.route-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.badge {
+
+.route-info--custom {
+  padding: 28px;
+  gap: 12px;
+}
+
+.route-label {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 118, 252, 0.15);
+  color: #0076FC;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.route-badge {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -127,19 +219,30 @@ function goToRoute(slug) {
   color: #949CA4;
   font-size: 15px;
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.route-description--custom {
+  color: #1A1A1A;
+  font-size: 16px;
+  font-weight: 500;
+  -webkit-line-clamp: unset;
+}
+
+.route-note {
+  color: #5a6a8a;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .route-details {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 8px;
-}
-
-.route-price {
-  color: #0076FC;
-  font-size: 20px;
-  font-weight: 600;
 }
 
 .route-btn {
@@ -174,9 +277,6 @@ function goToRoute(slug) {
 }
 
 @media (max-width: 768px) {
-  .page-header {
-    margin-bottom: 32px;
-  }
   
   .page-title {
     font-size: 28px;
@@ -197,6 +297,20 @@ function goToRoute(slug) {
   
   .route-description {
     font-size: 14px;
+  }
+
+  .route-info--custom {
+    padding: 22px;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
   }
 }
 

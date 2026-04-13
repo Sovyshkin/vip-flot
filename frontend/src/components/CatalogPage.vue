@@ -4,7 +4,9 @@ import { useRouter } from 'vue-router'
 import Carousel from './Carousel.vue'
 import { boats } from '../data/boats'
 import { yachts } from '../data/yachts'
-import { routes } from '../data/routes-tours'
+import { boatsRoutes } from '../data/boatsRoutes'
+import { yachtsRoutes } from '../data/yachtsRoutes'
+import { tours } from '../data/tours'
 
 const router = useRouter()
 const activeTab = ref('fleet')
@@ -18,9 +20,11 @@ const capacityFilter = ref('all')
 const priceRangeFilter = ref('all')
 const sortBy = ref('none')
 
-// Фильтры для маршрутов
+// Фильтры для маршрутов и туров
 const routeSearchQuery = ref('')
 const durationFilter = ref('all')
+const routeSortBy = ref('none')
+const routesTab = ref('boats') // 'boats' или 'yachts'
 
 function goToBoat(slug) {
   router.push({ name: 'BoatDetail', params: { slug } })
@@ -48,6 +52,22 @@ function resetFilters() {
 function resetRouteFilters() {
   routeSearchQuery.value = ''
   durationFilter.value = 'all'
+  routeSortBy.value = 'none'
+}
+
+function isCustomRoute(route) {
+  return route.hasImage === false || !route.image || /свой маршрут/i.test(route.title)
+}
+
+function getCustomDescription(route) {
+  if (!isCustomRoute(route)) return route.description
+  return 'Соберем индивидуальный маршрут под ваши пожелания, учтем формат прогулки и состав гостей.'
+}
+
+function getActionText(route) {
+  if (route.title.toLowerCase().includes('свой маршрут')) return 'Обсудить'
+  if (route.link && !route.isPopup) return 'Подробнее'
+  return 'Оставить заявку'
 }
 
 function toggleFilters() {
@@ -100,15 +120,18 @@ const filteredBoats = computed(() => {
   return result
 })
 
-// Отфильтрованный список маршрутов
+// Выбор маршрутов для текущей вкладки (катера или яхты)
+const routesForTab = computed(() => routesTab.value === 'boats' ? boatsRoutes : yachtsRoutes)
+
+// Отфильтрованный список маршрутов для текущей вкладки
 const filteredRoutes = computed(() => {
-  let result = [...routes]
+  let result = [...routesForTab.value]
 
   // Поиск по названию
   if (routeSearchQuery.value) {
     const query = routeSearchQuery.value.toLowerCase()
     result = result.filter(route => 
-      route.name.toLowerCase().includes(query) || 
+      route.title.toLowerCase().includes(query) || 
       route.description.toLowerCase().includes(query)
     )
   }
@@ -116,7 +139,61 @@ const filteredRoutes = computed(() => {
   // Фильтр по длительности
   if (durationFilter.value !== 'all') {
     result = result.filter(route => {
+      if (!route.duration) return false
       const duration = route.duration.toLowerCase()
+      // Извлекаем число из строки
+      const hours = parseInt(duration.match(/\d+/)?.[0] || '0')
+      
+      if (durationFilter.value === 'short') {
+        return hours <= 2
+      } else if (durationFilter.value === 'medium') {
+        return hours >= 3 && hours <= 4
+      } else if (durationFilter.value === 'long') {
+        return hours >= 5
+      }
+      return true
+    })
+  }
+
+  // Сортировка
+  if (routeSortBy.value === 'duration-asc') {
+    result.sort((a, b) => {
+      const durationA = parseInt(a.duration?.match(/\d+/)?.[0] || '999')
+      const durationB = parseInt(b.duration?.match(/\d+/)?.[0] || '999')
+      return durationA - durationB
+    })
+  } else if (routeSortBy.value === 'duration-desc') {
+    result.sort((a, b) => {
+      const durationA = parseInt(a.duration?.match(/\d+/)?.[0] || '0')
+      const durationB = parseInt(b.duration?.match(/\d+/)?.[0] || '0')
+      return durationB - durationA
+    })
+  } else if (routeSortBy.value === 'name-asc') {
+    result.sort((a, b) => a.title.localeCompare(b.title))
+  } else if (routeSortBy.value === 'name-desc') {
+    result.sort((a, b) => b.title.localeCompare(a.title))
+  }
+
+  return result
+})
+
+// Отфильтрованный список туров
+const filteredTours = computed(() => {
+  let result = [...tours]
+
+  // Поиск по названию
+  if (routeSearchQuery.value) {
+    const query = routeSearchQuery.value.toLowerCase()
+    result = result.filter(tour => 
+      tour.name.toLowerCase().includes(query) || 
+      tour.description.toLowerCase().includes(query)
+    )
+  }
+
+  // Фильтр по длительности
+  if (durationFilter.value !== 'all') {
+    result = result.filter(tour => {
+      const duration = tour.duration.toLowerCase()
       // Извлекаем число из строки
       const hours = parseInt(duration.match(/\d+/)?.[0] || '0')
       
@@ -148,7 +225,12 @@ const filteredRoutes = computed(() => {
         <button 
           :class="['tab-btn', { active: activeTab === 'routes' }]" 
           @click="setTab('routes')">
-          Маршруты и туры
+          Маршруты
+        </button>
+        <button 
+          :class="['tab-btn', { active: activeTab === 'tours' }]" 
+          @click="setTab('tours')">
+          Туры
         </button>
       </div>
     </div>
@@ -261,7 +343,25 @@ const filteredRoutes = computed(() => {
     </div>
 
     <!-- Routes Section -->
-    <div v-show="activeTab === 'routes'" class="routes-section">
+    <div v-show="activeTab === 'routes' || activeTab === 'tours'" class="routes-section">
+      <!-- Вкладки маршруты (только для роутов, не для туров) -->
+      <div v-show="activeTab === 'routes'" class="routes-tabs">
+        <button 
+          type="button" 
+          class="routes-tab-btn" 
+          :class="{ active: routesTab === 'boats' }" 
+          @click="routesTab = 'boats'">
+          Катера
+        </button>
+        <button 
+          type="button" 
+          class="routes-tab-btn" 
+          :class="{ active: routesTab === 'yachts' }" 
+          @click="routesTab = 'yachts'">
+          Яхты
+        </button>
+      </div>
+
       <!-- Кнопка переключения фильтров -->
       <button @click="toggleFilters" class="toggle-filters-btn">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -273,7 +373,7 @@ const filteredRoutes = computed(() => {
         </svg>
       </button>
 
-      <!-- Фильтры для маршрутов -->
+      <!-- Фильтры для маршрутов и туров -->
       <transition name="filters-slide">
         <div v-show="showFilters" class="filters-container">
           <div class="search-bar">
@@ -300,31 +400,64 @@ const filteredRoutes = computed(() => {
             </select>
           </div>
 
+          <div class="filter-group">
+            <label class="filter-label">Сортировка:</label>
+            <select v-model="routeSortBy" class="filter-select">
+              <option value="none">Нет</option>
+              <option value="name-asc">По названию (А-Я)</option>
+              <option value="name-desc">По названию (Я-А)</option>
+              <option value="duration-asc">По длительности (короче)</option>
+              <option value="duration-desc">По длительности (дольше)</option>
+            </select>
+          </div>
+
           <button @click="resetRouteFilters" class="reset-btn">Сбросить фильтры</button>
         </div>
 
           <div class="results-count">
-            Найдено: {{ filteredRoutes.length }} из {{ routes.length }}
+            {{ activeTab === 'routes' ? `Найдено: ${filteredRoutes.length} из ${routesForTab.length}` : `Найдено: ${filteredTours.length} из ${tours.length}` }}
           </div>
         </div>
       </transition>
 
-      <div v-if="filteredRoutes.length === 0" class="no-results">
+      <div v-if="(activeTab === 'routes' && filteredRoutes.length === 0) || (activeTab === 'tours' && filteredTours.length === 0)" class="no-results">
         <p class="no-results-text">Ничего не найдено. Попробуйте изменить параметры поиска.</p>
       </div>
 
-      <div v-else class="routes-grid">
-        <div v-for="route in filteredRoutes" :key="route.id" class="route-card">
-          <div class="wrap-img">
-            <img :src="route.images[0]" :alt="route.name">
+      <div v-show="activeTab === 'routes' && filteredRoutes.length > 0" class="routes-grid">
+        <div 
+          v-for="route in filteredRoutes" 
+          :key="route.id" 
+          class="route-card"
+          :class="{ 'route-card--custom': isCustomRoute(route) }">
+          <div v-if="!isCustomRoute(route)" class="wrap-img">
+            <img :src="route.image" :alt="route.title">
             <div class="badge">{{ route.duration }}</div>
+          </div>
+          <div class="card-info" :class="{ 'card-info--custom': isCustomRoute(route) }">
+            <div class="card-text">
+              <span v-if="isCustomRoute(route)" class="card-label">Индивидуальный формат</span>
+              <span class="card-title">{{ route.title }}</span>
+              <span class="card-desc" :class="{ 'card-desc--custom': isCustomRoute(route) }">{{ getCustomDescription(route) }}</span>
+              <span v-if="isCustomRoute(route)" class="card-note">Согласуем время, точки посадки и высадки, маршрут и формат прогулки.</span>
+            </div>
+            <button class="card-btn" @click="goToRoute(route.link ? route.link.split('/').pop() : '')">{{ getActionText(route) }}</button>
+          </div>
+        </div>
+      </div>
+
+      <div v-show="activeTab === 'tours' && filteredTours.length > 0" class="routes-grid">
+        <div v-for="tour in filteredTours" :key="tour.id" class="route-card">
+          <div class="wrap-img">
+            <img :src="tour.images[0]" :alt="tour.name">
+            <div class="badge">{{ tour.duration }}</div>
           </div>
           <div class="card-info">
             <div class="card-text">
-              <span class="card-title">{{ route.name }}</span>
-              <span class="card-desc">{{ route.description }}</span>
+              <span class="card-title">{{ tour.name }}</span>
+              <span class="card-desc">{{ tour.description }}</span>
             </div>
-            <button class="card-btn" @click="goToRoute(route.slug)">Узнать подробнее</button>
+            <button class="card-btn" @click="goToRoute(tour.slug)">Узнать подробнее</button>
           </div>
         </div>
       </div>
@@ -612,6 +745,45 @@ const filteredRoutes = computed(() => {
   margin: 0;
 }
 
+/* Routes Tabs */
+.routes-tabs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #E6E6E6;
+}
+
+.routes-tab-btn {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  color: #949CA4;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.routes-tab-btn.active {
+  color: #0076FC;
+}
+
+.routes-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #0076FC;
+}
+
+.routes-tab-btn:hover {
+  color: #1A1A1A;
+}
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -665,6 +837,11 @@ const filteredRoutes = computed(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.route-card:hover .wrap-img img {
+  transform: scale(1.06);
 }
 
 .card-info {
@@ -787,6 +964,42 @@ const filteredRoutes = computed(() => {
 .route-card .wrap-img {
   position: relative;
   height: 280px;
+}
+
+.route-card--custom {
+  background: linear-gradient(145deg, rgba(0, 118, 252, 0.12), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(0, 118, 252, 0.2);
+}
+
+.card-info--custom {
+  padding: 28px;
+}
+
+.card-label {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 118, 252, 0.15);
+  color: #0076FC;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card-desc--custom {
+  color: #1A1A1A;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.card-note {
+  display: block;
+  color: #5a6a8a;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 8px;
 }
 
 .badge {

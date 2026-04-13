@@ -1,140 +1,108 @@
 <template>
     <div class="routes-tours-block">
         <div class="wrap-title">
-            <h1 class="title">Маршруты и туры</h1>
+            <h1 class="title">Маршруты</h1>
             <div class="actions">
                 <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
                 <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
             </div>
         </div>
         <div class="tabs">
-            <button type="button" class="tab-btn" :class="{ active: activeTab === 'city' }" @click="switchTab('city')">Прогулки по городу</button>
-            <button type="button" class="tab-btn" :class="{ active: activeTab === 'tours' }" @click="switchTab('tours')">Длительные яхт-туры</button>
+            <button type="button" class="tab-btn" :class="{ active: activeTab === 'boats' }" @click="switchTab('boats')">Маршруты на катерах</button>
+            <button type="button" class="tab-btn" :class="{ active: activeTab === 'yachts' }" @click="switchTab('yachts')">Маршруты на яхтах</button>
         </div>
-           <div class="cards"
-               ref="cardsContainer"
-               @scroll="onScroll"
-               @touchstart.passive="onTouchStart"
-               @touchmove.passive="onTouchMove"
-               @touchend.passive="onTouchEnd"
-               @pointerdown.passive="onPointerDown"
-               @pointermove.passive="onPointerMove"
-               @pointerup.passive="onPointerUp"
-               @pointercancel.passive="onPointerUp">
-
-            <!-- Прогулки по городу -->
-            <template v-if="activeTab === 'city'">
-                <div class="card">
-                    <div class="wrap-img">
-                        <img src="../assets/card-1.jpg" alt="">
-                        <div class="badge">от 2-х часов</div>
+        <div
+            class="cards"
+            ref="cardsContainer"
+            @scroll="onScroll"
+            @touchstart.passive="onTouchStart"
+            @touchmove.passive="onTouchMove"
+            @touchend.passive="onTouchEnd"
+            @pointerdown.passive="onPointerDown"
+            @pointermove.passive="onPointerMove"
+            @pointerup.passive="onPointerUp"
+            @pointercancel.passive="onPointerUp">
+            <div
+                    v-for="route in visibleRoutes"
+                    :key="route.id"
+                    class="card"
+                    :class="{ 'card--custom': isCustomRoute(route) }"
+                    @click="handleRouteClick(route)">
+                    <div v-if="!isCustomRoute(route)" class="wrap-img">
+                        <img :src="route.image" :alt="route.title">
+                        <div class="badge">{{ route.duration || 'По договоренности' }}</div>
                     </div>
-                    <div class="card-info">
+                    <div class="card-info" :class="{ 'card-info--custom': isCustomRoute(route) }">
                         <div class="card-text">
-                            <span class="card-title">Катера и яхты на развод мостов</span>
-                            <span class="card-desc">Ночные прогулки под разводными мостами Санкт-Петербурга на катерах и яхтах</span>
+                            <span v-if="isCustomRoute(route)" class="card-label">Индивидуальный маршрут</span>
+                            <span class="card-title">{{ route.title }}</span>
+                            <span class="card-desc" :class="{ 'card-desc--custom': isCustomRoute(route) }">{{ getCustomDescription(route) }}</span>
+                            <span v-if="isCustomRoute(route)" class="card-note">Опишите пожелания — капитан предложит лучший вариант по времени и маршруту.</span>
                         </div>
-                        <button class="card-btn" @click="goToRoute('razvod-mostov')">Узнать подробнее</button>
+                        <button class="card-btn" @click.stop="handleRouteClick(route)">{{ getActionText(route) }}</button>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="wrap-img">
-                        <img src="../assets/card-2.png" alt="">
-                        <div class="badge">от 2-х часов</div>
-                    </div>
-                    <div class="card-info">
-                        <div class="card-text">
-                            <span class="card-title">Реки и каналы</span>
-                            <span class="card-desc">Прогулка по историческому центру Петербурга — реки, каналы, старинные особняки</span>
-                        </div>
-                        <button class="card-btn" @click="goToRoute('reki-kanaly')">Узнать подробнее</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="wrap-img">
-                        <img src="../assets/card-1.jpg" alt="">
-                        <div class="badge">от 2-х часов</div>
-                    </div>
-                    <div class="card-info">
-                        <div class="card-text">
-                            <span class="card-title">Романтическая прогулка</span>
-                            <span class="card-desc">Незабываемый вечер на воде для двоих с видами на ночной Петербург</span>
-                        </div>
-                        <button class="card-btn" @click="goToRoute('romantichnaya-progulka')">Узнать подробнее</button>
-                    </div>
-                </div>
-                <div class="card" v-show="!isMobile || showAll">
-                    <div class="wrap-img">
-                        <img src="../assets/card-2.png" alt="">
-                        <div class="badge">от 2-х часов</div>
-                    </div>
-                    <div class="card-info">
-                        <div class="card-text">
-                            <span class="card-title">Корпоративная прогулка</span>
-                            <span class="card-desc">Корпоратив на воде — яркое мероприятие для команды с профессиональной организацией</span>
-                        </div>
-                        <button class="card-btn" @click="goToRoute('korporativnaya-progulka')">Узнать подробнее</button>
-                    </div>
-                </div>
-            </template>
-
-            <!-- Длительные яхт-туры -->
-            <template v-if="activeTab === 'tours'">
-                <div class="card">
-                    <div class="wrap-img">
-                        <img src="../assets/card-1.jpg" alt="">
-                        <div class="badge">от 3-х часов</div>
-                    </div>
-                    <div class="card-info">
-                        <div class="card-text">
-                            <span class="card-title">Петергоф морем</span>
-                            <span class="card-desc">Путешествие до Петергофа по Финскому заливу — повторите путь царских особ</span>
-                        </div>
-                        <button class="card-btn" @click="goToRoute('petergof-morskoy')">Узнать подробнее</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="wrap-img">
-                        <img src="../assets/card-2.png" alt="">
-                        <div class="badge">от 4-х часов</div>
-                    </div>
-                    <div class="card-info">
-                        <div class="card-text">
-                            <span class="card-title">Тур в Кронштадт</span>
-                            <span class="card-desc">Морское путешествие в легендарный Кронштадт — форты, история и морские виды</span>
-                        </div>
-                        <button class="card-btn" @click="goToRoute('kronshtadt')">Узнать подробнее</button>
-                    </div>
-                </div>
-            </template>
         </div>
         <div class="cards-indicator" aria-hidden="true">
             <span v-for="n in pagesCount" :key="n" :class="['cards-indicator__dot', { 'cards-indicator__dot--active': (n - 1) === currentPage }]"></span>
         </div>
         <button
-            v-if="isMobile && !showAll && activeTab === 'city'"
+            v-if="isMobile && !showAll && routesForTab.length > mobileLimit"
             class="show-more-btn"
             @click="showAll = true"
         >Показать больше</button>
     </div>
+    <BookingModal v-model="isBookingOpen" />
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { boatsRoutes } from '../data/boatsRoutes'
+import { yachtsRoutes } from '../data/yachtsRoutes'
+import BookingModal from './BookingModal.vue'
 
 const router = useRouter()
 const cardsContainer = ref(null)
 const currentPage = ref(0)
 const pagesCount = ref(1)
-const activeTab = ref('city')
+const activeTab = ref('boats')
 const showAll = ref(false)
 const isMobile = ref(false)
+const mobileLimit = 3
+const isBookingOpen = ref(false)
 
-function goToRoute(slug) {
-  router.push({ name: 'RouteDetail', params: { slug } })
+const routesForTab = computed(() => (activeTab.value === 'boats' ? boatsRoutes : yachtsRoutes))
+const visibleRoutes = computed(() => {
+    if (!isMobile.value) return routesForTab.value
+    if (showAll.value) return routesForTab.value
+    return routesForTab.value.slice(0, mobileLimit)
+})
+
+function handleRouteClick(route) {
+    if (route.link && !route.isPopup) {
+        if (route.link.startsWith('/')) {
+            router.push(route.link)
+            return
+        }
+    }
+    isBookingOpen.value = true
 }
 
+function getActionText(route) {
+    if (route.title.toLowerCase().includes('свой маршрут')) return 'Обсудить'
+    if (route.link && !route.isPopup) return 'Подробнее'
+    return 'Оставить заявку'
+}
+
+function isCustomRoute(route) {
+    return route.hasImage === false || !route.image || /свой маршрут/i.test(route.title)
+}
+
+function getCustomDescription(route) {
+    if (!isCustomRoute(route)) return route.description
+    return 'Соберем индивидуальный маршрут по вашим пожеланиям. Согласуем длительность, места остановок и формат прогулки.'
+}
 function getVisibleCount() {
   const width = window.innerWidth
   if (width <= 768) return 1
@@ -382,6 +350,18 @@ onBeforeUnmount(() => {
     gap: 24px;
     background-color: #fff;
     border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+.card--custom {
+    background: linear-gradient(145deg, rgba(0, 118, 252, 0.12), rgba(255, 255, 255, 0.9));
+    border: 1px solid rgba(0, 118, 252, 0.2);
 }
 
 .wrap-img {
@@ -389,6 +369,7 @@ onBeforeUnmount(() => {
     overflow: hidden;
     border-radius: 16px;
     height: 238px;
+    background: #f2f4f7;
 }
 
 .wrap-img img {
@@ -396,6 +377,20 @@ onBeforeUnmount(() => {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.wrap-img--placeholder {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    background: linear-gradient(135deg, rgba(0, 118, 252, 0.2), rgba(0, 118, 252, 0.05));
+}
+
+.placeholder-content {
+    padding: 18px;
+    color: #1A1A1A;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .badge {
@@ -416,6 +411,11 @@ onBeforeUnmount(() => {
     gap: 32px;
     padding: 0 24px 24px 24px;
     flex: 1;
+}
+
+.card-info--custom {
+    padding: 24px;
+    gap: 20px;
 }
 
 .card-text {
@@ -439,6 +439,39 @@ onBeforeUnmount(() => {
     font-size: 18px;
     letter-spacing: 1px;
     opacity: .7;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-desc--custom {
+    color: #1A1A1A;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: 0;
+    opacity: 1;
+    -webkit-line-clamp: unset;
+}
+
+.card-label {
+    display: inline-flex;
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(0, 118, 252, 0.15);
+    color: #0076FC;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-note {
+    color: #5a6a8a;
+    font-size: 14px;
+    line-height: 1.45;
 }
 
 .card-btn {
@@ -450,6 +483,13 @@ onBeforeUnmount(() => {
     font-weight: 600;
     font-size: 15px;
     line-height: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.card-btn:hover {
+    background-color: #0061D1;
+    transform: translateY(-2px);
 }
 
 /* Responsive */
@@ -470,6 +510,10 @@ onBeforeUnmount(() => {
     
     .card-desc {
         font-size: 16px;
+    }
+
+    .card-desc--custom {
+        font-size: 15px;
     }
 }
 
@@ -544,6 +588,10 @@ onBeforeUnmount(() => {
         border-radius: 0;
     }
 
+    .wrap-img--placeholder {
+        align-items: center;
+    }
+
     .badge {
         font-size: 11px;
         padding: 5px 9px;
@@ -582,6 +630,19 @@ onBeforeUnmount(() => {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+
+    .card-desc--custom {
+        font-size: 12px;
+        -webkit-line-clamp: unset;
+    }
+
+    .card-info--custom {
+        padding: 16px;
+    }
+
+    .card-note {
+        font-size: 12px;
     }
 
     .card-btn {

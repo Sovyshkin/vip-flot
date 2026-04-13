@@ -1,10 +1,13 @@
 <script setup>
+import { useRoute } from 'vue-router'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+
+const route = useRoute()
 </script>
 <template>
   <AppHeader/>
-  <main class="main-content">
+  <main :class="['main-content', { 'main-content--inner': route.name !== 'Main' }]">
     <router-view/>
   </main>
   <AppFooter/>
@@ -54,6 +57,10 @@ body,
 .main-content {
   padding-top: 85px;
   flex: 1;
+}
+
+.main-content--inner .wrap {
+  gap: 20px;
 }
 
 /* Links */

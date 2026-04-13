@@ -3,6 +3,7 @@ import AppMain from '../components/AppMain.vue'
 import BoatDetail from '../components/BoatDetail.vue'
 import BlogArticle from '../components/BlogArticle.vue'
 import RouteDetail from '../components/RouteDetail.vue'
+import BridgeRoutesPage from '../components/BridgeRoutesPage.vue'
 import CatalogPage from '../components/CatalogPage.vue'
 import RoutesPage from '../components/RoutesPage.vue'
 import ToursPage from '../components/ToursPage.vue'
@@ -13,6 +14,7 @@ const routes = [
   { path: '/', name: 'Main', component: AppMain },
   { path: '/catalog', name: 'Catalog', component: CatalogPage },
   { path: '/routes', name: 'Routes', component: RoutesPage },
+  { path: '/marshruty/razvod-mostov', name: 'BridgeRoutes', component: BridgeRoutesPage },
   { path: '/tours', name: 'Tours', component: ToursPage },
   { path: '/boat/:slug', name: 'BoatDetail', component: BoatDetail },
   { path: '/blog/:slug', name: 'BlogArticle', component: BlogArticle },
