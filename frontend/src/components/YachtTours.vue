@@ -8,31 +8,44 @@
             </div>
         </div>
         <div class="cards">
-            <div v-for="tour in tours" :key="tour.id" class="card">
+            <div v-for="tour in yachtTours" :key="tour.id" class="card">
                 <div class="wrap-img">
-                    <img :src="tour.cardImage" alt="">
+                    <img :src="tour.imageUrl" :alt="tour.title">
                     <div class="badge">{{ tour.duration }}</div>
                 </div>
                 <div class="card-info">
                     <div class="card-text">
-                        <span class="card-title">{{ tour.name }}</span>
+                        <span class="card-title">{{ tour.title }}</span>
                         <span class="card-desc">{{ tour.description }}</span>
                     </div>
-                    <button class="card-btn" @click="goToTour(tour.slug)">Узнать подробнее</button>
+                    <button class="card-btn" @click="goToTour(tour.link)">Узнать подробнее</button>
                 </div>
             </div>
         </div>
     </div>
+    <BookingModal v-model="isBookingOpen" />
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { tours } from '../data/tours'
+import { yachtTours } from '../data/yachtsTours'
+import BookingModal from './BookingModal.vue'
 
 const router = useRouter()
+const isBookingOpen = ref(false)
 
-function goToTour(slug) {
-  router.push({ name: 'RouteDetail', params: { slug } })
+function goToTour(link) {
+  if (!link) {
+    isBookingOpen.value = true
+    return
+  }
+  
+  if (link.startsWith('#popup')) {
+    isBookingOpen.value = true
+  } else if (link.startsWith('/')) {
+    router.push(link)
+  }
 }
 
 function goToRoutesPage() {

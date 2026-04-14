@@ -2,14 +2,16 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Carousel from './Carousel.vue'
+import BookingModal from './BookingModal.vue'
 import { boats } from '../data/boats'
 import { yachts } from '../data/yachts'
 import { boatsRoutes } from '../data/boatsRoutes'
 import { yachtsRoutes } from '../data/yachtsRoutes'
-import { tours } from '../data/tours'
+import { yachtTours } from '../data/yachtsTours'
 
 const router = useRouter()
 const activeTab = ref('fleet')
+const isBookingOpen = ref(false)
 
 // Состояние открытия фильтров
 const showFilters = ref(false)
@@ -68,6 +70,19 @@ function getActionText(route) {
   if (route.title.toLowerCase().includes('свой маршрут')) return 'Обсудить'
   if (route.link && !route.isPopup) return 'Подробнее'
   return 'Оставить заявку'
+}
+
+function handleTourClick(tour) {
+  if (!tour.link) {
+    isBookingOpen.value = true
+    return
+  }
+  
+  if (tour.link.startsWith('#popup')) {
+    isBookingOpen.value = true
+  } else if (tour.link.startsWith('/')) {
+    router.push(tour.link)
+  }
 }
 
 function toggleFilters() {
@@ -179,13 +194,13 @@ const filteredRoutes = computed(() => {
 
 // Отфильтрованный список туров
 const filteredTours = computed(() => {
-  let result = [...tours]
+  let result = [...yachtTours]
 
   // Поиск по названию
   if (routeSearchQuery.value) {
     const query = routeSearchQuery.value.toLowerCase()
     result = result.filter(tour => 
-      tour.name.toLowerCase().includes(query) || 
+      tour.title.toLowerCase().includes(query) || 
       tour.description.toLowerCase().includes(query)
     )
   }
@@ -193,6 +208,7 @@ const filteredTours = computed(() => {
   // Фильтр по длительности
   if (durationFilter.value !== 'all') {
     result = result.filter(tour => {
+      if (!tour.duration) return false
       const duration = tour.duration.toLowerCase()
       // Извлекаем число из строки
       const hours = parseInt(duration.match(/\d+/)?.[0] || '0')
@@ -415,7 +431,7 @@ const filteredTours = computed(() => {
         </div>
 
           <div class="results-count">
-            {{ activeTab === 'routes' ? `Найдено: ${filteredRoutes.length} из ${routesForTab.length}` : `Найдено: ${filteredTours.length} из ${tours.length}` }}
+            {{ activeTab === 'routes' ? `Найдено: ${filteredRoutes.length} из ${routesForTab.length}` : `Найдено: ${filteredTours.length} из ${yachtTours.length}` }}
           </div>
         </div>
       </transition>
@@ -447,21 +463,25 @@ const filteredTours = computed(() => {
       </div>
 
       <div v-show="activeTab === 'tours' && filteredTours.length > 0" class="routes-grid">
-        <div v-for="tour in filteredTours" :key="tour.id" class="route-card">
+        <div 
+          v-for="tour in filteredTours" 
+          :key="tour.id" 
+          class="route-card">
           <div class="wrap-img">
-            <img :src="tour.images[0]" :alt="tour.name">
+            <img :src="tour.imageUrl" :alt="tour.title">
             <div class="badge">{{ tour.duration }}</div>
           </div>
           <div class="card-info">
             <div class="card-text">
-              <span class="card-title">{{ tour.name }}</span>
+              <span class="card-title">{{ tour.title }}</span>
               <span class="card-desc">{{ tour.description }}</span>
             </div>
-            <button class="card-btn" @click="goToRoute(tour.slug)">Узнать подробнее</button>
+            <button class="card-btn" @click="handleTourClick(tour)">Узнать подробнее</button>
           </div>
         </div>
       </div>
     </div>
+    <BookingModal v-model="isBookingOpen" />
   </div>
 </template>
 

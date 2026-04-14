@@ -7,33 +7,46 @@
       </div>
 
       <div class="tours-grid">
-        <div v-for="tour in tours" :key="tour.id" class="tour-card" @click="goToTour(tour.slug)">
+        <div v-for="tour in yachtTours" :key="tour.id" class="tour-card" @click="goToTour(tour.link)">
           <div class="tour-image">
-            <img :src="tour.cardImage" :alt="tour.name">
+            <img :src="tour.imageUrl" :alt="tour.title">
             <div class="badge">{{ tour.duration }}</div>
           </div>
           <div class="tour-info">
-            <h2 class="tour-title">{{ tour.name }}</h2>
+            <h2 class="tour-title">{{ tour.title }}</h2>
             <p class="tour-description">{{ tour.description }}</p>
             <div class="tour-details">
-              <div class="tour-price">от {{ tour.pricePerHour.toLocaleString('ru-RU') }} ₽/час</div>
+              <div class="tour-guests">{{ tour.guestsRaw }}</div>
               <button class="tour-btn">Подробнее</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <BookingModal v-model="isBookingOpen" />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { tours } from '../data/tours'
+import { yachtTours } from '../data/yachtsTours'
+import BookingModal from './BookingModal.vue'
 
 const router = useRouter()
+const isBookingOpen = ref(false)
 
-function goToTour(slug) {
-  router.push({ name: 'RouteDetail', params: { slug } })
+function goToTour(link) {
+  if (!link) {
+    isBookingOpen.value = true
+    return
+  }
+  
+  if (link.startsWith('#popup')) {
+    isBookingOpen.value = true
+  } else if (link.startsWith('/')) {
+    router.push(link)
+  }
 }
 </script>
 
@@ -135,10 +148,10 @@ function goToTour(slug) {
   margin-top: 8px;
 }
 
-.tour-price {
-  color: #0076FC;
-  font-size: 20px;
-  font-weight: 600;
+.tour-guests {
+  color: #949CA4;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .tour-btn {
@@ -193,10 +206,6 @@ function goToTour(slug) {
 
   .tour-description {
     font-size: 14px;
-  }
-
-  .tour-price {
-    font-size: 18px;
   }
 }
 
