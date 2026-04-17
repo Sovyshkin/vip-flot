@@ -44,7 +44,7 @@
           </article>
 
           <article v-if="hasItinerary" class="panel panel-reveal panel-reveal--3">
-            <h2 class="panel-title">Программа по дням</h2>
+            <h2 class="panel-title">{{ itinerarySectionTitle }}</h2>
             <div class="timeline">
               <div
                 v-for="(item, idx) in tour.itinerary"
@@ -147,6 +147,8 @@
       </div>
     </section>
 
+    <DetailPageSections />
+
     <BookingModal v-model="isBookingOpen" />
 
     <teleport to="body">
@@ -204,6 +206,7 @@
 import { computed, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import BookingModal from './BookingModal.vue'
+import DetailPageSections from './DetailPageSections.vue'
 import { getYachtTourBySlug } from '../data/yachtsTours'
 
 const route = useRoute()
@@ -219,6 +222,14 @@ const hasFaq = computed(() => Boolean(tour.value?.faq?.length))
 const hasGallery = computed(() => Boolean(tour.value?.gallery?.length))
 const hasIncluded = computed(() => Boolean(tour.value?.details?.included?.length))
 const hasPaidSeparately = computed(() => Boolean(tour.value?.details?.paidSeparately?.length))
+
+const dayPattern = /^\s*\d+(?:\s*[-–]\s*\d+)?\s*д(?:ень|ня|ней)\s*$/i
+
+const itinerarySectionTitle = computed(() => {
+  const itinerary = tour.value?.itinerary || []
+  const hasDayBasedLabels = itinerary.some((item) => dayPattern.test((item?.day || '').trim()))
+  return hasDayBasedLabels ? 'Программа по дням' : 'План тура'
+})
 
 const isLightboxOpen = ref(false)
 const activeImageIndex = ref(0)

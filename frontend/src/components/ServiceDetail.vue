@@ -116,6 +116,8 @@
         </div>
       </div>
     </div>
+
+    <DetailPageSections />
   </div>
   <div v-else class="not-found">
     <h1>Услуга не найдена</h1>
@@ -127,6 +129,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { getServiceBySlug } from '../data/services';
+import DetailPageSections from './DetailPageSections.vue';
 
 const route = useRoute();
 const service = ref(null);

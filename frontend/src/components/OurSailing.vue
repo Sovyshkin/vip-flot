@@ -5,6 +5,15 @@ import { sailingYachts } from '@/data/sailing.js'
 
 const router = useRouter()
 
+function getImageUrl(imageName) {
+    if (!imageName) return ''
+    if (typeof imageName !== 'string') return imageName
+    if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
+        return imageName
+    }
+    return `/images/${encodeURIComponent(imageName)}`
+}
+
 function goToBoat(slug) {
     router.push({ name: 'BoatDetail', params: { slug } })
 }
@@ -34,7 +43,7 @@ function goToBooking() {
             <div class="card" v-for="yacht in sailingYachts" :key="yacht.name">
                 <div class="wrap-img">
                     <Carousel :interval="4500">
-                        <img v-for="(image, index) in (Array.isArray(yacht.img) ? yacht.img : [yacht.img])" :key="index" :src="image" :alt="yacht.name">
+                        <img v-for="(image, index) in (Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage])" :key="index" :src="getImageUrl(image)" :alt="yacht.name">
                     </Carousel>
                 </div>
                 <div class="card-info" @click="yacht.slug && goToBoat(yacht.slug)" :style="yacht.slug ? 'cursor: pointer' : ''">

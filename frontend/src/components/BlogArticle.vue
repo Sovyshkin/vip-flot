@@ -46,6 +46,8 @@
         </div>
       </div>
     </div>
+
+    <DetailPageSections />
   </div>
   
   <div v-else class="not-found">
@@ -58,6 +60,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArticleBySlug, articles } from '../data/blog-articles'
+import DetailPageSections from './DetailPageSections.vue'
 
 const route = useRoute()
 const router = useRouter()

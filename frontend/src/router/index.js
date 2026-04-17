@@ -10,12 +10,14 @@ import ToursPage from '../components/ToursPage.vue'
 import YachtTourDetail from '../components/YachtTourDetail.vue'
 import ServiceDetail from '../components/ServiceDetail.vue'
 import ActivityDetail from '../components/ActivityDetail.vue'
+import MainRouteLandingPage from '../components/MainRouteLandingPage.vue'
 
 const routes = [
   { path: '/', name: 'Main', component: AppMain },
   { path: '/catalog', name: 'Catalog', component: CatalogPage },
   { path: '/routes', name: 'Routes', component: RoutesPage },
   { path: '/marshruty/razvod-mostov', name: 'BridgeRoutes', component: BridgeRoutesPage },
+  { path: '/marshruty/:slug', name: 'MainRouteLanding', component: MainRouteLandingPage },
   { path: '/tours', name: 'Tours', component: ToursPage },
   { path: '/kruizy/:slug', name: 'YachtTourDetail', component: YachtTourDetail },
   { path: '/boat/:slug', name: 'BoatDetail', component: BoatDetail },

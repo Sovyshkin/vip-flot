@@ -86,6 +86,8 @@ function goToTour(link) {
   background-color: #fff;
   border-radius: 16px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -126,6 +128,7 @@ function goToTour(link) {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex: 1;
 }
 
 .tour-title {
@@ -145,7 +148,7 @@ function goToTour(link) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-top: auto;
 }
 
 .tour-guests {

@@ -2,7 +2,7 @@
 import { onMounted, onBeforeUnmount } from 'vue'
 import MainBlock from "./MainBlock.vue"
 // import YachtTours from "./YachtTours.vue"
-import RoutesTours from "./RoutesTours.vue"
+import MainRoutesToursShowcase from "./MainRoutesToursShowcase.vue"
 import ActivitiesWater from "./ActivitiesWater.vue"
 import OurBoats from "./OurBoats.vue"
 import OurYachts from "./OurYachts.vue"
@@ -46,7 +46,7 @@ onBeforeUnmount(() => {
 	<div class="wrap">
 		<MainBlock/>
 		<!-- <div id="tours" class="animate-block" style="--delay: 0s;"><YachtTours/></div> -->
-        <div id="tours" class="animate-block" style="--delay: 0s;"><RoutesTours/></div>
+  <div id="tours" class="animate-block" style="--delay: 0s;"><MainRoutesToursShowcase/></div>
         <div id="activities" class="animate-block" style="--delay: 0s;"><ActivitiesWater/></div>
         <div id="boats" class="animate-block" style="--delay: 0s;"><OurBoats/></div>
         <div id="yachts" class="animate-block" style="--delay: 0s;"><OurYachts/></div>

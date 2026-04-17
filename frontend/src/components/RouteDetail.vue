@@ -96,6 +96,8 @@
         </div>
       </div>
     </div>
+
+    <DetailPageSections />
   </div>
   <div v-else class="not-found">
     <h1>Маршрут не найден</h1>
@@ -108,6 +110,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getRouteBySlug } from '../data/routes';
 import { getTourBySlug } from '../data/tours';
+import DetailPageSections from './DetailPageSections.vue';
 
 const vueRoute = useRoute();
 const router = useRouter();

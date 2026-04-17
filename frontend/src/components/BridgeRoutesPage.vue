@@ -30,6 +30,9 @@
         </article>
       </div>
     </div>
+
+    <DetailPageSections />
+
     <BookingModal v-model="isBookingOpen" />
   </div>
 </template>
@@ -37,6 +40,7 @@
 <script setup>
 import { bridgeRoutes } from '../data/bridgeRoutes'
 import BookingModal from './BookingModal.vue'
+import DetailPageSections from './DetailPageSections.vue'
 import { ref } from 'vue'
 
 const isBookingOpen = ref(false)

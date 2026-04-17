@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="cards">
-            <div v-for="tour in yachtTours" :key="tour.id" class="card">
+            <div v-for="tour in yachtTours" :key="tour.id" class="card" @click="goToTour(tour.link)">
                 <div class="wrap-img">
                     <img :src="tour.imageUrl" :alt="tour.title">
                     <div class="badge">{{ tour.duration }}</div>
@@ -18,7 +18,7 @@
                         <span class="card-title">{{ tour.title }}</span>
                         <span class="card-desc">{{ tour.description }}</span>
                     </div>
-                    <button class="card-btn" @click="goToTour(tour.link)">Узнать подробнее</button>
+                    <button class="card-btn" @click.stop="goToTour(tour.link)">Подробнее</button>
                 </div>
             </div>
         </div>
@@ -103,74 +103,85 @@ function goToRoutesPage() {
 .cards {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 15px;
 }
 
 .card {
-    width: 100%;
+    min-height: 450px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     background-color: #fff;
     border-radius: 16px;
-    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
 }
 
 .wrap-img {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 16px;
+    height: 238px;
+    background: #f2f4f7;
 }
 
 .wrap-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .badge {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: 0 16px 0 16px;
+    padding: 8px 12px;
+    background-color: black;
+    color: white;
     font-size: 14px;
     font-weight: 500;
+    bottom: 0;
+    left: 0;
 }
 
 .card-info {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 32px;
     padding: 0 24px 24px 24px;
+    flex: 1;
 }
 
 .card-text {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .card-title {
     color: #1A1A1A;
     font-weight: 700;
-    font-size: 20px;
-    text-transform: uppercase;
+    font-size: 24px;
+    line-height: 1.2;
 }
 
 .card-desc {
     color: #949CA4;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.4;
+    min-height: 3.2em;
 }
 
 .card-btn {
     width: 100%;
-    padding: 18.5px 32px;
+    padding: 16px 32px;
     background-color: #0076FC;
     border-radius: 16px;
     color: #FFFFFF;
@@ -189,6 +200,26 @@ function goToRoutesPage() {
 @media (max-width: 1024px) {
     .title {
         font-size: 28px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+        min-height: 420px;
+    }
+
+    .wrap-img {
+        height: 210px;
+    }
+
+    .card-title {
+        font-size: 21px;
+    }
+
+    .card-desc {
+        font-size: 15px;
     }
 }
 
@@ -211,6 +242,15 @@ function goToRoutesPage() {
         grid-template-columns: 1fr;
         gap: 16px;
     }
+
+    .card {
+        min-height: auto;
+        gap: 18px;
+    }
+
+    .wrap-img {
+        height: 200px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -229,6 +269,7 @@ function goToRoutesPage() {
     
     .card-desc {
         font-size: 13px;
+        min-height: auto;
     }
     
     .card-btn {

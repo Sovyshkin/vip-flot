@@ -9,6 +9,15 @@ const showAll = ref(false)
 const isMobile = ref(false)
 function checkMobile() { isMobile.value = window.innerWidth <= 768 }
 
+function getImageUrl(imageName) {
+    if (!imageName) return ''
+    if (typeof imageName !== 'string') return imageName
+    if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
+        return imageName
+    }
+    return `/images/${encodeURIComponent(imageName)}`
+}
+
 const visibleBoats = computed(() => showAll.value ? boats : boats.slice(0, isMobile.value ? 4 : 6))
 
 function goToBoatDetail(slug) {
@@ -48,7 +57,7 @@ onBeforeUnmount(() => {
             <div v-for="boat in visibleBoats" :key="boat.id" class="card">
                 <div class="wrap-img">
                     <Carousel :interval="4500">
-                        <img v-for="(image, index) in boat.cardImage" :key="index" :src="image" :alt="boat.name">
+                        <img v-for="(image, index) in boat.cardImage" :key="index" :src="getImageUrl(image)" :alt="boat.name">
                     </Carousel>
                 </div>
                 <div class="card-info" @click="goToBoatDetail(boat.slug)" style="cursor: pointer;">

@@ -154,6 +154,8 @@
         </div>
       </div>
     </div>
+
+    <DetailPageSections />
   </div>
   <div v-else class="not-found">
     <h1>Мероприятие не найдено</h1>
@@ -165,6 +167,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getActivityBySlug } from '../data/activities'
+import DetailPageSections from './DetailPageSections.vue'
 
 const route = useRoute()
 const activity = ref(null)

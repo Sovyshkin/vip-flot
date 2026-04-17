@@ -89,6 +89,15 @@ function toggleFilters() {
   showFilters.value = !showFilters.value
 }
 
+function getImageUrl(imageName) {
+  if (!imageName) return ''
+  if (typeof imageName !== 'string') return imageName
+  if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
+    return imageName
+  }
+  return `/images/${encodeURIComponent(imageName)}`
+}
+
 // Отфильтрованный и отсортированный список флота (катера + яхты)
 const filteredBoats = computed(() => {
   let result = [...boats, ...yachts]
@@ -329,7 +338,7 @@ const filteredTours = computed(() => {
         <div v-for="boat in filteredBoats" :key="boat.id" class="card">
           <div class="wrap-img">
             <Carousel :interval="4500">
-              <img v-for="(image, index) in boat.cardImage" :key="index" :src="image" :alt="boat.name">
+              <img v-for="(image, index) in boat.cardImage" :key="index" :src="getImageUrl(image)" :alt="boat.name">
             </Carousel>
           </div>
           <div class="card-info" @click="goToBoat(boat.slug)" style="cursor: pointer;">

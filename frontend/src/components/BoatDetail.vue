@@ -168,7 +168,7 @@
     </div>
 
     <!-- Смотрите также -->
-    <section class="also-section" v-if="relatedVessels.length">
+    <!-- <section class="also-section" v-if="relatedVessels.length">
       <div class="also-header">
         <h2 class="also-title">Смотрите также</h2>
         <router-link :to="{ name: 'Catalog' }" class="section-link">Весь каталог →</router-link>
@@ -190,8 +190,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Популярные маршруты -->
     <section class="routes-preview-section">
       <div class="routes-preview-header">
         <h2 class="routes-preview-title">Популярные маршруты</h2>
@@ -211,7 +209,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
+
+    <DetailPageSections />
   </div>
   <div v-else class="not-found">
     <h1>Катер не найден</h1>
@@ -241,6 +241,7 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { boats, getBoatBySlug } from '../data/boats';
@@ -250,6 +251,7 @@ import { boatsRoutes } from '../data/boatsRoutes';
 import { yachtsRoutes } from '../data/yachtsRoutes';
 import Carousel from './Carousel.vue';
 import BookingModal from './BookingModal.vue';
+import DetailPageSections from './DetailPageSections.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -274,7 +276,7 @@ const relatedVessels = computed(() => {
       name: b.name,
       capacity: b.capacity,
       pricePerHour: b.pricePerHour,
-      _image: Array.isArray(b.cardImage) ? b.cardImage[0] : b.cardImage,
+      _image: Array.isArray(b.cardImage) ? getImageUrl(b.cardImage[0]) : getImageUrl(b.cardImage),
       _type: 'Катер'
     })),
     ...yachts.map(y => ({
@@ -282,7 +284,7 @@ const relatedVessels = computed(() => {
       name: y.name,
       capacity: y.capacity,
       pricePerHour: y.pricePerHour,
-      _image: Array.isArray(y.cardImage) ? y.cardImage[0] : y.cardImage,
+      _image: Array.isArray(y.cardImage) ? getImageUrl(y.cardImage[0]) : getImageUrl(y.cardImage),
       _type: 'Яхта'
     })),
     ...sailingYachts.filter(s => s.slug).map(s => ({
@@ -290,8 +292,8 @@ const relatedVessels = computed(() => {
       name: s.name,
       capacity: s.capacity,
       pricePerHour: s.pricePerHour,
-      _image: Array.isArray(s.img) ? s.img[0] : s.img,
-      _type: 'Парусная'
+      _image: Array.isArray(s.cardImage) ? getImageUrl(s.cardImage[0]) : getImageUrl(s.cardImage),
+      _type: 'Парусная яхта'
     }))
   ];
   return all.filter(v => v.slug !== currentSlug).slice(0, 4);
@@ -325,6 +327,15 @@ onMounted(() => {
   const slug = route.params.slug;
   boat.value = getBoatBySlug(slug) || getYachtBySlug(slug) || getSailingBySlug(slug);
 });
+
+function getImageUrl(imageName) {
+  if (!imageName) return ''
+  if (typeof imageName !== 'string') return imageName
+  if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
+    return imageName
+  }
+  return `/images/${encodeURIComponent(imageName)}`
+}
 
 function goToVessel(slug) {
   router.push({ name: 'BoatDetail', params: { slug } });
