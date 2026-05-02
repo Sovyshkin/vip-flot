@@ -1,34 +1,33 @@
 <template>
   <div v-if="boat" class="boat-detail">
     <div class="hero-section">
-      <div class="hero-image">
+      <div class="hero-image" @click="openFullscreen">
         <Carousel :interval="5000" :showDots="true" :showArrows="true">
           <div v-for="(image, index) in boat.images" :key="index" class="slide-item">
             <img :src="image" :alt="`${boat.name} - фото ${index + 1}`">
           </div>
         </Carousel>
-        <button class="fullscreen-btn" @click="openFullscreen" aria-label="Открыть на весь экран">
+        <button class="fullscreen-btn" @click.stop="openFullscreen" aria-label="Открыть на весь экран">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" fill="white"/>
           </svg>
         </button>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <h1 class="boat-name">{{ boat.name }}</h1>
-          <div class="boat-price-block">
-            <div class="price-item" v-if="boat.pricePerHour">
-              <span class="price-label">от</span>
-              <span class="price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
-              <span class="price-period">/час</span>
-            </div>
-            <div class="price-sep" v-if="boat.pricePerHour && boat.pricePerDay"></div>
-            <div class="price-item" v-if="boat.pricePerDay">
-              <span class="price-label">от</span>
-              <span class="price-value price-value--day">{{ boat.pricePerDay.toLocaleString('ru-RU') }} ₽</span>
-              <span class="price-period">/сутки</span>
-            </div>
-            <span class="price-value" v-if="!boat.pricePerHour">Цена по запросу</span>
+      </div>
+      <div class="boat-header">
+        <h1 class="boat-name">{{ boat.name }}</h1>
+        <div class="boat-price-block">
+          <div class="price-item" v-if="boat.pricePerHour">
+            <span class="price-label">от</span>
+            <span class="price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
+            <span class="price-period">/час</span>
           </div>
+          <div class="price-sep" v-if="boat.pricePerHour && boat.pricePerDay"></div>
+          <div class="price-item" v-if="boat.pricePerDay">
+            <span class="price-label">от</span>
+            <span class="price-value price-value--day">{{ boat.pricePerDay.toLocaleString('ru-RU') }} ₽</span>
+            <span class="price-period">/сутки</span>
+          </div>
+          <span class="price-value" v-if="!boat.pricePerHour">Цена по запросу</span>
         </div>
       </div>
     </div>
@@ -36,11 +35,6 @@
     <div class="boat-content">
       <div class="content-grid">
         <div class="main-info">
-          <section class="info-section">
-            <h2 class="section-title">О катере</h2>
-            <div class="boat-description" v-html="formattedDescription"></div>
-          </section>
-
           <section class="info-section">
             <h2 class="section-title">Характеристики</h2>
             <div class="specs-grid">
@@ -56,24 +50,6 @@
                   <span class="spec-value">{{ boat.length }} метров</span>
                 </div>
               </div>
-              <div class="spec-item" v-if="boat.specifications && boat.specifications.engine">
-                <div class="spec-content">
-                  <span class="spec-label">Двигатель</span>
-                  <span class="spec-value">{{ boat.specifications.engine }}</span>
-                </div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-content">
-                  <span class="spec-label">Макс. скорость</span>
-                  <span class="spec-value">{{ boat.specifications ? boat.specifications.maxSpeed : boat.maxSpeed }}</span>
-                </div>
-              </div>
-              <div class="spec-item" v-if="boat.specifications && boat.specifications.fuelType">
-                <div class="spec-content">
-                  <span class="spec-label">Топливо</span>
-                  <span class="spec-value">{{ boat.specifications.fuelType }}</span>
-                </div>
-              </div>
               <div class="spec-item">
                 <div class="spec-content">
                   <span class="spec-label">Каюты</span>
@@ -81,6 +57,11 @@
                 </div>
               </div>
             </div>
+          </section>
+
+          <section class="info-section">
+            <h2 class="section-title">О катере</h2>
+            <div class="boat-description" v-html="formattedDescription"></div>
           </section>
 
           <section class="info-section">
@@ -149,12 +130,13 @@
               </div>
               <div class="form-group">
                 <label class="group-name" for="booking-date">Дата прогулки</label>
-                <input 
+                <input
                   v-model="formData.date"
-                  class="group-value" 
-                  type="date" 
-                  id="booking-date" 
-                  name="date" 
+                  class="group-value"
+                  type="date"
+                  id="booking-date"
+                  name="date"
+                  placeholder="Выберите дату"
                 />
               </div>
               <button type="submit" class="btn-book" :disabled="isLoading">
@@ -228,11 +210,22 @@
           </svg>
         </button>
         <div class="fullscreen-carousel-wrapper">
-          <Carousel :interval="0" :showDots="true" :showArrows="true">
+          <Carousel :interval="0" :showDots="true" :showArrows="true" ref="fullscreenCarousel">
             <div v-for="(image, index) in boat.images" :key="index" class="slide-item">
               <img :src="image" :alt="`${boat.name} - фото ${index + 1}`">
             </div>
           </Carousel>
+          <div class="thumbnails-strip">
+            <div
+              v-for="(image, index) in boat.images"
+              :key="index"
+              class="thumbnail"
+              :class="{ 'thumbnail--active': index === fullscreenActiveIndex }"
+              @click="goToThumbnail(index)"
+            >
+              <img :src="image" :alt="`Миниатюра ${index + 1}`">
+            </div>
+          </div>
         </div>
       </div>
     </Transition>
@@ -258,6 +251,8 @@ const router = useRouter();
 const boat = ref(null);
 const isFullscreenOpen = ref(false);
 const isBookingOpen = ref(false);
+const fullscreenActiveIndex = ref(0);
+const fullscreenCarousel = ref(null);
 
 const formattedDescription = computed(() => {
   if (!boat.value?.description) return ''
@@ -370,6 +365,13 @@ function openFullscreen() {
 function closeFullscreen() {
   isFullscreenOpen.value = false;
   document.body.style.overflow = '';
+}
+
+function goToThumbnail(index) {
+  fullscreenActiveIndex.value = index;
+  if (fullscreenCarousel.value) {
+    fullscreenCarousel.value.go(index);
+  }
 }
 
 function handleEscKey(e) {
@@ -584,11 +586,12 @@ function onPhoneKeydown(e) {
 }
 
 .hero-image {
-  position: relative;
-  width: 100%;
-  max-height: 500px;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
+   position: relative;
+   width: 100%;
+   max-height: 500px;
+   aspect-ratio: 16 / 9;
+   overflow: hidden;
+   cursor: pointer;
 }
 
 /* Carousel inside hero-image should not have border-radius */
@@ -647,31 +650,16 @@ function onPhoneKeydown(e) {
   transform: none;
 }
 
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero-content {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  right: 40px;
-  z-index: 2;
+.boat-header {
+  padding: 32px 40px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  pointer-events: none;
+  align-items: center;
+  background: #fff;
 }
 
 .boat-name {
-  color: #FFFFFF;
+  color: #1A1A1A;
   font-size: 48px;
   font-weight: 700;
   text-transform: uppercase;
@@ -682,8 +670,7 @@ function onPhoneKeydown(e) {
 .boat-price-block {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.05);
   padding: 16px 24px;
   border-radius: 16px;
 }
@@ -697,7 +684,7 @@ function onPhoneKeydown(e) {
 .price-sep {
   width: 1px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.15);
   margin: 0 20px;
   align-self: center;
 }
@@ -707,19 +694,19 @@ function onPhoneKeydown(e) {
 }
 
 .price-label {
-  color: rgba(255, 255, 255, 0.7);
+  color: #949CA4;
   font-size: 14px;
   font-weight: 400;
 }
 
 .price-value {
-  color: #FFFFFF;
+  color: #1A1A1A;
   font-size: 32px;
   font-weight: 700;
 }
 
 .price-period {
-  color: rgba(255, 255, 255, 0.7);
+  color: #949CA4;
   font-size: 16px;
   font-weight: 400;
 }
@@ -1008,7 +995,7 @@ function onPhoneKeydown(e) {
   .boat-content {
     padding: 40px 60px;
   }
-  
+
   .content-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -1017,52 +1004,72 @@ function onPhoneKeydown(e) {
   .sidebar {
     position: static;
   }
-  
+
   .booking-card {
     position: static;
   }
-  
+
   .section-title {
     font-size: 26px;
+  }
+
+  .boat-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 60px;
+  }
+
+  .boat-name {
+    font-size: 36px;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-section {
-    height: 400px;
-  }
-  
   .hero-image {
     height: 400px;
   }
 
-  .hero-content {
-    padding: 30px 20px;
+  .hero-image :deep(.carousel) {
+    border-radius: 0;
+  }
+
+  .boat-header {
+    padding: 24px 20px;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
 
   .boat-name {
-    font-size: 32px;
+    font-size: 28px;
   }
-  
+
+  .boat-price-block {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
   .price-value {
-    font-size: 36px;
+    font-size: 24px;
   }
-  
+
+  .price-sep {
+    display: none;
+  }
+
   .boat-content {
     padding: 30px 20px;
   }
-  
+
   .main-info {
     padding: 0;
   }
-  
+
   .section-title {
     font-size: 24px;
   }
-  
+
   .boat-description {
     font-size: 15px;
   }
@@ -1071,71 +1078,71 @@ function onPhoneKeydown(e) {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .booking-card {
     padding: 24px;
   }
-  
+
   .booking-title {
     font-size: 22px;
   }
-  
+
   .booking-price-block {
     font-size: 28px;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-section {
+  .hero-image {
     height: 350px;
   }
-  
-  .hero-content {
-    padding: 24px 16px;
+
+  .boat-header {
+    padding: 20px 16px;
   }
-  
+
   .boat-name {
-    font-size: 26px;
+    font-size: 22px;
   }
-  
+
   .price-label,
   .price-period {
     font-size: 14px;
   }
-  
+
   .price-value {
-    font-size: 30px;
+    font-size: 24px;
   }
-  
+
   .boat-content {
     padding: 24px 16px;
   }
-  
+
   .section-title {
     font-size: 20px;
   }
-  
+
   .boat-description {
     font-size: 14px;
   }
-  
+
   .spec-label,
   .feature-item {
     font-size: 13px;
   }
-  
+
   .booking-card {
     padding: 20px;
   }
-  
+
   .booking-title {
     font-size: 20px;
   }
-  
+
   .booking-price-block {
     font-size: 24px;
   }
@@ -1143,17 +1150,17 @@ function onPhoneKeydown(e) {
   .booking-label {
     font-size: 12px;
   }
-  
+
   .booking-input {
     padding: 12px;
     font-size: 14px;
   }
-  
+
   .booking-btn {
     padding: 14px 24px;
     font-size: 14px;
   }
-  
+
   .not-found h1 {
     font-size: 24px;
   }
@@ -1162,7 +1169,7 @@ function onPhoneKeydown(e) {
 /* Fullscreen Gallery Styles */
 .fullscreen-btn {
   position: absolute;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
   z-index: 10;
   background: rgba(0, 0, 0, 0.6);
@@ -1227,6 +1234,7 @@ function onPhoneKeydown(e) {
   max-width: 1400px;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -1235,10 +1243,52 @@ function onPhoneKeydown(e) {
 .fullscreen-carousel-wrapper :deep(.carousel) {
   position: relative;
   width: 100%;
-  height: 80vh;
-  max-height: 100%;
+  height: 75vh;
+  max-height: calc(100% - 100px);
   border-radius: 12px;
   inset: auto;
+}
+
+.thumbnails-strip {
+  display: flex;
+  gap: 12px;
+  padding: 16px 0 0;
+  overflow-x: auto;
+  justify-content: center;
+  max-width: 100%;
+  scrollbar-width: none;
+}
+
+.thumbnails-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 72px;
+  height: 52px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+  opacity: 0.9;
+}
+
+.thumbnail--active {
+  opacity: 1;
+  border-color: #0076FC;
+  transform: scale(1.05);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .fullscreen-carousel-wrapper :deep(.slides) {
@@ -1655,9 +1705,9 @@ function onPhoneKeydown(e) {
 
 @media (max-width: 480px) {
   .fullscreen-btn {
-    width: 36px;
-    height: 36px;
-    top: 12px;
+    width: 40px;
+    height: 40px;
+    bottom: 12px;
     right: 12px;
   }
 

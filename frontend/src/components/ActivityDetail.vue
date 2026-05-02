@@ -155,7 +155,7 @@
       </div>
     </div>
 
-    <DetailPageSections />
+    <DetailPageSectionsEvents />
   </div>
   <div v-else class="not-found">
     <h1>Мероприятие не найдено</h1>
@@ -167,7 +167,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getActivityBySlug } from '../data/activities'
-import DetailPageSections from './DetailPageSections.vue'
+import DetailPageSectionsEvents from './DetailPageSectionsEvents.vue'
 
 const route = useRoute()
 const activity = ref(null)
@@ -464,6 +464,20 @@ async function goToBooking() {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  order: 0;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  order: 1;
+}
+
+.main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .info-section {
@@ -507,10 +521,24 @@ async function goToBooking() {
 .details-content :deep(ul) {
   margin: 16px 0;
   padding-left: 24px;
+  list-style: none;
 }
 
 .details-content :deep(li) {
   margin-bottom: 8px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.details-content :deep(li)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: #0076FC;
+  border-radius: 50%;
 }
 
 .features-grid {
@@ -521,7 +549,7 @@ async function goToBooking() {
 
 .feature-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   font-size: 15px;
   color: #1A1A1A;
@@ -756,7 +784,11 @@ textarea.group-value {
   }
 
   .sidebar {
-    order: -1;
+    order: 1;
+  }
+
+  .main-info {
+    order: 0;
   }
 
   .booking-card {

@@ -117,7 +117,7 @@
       </div>
     </div>
 
-    <DetailPageSections />
+    <DetailPageSectionsEvents />
   </div>
   <div v-else class="not-found">
     <h1>Услуга не найдена</h1>
@@ -129,7 +129,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { getServiceBySlug } from '../data/services';
-import DetailPageSections from './DetailPageSections.vue';
+import DetailPageSectionsEvents from './DetailPageSectionsEvents.vue';
 
 const route = useRoute();
 const service = ref(null);
@@ -465,10 +465,24 @@ async function goToBooking() {
 .details-content :deep(ul) {
   margin: 12px 0;
   padding-left: 20px;
+  list-style: none;
 }
 
 .details-content :deep(li) {
   margin: 8px 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.details-content :deep(li)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: #0076FC;
+  border-radius: 50%;
 }
 
 .details-content :deep(strong) {
@@ -484,7 +498,7 @@ async function goToBooking() {
 
 .feature-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   padding: 12px;
   background: #F5F5F5;

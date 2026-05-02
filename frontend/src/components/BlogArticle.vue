@@ -47,7 +47,43 @@
       </div>
     </div>
 
-    <DetailPageSections />
+    <section class="planning-section">
+      <div class="planning-container">
+        <h2 class="planning-title">Запланировать водную прогулку</h2>
+        <div class="blocks">
+          <div class="block block-1" @click="goToRoutes" role="button" tabindex="0">
+            <img class="block-image" src="/img/block-1.d29e1fe6.png" alt="">
+            <div class="block-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
+              </svg>
+            </div>
+            <h2 class="title-block">Выбираем маршрут</h2>
+            <button class="go-into"><img src="/img/go-into.eca97daa.svg" alt=""></button>
+          </div>
+          <div class="block block-2" @click="goToActivities" role="button" tabindex="0">
+            <img class="block-image" src="/img/block-2.3f3e9c30.png" alt="">
+            <div class="block-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z" fill="white"/>
+              </svg>
+            </div>
+            <h2 class="title-block">Выбираем повод</h2>
+            <button class="go-into"><img src="/img/go-into.eca97daa.svg" alt=""></button>
+          </div>
+          <div class="block block-3" @click="goToCatalog" role="button" tabindex="0">
+            <img class="block-image" src="/img/block-3.243ea7d4.png" alt="">
+            <div class="block-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.64 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.15.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z" fill="white"/>
+              </svg>
+            </div>
+            <h2 class="title-block">Выбираем судно</h2>
+            <button class="go-into"><img src="/img/go-into.eca97daa.svg" alt=""></button>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
   
   <div v-else class="not-found">
@@ -60,7 +96,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArticleBySlug, articles } from '../data/blog-articles'
-import DetailPageSections from './DetailPageSections.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -90,6 +125,18 @@ function goToArticle(slug) {
   router.push({ name: 'BlogArticle', params: { slug } })
   article.value = getArticleBySlug(slug)
   window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+function goToRoutes() {
+  router.push({ name: 'Routes' })
+}
+
+function goToActivities() {
+  router.push({ name: 'Main', hash: '#activities' })
+}
+
+function goToCatalog() {
+  router.push({ name: 'Main', hash: '#boats' })
 }
 </script>
 
@@ -341,6 +388,105 @@ function goToArticle(slug) {
   overflow: hidden;
 }
 
+.planning-section {
+  padding: 80px 0 100px;
+  background: #f5f5f5;
+}
+
+.planning-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.planning-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.blocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.block {
+  position: relative;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.block-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.block:hover .block-image {
+  transform: scale(1.05);
+}
+
+.block-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 102, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.title-block {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 60px;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.go-into {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.go-into img {
+  width: 20px;
+  height: 20px;
+}
+
+.block:hover .go-into {
+  transform: translateX(4px);
+}
+
 .not-found {
   min-height: 60vh;
   display: flex;
@@ -435,6 +581,24 @@ function goToArticle(slug) {
   
   .sidebar-title {
     font-size: 20px;
+  }
+
+  .planning-section {
+    padding: 60px 40px 80px;
+  }
+
+  .planning-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .blocks {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .block {
+    height: 200px;
   }
 }
 
@@ -531,6 +695,123 @@ function goToArticle(slug) {
   
   .not-found h1 {
     font-size: 24px;
+  }
+
+  .planning-section {
+    padding: 60px 0 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: 350px;
+  }
+  
+  .hero-content {
+    padding: 24px 16px;
+  }
+  
+  .article-meta {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .article-category {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  
+  .article-date {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  
+  .article-title {
+    font-size: 24px;
+  }
+  
+  .article-description {
+    font-size: 14px;
+  }
+  
+  .article-content {
+    padding: 24px 16px;
+  }
+  
+  .content-wrapper {
+    padding: 20px;
+  }
+  
+  .article-body {
+    font-size: 15px;
+  }
+  
+  .article-body :deep(h2) {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 16px;
+  }
+  
+  .article-body :deep(h3) {
+    font-size: 18px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+  
+  .article-body :deep(p) {
+    margin-bottom: 16px;
+  }
+  
+  .article-body :deep(ul) {
+    margin: 16px 0;
+  }
+  
+  .back-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  .sidebar-card {
+    padding: 20px;
+  }
+  
+  .sidebar-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .related-thumb {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .related-category {
+    font-size: 11px;
+  }
+  
+  .related-title {
+    font-size: 13px;
+  }
+  
+  .not-found h1 {
+    font-size: 24px;
+  }
+
+  .planning-section {
+    padding: 40px 20px 60px;
+  }
+
+  .planning-container {
+    padding: 0;
+  }
+
+  .blocks {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .block {
+    height: 180px;
   }
 }
 </style>

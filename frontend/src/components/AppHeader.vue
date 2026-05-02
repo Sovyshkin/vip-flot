@@ -51,35 +51,61 @@
         </div>
 
         <!-- ЯХТ-ТУРЫ -->
-        <div class="mobile-drawer__item" @click="navigateTours">
-          <span class="mobile-drawer__item-label">ЯХТ-ТУРЫ</span>
-          <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <div class="mobile-drawer__item" :class="{ open: openSection === 'tours' }" @click="toggleSection('tours')">
+          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'tours' }">ЯХТ-ТУРЫ</span>
+          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'tours' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
+        </div>
+        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'tours' }">
+          <span class="mobile-drawer__sub-item" @click="navigateTours">Все яхт-туры</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('route/razvod-mostov')">Развод мостов</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('route/petergof-morskoy')">Петергоф морем</span>
         </div>
 
         <!-- МАРШРУТЫ -->
-        <div class="mobile-drawer__item" @click="navigateRoutes">
-          <span class="mobile-drawer__item-label">МАРШРУТЫ</span>
-          <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <div class="mobile-drawer__item" :class="{ open: openSection === 'routes' }" @click="toggleSection('routes')">
+          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'routes' }">МАРШРУТЫ</span>
+          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'routes' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
+        </div>
+        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'routes' }">
+          <span class="mobile-drawer__sub-item" @click="navigateRoutes">Все маршруты</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('route/reki-kanaly')">Реки и каналы</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('route/nevskiy-prospekt')">Невский проспект</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('route/kronshtadt')">Кронштадт</span>
         </div>
 
         <!-- МЕРОПРИЯТИЯ -->
-        <div class="mobile-drawer__item" @click="navigate('activities')">
-          <span class="mobile-drawer__item-label">МЕРОПРИЯТИЯ</span>
-          <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <div class="mobile-drawer__item" :class="{ open: openSection === 'events' }" @click="toggleSection('events')">
+          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'events' }">МЕРОПРИЯТИЯ</span>
+          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'events' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
+        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'events' }">
+          <span class="mobile-drawer__sub-item" @click="navigate('activities')">Все мероприятия</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('activity/den-rozhdeniya')">День рождения</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('activity/svadba')">Свадьба</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('activity/devichnik')">Девичник</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('activity/malchishnik')">Мальчишник</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('activity/korporativy')">Корпотив</span>
+        </div>
 
         <!-- УСЛУГИ -->
-        <div class="mobile-drawer__item" @click="navigate('services')">
-          <span class="mobile-drawer__item-label">УСЛУГИ</span>
-          <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <div class="mobile-drawer__item" :class="{ open: openSection === 'services' }" @click="toggleSection('services')">
+          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'services' }">УСЛУГИ</span>
+          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'services' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
+        </div>
+        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'services' }">
+          <span class="mobile-drawer__sub-item" @click="navigate('services')">Все услуги</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('service/catering')">Кейтеринг</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('service/photographer')">Фотограф</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('service/decoration')">Украшение палубы</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('service/live-music')">Живая музыка</span>
         </div>
       </nav>
 
@@ -191,7 +217,7 @@ function scrollToElement(id) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 12px 40px;
   background-color: #f5f5f5;
   z-index: 1000;
   transition: box-shadow 0.3s ease;
@@ -215,15 +241,15 @@ function scrollToElement(id) {
 .vipflot-header__logo-text {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 600;
-  font-size: 25px;
-  letter-spacing: 9px;
+  font-size: 20px;
+  letter-spacing: 7px;
   text-transform: uppercase;
   color: #1a1a1a;
 }
 
 .vipflot-header__logo-subtitle {
   font-weight: 200;
-  font-size: 12px;
+  font-size: 10px;
   color: #949ca4;
 }
 
@@ -326,7 +352,7 @@ function scrollToElement(id) {
   font-weight: 600;
   font-family: "Golos Text", sans-serif;
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
   transition: color 0.2s ease;
 }

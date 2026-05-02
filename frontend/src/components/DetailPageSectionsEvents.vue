@@ -1,23 +1,31 @@
 <template>
   <section class="detail-page-sections">
     <div class="wrap detail-page-sections__stack">
-      <RoutesTours />
-      <YachtTours />
-      <OurYachts />
-      <OurBoats />
-      <OurSailing />
+      <FleetTabs />
+      <YachtToursGallery v-if="pageType === 'activity'" />
       <RequestBook />
     </div>
   </section>
 </template>
 
 <script setup>
-import RoutesTours from './RoutesTours.vue'
-import YachtTours from './YachtTours.vue'
-import OurYachts from './OurYachts.vue'
-import OurBoats from './OurBoats.vue'
-import OurSailing from './OurSailing.vue'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import FleetTabs from './FleetTabs.vue'
+import YachtToursGallery from './YachtToursGallery.vue'
 import RequestBook from './RequestBook.vue'
+
+const route = useRoute()
+
+const pageType = computed(() => {
+  if (route.name === 'ServiceDetail') {
+    return 'service'
+  }
+  if (route.name === 'ActivityDetail') {
+    return 'activity'
+  }
+  return 'default'
+})
 </script>
 
 <style scoped>

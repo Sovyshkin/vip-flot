@@ -79,15 +79,15 @@
             <li><a href="#" @click.prevent="scrollToSection('blog')">Новости и статьи</a></li>
           </ul>
         </div>
-      </div>
 
-      <div class="footer-bottom">
-        <div class="footer-copyright">
-          <p>© 2025 VIPFLOT</p>
-          <p>Информация на сайте не является публичной офертой</p>
-        </div>
-        <div class="footer-meta">
-          <p>*Meta Platforms Inc, признана экстремистской организацией на территории РФ</p>
+        <div class="footer-bottom">
+          <div class="footer-copyright">
+            <p>© 2025 VIPFLOT</p>
+            <p>Информация на сайте не является публичной офертой</p>
+          </div>
+          <div class="footer-meta">
+            <p>*Meta Platforms Inc, признана экстремистской организацией на территории РФ</p>
+          </div>
         </div>
       </div>
     </div>
@@ -131,6 +131,7 @@ function scrollToElement(id) {
   background-color: #1A1A1A;
   color: #fff;
   padding: 60px 40px 30px;
+  position: relative;
 }
 
 .footer-content {
@@ -247,11 +248,16 @@ function scrollToElement(id) {
 }
 
 .footer-bottom {
+  grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   padding-top: 30px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-left: -40px;
+  margin-right: -40px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .footer-copyright,
@@ -285,19 +291,58 @@ function scrollToElement(id) {
     padding: 40px 20px 20px;
   }
 
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
   .footer-main {
-    grid-template-columns: 1fr;
-    gap: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    margin-bottom: 16px;
+  }
+
+  .footer-main > .footer-column {
+    margin-bottom: 24px;
+  }
+
+  .footer-main > .footer-column .footer-title {
+    margin-bottom: 12px;
+  }
+
+  .footer-main > .footer-column .footer-links a {
+    font-size: 13px;
   }
 
   .footer-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+    margin: 0;
+    padding: 0;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-copyright,
+  .footer-meta {
+    gap: 4px;
+  }
+
+  .footer-copyright p,
+  .footer-meta p {
+    font-size: 11px;
   }
 
   .footer-meta {
-    text-align: left;
+    text-align: right;
   }
 }
 </style>

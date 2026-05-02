@@ -17,7 +17,7 @@
              @pointermove.passive="onPointerMove"
              @pointerup.passive="onPointerUp"
              @pointercancel.passive="onPointerUp">
-            <div class="card" v-for="article in articles" :key="article.id">
+            <router-link class="card" :to="{ name: 'BlogArticle', params: { slug: article.slug } }" v-for="article in articles" :key="article.id">
                 <div class="wrap-img">
                     <img :src="article.image" :alt="article.title">
                     <div class="badge">{{ article.date }}</div>
@@ -28,9 +28,9 @@
                         <span class="card-title">{{ article.title }}</span>
                         <span class="card-desc">{{ article.description }}</span>
                     </div>
-                    <button class="card-btn" @click="goToArticle(article.slug)">Читать далее</button>
+                    <span class="card-btn">Читать далее</span>
                 </div>
-            </div>
+            </router-link>
         </div>
         <div class="cards-indicator" aria-hidden="true">
             <span v-for="n in pagesCount" :key="n" :class="['cards-indicator__dot', { 'cards-indicator__dot--active': (n - 1) === currentPage }]"></span>
@@ -40,17 +40,11 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { useRouter } from 'vue-router'
 import { articles } from '../data/blog-articles'
 
-const router = useRouter()
 const cardsContainer = ref(null)
 const currentPage = ref(0)
 const pagesCount = ref(1)
-
-function goToArticle(slug) {
-  router.push({ name: 'BlogArticle', params: { slug } })
-}
 
 // swipe / pointer state
 let startX = 0
@@ -107,6 +101,7 @@ function onTouchEnd() {
 }
 
 function onPointerDown(e) {
+  if (e.target.closest('.card')) return
   startX = e.clientX
   currentX = startX
   isDragging = true
@@ -256,6 +251,9 @@ onBeforeUnmount(() => {
     flex-direction: column;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .card:hover {
@@ -333,7 +331,6 @@ onBeforeUnmount(() => {
 .card-btn {
     background: #0066FF;
     color: #fff;
-    border: none;
     padding: 14px 28px;
     border-radius: 8px;
     font-size: 16px;
@@ -341,14 +338,15 @@ onBeforeUnmount(() => {
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     align-self: flex-start;
+    pointer-events: none;
 }
 
-.card-btn:hover {
+.card:hover .card-btn {
     background: #0052CC;
     transform: translateY(-2px);
 }
 
-.card-btn:active {
+.card:active .card-btn {
     transform: translateY(0);
 }
 

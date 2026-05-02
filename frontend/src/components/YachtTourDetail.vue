@@ -84,51 +84,7 @@
             </div>
           </article>
 
-          <article v-if="hasGallery" class="panel panel-reveal panel-reveal--7">
-            <h2 class="panel-title">Галерея</h2>
-            <div class="gallery-grid">
-              <img
-                v-for="(image, idx) in tour.gallery"
-                :key="idx"
-                :src="image"
-                :alt="`${tour.title} ${idx + 1}`"
-                :style="{ '--delay': `${Math.min(idx * 60, 420)}ms` }"
-                @click="openLightbox(idx)">
-            </div>
-          </article>
-
-          <article v-if="tour.videoUrl" class="panel panel-reveal panel-reveal--8">
-            <h2 class="panel-title">Видео</h2>
-            <div class="video-container">
-              <video class="tour-video" controls playsinline :poster="tour.videoPoster || tour.bannerImage">
-                <source :src="tour.videoUrl" type="video/mp4">
-              </video>
-            </div>
-          </article>
-        </main>
-
-        <aside class="side-column">
-          <div class="panel sticky side-reveal side-reveal--1">
-            <h2 class="panel-title">Стоимость</h2>
-            <div class="price-list">
-              <div v-if="tour.price?.boat" class="price-row">
-                <span>Катер</span>
-                <strong>{{ tour.price.boat }}</strong>
-              </div>
-              <div v-if="tour.price?.yacht" class="price-row">
-                <span>Яхта</span>
-                <strong>{{ tour.price.yacht }}</strong>
-              </div>
-              <div v-if="!tour.price?.boat && !tour.price?.yacht" class="price-row">
-                <span>Формат</span>
-                <strong>По запросу</strong>
-              </div>
-            </div>
-            <button class="cta" @click="isBookingOpen = true">Оставить заявку</button>
-            <p class="note">Мы свяжемся с вами и подберем оптимальный маршрут и судно.</p>
-          </div>
-
-          <div v-if="hasIncluded || hasPaidSeparately" class="panel side-reveal side-reveal--2">
+          <article v-if="hasIncluded || hasPaidSeparately" class="panel panel-reveal panel-reveal--7">
             <h2 class="panel-title">Условия</h2>
             <div v-if="hasIncluded" class="terms-group">
               <h3>Включено</h3>
@@ -142,14 +98,101 @@
                 <li v-for="(item, idx) in tour.details.paidSeparately" :key="`paid-${idx}`">{{ item }}</li>
               </ul>
             </div>
+          </article>
+
+          <article v-if="hasGallery" class="panel panel-reveal panel-reveal--8">
+            <h2 class="panel-title">Галерея</h2>
+            <div class="gallery-grid">
+              <img
+                v-for="(image, idx) in tour.gallery"
+                :key="idx"
+                :src="image"
+                :alt="`${tour.title} ${idx + 1}`"
+                :style="{ '--delay': `${Math.min(idx * 60, 420)}ms` }"
+                @click="openLightbox(idx)">
+            </div>
+          </article>
+        </main>
+
+        <aside class="side-column">
+          <div class="booking-card panel">
+            <h3 class="booking-title">Забронировать тур</h3>
+            <p class="booking-subtitle">Мы свяжемся с вами и подберем оптимальный маршрут и судно</p>
+            <form @submit.prevent="submitBooking" class="booking-form">
+              <div class="form-group">
+                <label class="group-name" for="booking-name">Ваше имя</label>
+                <input
+                  v-model="formData.name"
+                  class="group-value"
+                  type="text"
+                  id="booking-name"
+                  name="name"
+                  placeholder="Введите имя"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="group-name" for="booking-phone">Телефон</label>
+                <input
+                  v-model="formData.phone"
+                  class="group-value"
+                  type="text"
+                  id="booking-phone"
+                  name="phone"
+                  placeholder="+7 (___) ___-__-__"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  maxlength="18"
+                  @input="onPhoneInput"
+                  @paste="onPhonePaste"
+                  @keydown="onPhoneKeydown"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="group-name" for="booking-date">Дата тура</label>
+                <input
+                  v-model="formData.date"
+                  class="group-value"
+                  type="date"
+                  id="booking-date"
+                  name="date"
+                  placeholder="Выберите дату"
+                />
+              </div>
+              <div class="form-group">
+                <label class="group-name" for="booking-guests">Количество гостей</label>
+                <input
+                  v-model="formData.guests"
+                  class="group-value"
+                  type="number"
+                  id="booking-guests"
+                  name="guests"
+                  placeholder="Укажите количество"
+                  min="1"
+                  :max="tour.maxGuests"
+                />
+              </div>
+              <div v-if="successMessage" class="message success-message">{{ successMessage }}</div>
+              <div v-if="errorMessage" class="message error-message">{{ errorMessage }}</div>
+              <button type="submit" class="btn-book" :disabled="isLoading">
+                {{ isLoading ? 'Отправка...' : 'Отправить заявку' }}
+              </button>
+            </form>
           </div>
         </aside>
       </div>
     </section>
 
-    <DetailPageSections />
-
-    <BookingModal v-model="isBookingOpen" />
+    <section class="yacht-tour-sections">
+      <div class="wrap">
+        <OurYachts />
+        <YachtTours />
+        <OurBoats />
+        <OurSailing />
+        <RequestBook />
+      </div>
+    </section>
 
     <teleport to="body">
       <transition name="lightbox-fade">
@@ -205,13 +248,15 @@
 <script setup>
 import { computed, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import BookingModal from './BookingModal.vue'
-import DetailPageSections from './DetailPageSections.vue'
+import OurYachts from './OurYachts.vue'
+import YachtTours from './YachtTours.vue'
+import OurBoats from './OurBoats.vue'
+import OurSailing from './OurSailing.vue'
+import RequestBook from './RequestBook.vue'
 import { getYachtTourBySlug } from '../data/yachtsTours'
 
 const route = useRoute()
 const router = useRouter()
-const isBookingOpen = ref(false)
 
 const tour = computed(() => getYachtTourBySlug(route.params.slug))
 
@@ -222,6 +267,116 @@ const hasFaq = computed(() => Boolean(tour.value?.faq?.length))
 const hasGallery = computed(() => Boolean(tour.value?.gallery?.length))
 const hasIncluded = computed(() => Boolean(tour.value?.details?.included?.length))
 const hasPaidSeparately = computed(() => Boolean(tour.value?.details?.paidSeparately?.length))
+
+const formData = ref({
+  name: '',
+  phone: '',
+  date: '',
+  guests: ''
+})
+const isLoading = ref(false)
+const successMessage = ref('')
+const errorMessage = ref('')
+
+async function submitBooking() {
+  successMessage.value = ''
+  errorMessage.value = ''
+  if (!formData.value.name.trim()) {
+    errorMessage.value = 'Пожалуйста, введите ваше имя'
+    return
+  }
+  if (!formData.value.phone.trim()) {
+    errorMessage.value = 'Пожалуйста, введите номер телефона'
+    return
+  }
+  isLoading.value = true
+  try {
+    const formDataToSend = new FormData()
+    formDataToSend.append('action', 'vip_flot_booking')
+    formDataToSend.append('name', formData.value.name)
+    formDataToSend.append('phone', formData.value.phone)
+    formDataToSend.append('date', formData.value.date)
+    formDataToSend.append('guests', formData.value.guests)
+    formDataToSend.append('boat_id', tour.value.id)
+    formDataToSend.append('boat_name', tour.value.title)
+    formDataToSend.append('consent', 'true')
+
+    const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php'
+
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: formDataToSend
+    })
+    const data = await response.json()
+    if (data.success) {
+      successMessage.value = 'Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.'
+      formData.value = { name: '', phone: '', date: '', guests: '' }
+    } else {
+      errorMessage.value = data.data?.message || 'Произошла ошибка'
+    }
+  } catch (error) {
+    errorMessage.value = 'Не удалось отправить заявку. Попробуйте позже.'
+  } finally {
+    isLoading.value = false
+  }
+}
+
+function formatPhoneDigits(digits) {
+  if (!digits) return ''
+  digits = digits.replace(/[^0-9]/g, '')
+  if (digits[0] === '8') digits = '7' + digits.slice(1)
+  if (digits[0] !== '7') digits = '7' + digits
+  digits = digits.slice(0, 11)
+  const d = digits
+  const rest = d.slice(1)
+  const p1 = rest.slice(0, 3)
+  const p2 = rest.slice(3, 6)
+  const p3 = rest.slice(6, 8)
+  const p4 = rest.slice(8, 10)
+  let out = '+' + d[0]
+  if (p1) out += ' (' + p1 + ')'
+  if (p2) out += ' ' + p2
+  if (p3) out += '-' + p3
+  if (p4) out += '-' + p4
+  return out
+}
+
+function onPhoneInput(e) {
+  const el = e.target
+  let digits = el.value.replace(/\D/g, '')
+  if (!digits) { el.value = ''; formData.value.phone = ''; return }
+  if (digits[0] !== '7') { digits = digits[0] === '8' ? '7' + digits.slice(1) : '7' + digits }
+  digits = digits.slice(0, 11)
+  el.value = formatPhoneDigits(digits)
+  formData.value.phone = el.value
+}
+
+function onPhonePaste(e) {
+  e.preventDefault()
+  let digits = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '')
+  if (!digits) return
+  if (digits[0] !== '7') digits = digits.slice(0, 10)
+  digits = digits.slice(0, 11)
+  const el = e.target
+  el.value = formatPhoneDigits(digits)
+}
+
+function onPhoneKeydown(e) {
+  const key = e.key
+  if (key !== 'Backspace' && key !== 'Delete') return
+  const el = e.target
+  const selStart = el.selectionStart
+  const digits = (el.value || '').replace(/\D/g, '')
+  if (key === 'Backspace') {
+    if (selStart <= 1) { e.preventDefault(); return }
+    const newDigits = digits.slice(0, -1)
+    el.value = formatPhoneDigits(newDigits)
+  } else {
+    if (selStart >= el.value.length) { e.preventDefault(); return }
+    const newDigits = digits.slice(0, -1)
+    el.value = formatPhoneDigits(newDigits)
+  }
+}
 
 const dayPattern = /^\s*\d+(?:\s*[-–]\s*\d+)?\s*д(?:ень|ня|ней)\s*$/i
 
@@ -515,20 +670,12 @@ function goBack() {
 }
 
 .panel-reveal--7 {
-  animation-delay: 0.83s;
-}
-
-.panel-reveal--8 {
-  animation-delay: 0.91s;
-}
-
-.side-reveal--1 {
-  animation-delay: 0.5s;
-}
+   animation-delay: 0.83s;
+ }
 
 .side-reveal--2 {
-  animation-delay: 0.64s;
-}
+   animation-delay: 0.64s;
+ }
 
 .panel-title {
   margin: 0 0 16px;
@@ -716,68 +863,61 @@ function goBack() {
   grid-column: span 1;
 }
 
-.sticky {
-  position: sticky;
-  top: 96px;
-  z-index: 40;
-  isolation: isolate;
-}
-
 .price-list {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 18px;
+   display: grid;
+   gap: 12px;
+   margin-bottom: 18px;
 }
 
 .price-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  color: #38455a;
+   display: flex;
+   justify-content: space-between;
+   gap: 12px;
+   color: #38455a;
 }
 
 .price-row strong {
-  color: #0e3871;
+   color: #0e3871;
 }
 
 .cta {
-  width: 100%;
-  border: none;
-  background: linear-gradient(135deg, #0076fc, #0f65d6);
-  color: #fff;
-  border-radius: 12px;
-  padding: 14px 16px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 10px 22px rgba(0, 118, 252, 0.28);
-  position: relative;
-  overflow: hidden;
+   width: 100%;
+   border: none;
+   background: linear-gradient(135deg, #0076fc, #0f65d6);
+   color: #fff;
+   border-radius: 12px;
+   padding: 14px 16px;
+   font-weight: 600;
+   cursor: pointer;
+   box-shadow: 0 10px 22px rgba(0, 118, 252, 0.28);
+   position: relative;
+   overflow: hidden;
 }
 
 .cta::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-  transition: left 0.55s ease;
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -120%;
+   width: 60%;
+   height: 100%;
+   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+   transition: left 0.55s ease;
 }
 
 .cta:hover {
-  background: linear-gradient(135deg, #0068de, #0a56b8);
+   background: linear-gradient(135deg, #0068de, #0a56b8);
 }
 
 .cta:hover::before {
-  left: 160%;
+   left: 160%;
 }
 
 .note {
-  margin: 10px 0 0;
-  color: #6b7687;
-  font-size: 13px;
-  line-height: 1.5;
+   margin: 10px 0 0;
+   color: #6b7687;
+   font-size: 13px;
+   line-height: 1.5;
 }
 
 .terms-group h3 {
@@ -854,6 +994,128 @@ function goBack() {
   align-items: center;
   justify-content: center;
   padding: 24px 72px 56px;
+}
+
+.side-column {
+  position: relative;
+  align-self: stretch;
+  min-height: 100%;
+}
+
+.side-column {
+  align-self: start;
+}
+
+.booking-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 96px;
+}
+
+.booking-title {
+  color: #1A1A1A;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+  letter-spacing: 0px;
+}
+
+.booking-subtitle {
+  color: #6b7687;
+  font-size: 14px;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.group-name {
+  color: #1A1A1A;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.group-value {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #E5E5E5;
+  background-color: #FFFFFF;
+  color: #1A1A1A;
+  font-size: 15px;
+  font-weight: 400;
+  transition: border-color 0.2s ease;
+}
+
+.group-value:focus {
+  outline: none;
+  border-color: #0076FC;
+}
+
+.group-value::placeholder {
+  color: #949CA4;
+}
+
+.message {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.success-message {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.error-message {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-book {
+  width: 100%;
+  background-color: #0076FC;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-book:hover {
+  background-color: #0061D1;
+}
+
+.btn-book:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-book:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .lightbox-media {
@@ -1045,17 +1307,54 @@ function goBack() {
     grid-template-columns: 1fr 1fr;
   }
 
-  .sticky {
-    position: sticky;
-    top: 86px;
-  }
-
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lightbox {
     padding: 20px 58px 52px;
+  }
+}
+
+.form-row {
+  grid-template-columns: 1fr;
+}
+
+.yacht-tour-sections {
+  padding: 42px 0 56px;
+}
+
+.yacht-tour-sections .wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-block__title {
+  color: #1A1A1A;
+  text-transform: uppercase;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .yacht-tour-sections {
+    padding: 30px 0 44px;
+  }
+
+  .yacht-tour-sections .wrap {
+    gap: 30px;
+  }
+
+  .section-block__title {
+    font-size: 24px;
   }
 }
 
@@ -1122,6 +1421,27 @@ function goBack() {
     right: 10px;
     width: 38px;
     height: 38px;
+  }
+
+  .booking-section {
+    padding: 0 0 24px;
+  }
+
+  .booking-panel {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .booking-title {
+    font-size: 22px;
+  }
+
+  .booking-subtitle {
+    font-size: 14px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }
 
