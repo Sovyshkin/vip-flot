@@ -1,18 +1,9 @@
 <script setup>
-import Carousel from './Carousel.vue'
+import CardCarousel from './CardCarousel.vue'
 import { useRouter } from 'vue-router'
 import { sailingYachts } from '@/data/sailing.js'
 
 const router = useRouter()
-
-function getImageUrl(imageName) {
-    if (!imageName) return ''
-    if (typeof imageName !== 'string') return imageName
-    if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
-        return imageName
-    }
-    return `/images/${encodeURIComponent(imageName)}`
-}
 
 function goToBoat(slug) {
     router.push({ name: 'BoatDetail', params: { slug } })
@@ -42,9 +33,8 @@ function goToBooking() {
         <div class="cards">
             <div class="card" v-for="yacht in sailingYachts" :key="yacht.name">
                 <div class="wrap-img">
-                    <Carousel :interval="4500">
-                        <img v-for="(image, index) in (Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage])" :key="index" :src="getImageUrl(image)" :alt="yacht.name">
-                    </Carousel>
+                    <CardCarousel :images="Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage]" :alt="yacht.name">
+                    </CardCarousel>
                 </div>
                 <div class="card-info" @click="yacht.slug && goToBoat(yacht.slug)" :style="yacht.slug ? 'cursor: pointer' : ''">
                     <div class="card-text">
@@ -183,6 +173,22 @@ function goToBooking() {
     width: 100%;
     aspect-ratio: 16 / 9;
     cursor: pointer;
+    background: #fff;
+}
+
+.wrap-img :deep(.slide) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap-img :deep(.slide img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 /* Carousel controls styling for cards */

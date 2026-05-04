@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { boats } from '../data/boats'
 import { yachts } from '../data/yachts'
 import { sailingYachts } from '../data/sailing'
-import Carousel from './Carousel.vue'
+import CardCarousel from './CardCarousel.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -32,15 +32,6 @@ const visibleItems = computed(() => {
 const hasMore = computed(() => {
   return currentData.value.length > (isMobile.value ? 4 : 6)
 })
-
-function getImageUrl(imageName) {
-  if (!imageName) return ''
-  if (typeof imageName !== 'string') return imageName
-  if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
-    return imageName
-  }
-  return `/images/${encodeURIComponent(imageName)}`
-}
 
 function goToDetail(slug) {
   if (slug) {
@@ -93,14 +84,8 @@ onBeforeUnmount(() => {
     <div class="cards">
       <div v-for="item in visibleItems" :key="item.id || item.name" class="card">
         <div class="wrap-img" @click="goToDetail(item.slug)" style="cursor: pointer;">
-          <Carousel :interval="4500">
-            <img
-              v-for="(image, index) in (Array.isArray(item.cardImage) ? item.cardImage : [item.cardImage])"
-              :key="index"
-              :src="getImageUrl(image)"
-              :alt="item.name"
-            >
-          </Carousel>
+          <CardCarousel :images="Array.isArray(item.cardImage) ? item.cardImage : [item.cardImage]" :alt="item.name">
+          </CardCarousel>
         </div>
         <div class="card-info" @click="goToDetail(item.slug)" style="cursor: pointer;">
           <div class="card-text">
@@ -267,27 +252,6 @@ onBeforeUnmount(() => {
   border-radius: 16px;
   width: 100%;
   aspect-ratio: 16 / 9;
-}
-
-.wrap-img :deep(.arrow) {
-  width: 36px;
-  height: 36px;
-  font-size: 20px;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-}
-
-.wrap-img :deep(.arrow:hover) {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.wrap-img :deep(.dots) {
-  bottom: 10px;
-}
-
-.wrap-img :deep(.dot) {
-  width: 8px;
-  height: 8px;
 }
 
 .card-info {

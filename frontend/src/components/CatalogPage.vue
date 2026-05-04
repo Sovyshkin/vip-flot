@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import Carousel from './Carousel.vue'
+import CardCarousel from './CardCarousel.vue'
 import BookingModal from './BookingModal.vue'
 import { boats } from '../data/boats'
 import { yachts } from '../data/yachts'
@@ -87,15 +87,6 @@ function handleTourClick(tour) {
 
 function toggleFilters() {
   showFilters.value = !showFilters.value
-}
-
-function getImageUrl(imageName) {
-  if (!imageName) return ''
-  if (typeof imageName !== 'string') return imageName
-  if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
-    return imageName
-  }
-  return `/images/${encodeURIComponent(imageName)}`
 }
 
 // Отфильтрованный и отсортированный список флота (катера + яхты)
@@ -337,9 +328,8 @@ const filteredTours = computed(() => {
       <div v-else class="cards-grid">
         <div v-for="boat in filteredBoats" :key="boat.id" class="card">
           <div class="wrap-img">
-            <Carousel :interval="4500">
-              <img v-for="(image, index) in boat.cardImage" :key="index" :src="getImageUrl(image)" :alt="boat.name">
-            </Carousel>
+            <CardCarousel :images="boat.cardImage" :alt="boat.name">
+            </CardCarousel>
           </div>
           <div class="card-info" @click="goToBoat(boat.slug)" style="cursor: pointer;">
             <div class="card-text">
@@ -840,32 +830,10 @@ const filteredTours = computed(() => {
   height: 280px;
 }
 
-/* Carousel controls styling for cards */
-.wrap-img :deep(.arrow) {
-  width: 36px;
-  height: 36px;
-  font-size: 20px;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-}
-
-.wrap-img :deep(.arrow:hover) {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.wrap-img :deep(.dots) {
-  bottom: 10px;
-}
-
-.wrap-img :deep(.dot) {
-  width: 8px;
-  height: 8px;
-}
-
 .wrap-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.4s ease;
 }
 

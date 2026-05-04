@@ -1,136 +1,128 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div
     class="carousel"
-    @mouseenter="stopAuto"
-    @mouseleave="startAuto"
-    @pointerdown="onPointerDown"
-    @pointermove="onPointerMove"
-    @pointerup="onPointerUp"
-    @pointercancel="onPointerCancel"
+    :style="{ '--slide-index': currentIndex }"
+    tabindex="0"
+    @keydown="onKeyDown"
   >
-    <div class="slides" ref="slidesEl" :style="{ transform: `translate3d(-${active * 100}%,0,0)` }">
-      <slot />
+    <div
+      class="carousel-track"
+    >
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        class="carousel-slide"
+      >
+        <img :src="image" :alt="alt">
+      </div>
     </div>
 
-    <button v-if="count > 1 && showArrowsLocal" class="arrow arrow--prev" @click="prev" aria-label="Previous">‹</button>
-    <button v-if="count > 1 && showArrowsLocal" class="arrow arrow--next" @click="next" aria-label="Next">›</button>
+    <button v-if="images.length > 1 && showArrows" class="arrow arrow--prev" @click="prev" aria-label="Previous">‹</button>
+    <button v-if="images.length > 1 && showArrows" class="arrow arrow--next" @click="next" aria-label="Next">›</button>
 
-    <div v-if="count > 1 && showDotsLocal" class="dots" aria-hidden="false">
+    <div v-if="images.length > 1 && showDots" class="dots">
       <button
-        v-for="n in count"
-        :key="n"
-        :class="['dot', { 'dot--active': (n - 1) === active }]"
-        @click="go(n - 1)"
+        v-for="(_, index) in images"
+        :key="index"
+        :class="['dot', { 'dot--active': currentIndex === index }]"
+        @click="goTo(index)"
         aria-label="Go to slide"
       />
     </div>
   </div>
 </template>
 
-<script>
-import { ref, onMounted, onUnmounted, nextTick, defineComponent } from 'vue'
+<!-- eslint-disable vue/multi-word-component-names -->
+<script setup>
+/* global defineProps, defineEmits, defineExpose */
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 
-export default defineComponent({
-  name: 'UiCarousel',
-  props: {
-    interval: { type: Number, default: 4000 },
-    showDots: { type: Boolean, default: true },
-    showArrows: { type: Boolean, default: true }
+const props = defineProps({
+  images: {
+    type: Array,
+    default: () => []
   },
-  setup(props) {
-    const active = ref(0)
-    const slidesEl = ref(null)
-    const count = ref(0)
-    let autoTimer = null
-
-    let startX = null
-    let deltaX = 0
-    let isPointerDown = false
-
-    function updateCount() {
-      count.value = slidesEl.value ? slidesEl.value.children.length : 0
-    }
-
-    function go(i) {
-      if (count.value === 0) return
-      active.value = ((i % count.value) + count.value) % count.value
-    }
-
-    function next() {
-      go(active.value + 1)
-    }
-
-    function prev() {
-      go(active.value - 1)
-    }
-
-    function startAuto() {
-      stopAuto()
-      if (count.value > 1 && props.interval > 0) autoTimer = setInterval(next, props.interval)
-    }
-
-    function stopAuto() {
-      if (autoTimer) {
-        clearInterval(autoTimer)
-        autoTimer = null
-      }
-    }
-
-    function onPointerDown(e) {
-      isPointerDown = true
-      startX = e.clientX
-      deltaX = 0
-      e.target.setPointerCapture?.(e.pointerId)
-      stopAuto()
-    }
-
-    function onPointerMove(e) {
-      if (!isPointerDown) return
-      deltaX = e.clientX - startX
-    }
-
-    function onPointerUp() {
-      if (!isPointerDown) return
-      isPointerDown = false
-      const threshold = 50
-      if (deltaX > threshold) prev()
-      else if (deltaX < -threshold) next()
-      deltaX = 0
-      startAuto()
-    }
-
-    function onPointerCancel() {
-      isPointerDown = false
-      deltaX = 0
-      startAuto()
-    }
-
-    onMounted(async () => {
-      await nextTick()
-      updateCount()
-      startAuto()
-    })
-
-    onUnmounted(() => stopAuto())
-
-    return {
-      active,
-      slidesEl,
-      count,
-      go,
-      next,
-      prev,
-      startAuto,
-      stopAuto,
-      onPointerDown,
-      onPointerMove,
-      onPointerUp,
-      onPointerCancel,
-      showDotsLocal: props.showDots,
-      showArrowsLocal: props.showArrows
-    }
+  alt: {
+    type: String,
+    default: ''
+  },
+  interval: {
+    type: Number,
+    default: 4000
+  },
+  showDots: {
+    type: Boolean,
+    default: true
+  },
+  showArrows: {
+    type: Boolean,
+    default: true
   }
 })
+
+const emit = defineEmits(['slideChange'])
+
+const currentIndex = ref(0)
+let autoTimer = null
+
+function goTo(index) {
+  if (props.images.length === 0) return
+  if (index < 0) index = props.images.length - 1
+  else if (index >= props.images.length) index = 0
+  currentIndex.value = index
+  emit('slideChange', index)
+}
+
+function next() {
+  goTo(currentIndex.value + 1)
+}
+
+function prev() {
+  goTo(currentIndex.value - 1)
+}
+
+function onKeyDown(e) {
+  if (e.key === 'ArrowLeft') {
+    prev()
+  } else if (e.key === 'ArrowRight') {
+    next()
+  }
+}
+
+function startAuto() {
+  stopAuto()
+  if (props.images.length > 1 && props.interval > 0) {
+    autoTimer = setInterval(next, props.interval)
+  }
+}
+
+function stopAuto() {
+  if (autoTimer) {
+    clearInterval(autoTimer)
+    autoTimer = null
+  }
+}
+
+function reset() {
+  currentIndex.value = 0
+}
+
+onMounted(() => {
+  reset()
+  startAuto()
+})
+
+onUnmounted(() => {
+  stopAuto()
+})
+
+watch(() => props.images, () => {
+  reset()
+  startAuto()
+})
+
+defineExpose({ goTo, next, prev, reset })
 </script>
 
 <style scoped>
@@ -141,31 +133,36 @@ export default defineComponent({
   height: 100%;
   overflow: hidden;
   border-radius: 12px;
-  touch-action: pan-y;
+  background: #000;
+  outline: none;
 }
-.slides {
+
+.carousel-track {
   display: flex;
   width: 100%;
   height: 100%;
   transition: transform 0.45s cubic-bezier(.22,.9,.25,1);
+  transform: translateX(calc(-100% * var(--slide-index, 0)));
 }
-.slides > * {
-  min-width: 100%;
-  height: 100%;
+
+.carousel-slide {
   flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-}
-.slides img {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
 }
+
+.carousel-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 .arrow {
   position: absolute;
   top: 50%;
@@ -184,11 +181,14 @@ export default defineComponent({
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 .carousel:hover .arrow {
   opacity: 1;
 }
+
 .arrow--prev { left: 12px }
 .arrow--next { right: 12px }
+
 .dots {
   position: absolute;
   left: 50%;
@@ -198,6 +198,7 @@ export default defineComponent({
   gap: 8px;
   z-index: 5;
 }
+
 .dot {
   width: 12px;
   height: 8px;
@@ -206,7 +207,9 @@ export default defineComponent({
   background: rgba(255,255,255,0.25);
   cursor: pointer;
   transition: transform 0.18s ease, background 0.18s ease;
+  padding: 0;
 }
+
 .dot--active {
   background: #0076FC;
   border-color: #0076FC;

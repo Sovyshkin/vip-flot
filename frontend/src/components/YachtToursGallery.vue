@@ -107,13 +107,19 @@ function goToTour(link) {
   overflow: hidden;
   border-radius: 16px;
   height: 160px;
-  background: #f2f4f7;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wrap-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 

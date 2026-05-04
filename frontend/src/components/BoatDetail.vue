@@ -2,11 +2,7 @@
   <div v-if="boat" class="boat-detail">
     <div class="hero-section">
       <div class="hero-image" @click="openFullscreen">
-        <Carousel :interval="5000" :showDots="true" :showArrows="true">
-          <div v-for="(image, index) in boat.images" :key="index" class="slide-item">
-            <img :src="image" :alt="`${boat.name} - фото ${index + 1}`">
-          </div>
-        </Carousel>
+        <Carousel :images="boat.images" :interval="5000" :showDots="true" :showArrows="true" />
         <button class="fullscreen-btn" @click.stop="openFullscreen" aria-label="Открыть на весь экран">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" fill="white"/>
@@ -210,11 +206,7 @@
           </svg>
         </button>
         <div class="fullscreen-carousel-wrapper">
-          <Carousel :interval="0" :showDots="true" :showArrows="true" ref="fullscreenCarousel">
-            <div v-for="(image, index) in boat.images" :key="index" class="slide-item">
-              <img :src="image" :alt="`${boat.name} - фото ${index + 1}`">
-            </div>
-          </Carousel>
+          <Carousel :key="fullscreenKey" :images="boat.images" :interval="0" :showDots="true" :showArrows="true" ref="fullscreenCarousel" @slideChange="fullscreenActiveIndex = $event" />
           <div class="thumbnails-strip">
             <div
               v-for="(image, index) in boat.images"
@@ -235,7 +227,7 @@
 
 <script setup>
 /* eslint-disable */
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { boats, getBoatBySlug } from '../data/boats';
 import { yachts, getYachtBySlug } from '../data/yachts';
@@ -253,6 +245,7 @@ const isFullscreenOpen = ref(false);
 const isBookingOpen = ref(false);
 const fullscreenActiveIndex = ref(0);
 const fullscreenCarousel = ref(null);
+const fullscreenKey = ref(0);
 
 const formattedDescription = computed(() => {
   if (!boat.value?.description) return ''
@@ -358,8 +351,14 @@ function getPreviewDescription(route) {
 }
 
 function openFullscreen() {
+  fullscreenKey.value++;
   isFullscreenOpen.value = true;
   document.body.style.overflow = 'hidden';
+  nextTick(() => {
+    if (fullscreenCarousel.value?.$el) {
+      fullscreenCarousel.value.$el.focus();
+    }
+  });
 }
 
 function closeFullscreen() {
@@ -370,7 +369,7 @@ function closeFullscreen() {
 function goToThumbnail(index) {
   fullscreenActiveIndex.value = index;
   if (fullscreenCarousel.value) {
-    fullscreenCarousel.value.go(index);
+    fullscreenCarousel.value.goTo(index);
   }
 }
 
@@ -638,16 +637,12 @@ function onPhoneKeydown(e) {
   transform: scale(1.3);
 }
 
-/* Ensure images don't stretch and maintain aspect ratio */
-.hero-image :deep(.slides img) {
-  object-fit: cover;
-  object-position: center;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: none;
+.hero-image :deep(.carousel-track) {
+  border-radius: 0;
+}
+
+.hero-image :deep(.carousel-slide) {
+  background: #000;
 }
 
 .boat-header {
@@ -1200,9 +1195,11 @@ function onPhoneKeydown(e) {
   background: rgba(0, 0, 0, 0.95);
   z-index: 9999;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 60px 20px 20px;
+  overflow-y: auto;
 }
 
 .close-btn {
@@ -1232,21 +1229,30 @@ function onPhoneKeydown(e) {
 .fullscreen-carousel-wrapper {
   width: 100%;
   max-width: 1400px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  display: block;
 }
 
 .fullscreen-carousel-wrapper :deep(.carousel) {
-  position: relative;
-  width: 100%;
-  height: 75vh;
-  max-height: calc(100% - 100px);
-  border-radius: 12px;
-  inset: auto;
+  position: relative !important;
+  width: 100% !important;
+  height: 65vh !important;
+  max-height: 700px !important;
+  background: #000 !important;
+  overflow: hidden !important;
+}
+
+.fullscreen-carousel-wrapper :deep(.carousel-track) {
+  height: 100% !important;
+  background: #000 !important;
+}
+
+.fullscreen-carousel-wrapper :deep(.carousel-slide) {
+  background: #000 !important;
+}
+
+.fullscreen-carousel-wrapper :deep(.carousel-slide img) {
+  object-fit: contain !important;
 }
 
 .thumbnails-strip {
@@ -1257,6 +1263,7 @@ function onPhoneKeydown(e) {
   justify-content: center;
   max-width: 100%;
   scrollbar-width: none;
+  flex-shrink: 0;
 }
 
 .thumbnails-strip::-webkit-scrollbar {
@@ -1291,33 +1298,6 @@ function onPhoneKeydown(e) {
   object-fit: cover;
 }
 
-.fullscreen-carousel-wrapper :deep(.slides) {
-  border-radius: 12px;
-  height: 100%;
-  width: 100%;
-}
-
-.fullscreen-carousel-wrapper :deep(.slide-item) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000;
-  height: 100%;
-  width: 100%;
-}
-
-.fullscreen-carousel-wrapper :deep(.slide-item img) {
-  object-fit: contain;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .fullscreen-carousel-wrapper :deep(.arrow) {
   width: 56px;
   height: 56px;
@@ -1334,7 +1314,7 @@ function onPhoneKeydown(e) {
 }
 
 .fullscreen-carousel-wrapper :deep(.dots) {
-  bottom: -50px;
+  bottom: 12px;
   gap: 12px;
 }
 
@@ -1369,10 +1349,12 @@ function onPhoneKeydown(e) {
 
 .modal-enter-from .fullscreen-carousel-wrapper {
   transform: scale(0.9);
+  opacity: 0;
 }
 
 .modal-leave-to .fullscreen-carousel-wrapper {
   transform: scale(0.9);
+  opacity: 0;
 }
 
 @media (max-width: 768px) {
@@ -1428,7 +1410,6 @@ function onPhoneKeydown(e) {
 
   .fullscreen-carousel-wrapper :deep(.dots) {
     bottom: 10px;
-    position: absolute;
   }
 
   .fullscreen-carousel-wrapper :deep(.dot) {

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import Carousel from './Carousel.vue'
+import CardCarousel from './CardCarousel.vue'
 import { useRouter } from 'vue-router'
 import { yachts } from '../data/yachts'
 
@@ -10,15 +10,6 @@ const isMobile = ref(false)
 function checkMobile() { isMobile.value = window.innerWidth <= 768 }
 
 const visibleYachts = computed(() => showAll.value ? yachts : yachts.slice(0, isMobile.value ? 4 : 6))
-
-function getImageUrl(imageName) {
-    if (!imageName) return ''
-    if (typeof imageName !== 'string') return imageName
-    if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
-        return imageName
-    }
-    return `/images/${encodeURIComponent(imageName)}`
-}
 
 function goToYacht(slug) {
     router.push({ name: 'BoatDetail', params: { slug } })
@@ -56,9 +47,8 @@ onBeforeUnmount(() => {
         <div class="cards">
             <div v-for="yacht in visibleYachts" :key="yacht.id" class="card">
                 <div class="wrap-img">
-                    <Carousel :interval="4500">
-                        <img v-for="(image, index) in yacht.cardImage" :key="index" :src="getImageUrl(image)" :alt="yacht.name">
-                    </Carousel>
+                    <CardCarousel :images="Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage]" :alt="yacht.name">
+                    </CardCarousel>
                 </div>
                 <div class="card-info" @click="goToYacht(yacht.slug)" style="cursor: pointer;">
                     <div class="card-text">
@@ -197,6 +187,29 @@ onBeforeUnmount(() => {
     width: 100%;
     aspect-ratio: 16 / 9;
     cursor: pointer;
+    background: #fff;
+}
+
+.wrap-img :deep(.carousel-track) {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.wrap-img :deep(.carousel-slide) {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.wrap-img :deep(.carousel-slide img) {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
 }
 
 .card-info {
