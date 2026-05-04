@@ -46,7 +46,7 @@ onBeforeUnmount(() => {
         </div>
         <div class="cards">
             <div v-for="yacht in visibleYachts" :key="yacht.id" class="card" @click="goToYacht(yacht.slug)">
-                <div class="wrap-img" @click.stop>
+                <div class="wrap-img">
                     <CardCarousel :images="Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage]" :alt="yacht.name">
                     </CardCarousel>
                 </div>

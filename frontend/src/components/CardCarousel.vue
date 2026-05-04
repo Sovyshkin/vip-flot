@@ -1,5 +1,5 @@
 <template>
-  <div class="card-carousel">
+  <div class="card-carousel" @click="$emit('click')">
     <div class="carousel-track" ref="trackEl">
       <div
         v-for="(image, index) in images"

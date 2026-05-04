@@ -32,7 +32,7 @@ function goToBooking() {
         </div>
         <div class="cards">
             <div class="card" v-for="yacht in sailingYachts" :key="yacht.name" @click="yacht.slug && goToBoat(yacht.slug)">
-                <div class="wrap-img" @click.stop>
+                <div class="wrap-img">
                     <CardCarousel :images="Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage]" :alt="yacht.name">
                     </CardCarousel>
                 </div>

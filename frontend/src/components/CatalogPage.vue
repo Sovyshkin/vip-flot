@@ -327,7 +327,7 @@ const filteredTours = computed(() => {
 
       <div v-else class="cards-grid">
         <div v-for="boat in filteredBoats" :key="boat.id" class="card" @click="goToBoat(boat.slug)">
-          <div class="wrap-img" @click.stop>
+          <div class="wrap-img">
             <CardCarousel :images="boat.cardImage" :alt="boat.name">
             </CardCarousel>
           </div>

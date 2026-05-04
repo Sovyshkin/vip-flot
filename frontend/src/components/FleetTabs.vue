@@ -83,7 +83,7 @@ onBeforeUnmount(() => {
 
     <div class="cards">
       <div v-for="item in visibleItems" :key="item.id || item.name" class="card" @click="goToDetail(item.slug)">
-        <div class="wrap-img" @click.stop>
+        <div class="wrap-img">
           <CardCarousel :images="Array.isArray(item.cardImage) ? item.cardImage : [item.cardImage]" :alt="item.name">
           </CardCarousel>
         </div>
