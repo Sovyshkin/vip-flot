@@ -2,7 +2,7 @@
   <div v-if="boat" class="boat-detail">
     <div class="hero-section">
       <div class="hero-image" @click="openFullscreen">
-        <Carousel :images="boat.images" :interval="5000" :showDots="true" :showArrows="true" />
+        <Carousel :images="boat.images" :showDots="true" :showArrows="true" />
         <button class="fullscreen-btn" @click.stop="openFullscreen" aria-label="Открыть на весь экран">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" fill="white"/>
@@ -206,7 +206,7 @@
           </svg>
         </button>
         <div class="fullscreen-carousel-wrapper">
-          <Carousel :key="fullscreenKey" :images="boat.images" :interval="0" :showDots="true" :showArrows="true" ref="fullscreenCarousel" @slideChange="fullscreenActiveIndex = $event" />
+          <Carousel :key="fullscreenKey" :images="boat.images" :showDots="true" :showArrows="true" ref="fullscreenCarousel" @slideChange="fullscreenActiveIndex = $event" />
           <div class="thumbnails-strip">
             <div
               v-for="(image, index) in boat.images"

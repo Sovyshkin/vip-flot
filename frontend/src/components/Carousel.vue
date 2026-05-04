@@ -2,12 +2,12 @@
 <template>
   <div
     class="carousel"
-    :style="{ '--slide-index': currentIndex }"
     tabindex="0"
     @keydown="onKeyDown"
   >
     <div
       class="carousel-track"
+      :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
     >
       <div
         v-for="(image, index) in images"
@@ -18,15 +18,15 @@
       </div>
     </div>
 
-    <button v-if="images.length > 1 && showArrows" class="arrow arrow--prev" @click="prev" aria-label="Previous">‹</button>
-    <button v-if="images.length > 1 && showArrows" class="arrow arrow--next" @click="next" aria-label="Next">›</button>
+    <button v-if="images.length > 1 && showArrows" class="arrow arrow--prev" @click.stop="prev" aria-label="Previous">‹</button>
+    <button v-if="images.length > 1 && showArrows" class="arrow arrow--next" @click.stop="next" aria-label="Next">›</button>
 
     <div v-if="images.length > 1 && showDots" class="dots">
       <button
         v-for="(_, index) in images"
         :key="index"
         :class="['dot', { 'dot--active': currentIndex === index }]"
-        @click="goTo(index)"
+        @click.stop="goTo(index)"
         aria-label="Go to slide"
       />
     </div>
@@ -36,7 +36,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 /* global defineProps, defineEmits, defineExpose */
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   images: {
@@ -46,10 +46,6 @@ const props = defineProps({
   alt: {
     type: String,
     default: ''
-  },
-  interval: {
-    type: Number,
-    default: 4000
   },
   showDots: {
     type: Boolean,
@@ -64,7 +60,6 @@ const props = defineProps({
 const emit = defineEmits(['slideChange'])
 
 const currentIndex = ref(0)
-let autoTimer = null
 
 function goTo(index) {
   if (props.images.length === 0) return
@@ -90,37 +85,9 @@ function onKeyDown(e) {
   }
 }
 
-function startAuto() {
-  stopAuto()
-  if (props.images.length > 1 && props.interval > 0) {
-    autoTimer = setInterval(next, props.interval)
-  }
-}
-
-function stopAuto() {
-  if (autoTimer) {
-    clearInterval(autoTimer)
-    autoTimer = null
-  }
-}
-
 function reset() {
   currentIndex.value = 0
 }
-
-onMounted(() => {
-  reset()
-  startAuto()
-})
-
-onUnmounted(() => {
-  stopAuto()
-})
-
-watch(() => props.images, () => {
-  reset()
-  startAuto()
-})
 
 defineExpose({ goTo, next, prev, reset })
 </script>
@@ -142,7 +109,6 @@ defineExpose({ goTo, next, prev, reset })
   width: 100%;
   height: 100%;
   transition: transform 0.45s cubic-bezier(.22,.9,.25,1);
-  transform: translateX(calc(-100% * var(--slide-index, 0)));
 }
 
 .carousel-slide {

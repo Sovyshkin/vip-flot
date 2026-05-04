@@ -45,12 +45,12 @@ onBeforeUnmount(() => {
             </div>
         </div>
         <div class="cards">
-            <div v-for="yacht in visibleYachts" :key="yacht.id" class="card">
-                <div class="wrap-img">
+            <div v-for="yacht in visibleYachts" :key="yacht.id" class="card" @click="goToYacht(yacht.slug)">
+                <div class="wrap-img" @click.stop>
                     <CardCarousel :images="Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage]" :alt="yacht.name">
                     </CardCarousel>
                 </div>
-                <div class="card-info" @click="goToYacht(yacht.slug)" style="cursor: pointer;">
+                <div class="card-info">
                     <div class="card-text">
                         <span class="card-title">{{ yacht.name }}</span>
                         <div class="card-desc">
@@ -178,7 +178,8 @@ onBeforeUnmount(() => {
         gap: 24px;
         background-color: #fff;
         border-radius: 16px;
-}
+        cursor: pointer;
+    }
 
 .wrap-img {
     position: relative;

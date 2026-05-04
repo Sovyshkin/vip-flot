@@ -31,12 +31,12 @@ function goToBooking() {
             </div>
         </div>
         <div class="cards">
-            <div class="card" v-for="yacht in sailingYachts" :key="yacht.name">
-                <div class="wrap-img">
+            <div class="card" v-for="yacht in sailingYachts" :key="yacht.name" @click="yacht.slug && goToBoat(yacht.slug)">
+                <div class="wrap-img" @click.stop>
                     <CardCarousel :images="Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage]" :alt="yacht.name">
                     </CardCarousel>
                 </div>
-                <div class="card-info" @click="yacht.slug && goToBoat(yacht.slug)" :style="yacht.slug ? 'cursor: pointer' : ''">
+                <div class="card-info">
                     <div class="card-text">
                         <span class="card-title">{{ yacht.name }}</span>
                         <div class="card-desc">
@@ -164,7 +164,8 @@ function goToBooking() {
         gap: 24px;
         background-color: #fff;
         border-radius: 16px;
-}
+        cursor: pointer;
+    }
 
 .wrap-img {
     position: relative;

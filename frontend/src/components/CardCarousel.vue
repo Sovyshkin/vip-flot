@@ -1,5 +1,5 @@
 <template>
-  <div class="card-carousel" @mouseenter="stopAuto" @mouseleave="startAuto">
+  <div class="card-carousel">
     <div class="carousel-track" ref="trackEl">
       <div
         v-for="(image, index) in images"
@@ -28,7 +28,7 @@
 
 <script setup>
 /* global defineProps */
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   images: {
@@ -38,16 +38,11 @@ const props = defineProps({
   alt: {
     type: String,
     default: ''
-  },
-  interval: {
-    type: Number,
-    default: 4500
   }
 })
 
 const trackEl = ref(null)
 const currentIndex = ref(0)
-let autoTimer = null
 
 function goTo(index) {
   currentIndex.value = index
@@ -66,19 +61,6 @@ function prev() {
   goTo(prevIndex)
 }
 
-function startAuto() {
-  if (props.images.length > 1) {
-    autoTimer = setInterval(next, props.interval)
-  }
-}
-
-function stopAuto() {
-  if (autoTimer) {
-    clearInterval(autoTimer)
-    autoTimer = null
-  }
-}
-
 function getImageUrl(imageName) {
   if (!imageName) return ''
   if (typeof imageName !== 'string') return imageName
@@ -87,14 +69,6 @@ function getImageUrl(imageName) {
   }
   return `/images/${encodeURIComponent(imageName)}`
 }
-
-onMounted(() => {
-  startAuto()
-})
-
-onUnmounted(() => {
-  stopAuto()
-})
 </script>
 
 <style scoped>

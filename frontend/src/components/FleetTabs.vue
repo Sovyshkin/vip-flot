@@ -82,12 +82,12 @@ onBeforeUnmount(() => {
     </div>
 
     <div class="cards">
-      <div v-for="item in visibleItems" :key="item.id || item.name" class="card">
-        <div class="wrap-img" @click="goToDetail(item.slug)" style="cursor: pointer;">
+      <div v-for="item in visibleItems" :key="item.id || item.name" class="card" @click="goToDetail(item.slug)">
+        <div class="wrap-img" @click.stop>
           <CardCarousel :images="Array.isArray(item.cardImage) ? item.cardImage : [item.cardImage]" :alt="item.name">
           </CardCarousel>
         </div>
-        <div class="card-info" @click="goToDetail(item.slug)" style="cursor: pointer;">
+        <div class="card-info">
           <div class="card-text">
             <span class="card-title">{{ item.name }}</span>
             <div class="card-desc">
@@ -238,12 +238,13 @@ onBeforeUnmount(() => {
 }
 
 .card {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  background-color: #fff;
-  border-radius: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #fff;
+    border-radius: 16px;
+    cursor: pointer;
 }
 
 .wrap-img {

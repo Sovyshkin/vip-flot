@@ -326,12 +326,12 @@ const filteredTours = computed(() => {
       </div>
 
       <div v-else class="cards-grid">
-        <div v-for="boat in filteredBoats" :key="boat.id" class="card">
-          <div class="wrap-img">
+        <div v-for="boat in filteredBoats" :key="boat.id" class="card" @click="goToBoat(boat.slug)">
+          <div class="wrap-img" @click.stop>
             <CardCarousel :images="boat.cardImage" :alt="boat.name">
             </CardCarousel>
           </div>
-          <div class="card-info" @click="goToBoat(boat.slug)" style="cursor: pointer;">
+          <div class="card-info">
             <div class="card-text">
               <span class="card-title">{{ boat.name }}</span>
               <div class="card-desc">
@@ -810,14 +810,14 @@ const filteredTours = computed(() => {
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  background-color: #FFFFFF;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background-color: #fff;
+        border-radius: 16px;
+        cursor: pointer;
+    }
 
 .card:hover {
   transform: translateY(-4px);
