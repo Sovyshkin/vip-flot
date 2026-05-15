@@ -177,7 +177,7 @@ function goToBooking() {
     background: #fff;
 }
 
-.wrap-img :deep(.slide) {
+.wrap-img :deep(.carousel-slide) {
     width: 100%;
     height: 100%;
     display: flex;
@@ -185,11 +185,11 @@ function goToBooking() {
     justify-content: center;
 }
 
-.wrap-img :deep(.slide img) {
+.wrap-img :deep(.carousel-slide img) {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 /* Carousel controls styling for cards */

@@ -203,7 +203,7 @@ export const yachts = [
 
 Проходит по каналам Санкт-Петербурга!
 На яхте Ялта можно исследовать каналы Санкт-Петербурга, проходя под мостами, выйти в Неву либо доплыть до Финского залива и вернуться.`,
-    cardImage: ['2B3A5169.jpg', '2B3A5172.jpg'],
+    cardImage: ['2B3A5169.jpg', '2B3A5528.jpg'],
     images: [
         'https://optim.tildacdn.com/tild6636-6462-4339-a130-343265653362/-/format/webp/2B3A5169_2.jpg.webp',
         'https://optim.tildacdn.com/tild6664-3439-4335-a139-326633663337/-/format/webp/2B3A5299_16_11zon.jpeg.webp',
@@ -419,7 +419,7 @@ export const yachts = [
 В салоне и в каютах, есть климат-контроль. Чтобы отдых был в сопровождении вашей любимой музыки, вы всегда можете воспользоваться музыкальной системой, находящейся на борту.
 
 Позвольте себе отдых с роскошью на спортивной и элегантной яхте, и вы будете в восторге от ярких эмоций!`,
-    cardImage: ['2B3A5585.jpg', '2B3A5618.jpg'],
+    cardImage: ['2B3A5585.jpg', '2B3A5676.jpg'],
     images: [
     'https://optim.tildacdn.com/tild3066-6131-4635-a466-333463626235/-/format/webp/2024-06-02_192355.jpg.webp',
     'https://optim.tildacdn.com/tild6235-6631-4232-b732-333530653337/-/format/webp/2024-06-02_192239.jpg.webp',
@@ -1012,7 +1012,7 @@ Galeon 640 идеально подходит для однодневных пр�
 Спасательные жилеты, чтобы обеспечить безопасность;
 Столик и пледы для комфортного отдыха на палубе;
 Зарядное устройство, чтобы поддерживать работоспособность электроники на борту.`,
-    cardImage: ['2B3A0149-2.jpg', '2B3A0468.jpg'],
+    cardImage: ['2B3A0149-2.jpg', '2B3A0490.jpg'],
     images: [ 'https://optim.tildacdn.com/tild6363-6365-4437-b362-396433613763/-/format/webp/leopard01.jpeg.webp', "https://optim.tildacdn.com/tild6130-3866-4063-b263-356334343764/-/format/webp/leopard02.jpeg.webp", "https://static.tildacdn.com/tild3665-3336-4635-a436-633633623530/leopard03.jpeg", "https://static.tildacdn.com/tild6164-6463-4666-a361-306435636565/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild6630-6631-4833-a361-663336613739/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild6334-3063-4431-a539-626634383761/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild3634-6363-4237-a633-326136626365/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild3430-6330-4131-a132-366161653061/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild6430-6330-4564-a133-643534303439/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild3036-6230-4262-a362-636665663031/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild6337-3236-4666-b531-343837376233/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild3862-6635-4162-b763-386465656665/photo_2024-05-31_170.jpeg", "https://optim.tildacdn.com/tild6561-6237-4162-b065-383063653631/-/format/webp/photo_2024-05-31_170.jpeg.webp", "https://static.tildacdn.com/tild6566-3637-4232-a631-623430336431/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild3531-3530-4438-b565-663832373663/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild6334-3136-4533-a232-343433633161/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild6561-6237-4162-b065-383063653631/photo_2024-05-31_170.jpeg", "https://static.tildacdn.com/tild6363-6365-4437-b362-396433613763/leopard01.jpeg" ],
     features: ['3 каюты с санузлами', 'Тент от дождя', 'Кофемашина', 'Аудиосистема', 'Зарядное устройство', 'Капитан в стоимость'],
     specifications: {engine: 'Дизель', maxSpeed: '28 узлов', fuelType: 'Дизель', cabins: '3 каюты'},
@@ -1166,7 +1166,7 @@ Princess 68 — это яхта для требовательных людей �
 Просторная верхняя палуба с диванами для отдыха и загара, барбекю.
 Отдельная полностью оборудованная кухня с барной стойкой.
 Система горячего водоснабжения и климат-контроль во всех помещениях. Радионавигационное оборудование последнего поколения.`,
-    cardImage: ['WhatsApp Image 2021-07-06 at 17.07.14 (2).jpeg', 'PHOTO-2025-06-14-14-17-19.jpg'],
+    cardImage: ['WhatsApp Image 2021-07-06 at 17.07.14 (2).jpeg', 'PHOTO-2025-06-14-14-17-19 (1).jpg'],
     images: [ 'https://optim.tildacdn.com/tild3962-3764-4866-b937-303162336361/-/format/webp/WhatsApp_Image_2021-.jpeg.webp', "https://optim.tildacdn.com/tild3863-6664-4332-a638-396365383365/-/format/webp/WhatsApp_Image_2021-.jpeg.webp", "https://static.tildacdn.com/tild6265-3535-4435-b136-666163333561/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild6163-6165-4635-b437-396132323837/012_Princess_67.jpg", "https://static.tildacdn.com/tild3866-3661-4866-b635-316564663734/011_Princess_67.jpg", "https://static.tildacdn.com/tild6166-3634-4435-b066-383264633761/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild6166-3933-4639-b261-343963613639/WhatsApp_Image_2021-.jpeg", "https://optim.tildacdn.com/tild3664-6534-4937-a534-366262343131/-/format/webp/0092_Princess_67.jpg.webp", "https://static.tildacdn.com/tild3065-3337-4435-a234-646437303863/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild3233-6235-4837-b533-366562363261/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild6661-6231-4730-a433-303662633536/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild3036-3763-4563-b037-316565633134/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild6636-3037-4462-a164-623537626230/0071_Princess_67.jpg", "https://static.tildacdn.com/tild3134-3162-4565-b165-376361376632/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild3434-6137-4565-a265-643730353161/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild3430-3330-4663-a339-313931363861/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild6238-6236-4466-b635-313930666364/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild3839-6366-4264-a539-313863393538/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild3861-3437-4065-b033-383635666237/WhatsApp_Image_2021-.jpeg", "https://static.tildacdn.com/tild6635-3863-4561-b764-666231376533/0081_Princess_67.jpg", "https://static.tildacdn.com/tild3738-3766-4534-b862-346136656362/0082_Princess_67.jpg", "https://static.tildacdn.com/tild3135-6232-4863-b833-643261656630/0083_Princess_67.jpg", "https://static.tildacdn.com/tild3166-3361-4339-b864-373364353762/009_Princess_67.jpg", "https://static.tildacdn.com/tild6137-3965-4234-b862-363166373436/0091_Princess_67.jpg", "https://static.tildacdn.com/tild3664-6534-4937-a534-366262343131/0092_Princess_67.jpg", "https://static.tildacdn.com/tild3962-3764-4866-b937-303162336361/WhatsApp_Image_2021-.jpeg" ],
     features: ['Флайбридж с барбекю', '3 каюты', 'Барная стойка', 'Климат-контроль', 'Аудиосистема', 'Капитан в стоимость'],
     specifications: {engine: 'Дизель', maxSpeed: '28 узлов', fuelType: 'Дизель', cabins: '3 каюты'},

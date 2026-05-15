@@ -195,7 +195,7 @@ function scrollToSection(sectionId) {
 function scrollToElement(id) {
   const element = document.getElementById(id)
   if (element) {
-    const headerOffset = 100
+    const headerOffset = 68
     const elementPosition = element.getBoundingClientRect().top
     const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
@@ -217,7 +217,7 @@ function scrollToElement(id) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 40px;
+  padding: 8px 40px;
   background-color: #f5f5f5;
   z-index: 1000;
   transition: box-shadow 0.3s ease;
@@ -228,7 +228,7 @@ function scrollToElement(id) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.2s ease;
@@ -241,16 +241,18 @@ function scrollToElement(id) {
 .vipflot-header__logo-text {
   font-family: "Bebas Neue", sans-serif;
   font-weight: 600;
-  font-size: 20px;
-  letter-spacing: 7px;
+  font-size: 18px;
+  letter-spacing: 6px;
   text-transform: uppercase;
   color: #1a1a1a;
+  line-height: 1;
 }
 
 .vipflot-header__logo-subtitle {
   font-weight: 200;
-  font-size: 10px;
+  font-size: 9px;
   color: #949ca4;
+  line-height: 1;
 }
 
 /* Header - Навигация */
@@ -258,7 +260,7 @@ function scrollToElement(id) {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   list-style: none;
 }
 

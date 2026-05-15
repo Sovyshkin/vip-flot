@@ -186,10 +186,8 @@
 
     <section class="yacht-tour-sections">
       <div class="wrap">
-        <OurYachts />
+        <OurYachts custom-title="Яхты для тура" />
         <YachtTours />
-        <OurBoats />
-        <OurSailing />
         <RequestBook />
       </div>
     </section>
@@ -250,8 +248,6 @@ import { computed, ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import OurYachts from './OurYachts.vue'
 import YachtTours from './YachtTours.vue'
-import OurBoats from './OurBoats.vue'
-import OurSailing from './OurSailing.vue'
 import RequestBook from './RequestBook.vue'
 import { getYachtTourBySlug } from '../data/yachtsTours'
 

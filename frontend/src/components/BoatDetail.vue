@@ -818,7 +818,7 @@ function onPhoneKeydown(e) {
 
 .sidebar {
   position: sticky;
-  top: 24px;
+  top: 96px;
 }
 
 .booking-card {

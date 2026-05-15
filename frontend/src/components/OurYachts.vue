@@ -1,8 +1,16 @@
 <script setup>
+/* global defineProps */
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import CardCarousel from './CardCarousel.vue'
 import { useRouter } from 'vue-router'
 import { yachts } from '../data/yachts'
+
+defineProps({
+    customTitle: {
+        type: String,
+        default: ''
+    }
+})
 
 const router = useRouter()
 const showAll = ref(false)
@@ -37,7 +45,7 @@ onBeforeUnmount(() => {
     <div class="yachts-block">
         <div class="wrap-title">
             <div class="title-left">
-                <h1 class="title">Наши яхты</h1>
+                <h1 class="title">{{ customTitle || 'Наши яхты' }}</h1>
                 <div class="view-catalog" @click="goToCatalog">
                     <span class="text-catalog">Перейти в каталог</span>
                     <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
@@ -210,7 +218,7 @@ onBeforeUnmount(() => {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
 }
 
 .card-info {

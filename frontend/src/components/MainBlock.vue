@@ -48,7 +48,7 @@
 function scrollToId(id) {
     const el = document.getElementById(id)
     if (el) {
-        const headerOffset = 100
+        const headerOffset = 68
         const top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset
         window.scrollTo({ top, behavior: 'smooth' })
     }

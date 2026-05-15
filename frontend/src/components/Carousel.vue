@@ -4,6 +4,9 @@
     class="carousel"
     tabindex="0"
     @keydown="onKeyDown"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
   >
     <div
       class="carousel-track"
@@ -60,6 +63,36 @@ const props = defineProps({
 const emit = defineEmits(['slideChange'])
 
 const currentIndex = ref(0)
+
+// Touch handling for swipe
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const minSwipeDistance = 50
+
+function onTouchStart(e) {
+  touchStartX.value = e.touches[0].clientX
+}
+
+function onTouchMove(e) {
+  touchEndX.value = e.touches[0].clientX
+}
+
+function onTouchEnd() {
+  const distance = touchEndX.value - touchStartX.value
+  if (Math.abs(distance) < minSwipeDistance) return
+  
+  if (distance > 0) {
+    // Swiped right - go to previous
+    prev()
+  } else {
+    // Swiped left - go to next
+    next()
+  }
+  
+  // Reset touch values
+  touchStartX.value = 0
+  touchEndX.value = 0
+}
 
 function goTo(index) {
   if (props.images.length === 0) return
