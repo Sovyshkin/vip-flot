@@ -5,6 +5,7 @@ import CardCarousel from './CardCarousel.vue'
 import BookingModal from './BookingModal.vue'
 import { boats } from '../data/boats'
 import { yachts } from '../data/yachts'
+import { sailingYachts } from '../data/sailing'
 import { boatsRoutes } from '../data/boatsRoutes'
 import { yachtsRoutes } from '../data/yachtsRoutes'
 import { yachtTours } from '../data/yachtsTours'
@@ -21,6 +22,7 @@ const searchQuery = ref('')
 const capacityFilter = ref('all')
 const priceRangeFilter = ref('all')
 const sortBy = ref('none')
+const fleetTypeTab = ref('boats') // 'boats' | 'sailing' | 'yachts'
 
 // Фильтры для маршрутов и туров
 const routeSearchQuery = ref('')
@@ -29,6 +31,10 @@ const routeSortBy = ref('none')
 const routesTab = ref('boats') // 'boats' или 'yachts'
 
 function goToBoat(slug) {
+  if (!slug) {
+    isBookingOpen.value = true
+    return
+  }
   router.push({ name: 'BoatDetail', params: { slug } })
 }
 
@@ -90,8 +96,14 @@ function toggleFilters() {
 }
 
 // Отфильтрованный и отсортированный список флота (катера + яхты)
+const fleetItemsForTab = computed(() => {
+  if (fleetTypeTab.value === 'boats') return boats
+  if (fleetTypeTab.value === 'sailing') return sailingYachts
+  return yachts
+})
+
 const filteredBoats = computed(() => {
-  let result = [...boats, ...yachts]
+  let result = [...fleetItemsForTab.value]
 
   // Поиск по названию
   if (searchQuery.value) {
@@ -253,6 +265,30 @@ const filteredTours = computed(() => {
 
     <!-- Fleet Section -->
     <div v-show="activeTab === 'fleet'" class="fleet-section">
+      <div class="routes-tabs">
+        <button
+          type="button"
+          class="routes-tab-btn"
+          :class="{ active: fleetTypeTab === 'boats' }"
+          @click="fleetTypeTab = 'boats'">
+          Катера
+        </button>
+        <button
+          type="button"
+          class="routes-tab-btn"
+          :class="{ active: fleetTypeTab === 'sailing' }"
+          @click="fleetTypeTab = 'sailing'">
+          Парусные
+        </button>
+        <button
+          type="button"
+          class="routes-tab-btn"
+          :class="{ active: fleetTypeTab === 'yachts' }"
+          @click="fleetTypeTab = 'yachts'">
+          Яхты
+        </button>
+      </div>
+
       <!-- Кнопка переключения фильтров -->
       <button @click="toggleFilters" class="toggle-filters-btn">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -316,7 +352,7 @@ const filteredTours = computed(() => {
         </div>
 
           <div class="results-count">
-            Найдено: {{ filteredBoats.length }} из {{ boats.length + yachts.length }}
+            Найдено: {{ filteredBoats.length }} из {{ fleetItemsForTab.length }}
           </div>
         </div>
       </transition>
@@ -326,7 +362,7 @@ const filteredTours = computed(() => {
       </div>
 
       <div v-else class="cards-grid">
-        <div v-for="boat in filteredBoats" :key="boat.id" class="card" @click="goToBoat(boat.slug)">
+        <div v-for="boat in filteredBoats" :key="boat.id || boat.slug || boat.name" class="card" @click="goToBoat(boat.slug)">
           <div class="wrap-img">
             <CardCarousel :images="boat.cardImage" :alt="boat.name">
             </CardCarousel>
