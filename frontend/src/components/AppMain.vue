@@ -2,7 +2,8 @@
 import { onMounted, onBeforeUnmount } from 'vue'
 import MainBlock from "./MainBlock.vue"
 // import YachtTours from "./YachtTours.vue"
-import MainRoutesToursShowcase from "./MainRoutesToursShowcase.vue"
+// import MainRoutesToursShowcase from "./MainRoutesToursShowcase.vue"
+import MainRoutesToursShowcase from "./RoutesTours2.vue"
 import ActivitiesWater from "./ActivitiesWater.vue"
 import OurBoats from "./OurBoats.vue"
 import OurYachts from "./OurYachts.vue"
