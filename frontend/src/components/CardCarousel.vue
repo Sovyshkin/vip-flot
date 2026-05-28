@@ -1,6 +1,12 @@
 <template>
-  <div class="card-carousel" @click="$emit('click')">
-    <div class="carousel-track" ref="trackEl">
+  <div class="card-carousel" @click="onCarouselClick">
+    <div
+      class="carousel-track"
+      ref="trackEl"
+      @touchstart.passive="onTouchStart"
+      @touchmove.passive="onTouchMove"
+      @touchend.passive="onTouchEnd"
+      @touchcancel.passive="onTouchCancel">
       <div
         v-for="(image, index) in images"
         :key="index"
@@ -43,6 +49,9 @@ const props = defineProps({
 
 const trackEl = ref(null)
 const currentIndex = ref(0)
+const touchStartX = ref(0)
+const touchDeltaX = ref(0)
+const didSwipe = ref(false)
 
 function goTo(index) {
   currentIndex.value = index
@@ -68,6 +77,40 @@ function getImageUrl(imageName) {
     return imageName
   }
   return `/images/${encodeURIComponent(imageName)}`
+}
+
+function onTouchStart(e) {
+  if (!e.touches?.length) return
+  touchStartX.value = e.touches[0].clientX
+  touchDeltaX.value = 0
+  didSwipe.value = false
+}
+
+function onTouchMove(e) {
+  if (!e.touches?.length) return
+  touchDeltaX.value = e.touches[0].clientX - touchStartX.value
+}
+
+function onTouchEnd() {
+  const threshold = 40
+  if (Math.abs(touchDeltaX.value) >= threshold && props.images.length > 1) {
+    didSwipe.value = true
+    if (touchDeltaX.value < 0) next()
+    else prev()
+  }
+  touchDeltaX.value = 0
+}
+
+function onTouchCancel() {
+  touchDeltaX.value = 0
+  didSwipe.value = false
+}
+
+function onCarouselClick(event) {
+  if (didSwipe.value) {
+    event.stopPropagation()
+    didSwipe.value = false
+  }
 }
 </script>
 

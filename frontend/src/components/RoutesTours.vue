@@ -7,10 +7,6 @@
                 <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
             </div>
         </div>
-        <div class="tabs">
-            <button type="button" class="tab-btn" :class="{ active: activeTab === 'boats' }" @click="switchTab('boats')">Маршруты на катерах</button>
-            <button type="button" class="tab-btn" :class="{ active: activeTab === 'yachts' }" @click="switchTab('yachts')">Маршруты на яхтах</button>
-        </div>
         <div
             class="cards"
             ref="cardsContainer"
@@ -56,23 +52,30 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
+/* global defineProps */
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { boatsRoutes } from '../data/boatsRoutes'
 import { yachtsRoutes } from '../data/yachtsRoutes'
 import BookingModal from './BookingModal.vue'
 
+const props = defineProps({
+  routesType: {
+    type: String,
+    default: 'boats'
+  }
+})
+
 const router = useRouter()
 const cardsContainer = ref(null)
 const currentPage = ref(0)
 const pagesCount = ref(1)
-const activeTab = ref('boats')
 const showAll = ref(false)
 const isMobile = ref(false)
 const mobileLimit = 3
 const isBookingOpen = ref(false)
 
-const routesForTab = computed(() => (activeTab.value === 'boats' ? boatsRoutes : yachtsRoutes))
+const routesForTab = computed(() => (props.routesType === 'yachts' ? yachtsRoutes : boatsRoutes))
 const visibleRoutes = computed(() => {
     if (!isMobile.value) return routesForTab.value
     if (showAll.value) return routesForTab.value
@@ -115,17 +118,6 @@ const touchStartX = ref(0)
 const touchDeltaX = ref(0)
 const isPointerDown = ref(false)
 const pointerStartX = ref(0)
-
-function switchTab(tab) {
-  activeTab.value = tab
-  showAll.value = false
-  nextTick(() => {
-    if (cardsContainer.value) {
-      cardsContainer.value.scrollTo({ left: 0, behavior: 'instant' })
-    }
-    updatePages()
-  })
-}
 
 function findFirstVisibleIndex() {
     const container = cardsContainer.value
@@ -236,6 +228,19 @@ onMounted(() => {
         window.addEventListener('resize', () => { checkMobile(); updatePages() })
     }
 })
+
+watch(
+  () => props.routesType,
+  () => {
+    showAll.value = false
+    nextTick(() => {
+      if (cardsContainer.value) {
+        cardsContainer.value.scrollTo({ left: 0, behavior: 'instant' })
+      }
+      updatePages()
+    })
+  }
+)
 
 onBeforeUnmount(() => {
     if (resizeObserver) resizeObserver.disconnect()
@@ -375,7 +380,7 @@ onBeforeUnmount(() => {
 .wrap-img img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
 }
 

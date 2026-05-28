@@ -658,6 +658,31 @@ async function goToBooking() {
   color: #949CA4;
 }
 
+.group-value[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 48px;
+  line-height: 1.2;
+  padding-right: 44px;
+}
+
+.group-value[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+.group-value[type="date"]::-webkit-inner-spin-button,
+.group-value[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+.group-value[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
 textarea.group-value {
   resize: vertical;
   min-height: 80px;

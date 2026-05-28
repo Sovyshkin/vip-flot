@@ -17,7 +17,7 @@
         :key="index"
         class="carousel-slide"
       >
-        <img :src="image" :alt="alt">
+        <img :src="image" :alt="alt" loading="lazy" decoding="async" draggable="false">
       </div>
     </div>
 
@@ -141,7 +141,8 @@ defineExpose({ goTo, next, prev, reset })
   display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 0.45s cubic-bezier(.22,.9,.25,1);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
 }
 
 .carousel-slide {
@@ -160,6 +161,8 @@ defineExpose({ goTo, next, prev, reset })
   width: auto;
   height: auto;
   object-fit: contain;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .arrow {

@@ -1,7 +1,7 @@
 <template>
   <section class="detail-page-sections">
     <div class="wrap detail-page-sections__stack">
-      <RoutesTours />
+      <RoutesTours :routes-type="routesType" />
       <YachtTours />
       <OurYachts />
       <OurBoats />
@@ -12,6 +12,14 @@
 </template>
 
 <script setup>
+/* global defineProps */
+defineProps({
+  routesType: {
+    type: String,
+    default: 'boats'
+  }
+})
+
 import RoutesTours from './RoutesTours.vue'
 import YachtTours from './YachtTours.vue'
 import OurYachts from './OurYachts.vue'

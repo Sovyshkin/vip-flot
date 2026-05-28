@@ -2,11 +2,28 @@
   <div v-if="boat" class="boat-detail">
     <div class="hero-section">
       <div class="hero-image" @click="openFullscreen">
-        <Carousel :images="boat.images" :showDots="true" :showArrows="true" />
+        <Carousel
+          ref="heroCarousel"
+          :images="detailImages"
+          :showDots="true"
+          :showArrows="true"
+          @slideChange="heroActiveIndex = $event" />
         <button class="fullscreen-btn" @click.stop="openFullscreen" aria-label="Открыть на весь экран">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" fill="white"/>
           </svg>
+        </button>
+      </div>
+      <div v-if="detailImages.length > 1" class="hero-thumbnails-strip">
+        <button
+          v-for="(image, index) in detailImages"
+          :key="`hero-thumb-${index}`"
+          type="button"
+          class="hero-thumbnail"
+          :class="{ 'hero-thumbnail--active': index === heroActiveIndex }"
+          :aria-label="`Показать фото ${index + 1}`"
+          @click="goToHeroThumbnail(index)">
+          <img :src="getImageUrl(image)" :alt="`${boat.name} — фото ${index + 1}`">
         </button>
       </div>
       <div class="boat-header">
@@ -189,7 +206,7 @@
       </div>
     </section> -->
 
-    <DetailPageSections />
+    <DetailPageSections :routes-type="detailRoutesType" />
   </div>
   <div v-else class="not-found">
     <h1>Катер не найден</h1>
@@ -206,10 +223,10 @@
           </svg>
         </button>
         <div class="fullscreen-carousel-wrapper">
-          <Carousel :key="fullscreenKey" :images="boat.images" :showDots="true" :showArrows="true" ref="fullscreenCarousel" @slideChange="fullscreenActiveIndex = $event" />
+          <Carousel :key="fullscreenKey" :images="detailImages" :showDots="true" :showArrows="true" ref="fullscreenCarousel" @slideChange="fullscreenActiveIndex = $event" />
           <div class="thumbnails-strip">
             <div
-              v-for="(image, index) in boat.images"
+              v-for="(image, index) in detailImages"
               :key="index"
               class="thumbnail"
               :class="{ 'thumbnail--active': index === fullscreenActiveIndex }"
@@ -246,6 +263,8 @@ const isBookingOpen = ref(false);
 const fullscreenActiveIndex = ref(0);
 const fullscreenCarousel = ref(null);
 const fullscreenKey = ref(0);
+const heroActiveIndex = ref(0);
+const heroCarousel = ref(null);
 
 const formattedDescription = computed(() => {
   if (!boat.value?.description) return ''
@@ -290,6 +309,8 @@ const relatedVessels = computed(() => {
 
 const isYacht = computed(() => boat.value && yachts.some(y => y.slug === boat.value.slug));
 const isSailing = computed(() => boat.value && sailingYachts.some(s => s.slug === boat.value.slug));
+const detailRoutesType = computed(() => (isYacht.value || isSailing.value ? 'yachts' : 'boats'))
+const detailImages = computed(() => (boat.value?.images || []).map(getImageUrl))
 
 const previewRoutes = computed(() => {
   const source = (isYacht.value || isSailing.value) ? yachtsRoutes : boatsRoutes;
@@ -370,6 +391,13 @@ function goToThumbnail(index) {
   fullscreenActiveIndex.value = index;
   if (fullscreenCarousel.value) {
     fullscreenCarousel.value.goTo(index);
+  }
+}
+
+function goToHeroThumbnail(index) {
+  heroActiveIndex.value = index;
+  if (heroCarousel.value) {
+    heroCarousel.value.goTo(index);
   }
 }
 
@@ -645,6 +673,57 @@ function onPhoneKeydown(e) {
   background: #000;
 }
 
+.hero-image :deep(.carousel-slide img) {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.hero-thumbnails-strip {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 0 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.hero-thumbnails-strip::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hero-thumbnail {
+  flex: 0 0 84px;
+  width: 84px;
+  height: 56px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  padding: 0;
+  overflow: hidden;
+  background: #0f172a;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.82;
+}
+
+.hero-thumbnail:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.hero-thumbnail--active {
+  border-color: #0076FC;
+  opacity: 1;
+}
+
+.hero-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .boat-header {
   padding: 32px 40px;
   display: flex;
@@ -902,6 +981,31 @@ function onPhoneKeydown(e) {
   color: #949CA4;
 }
 
+.group-value[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 48px;
+  line-height: 1.2;
+  padding-right: 44px;
+}
+
+.group-value[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+.group-value[type="date"]::-webkit-inner-spin-button,
+.group-value[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+.group-value[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
 .btn-book {
   width: 100%;
   background-color: #0076FC;
@@ -1025,6 +1129,19 @@ function onPhoneKeydown(e) {
     height: 400px;
   }
 
+  .hero-thumbnails-strip {
+    gap: 8px;
+    margin-top: 10px;
+    padding: 0 4px;
+  }
+
+  .hero-thumbnail {
+    flex-basis: 68px;
+    width: 68px;
+    height: 46px;
+    border-radius: 8px;
+  }
+
   .hero-image :deep(.carousel) {
     border-radius: 0;
   }
@@ -1094,6 +1211,12 @@ function onPhoneKeydown(e) {
 @media (max-width: 480px) {
   .hero-image {
     height: 350px;
+  }
+
+  .hero-thumbnail {
+    flex-basis: 60px;
+    width: 60px;
+    height: 40px;
   }
 
   .boat-header {
@@ -1252,7 +1375,9 @@ function onPhoneKeydown(e) {
 }
 
 .fullscreen-carousel-wrapper :deep(.carousel-slide img) {
-  object-fit: contain !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
 .thumbnails-strip {
