@@ -586,6 +586,13 @@ onBeforeUnmount(() => {
         overflow: hidden;
     }
 
+    .card--custom {
+        min-height: auto;
+        height: auto;
+        flex-direction: column;
+        gap: 0;
+    }
+
     .wrap-img {
         flex-shrink: 0;
         width: 38%;
@@ -617,6 +624,11 @@ onBeforeUnmount(() => {
         overflow: hidden;
     }
 
+    .card-info--custom .card-text {
+        gap: 10px;
+        overflow: visible;
+    }
+
     .card-title {
         font-size: 13px;
         letter-spacing: 0;
@@ -638,24 +650,37 @@ onBeforeUnmount(() => {
     }
 
     .card-desc--custom {
-        font-size: 12px;
+        font-size: 14px;
+        line-height: 1.45;
         -webkit-line-clamp: unset;
+        overflow: visible;
     }
 
     .card-info--custom {
-        padding: 16px;
+        padding: 18px;
+        gap: 16px;
+        justify-content: flex-start;
     }
 
     .card-note {
-        font-size: 12px;
+        font-size: 13px;
+        line-height: 1.45;
     }
 
     .card-btn {
         width: 100%;
-        padding: 9px 10px;
-        font-size: 12px;
+        padding: 12px 14px;
+        font-size: 14px;
         border-radius: 10px;
         line-height: 1.2;
+    }
+
+    .card-label {
+        max-width: 100%;
+        font-size: 10px;
+        line-height: 1.2;
+        white-space: normal;
+        text-align: left;
     }
 
     .show-more-btn {

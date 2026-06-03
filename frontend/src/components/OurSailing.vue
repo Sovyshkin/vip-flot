@@ -1,9 +1,12 @@
 <script setup>
+import { ref, computed } from 'vue'
 import CardCarousel from './CardCarousel.vue'
 import { useRouter } from 'vue-router'
 import { sailingYachts } from '@/data/sailing.js'
 
 const router = useRouter()
+const showAll = ref(false)
+const visibleSailingYachts = computed(() => showAll.value ? sailingYachts : sailingYachts.slice(0, 6))
 
 function goToBoat(slug) {
     router.push({ name: 'BoatDetail', params: { slug } })
@@ -31,7 +34,7 @@ function goToBooking() {
             </div>
         </div>
         <div class="cards">
-            <div class="card" v-for="yacht in sailingYachts" :key="yacht.name" @click="yacht.slug && goToBoat(yacht.slug)">
+            <div class="card" v-for="yacht in visibleSailingYachts" :key="yacht.slug || yacht.name" @click="yacht.slug && goToBoat(yacht.slug)">
                 <div class="wrap-img">
                     <CardCarousel :images="Array.isArray(yacht.cardImage) ? yacht.cardImage : [yacht.cardImage]" :alt="yacht.name">
                     </CardCarousel>
@@ -57,6 +60,9 @@ function goToBooking() {
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-if="!showAll && sailingYachts.length > 6" class="show-more-wrap">
+            <button class="show-more-btn" @click="showAll = true">Показать больше</button>
         </div>
     </div>
 </template>
@@ -296,11 +302,29 @@ function goToBooking() {
     line-height: 16px;
 }
 
-/* Responsive */
-.card:nth-child(n+7) {
-    display: none;
+.show-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
 }
 
+.show-more-btn {
+    padding: 16px 48px;
+    border-radius: 16px;
+    background-color: #0076FC;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.show-more-btn:hover {
+    background-color: #0061D1;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
 @media (max-width: 1200px) {
     .cards {
         grid-template-columns: repeat(2, 1fr);
@@ -339,10 +363,6 @@ function goToBooking() {
     .cards {
         grid-template-columns: 1fr;
         gap: 16px;
-    }
-
-    .card:nth-child(n+5) {
-        display: none;
     }
 
     .card-title {

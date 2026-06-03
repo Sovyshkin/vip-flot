@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import CardCarousel from './CardCarousel.vue'
 import BookingModal from './BookingModal.vue'
 import { boats } from '../data/boats'
@@ -11,8 +11,10 @@ import { yachtsRoutes } from '../data/yachtsRoutes'
 import { yachtTours } from '../data/yachtsTours'
 
 const router = useRouter()
+const route = useRoute()
 const activeTab = ref('fleet')
 const isBookingOpen = ref(false)
+const fleetTypes = new Set(['boats', 'sailing', 'yachts'])
 
 // Состояние открытия фильтров
 const showFilters = ref(false)
@@ -22,7 +24,7 @@ const searchQuery = ref('')
 const capacityFilter = ref('all')
 const priceRangeFilter = ref('all')
 const sortBy = ref('none')
-const fleetTypeTab = ref('boats') // 'boats' | 'sailing' | 'yachts'
+const fleetTypeTab = ref(getFleetTypeFromQuery()) // 'boats' | 'sailing' | 'yachts'
 
 // Фильтры для маршрутов и туров
 const routeSearchQuery = ref('')
@@ -49,6 +51,33 @@ function setTab(tab) {
 function goToBooking() {
   router.push({ path: '/', hash: '#booking' })
 }
+
+function getFleetTypeFromQuery() {
+  const queryValue = Array.isArray(route.query.fleetType) ? route.query.fleetType[0] : route.query.fleetType
+  return fleetTypes.has(queryValue) ? queryValue : 'boats'
+}
+
+function setFleetTypeTab(tab) {
+  if (!fleetTypes.has(tab)) return
+  fleetTypeTab.value = tab
+  router.replace({
+    query: {
+      ...route.query,
+      fleetType: tab === 'boats' ? undefined : tab
+    }
+  })
+}
+
+function getFleetItemKey(boat) {
+  return `${fleetTypeTab.value}-${boat.slug || boat.id || boat.name}`
+}
+
+watch(
+  () => route.query.fleetType,
+  () => {
+    fleetTypeTab.value = getFleetTypeFromQuery()
+  }
+)
 
 function resetFilters() {
   searchQuery.value = ''
@@ -270,21 +299,21 @@ const filteredTours = computed(() => {
           type="button"
           class="routes-tab-btn"
           :class="{ active: fleetTypeTab === 'boats' }"
-          @click="fleetTypeTab = 'boats'">
+          @click="setFleetTypeTab('boats')">
           Катера
         </button>
         <button
           type="button"
           class="routes-tab-btn"
           :class="{ active: fleetTypeTab === 'sailing' }"
-          @click="fleetTypeTab = 'sailing'">
+          @click="setFleetTypeTab('sailing')">
           Парусные
         </button>
         <button
           type="button"
           class="routes-tab-btn"
           :class="{ active: fleetTypeTab === 'yachts' }"
-          @click="fleetTypeTab = 'yachts'">
+          @click="setFleetTypeTab('yachts')">
           Яхты
         </button>
       </div>
@@ -361,10 +390,10 @@ const filteredTours = computed(() => {
         <p class="no-results-text">Ничего не найдено. Попробуйте изменить параметры поиска.</p>
       </div>
 
-      <div v-else class="cards-grid">
-        <div v-for="boat in filteredBoats" :key="boat.id || boat.slug || boat.name" class="card" @click="goToBoat(boat.slug)">
+      <div v-else :key="fleetTypeTab" class="cards-grid">
+        <div v-for="boat in filteredBoats" :key="getFleetItemKey(boat)" class="card" @click="goToBoat(boat.slug)">
           <div class="wrap-img">
-            <CardCarousel :images="boat.cardImage" :alt="boat.name">
+            <CardCarousel :key="getFleetItemKey(boat)" :images="boat.cardImage" :alt="boat.name">
             </CardCarousel>
           </div>
           <div class="card-info">
@@ -869,8 +898,14 @@ const filteredTours = computed(() => {
 .wrap-img img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   transition: transform 0.4s ease;
+}
+
+.wrap-img :deep(.carousel-slide img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .route-card:hover .wrap-img img {
@@ -1172,6 +1207,42 @@ const filteredTours = computed(() => {
     gap: 16px;
   }
 
+  .route-card--custom {
+    gap: 0;
+  }
+
+  .card-info--custom {
+    padding: 22px;
+    gap: 16px;
+  }
+
+  .card-info--custom .card-text {
+    gap: 10px;
+  }
+
+  .card-label {
+    width: fit-content;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .card-desc--custom {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .card-note {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-top: 0;
+  }
+
+  .route-card--custom .card-btn {
+    width: 100%;
+    padding: 13px 18px;
+  }
+
   .wrap-img {
     height: 220px;
   }
@@ -1236,8 +1307,26 @@ const filteredTours = computed(() => {
     gap: 20px;
   }
 
+  .card-info--custom {
+    padding: 18px;
+    gap: 14px;
+  }
+
   .card-title {
     font-size: 16px;
+  }
+
+  .route-card--custom .card-title {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .card-desc--custom {
+    font-size: 13px;
+  }
+
+  .card-note {
+    font-size: 12px;
   }
 
   .card-price {

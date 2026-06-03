@@ -9,7 +9,7 @@
       @touchcancel.passive="onTouchCancel">
       <div
         v-for="(image, index) in images"
-        :key="index"
+        :key="`${image}-${index}`"
         class="carousel-slide"
       >
         <img :src="getImageUrl(image)" :alt="alt">
@@ -34,7 +34,7 @@
 
 <script setup>
 /* global defineProps */
-import { ref } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 
 const props = defineProps({
   images: {
@@ -52,6 +52,18 @@ const currentIndex = ref(0)
 const touchStartX = ref(0)
 const touchDeltaX = ref(0)
 const didSwipe = ref(false)
+
+watch(
+  () => props.images,
+  async () => {
+    currentIndex.value = 0
+    await nextTick()
+    if (trackEl.value) {
+      trackEl.value.style.transform = 'translateX(0)'
+    }
+  },
+  { deep: true }
+)
 
 function goTo(index) {
   currentIndex.value = index

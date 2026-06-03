@@ -1322,7 +1322,7 @@ function onPhoneKeydown(e) {
   align-items: center;
   justify-content: flex-start;
   padding: 60px 20px 20px;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .close-btn {
@@ -1352,15 +1352,20 @@ function onPhoneKeydown(e) {
 .fullscreen-carousel-wrapper {
   width: 100%;
   max-width: 1400px;
+  height: calc(100vh - 80px);
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .fullscreen-carousel-wrapper :deep(.carousel) {
   position: relative !important;
   width: 100% !important;
-  height: 65vh !important;
-  max-height: 700px !important;
+  height: auto !important;
+  max-height: none !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   background: #000 !important;
   overflow: hidden !important;
 }
@@ -1513,10 +1518,11 @@ function onPhoneKeydown(e) {
 
   .fullscreen-carousel-wrapper {
     max-width: 100%;
+    height: calc(100vh - 120px);
   }
 
   .fullscreen-carousel-wrapper :deep(.carousel) {
-    height: 70vh;
+    height: auto !important;
   }
 
   .fullscreen-carousel-wrapper :deep(.arrow) {
@@ -1838,9 +1844,13 @@ function onPhoneKeydown(e) {
     padding: 60px 5px 40px;
   }
 
+  .fullscreen-carousel-wrapper {
+    height: calc(100vh - 100px);
+  }
+
   .fullscreen-carousel-wrapper :deep(.carousel) {
     border-radius: 8px;
-    height: 60vh;
+    height: auto !important;
   }
 
   .fullscreen-carousel-wrapper :deep(.arrow) {

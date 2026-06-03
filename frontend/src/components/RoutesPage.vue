@@ -304,6 +304,23 @@ function getActionText(route) {
 
   .route-info--custom {
     padding: 22px;
+    gap: 14px;
+  }
+
+  .route-label {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .route-description--custom {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .route-note {
+    font-size: 13px;
+    line-height: 1.45;
   }
 
   .tabs {
@@ -329,9 +346,23 @@ function getActionText(route) {
   .route-info {
     padding: 20px;
   }
+
+  .route-info--custom {
+    padding: 18px;
+    gap: 12px;
+  }
   
   .route-title {
     font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .route-description--custom {
+    font-size: 13px;
+  }
+
+  .route-note {
+    font-size: 12px;
   }
   
   .route-details {
