@@ -1,6 +1,15 @@
 const { defineConfig } = require('@vue/cli-service')
+
 module.exports = defineConfig({
   transpileDependencies: true,
+  productionSourceMap: false,
+  lintOnSave: false,
+  chainWebpack: (config) => {
+    config.optimization.minimizer('terser').tap((args) => {
+      args[0].parallel = false
+      return args
+    })
+  },
   devServer: {
     client: {
       overlay: {
