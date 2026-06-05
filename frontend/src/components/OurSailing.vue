@@ -13,7 +13,7 @@ function goToBoat(slug) {
 }
 
 function goToCatalog() {
-    router.push({ name: 'Catalog' })
+    router.push({ name: 'Catalog', query: { fleetType: 'sailing' } })
 }
 
 function goToBooking() {

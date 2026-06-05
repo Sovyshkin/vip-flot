@@ -40,7 +40,7 @@ function goToDetail(slug) {
 }
 
 function goToCatalog() {
-  router.push({ name: 'Catalog' })
+  router.push({ name: 'Catalog', query: { fleetType: activeTab.value } })
 }
 
 function goToBooking() {

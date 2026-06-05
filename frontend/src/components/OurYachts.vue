@@ -24,7 +24,7 @@ function goToYacht(slug) {
 }
 
 function goToCatalog() {
-    router.push({ name: 'Catalog' })
+    router.push({ name: 'Catalog', query: { fleetType: 'yachts' } })
 }
 
 function goToBooking() {

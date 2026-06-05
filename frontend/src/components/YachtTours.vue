@@ -2,17 +2,30 @@
     <div class="yacht-tours-block">
         <div class="wrap-title">
             <h2 class="title">Другие яхт-туры</h2>
+            <div class="scroll-actions" aria-label="Навигация по яхт-турам">
+                <button class="scroll-btn" type="button" @click="scrollCards('prev')" aria-label="Показать предыдущие туры">‹</button>
+                <button class="scroll-btn" type="button" @click="scrollCards('next')" aria-label="Показать следующие туры">›</button>
+            </div>
         </div>
-        <div class="cards-scroll">
+        <div
+            ref="scrollEl"
+            class="cards-scroll"
+            :class="{ 'cards-scroll--dragging': isDragging }"
+            @pointerdown="onPointerDown"
+            @pointermove="onPointerMove"
+            @pointerup="onPointerUp"
+            @pointercancel="onPointerUp"
+            @pointerleave="onPointerUp">
             <div class="cards">
-                <div v-for="tour in yachtTours" :key="tour.id" class="card" @click="goToTour(tour.link)">
+                <div v-for="tour in yachtTours" :key="tour.id" class="card" @click="handleCardClick(tour)">
                     <div class="wrap-img">
-                        <img :src="tour.imageUrl" :alt="tour.title">
+                        <img :src="tour.imageUrl" :alt="tour.title" draggable="false">
                         <div class="badge">{{ tour.duration }}</div>
                     </div>
                     <div class="card-info">
                         <span class="card-title">{{ tour.title }}</span>
                         <span class="card-desc">{{ tour.description }}</span>
+                        <button class="details-btn" type="button" @click.stop="goToTour(tour.link)">Подробнее</button>
                     </div>
                 </div>
             </div>
@@ -21,10 +34,16 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { yachtTours } from '../data/yachtsTours'
 
 const router = useRouter()
+const scrollEl = ref(null)
+const isDragging = ref(false)
+const didDrag = ref(false)
+const startX = ref(0)
+const startScrollLeft = ref(0)
 
 function goToTour(link) {
   if (!link || link.startsWith('#popup')) {
@@ -33,6 +52,45 @@ function goToTour(link) {
   if (link.startsWith('/')) {
     router.push(link)
   }
+}
+
+function handleCardClick(tour) {
+  if (didDrag.value) {
+    didDrag.value = false
+    return
+  }
+  goToTour(tour.link)
+}
+
+function scrollCards(direction) {
+  if (!scrollEl.value) return
+  const amount = Math.round(scrollEl.value.clientWidth * 0.85)
+  scrollEl.value.scrollBy({
+    left: direction === 'next' ? amount : -amount,
+    behavior: 'smooth'
+  })
+}
+
+function onPointerDown(event) {
+  if (!scrollEl.value || event.pointerType === 'mouse' && event.button !== 0) return
+  isDragging.value = true
+  didDrag.value = false
+  startX.value = event.clientX
+  startScrollLeft.value = scrollEl.value.scrollLeft
+  scrollEl.value.setPointerCapture?.(event.pointerId)
+}
+
+function onPointerMove(event) {
+  if (!isDragging.value || !scrollEl.value) return
+  const delta = event.clientX - startX.value
+  if (Math.abs(delta) > 6) didDrag.value = true
+  scrollEl.value.scrollLeft = startScrollLeft.value - delta
+}
+
+function onPointerUp(event) {
+  if (!isDragging.value) return
+  isDragging.value = false
+  scrollEl.value?.releasePointerCapture?.(event.pointerId)
 }
 </script>
 
@@ -48,6 +106,7 @@ function goToTour(link) {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
 }
 
 .title {
@@ -57,15 +116,52 @@ function goToTour(link) {
     font-weight: 700;
 }
 
+.scroll-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.scroll-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 118, 252, 0.18);
+    background: #fff;
+    color: #0076FC;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scroll-btn:hover {
+    transform: translateY(-2px);
+    background: #0076FC;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(0, 118, 252, 0.18);
+}
+
 .cards-scroll {
     overflow-x: auto;
     margin: 0 -20px;
     padding: 0 20px;
     scrollbar-width: none;
+    cursor: grab;
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    touch-action: pan-x;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .cards-scroll::-webkit-scrollbar {
     display: none;
+}
+
+.cards-scroll--dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
 }
 
 .cards {
@@ -81,6 +177,7 @@ function goToTour(link) {
     background-color: #fff;
     border-radius: 16px;
     cursor: pointer;
+    scroll-snap-align: start;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -122,6 +219,7 @@ function goToTour(link) {
     flex-direction: column;
     gap: 8px;
     padding: 16px;
+    flex: 1;
 }
 
 .card-title {
@@ -141,13 +239,62 @@ function goToTour(link) {
     overflow: hidden;
 }
 
+.details-btn {
+    width: 100%;
+    margin-top: auto;
+    padding: 13px 18px;
+    border-radius: 12px;
+    background: #0076FC;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.details-btn:hover {
+    background: #0061D1;
+    transform: translateY(-1px);
+}
+
 @media (max-width: 768px) {
+    .wrap-title {
+        align-items: flex-start;
+    }
+
     .title {
         font-size: 24px;
     }
 
+    .scroll-actions {
+        gap: 8px;
+    }
+
+    .scroll-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 24px;
+    }
+
+    .cards-scroll {
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+
     .card {
-        flex: 0 0 260px;
+        flex: 0 0 min(82vw, 300px);
+    }
+}
+
+@media (max-width: 480px) {
+    .wrap-title {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .scroll-actions {
+        width: 100%;
+        justify-content: flex-end;
     }
 }
 </style>
