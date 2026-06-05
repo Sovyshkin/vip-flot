@@ -25,7 +25,13 @@
                     <div class="card-info">
                         <span class="card-title">{{ tour.title }}</span>
                         <span class="card-desc">{{ tour.description }}</span>
-                        <button class="details-btn" type="button" @click.stop="goToTour(tour.link)">Подробнее</button>
+                        <button
+                            class="details-btn"
+                            type="button"
+                            @pointerdown.stop
+                            @click.stop="goToTour(tour.link)">
+                            Подробнее
+                        </button>
                     </div>
                 </div>
             </div>
@@ -69,6 +75,7 @@ function scrollCards(direction) {
 }
 
 function onPointerDown(event) {
+  if (event.target?.closest?.('button, a, input, textarea, select')) return
   if (!scrollEl.value || event.pointerType === 'mouse' && event.button !== 0) return
   isDragging.value = true
   didDrag.value = false
