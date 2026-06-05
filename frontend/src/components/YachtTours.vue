@@ -36,7 +36,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { yachtTours } from '../data/yachtsTours'
+import { getYachtTourSlugFromLink, yachtTours } from '../data/yachtsTours'
 
 const router = useRouter()
 const scrollEl = ref(null)
@@ -46,12 +46,9 @@ const startX = ref(0)
 const startScrollLeft = ref(0)
 
 function goToTour(link) {
-  if (!link || link.startsWith('#popup')) {
-    return
-  }
-  if (link.startsWith('/')) {
-    router.push(link)
-  }
+  const slug = getYachtTourSlugFromLink(link)
+  if (!slug) return
+  router.push({ name: 'YachtTourDetail', params: { slug } })
 }
 
 function handleCardClick(tour) {

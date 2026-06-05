@@ -459,7 +459,7 @@ export const yachtTours = [
     duration: "7 суток",
     maxGuests: 8,
     imageUrl: "https://static.tildacdn.com/tild3865-3936-4238-b930-663761636639/radik-sitdikov-ZK3oc.jpg",
-    link: "#popup:bronkruize", // Ссылка ведет на попап, можно заменить на реальную
+    link: "/kruizy/kizhi",
     durationRaw: "7 суток",
     guestsRaw: "до 8 гостей"
   },
@@ -471,7 +471,7 @@ export const yachtTours = [
     duration: "2 дня",
     maxGuests: 16,
     imageUrl: "https://static.tildacdn.com/tild3330-3234-4430-b237-613063626339/2024-06-12_173908.jpg",
-    link: "#popup:bronkruize", // Ссылка ведет на попап
+    link: "/kruizy/sortavala",
     durationRaw: "2 дня",
     guestsRaw: "до 16 гостей"
   },
@@ -483,7 +483,7 @@ export const yachtTours = [
     duration: "2 дня",
     maxGuests: 16,
     imageUrl: "https://static.tildacdn.com/tild3334-3562-4130-b061-356638376437/2024-06-12_180423.jpg",
-    link: "#popup:bronkruize", // Ссылка ведет на попап
+    link: "/kruizy/vyborg",
     durationRaw: "2 дня",
     guestsRaw: "до 16 гостей"
   },
@@ -495,7 +495,7 @@ export const yachtTours = [
     duration: "7 суток",
     maxGuests: 8,
     imageUrl: "https://static.tildacdn.com/tild3338-3862-4535-a431-306133373330/2024-06-12_183346.jpg",
-    link: "#popup:bronkruize", // Ссылка ведет на попап
+    link: "/kruizy/moskva",
     durationRaw: "7 суток",
     guestsRaw: "до 8 гостей"
   }
