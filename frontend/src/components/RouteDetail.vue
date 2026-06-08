@@ -87,7 +87,10 @@
               </div>
               <div class="form-group">
                 <label class="group-name" for="booking-date">Дата прогулки</label>
-                <input class="group-value" type="date" id="booking-date" name="date" />
+                <div class="date-field">
+                  <input v-model="bookingDate" class="group-value" type="date" id="booking-date" name="date" placeholder="Выберите дату" />
+                  <span v-if="!bookingDate" class="date-field__placeholder">Выберите дату</span>
+                </div>
               </div>
               <button class="btn-book" @click="goToBooking">Забронировать</button>
               <p class="booking-note">Минимальная продолжительность: {{ route.duration }}</p>
@@ -115,6 +118,7 @@ import DetailPageSections from './DetailPageSections.vue';
 const vueRoute = useRoute();
 const router = useRouter();
 const route = ref(null);
+const bookingDate = ref('');
 
 onMounted(() => {
   const slug = vueRoute.params.slug;
@@ -598,6 +602,25 @@ function onPhoneKeydown(e) {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.date-field {
+  position: relative;
+}
+
+.date-field__placeholder {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #949CA4;
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.date-field:focus-within .date-field__placeholder {
+  opacity: 0;
 }
 
 .btn-book {

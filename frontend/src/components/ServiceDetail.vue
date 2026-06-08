@@ -88,13 +88,17 @@
               </div>
               <div class="form-group">
                 <label class="group-name" for="booking-date">Дата мероприятия</label>
-                <input 
-                  v-model="formData.date"
-                  class="group-value" 
-                  type="date" 
-                  id="booking-date" 
-                  name="date" 
-                />
+                <div class="date-field">
+                  <input 
+                    v-model="formData.date"
+                    class="group-value" 
+                    type="date" 
+                    id="booking-date" 
+                    name="date"
+                    placeholder="Выберите дату"
+                  />
+                  <span v-if="!formData.date" class="date-field__placeholder">Выберите дату</span>
+                </div>
               </div>
               <div class="form-group">
                 <label class="group-name" for="booking-comment">Комментарий</label>
@@ -604,6 +608,25 @@ async function goToBooking() {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.date-field {
+  position: relative;
+}
+
+.date-field__placeholder {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #949CA4;
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.date-field:focus-within .date-field__placeholder {
+  opacity: 0;
 }
 
 textarea.group-value {

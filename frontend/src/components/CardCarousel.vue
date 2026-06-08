@@ -140,7 +140,7 @@ function onCarouselClick(event) {
   display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 0.4s ease;
+  transition: none;
 }
 
 .carousel-slide {
