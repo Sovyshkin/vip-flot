@@ -1,12 +1,17 @@
 <template>
-  <div class="card-carousel" @click="onCarouselClick">
+  <div
+    class="card-carousel"
+    :class="{ 'card-carousel--dragging': isDragging }"
+    @click="onCarouselClick"
+    @pointerdown="onPointerDown"
+    @pointermove="onPointerMove"
+    @pointerup="onPointerUp"
+    @pointercancel="onPointerUp"
+    @pointerleave="onPointerUp">
     <div
       class="carousel-track"
       ref="trackEl"
-      @touchstart.passive="onTouchStart"
-      @touchmove.passive="onTouchMove"
-      @touchend.passive="onTouchEnd"
-      @touchcancel.passive="onTouchCancel">
+      >
       <div
         v-for="(image, index) in images"
         :key="`${image}-${index}`"
@@ -49,9 +54,11 @@ const props = defineProps({
 
 const trackEl = ref(null)
 const currentIndex = ref(0)
-const touchStartX = ref(0)
-const touchDeltaX = ref(0)
+const startX = ref(0)
+const dragDeltaX = ref(0)
+const isDragging = ref(false)
 const didSwipe = ref(false)
+const activePointerId = ref(null)
 
 watch(
   () => props.images,
@@ -70,6 +77,13 @@ function goTo(index) {
   if (trackEl.value) {
     trackEl.value.style.transform = `translateX(-${index * 100}%)`
   }
+}
+
+function syncTrackPosition() {
+  if (!trackEl.value) return
+  const baseX = -currentIndex.value * 100
+  const offset = isDragging.value ? dragDeltaX.value : 0
+  trackEl.value.style.transform = `translateX(calc(${baseX}% + ${offset}px))`
 }
 
 function next() {
@@ -91,31 +105,40 @@ function getImageUrl(imageName) {
   return `/images/${encodeURIComponent(imageName)}`
 }
 
-function onTouchStart(e) {
-  if (!e.touches?.length) return
-  touchStartX.value = e.touches[0].clientX
-  touchDeltaX.value = 0
+function onPointerDown(event) {
+  if (!props.images.length || (event.pointerType === 'mouse' && event.button !== 0)) return
+  if (event.target?.closest?.('button, a, input, textarea, select')) return
+  isDragging.value = true
   didSwipe.value = false
+  activePointerId.value = event.pointerId
+  startX.value = event.clientX
+  dragDeltaX.value = 0
+  trackEl.value?.setPointerCapture?.(event.pointerId)
 }
 
-function onTouchMove(e) {
-  if (!e.touches?.length) return
-  touchDeltaX.value = e.touches[0].clientX - touchStartX.value
+function onPointerMove(event) {
+  if (!isDragging.value || event.pointerId !== activePointerId.value) return
+  dragDeltaX.value = event.clientX - startX.value
+  syncTrackPosition()
 }
 
-function onTouchEnd() {
-  const threshold = 40
-  if (Math.abs(touchDeltaX.value) >= threshold && props.images.length > 1) {
+function onPointerUp(event) {
+  if (!isDragging.value || event.pointerId !== activePointerId.value) return
+  const threshold = 48
+  const delta = dragDeltaX.value
+
+  isDragging.value = false
+  trackEl.value?.releasePointerCapture?.(event.pointerId)
+
+  if (Math.abs(delta) >= threshold && props.images.length > 1) {
     didSwipe.value = true
-    if (touchDeltaX.value < 0) next()
+    if (delta < 0) next()
     else prev()
   }
-  touchDeltaX.value = 0
-}
 
-function onTouchCancel() {
-  touchDeltaX.value = 0
-  didSwipe.value = false
+  dragDeltaX.value = 0
+  activePointerId.value = null
+  syncTrackPosition()
 }
 
 function onCarouselClick(event) {
@@ -134,6 +157,8 @@ function onCarouselClick(event) {
   overflow: hidden;
   background: #fff;
   border-radius: 16px;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .carousel-track {
@@ -141,6 +166,12 @@ function onCarouselClick(event) {
   width: 100%;
   height: 100%;
   transition: none;
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.card-carousel--dragging .carousel-track {
+  cursor: grabbing;
 }
 
 .carousel-slide {
