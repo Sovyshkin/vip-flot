@@ -165,7 +165,7 @@ function onCarouselClick(event) {
   display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 280ms ease-out;
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
