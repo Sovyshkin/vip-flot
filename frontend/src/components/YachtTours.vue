@@ -49,7 +49,9 @@ const scrollEl = ref(null)
 const isDragging = ref(false)
 const didDrag = ref(false)
 const startX = ref(0)
+const startY = ref(0)
 const startScrollLeft = ref(0)
+const activePointerId = ref(null)
 
 function goToTour(link) {
   const slug = getYachtTourSlugFromLink(link)
@@ -77,24 +79,38 @@ function scrollCards(direction) {
 function onPointerDown(event) {
   if (event.target?.closest?.('button, a, input, textarea, select')) return
   if (!scrollEl.value || event.pointerType === 'mouse' && event.button !== 0) return
-  isDragging.value = true
+  isDragging.value = false
   didDrag.value = false
+  activePointerId.value = event.pointerId
   startX.value = event.clientX
+  startY.value = event.clientY
   startScrollLeft.value = scrollEl.value.scrollLeft
-  scrollEl.value.setPointerCapture?.(event.pointerId)
 }
 
 function onPointerMove(event) {
-  if (!isDragging.value || !scrollEl.value) return
+  if (!scrollEl.value || event.pointerId !== activePointerId.value) return
   const delta = event.clientX - startX.value
-  if (Math.abs(delta) > 6) didDrag.value = true
+  const deltaY = event.clientY - startY.value
+
+  if (!isDragging.value) {
+    if (Math.abs(deltaY) > Math.abs(delta)) return
+    if (Math.abs(delta) < 8) return
+    isDragging.value = true
+    didDrag.value = true
+    scrollEl.value.setPointerCapture?.(event.pointerId)
+  }
+
+  event.preventDefault()
   scrollEl.value.scrollLeft = startScrollLeft.value - delta
 }
 
 function onPointerUp(event) {
-  if (!isDragging.value) return
+  if (event.pointerId !== activePointerId.value) return
+  if (isDragging.value) {
+    scrollEl.value?.releasePointerCapture?.(event.pointerId)
+  }
   isDragging.value = false
-  scrollEl.value?.releasePointerCapture?.(event.pointerId)
+  activePointerId.value = null
 }
 </script>
 
@@ -155,7 +171,7 @@ function onPointerUp(event) {
     cursor: grab;
     scroll-behavior: smooth;
     scroll-snap-type: x proximity;
-    touch-action: pan-x;
+    touch-action: pan-y;
     user-select: none;
     -webkit-overflow-scrolling: touch;
 }
