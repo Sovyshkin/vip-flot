@@ -15,7 +15,11 @@
             @pointermove="onPointerMove"
             @pointerup="onPointerUp"
             @pointercancel="onPointerUp"
-            @pointerleave="onPointerUp">
+            @pointerleave="onPointerUp"
+            @touchstart.passive="onTouchStart"
+            @touchmove="onTouchMove"
+            @touchend="onTouchEnd"
+            @touchcancel="onTouchEnd">
             <div class="cards">
                 <div v-for="tour in yachtTours" :key="tour.id" class="card" @click="handleCardClick(tour)">
                     <div class="wrap-img">
@@ -52,6 +56,7 @@ const startX = ref(0)
 const startY = ref(0)
 const startScrollLeft = ref(0)
 const activePointerId = ref(null)
+const touchMode = ref(null)
 
 function goToTour(link) {
   const slug = getYachtTourSlugFromLink(link)
@@ -77,6 +82,7 @@ function scrollCards(direction) {
 }
 
 function onPointerDown(event) {
+  if (event.pointerType === 'touch') return
   if (event.target?.closest?.('button, a, input, textarea, select')) return
   if (!scrollEl.value || event.pointerType === 'mouse' && event.button !== 0) return
   isDragging.value = false
@@ -88,6 +94,7 @@ function onPointerDown(event) {
 }
 
 function onPointerMove(event) {
+  if (event.pointerType === 'touch') return
   if (!scrollEl.value || event.pointerId !== activePointerId.value) return
   const delta = event.clientX - startX.value
   const deltaY = event.clientY - startY.value
@@ -105,12 +112,47 @@ function onPointerMove(event) {
 }
 
 function onPointerUp(event) {
+  if (event.pointerType === 'touch') return
   if (event.pointerId !== activePointerId.value) return
   if (isDragging.value) {
     scrollEl.value?.releasePointerCapture?.(event.pointerId)
   }
   isDragging.value = false
   activePointerId.value = null
+}
+
+function onTouchStart(event) {
+  if (event.target?.closest?.('button, a, input, textarea, select')) return
+  if (!scrollEl.value || !event.touches.length) return
+  isDragging.value = false
+  didDrag.value = false
+  touchMode.value = null
+  startX.value = event.touches[0].clientX
+  startY.value = event.touches[0].clientY
+  startScrollLeft.value = scrollEl.value.scrollLeft
+}
+
+function onTouchMove(event) {
+  if (!scrollEl.value || !event.touches.length) return
+  const delta = event.touches[0].clientX - startX.value
+  const deltaY = event.touches[0].clientY - startY.value
+
+  if (!touchMode.value) {
+    if (Math.abs(delta) < 8 && Math.abs(deltaY) < 8) return
+    touchMode.value = Math.abs(delta) > Math.abs(deltaY) ? 'horizontal' : 'vertical'
+  }
+
+  if (touchMode.value !== 'horizontal') return
+
+  event.preventDefault()
+  isDragging.value = true
+  didDrag.value = true
+  scrollEl.value.scrollLeft = startScrollLeft.value - delta
+}
+
+function onTouchEnd() {
+  isDragging.value = false
+  touchMode.value = null
 }
 </script>
 
