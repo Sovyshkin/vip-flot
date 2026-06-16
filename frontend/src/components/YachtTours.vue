@@ -148,8 +148,9 @@ function onPointerUp(event) {
 
 .cards-scroll {
     overflow-x: auto;
-    margin: 0 -20px;
-    padding: 0 20px;
+    overflow-y: hidden;
+    margin: -8px -20px -28px;
+    padding: 8px 20px 28px;
     scrollbar-width: none;
     cursor: grab;
     scroll-behavior: smooth;
@@ -171,7 +172,7 @@ function onPointerUp(event) {
 .cards {
     display: flex;
     gap: 16px;
-    padding-bottom: 8px;
+    align-items: stretch;
 }
 
 .card {
@@ -182,6 +183,7 @@ function onPointerUp(event) {
     border-radius: 16px;
     cursor: pointer;
     scroll-snap-align: start;
+    min-height: 392px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -281,8 +283,8 @@ function onPointerUp(event) {
     }
 
     .cards-scroll {
-        margin: 0 -16px;
-        padding: 0 16px;
+        margin: -8px -16px -28px;
+        padding: 8px 16px 28px;
     }
 
     .card {

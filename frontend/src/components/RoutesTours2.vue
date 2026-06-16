@@ -371,7 +371,10 @@ onBeforeUnmount(() => {
     width: 100%;
     display: flex;
     gap: 15px;
-    overflow: hidden;
+    align-items: stretch;
+    box-sizing: border-box;
+    margin: -8px -4px -28px;
+    padding: 8px 4px 28px;
     overflow-y: hidden;
     overflow-x: auto;
     -ms-overflow-style: none; /* IE and Edge */
@@ -549,6 +552,8 @@ onBeforeUnmount(() => {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        margin: 0;
+        padding: 0;
         overflow: visible;
     }
 
@@ -561,14 +566,14 @@ onBeforeUnmount(() => {
         flex-direction: row;
         gap: 0;
         border-radius: 16px;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .wrap-img {
         flex-shrink: 0;
         width: 38%;
         height: 100%;
-        border-radius: 0;
+        border-radius: 16px 0 0 16px;
     }
 
     .badge {
