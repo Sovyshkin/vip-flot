@@ -592,11 +592,11 @@ onBeforeUnmount(() => {
     }
 
     .card--custom {
-        min-height: 178px;
+        min-height: 0;
         height: auto;
         flex-direction: column;
         gap: 0;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .wrap-img {
@@ -631,8 +631,8 @@ onBeforeUnmount(() => {
     }
 
     .card-info--custom .card-text {
-        gap: 8px;
-        overflow: hidden;
+        gap: 7px;
+        overflow: visible;
     }
 
     .card-title {
@@ -656,8 +656,8 @@ onBeforeUnmount(() => {
     }
 
     .card-desc--custom {
-        font-size: 13px;
-        line-height: 1.35;
+        font-size: 12px;
+        line-height: 1.32;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
@@ -665,16 +665,16 @@ onBeforeUnmount(() => {
     }
 
     .card-info--custom {
-        padding: 16px;
-        gap: 12px;
+        padding: 14px;
+        gap: 10px;
         justify-content: flex-start;
     }
 
     .card-note {
-        font-size: 12px;
-        line-height: 1.35;
+        font-size: 11px;
+        line-height: 1.3;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -689,11 +689,12 @@ onBeforeUnmount(() => {
 
     .card-label {
         max-width: 100%;
-        font-size: 9px;
+        font-size: 8px;
         line-height: 1.2;
         white-space: normal;
         text-align: left;
-        padding: 6px 10px;
+        padding: 5px 9px;
+        letter-spacing: 1.4px;
     }
 
     .show-more-btn {
@@ -722,7 +723,7 @@ onBeforeUnmount(() => {
     }
 
     .card--custom {
-        min-height: 188px;
+        min-height: 0;
     }
 
     .wrap-img {

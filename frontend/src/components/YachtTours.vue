@@ -16,10 +16,7 @@
             @pointerup="onPointerUp"
             @pointercancel="onPointerUp"
             @pointerleave="onPointerUp"
-            @touchstart.passive="onTouchStart"
-            @touchmove="onTouchMove"
-            @touchend="onTouchEnd"
-            @touchcancel="onTouchEnd">
+            @scroll.passive="onNativeScroll">
             <div class="cards">
                 <div v-for="tour in yachtTours" :key="tour.id" class="card" @click="handleCardClick(tour)">
                     <div class="wrap-img">
@@ -56,7 +53,7 @@ const startX = ref(0)
 const startY = ref(0)
 const startScrollLeft = ref(0)
 const activePointerId = ref(null)
-const touchMode = ref(null)
+let clickUnlockTimer
 
 function goToTour(link) {
   const slug = getYachtTourSlugFromLink(link)
@@ -121,38 +118,12 @@ function onPointerUp(event) {
   activePointerId.value = null
 }
 
-function onTouchStart(event) {
-  if (event.target?.closest?.('button, a, input, textarea, select')) return
-  if (!scrollEl.value || !event.touches.length) return
-  isDragging.value = false
-  didDrag.value = false
-  touchMode.value = null
-  startX.value = event.touches[0].clientX
-  startY.value = event.touches[0].clientY
-  startScrollLeft.value = scrollEl.value.scrollLeft
-}
-
-function onTouchMove(event) {
-  if (!scrollEl.value || !event.touches.length) return
-  const delta = event.touches[0].clientX - startX.value
-  const deltaY = event.touches[0].clientY - startY.value
-
-  if (!touchMode.value) {
-    if (Math.abs(delta) < 8 && Math.abs(deltaY) < 8) return
-    touchMode.value = Math.abs(delta) > Math.abs(deltaY) ? 'horizontal' : 'vertical'
-  }
-
-  if (touchMode.value !== 'horizontal') return
-
-  event.preventDefault()
-  isDragging.value = true
+function onNativeScroll() {
   didDrag.value = true
-  scrollEl.value.scrollLeft = startScrollLeft.value - delta
-}
-
-function onTouchEnd() {
-  isDragging.value = false
-  touchMode.value = null
+  clearTimeout(clickUnlockTimer)
+  clickUnlockTimer = setTimeout(() => {
+    didDrag.value = false
+  }, 120)
 }
 </script>
 
@@ -213,7 +184,7 @@ function onTouchEnd() {
     cursor: grab;
     scroll-behavior: smooth;
     scroll-snap-type: x proximity;
-    touch-action: pan-y;
+    touch-action: auto;
     user-select: none;
     -webkit-overflow-scrolling: touch;
 }
