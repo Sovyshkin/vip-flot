@@ -593,10 +593,10 @@ onBeforeUnmount(() => {
 
     .card--custom {
         min-height: 0;
-        height: auto;
+        height: 132px;
         flex-direction: column;
         gap: 0;
-        overflow: visible;
+        overflow: hidden;
     }
 
     .wrap-img {
@@ -631,8 +631,8 @@ onBeforeUnmount(() => {
     }
 
     .card-info--custom .card-text {
-        gap: 7px;
-        overflow: visible;
+        gap: 5px;
+        overflow: hidden;
     }
 
     .card-title {
@@ -656,27 +656,23 @@ onBeforeUnmount(() => {
     }
 
     .card-desc--custom {
-        font-size: 12px;
-        line-height: 1.32;
+        font-size: 11px;
+        line-height: 1.28;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
     .card-info--custom {
-        padding: 14px;
-        gap: 10px;
-        justify-content: flex-start;
+        height: 100%;
+        padding: 12px;
+        gap: 8px;
+        justify-content: space-between;
     }
 
     .card-note {
-        font-size: 11px;
-        line-height: 1.3;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        display: none;
     }
 
     .card-btn {
@@ -691,7 +687,7 @@ onBeforeUnmount(() => {
         max-width: 100%;
         font-size: 8px;
         line-height: 1.2;
-        white-space: normal;
+        white-space: nowrap;
         text-align: left;
         padding: 5px 9px;
         letter-spacing: 1.4px;
@@ -724,6 +720,7 @@ onBeforeUnmount(() => {
 
     .card--custom {
         min-height: 0;
+        height: 145px;
     }
 
     .wrap-img {
