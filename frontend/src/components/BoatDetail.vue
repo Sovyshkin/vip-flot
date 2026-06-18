@@ -146,8 +146,8 @@
                 <div class="date-field">
                   <input
                     v-model="formData.date"
-                    class="group-value"
-                    type="date"
+                    :class="['group-value', { 'group-value--date-empty': !formData.date }]"
+              type="date"
                     id="booking-date"
                     name="date"
                     placeholder="Выберите дату"
@@ -254,6 +254,7 @@ import { yachts, getYachtBySlug } from '../data/yachts';
 import { sailingYachts, getSailingBySlug } from '../data/sailing';
 import { boatsRoutes } from '../data/boatsRoutes';
 import { yachtsRoutes } from '../data/yachtsRoutes';
+import { toCanonicalSlug } from '../router/publicIds';
 import Carousel from './Carousel.vue';
 import BookingModal from './BookingModal.vue';
 import DetailPageSections from './DetailPageSections.vue';
@@ -336,7 +337,7 @@ const successMessage = ref('');
 const errorMessage = ref('');
 
 onMounted(() => {
-  const slug = route.params.slug;
+  const slug = toCanonicalSlug('BoatDetail', route.params.slug);
   boat.value = getBoatBySlug(slug) || getYachtBySlug(slug) || getSailingBySlug(slug);
 });
 
@@ -993,9 +994,21 @@ function onPhoneKeydown(e) {
   padding-right: 44px;
 }
 
-.group-value[type="date"]::-webkit-date-and-time-value {
-  text-align: left;
+
+
+.group-value[type="date"].group-value--date-empty {
+  color: transparent;
 }
+
+.group-value[type="date"].group-value--date-empty::-webkit-date-and-time-value,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-text,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-month-field,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-day-field,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
 
 .group-value[type="date"]::-webkit-inner-spin-button,
 .group-value[type="date"]::-webkit-clear-button {
@@ -1018,6 +1031,11 @@ function onPhoneKeydown(e) {
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 1;
+  max-width: calc(100% - 72px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #949CA4;
   font-size: 16px;
   line-height: 1;
@@ -1025,7 +1043,19 @@ function onPhoneKeydown(e) {
 }
 
 .date-field:focus-within .date-field__placeholder {
-  opacity: 0;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  max-width: calc(100% - 72px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #949CA4;
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .btn-book {

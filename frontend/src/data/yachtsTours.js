@@ -8,7 +8,7 @@ export const yachtTours = [
     duration: "2-3 дня",
     maxGuests: 8,
     imageUrl: "https://static.tildacdn.com/tild3933-3164-4462-a435-356365626335/photo_2024-07-23_023.jpeg",
-    link: "/kruizy/valaam",
+    link: "/catalog/tours/valaam",
     durationRaw: "2-3 дня",
     guestsRaw: "до 8 гостей",
     // Детальная информация для страницы тура
@@ -104,7 +104,7 @@ export const yachtTours = [
     duration: "от 5 часов",
     maxGuests: 16,
     imageUrl: "https://static.tildacdn.com/tild3566-3238-4234-b933-376235303965/photo_2024-07-23_171.jpeg",
-    link: "/kruizy/kronshtadt",
+    link: "/catalog/tours/kronshtadt",
     durationRaw: "от 5 часов",
     guestsRaw: "до 16 гостей",
     // Детальная информация для страницы тура
@@ -171,7 +171,7 @@ export const yachtTours = [
     duration: "от 4-х часов",
     maxGuests: 16,
     imageUrl: "https://static.tildacdn.com/tild3765-6232-4430-a366-396464316661/photo_2024-08-02_151.jpeg",
-    link: "/kruizy/petergof",
+    link: "/catalog/tours/petergof",
     durationRaw: "от 4 часов",
     guestsRaw: "до 16 гостей",
     // Детальная информация для страницы тура
@@ -254,7 +254,7 @@ export const yachtTours = [
     duration: "от 8-ми часов",
     maxGuests: 12,
     imageUrl: "https://static.tildacdn.com/tild3061-6462-4535-b733-326262303131/siarhei-palishchuk-r.jpg",
-    link: "/kruizy/krepost-oreshek",
+    link: "/catalog/tours/krepost-oreshek",
     durationRaw: "от 8 часов",
     guestsRaw: "до 12 гостей",
     // Детальная информация для страницы тура
@@ -349,7 +349,7 @@ export const yachtTours = [
   "duration": "от 12 дней",
   "maxGuests": 8,
   "imageUrl": "https://static.tildacdn.com/tild3632-3437-4730-b532-393765306665/photo_2024-08-02_151.jpeg",
-  "link": "/kruizy/soloveckie-ostrova",
+  "link": "/catalog/tours/soloveckie-ostrova",
   "durationRaw": "от 12 дней",
   "guestsRaw": "до 8 гостей",
   "fullDescription": "Приглашаем вас отправиться в увлекательное путешествие на яхте на Соловецкие острова – самый крупный архипелаг в Белом море.\n\nКруиз на яхте, Соловецкие острова с посещением Монастыря.\nРечной круиз из Петербурга в Соловки - это не только незабываемое приключение и возможность окунуться в атмосферу древности и духовности, но и тур по городам и деревням России с ежедневными остановками для знакомства с новыми местами. За неделю вы узнаете этот уникальный регион, увидите главные достопримечательности Карелии, включая локации из Списка всемирного наследия ЮНЕСКО, а также насыщенно проведете время с близкими во время отдыха на борту. И все это - в формате интересного и удобного индивидуального путешествия на яхте, логистику которого мы полностью берем на себя.",
@@ -459,7 +459,7 @@ export const yachtTours = [
     duration: "7 суток",
     maxGuests: 8,
     imageUrl: "https://static.tildacdn.com/tild3865-3936-4238-b930-663761636639/radik-sitdikov-ZK3oc.jpg",
-    link: "/kruizy/kizhi",
+    link: "/catalog/tours/kizhi",
     durationRaw: "7 суток",
     guestsRaw: "до 8 гостей"
   },
@@ -471,7 +471,7 @@ export const yachtTours = [
     duration: "2 дня",
     maxGuests: 16,
     imageUrl: "https://static.tildacdn.com/tild3330-3234-4430-b237-613063626339/2024-06-12_173908.jpg",
-    link: "/kruizy/sortavala",
+    link: "/catalog/tours/sortavala",
     durationRaw: "2 дня",
     guestsRaw: "до 16 гостей"
   },
@@ -483,7 +483,7 @@ export const yachtTours = [
     duration: "2 дня",
     maxGuests: 16,
     imageUrl: "https://static.tildacdn.com/tild3334-3562-4130-b061-356638376437/2024-06-12_180423.jpg",
-    link: "/kruizy/vyborg",
+    link: "/catalog/tours/vyborg",
     durationRaw: "2 дня",
     guestsRaw: "до 16 гостей"
   },
@@ -495,18 +495,22 @@ export const yachtTours = [
     duration: "7 суток",
     maxGuests: 8,
     imageUrl: "https://static.tildacdn.com/tild3338-3862-4535-a431-306133373330/2024-06-12_183346.jpg",
-    link: "/kruizy/moskva",
+    link: "/catalog/tours/moskva",
     durationRaw: "7 суток",
     guestsRaw: "до 8 гостей"
   }
 ]
 
 export function getYachtTourSlugFromLink(link) {
-  if (!link || !link.startsWith('/kruizy/')) return null
-  return link.replace('/kruizy/', '').trim()
+  if (!link || !link.startsWith('/catalog/tours/')) return null
+  return link.replace('/catalog/tours/', '').trim()
 }
 
 export function getYachtTourBySlug(slug) {
   if (!slug) return null
+  const publicIdMatch = String(slug).match(/^t-(\d+)$/)
+  if (publicIdMatch) {
+    return yachtTours.find((tour) => tour.id === Number(publicIdMatch[1])) || null
+  }
   return yachtTours.find((tour) => getYachtTourSlugFromLink(tour.link) === slug) || null
 }

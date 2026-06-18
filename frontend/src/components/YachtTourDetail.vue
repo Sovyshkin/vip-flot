@@ -154,8 +154,8 @@
                 <div class="date-field">
                   <input
                     v-model="formData.date"
-                    class="group-value"
-                    type="date"
+                    :class="['group-value', { 'group-value--date-empty': !formData.date }]"
+              type="date"
                     id="booking-date"
                     name="date"
                     placeholder="Выберите дату"
@@ -1078,9 +1078,21 @@ function goBack() {
   padding-right: 44px;
 }
 
-.group-value[type="date"]::-webkit-date-and-time-value {
-  text-align: left;
+
+
+.group-value[type="date"].group-value--date-empty {
+  color: transparent;
 }
+
+.group-value[type="date"].group-value--date-empty::-webkit-date-and-time-value,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-text,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-month-field,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-day-field,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
 
 .group-value[type="date"]::-webkit-inner-spin-button,
 .group-value[type="date"]::-webkit-clear-button {
@@ -1103,6 +1115,11 @@ function goBack() {
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 1;
+  max-width: calc(100% - 72px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #949CA4;
   font-size: 16px;
   line-height: 1;
@@ -1110,7 +1127,19 @@ function goBack() {
 }
 
 .date-field:focus-within .date-field__placeholder {
-  opacity: 0;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  max-width: calc(100% - 72px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #949CA4;
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .message {

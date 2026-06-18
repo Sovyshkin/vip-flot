@@ -461,6 +461,10 @@ export const activities = [
 ]
 
 export function getActivityBySlug(slug) {
+  const publicIdMatch = String(slug || '').match(/^e-(\d+)$/)
+  if (publicIdMatch) {
+    return activities.find(activity => activity.id === Number(publicIdMatch[1]))
+  }
   return activities.find(activity => activity.slug === slug)
 }
 

@@ -102,19 +102,19 @@ const shortTours = [
   {
     title: 'Петергоф',
     duration: 'от 4-х часов',
-    link: '/kruizy/petergof',
+    link: '/catalog/tours/t-3',
     image: 'https://optim.tildacdn.com/tild3963-6461-4834-b132-646436323435/-/cover/464x510/center/center/-/format/webp/photo_2024-08-02_151.jpeg.webp'
   },
   {
     title: 'Кронштадт',
     duration: 'от 5-ти часов',
-    link: '/kruizy/kronshtadt',
+    link: '/catalog/tours/t-2',
     image: 'https://optim.tildacdn.com/tild3061-3632-4838-b437-636638303837/-/cover/464x510/center/bottom/-/format/webp/photo_2024-07-23_163.jpeg.webp'
   },
   {
     title: 'Крепость Орешек',
     duration: 'от 8-ми часов',
-    link: '/kruizy/krepost-oreshek',
+    link: '/catalog/tours/t-4',
     image: 'https://optim.tildacdn.com/tild3130-6535-4633-b061-376236646366/-/cover/464x510/center/center/-/format/webp/photo_2025-06-01_15-.jpg.webp'
   }
 ]

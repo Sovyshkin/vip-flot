@@ -59,8 +59,8 @@
         </div>
         <div class="mobile-drawer__sub" :class="{ visible: openSection === 'tours' }">
           <span class="mobile-drawer__sub-item" @click="navigateTours">Все яхт-туры</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('route/razvod-mostov')">Развод мостов</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('route/petergof-morskoy')">Петергоф морем</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('marshruty/razvod-mostov')">Развод мостов</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/tours/petergof')">Петергоф морем</span>
         </div>
 
         <!-- МАРШРУТЫ -->
@@ -72,9 +72,9 @@
         </div>
         <div class="mobile-drawer__sub" :class="{ visible: openSection === 'routes' }">
           <span class="mobile-drawer__sub-item" @click="navigateRoutes">Все маршруты</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('route/reki-kanaly')">Реки и каналы</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('route/nevskiy-prospekt')">Невский проспект</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('route/kronshtadt')">Кронштадт</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/routes/reki-kanaly')">Реки и каналы</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/routes/nevskiy-prospekt')">Невский проспект</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/routes/kronshtadt')">Кронштадт</span>
         </div>
 
         <!-- МЕРОПРИЯТИЯ -->
@@ -86,11 +86,11 @@
         </div>
         <div class="mobile-drawer__sub" :class="{ visible: openSection === 'events' }">
           <span class="mobile-drawer__sub-item" @click="navigate('activities')">Все мероприятия</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('activity/den-rozhdeniya')">День рождения</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('activity/svadba')">Свадьба</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('activity/devichnik')">Девичник</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('activity/malchishnik')">Мальчишник</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('activity/korporativy')">Корпотив</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/events/den-rozhdeniya')">День рождения</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/events/svadba')">Свадьба</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/events/devichnik')">Девичник</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/events/malchishnik')">Мальчишник</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/events/korporativy')">Корпотив</span>
         </div>
 
         <!-- УСЛУГИ -->
@@ -102,10 +102,10 @@
         </div>
         <div class="mobile-drawer__sub" :class="{ visible: openSection === 'services' }">
           <span class="mobile-drawer__sub-item" @click="navigate('services')">Все услуги</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('service/catering')">Кейтеринг</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('service/photographer')">Фотограф</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('service/decoration')">Украшение палубы</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('service/live-music')">Живая музыка</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/services/catering')">Кейтеринг</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/services/photographer')">Фотограф</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/services/decoration')">Украшение палубы</span>
+          <span class="mobile-drawer__sub-item" @click="navigate('catalog/services/live-music')">Живая музыка</span>
         </div>
       </nav>
 

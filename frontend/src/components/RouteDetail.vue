@@ -88,7 +88,7 @@
               <div class="form-group">
                 <label class="group-name" for="booking-date">Дата прогулки</label>
                 <div class="date-field">
-                  <input v-model="bookingDate" class="group-value" type="date" id="booking-date" name="date" placeholder="Выберите дату" />
+                  <input v-model="bookingDate" :class="['group-value', { 'group-value--date-empty': !bookingDate }]" type="date" id="booking-date" name="date" placeholder="Выберите дату" />
                   <span v-if="!bookingDate" class="date-field__placeholder">Выберите дату</span>
                 </div>
               </div>
@@ -113,6 +113,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getRouteBySlug } from '../data/routes';
 import { getTourBySlug } from '../data/tours';
+import { toCanonicalSlug } from '../router/publicIds';
 import DetailPageSections from './DetailPageSections.vue';
 
 const vueRoute = useRoute();
@@ -121,7 +122,7 @@ const route = ref(null);
 const bookingDate = ref('');
 
 onMounted(() => {
-  const slug = vueRoute.params.slug;
+  const slug = toCanonicalSlug('RouteDetail', vueRoute.params.slug);
   // Try to find in routes first, then in tours
   route.value = getRouteBySlug(slug) || getTourBySlug(slug);
 });
@@ -588,9 +589,21 @@ function onPhoneKeydown(e) {
   padding-right: 44px;
 }
 
-.group-value[type="date"]::-webkit-date-and-time-value {
-  text-align: left;
+
+
+.group-value[type="date"].group-value--date-empty {
+  color: transparent;
 }
+
+.group-value[type="date"].group-value--date-empty::-webkit-date-and-time-value,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-text,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-month-field,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-day-field,
+.group-value[type="date"].group-value--date-empty::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
 
 .group-value[type="date"]::-webkit-inner-spin-button,
 .group-value[type="date"]::-webkit-clear-button {
@@ -613,6 +626,11 @@ function onPhoneKeydown(e) {
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 1;
+  max-width: calc(100% - 72px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #949CA4;
   font-size: 16px;
   line-height: 1;
@@ -620,7 +638,19 @@ function onPhoneKeydown(e) {
 }
 
 .date-field:focus-within .date-field__placeholder {
-  opacity: 0;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  max-width: calc(100% - 72px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #949CA4;
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .btn-book {

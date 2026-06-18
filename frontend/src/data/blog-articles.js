@@ -180,6 +180,10 @@ export const articles = [
 ]
 
 export function getArticleBySlug(slug) {
+    const publicIdMatch = String(slug || '').match(/^a-(\d+)$/)
+    if (publicIdMatch) {
+        return articles.find(article => article.id === Number(publicIdMatch[1]))
+    }
     return articles.find(article => article.slug === slug)
 }
 

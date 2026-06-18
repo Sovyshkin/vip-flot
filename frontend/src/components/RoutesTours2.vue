@@ -103,7 +103,7 @@
                             <span class="card-title">Петергоф</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/kruizy/petergof')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/catalog/tours/t-3')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
@@ -116,7 +116,7 @@
                             <span class="card-title">Кронштадт</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/kruizy/kronshtadt')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/catalog/tours/t-2')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
@@ -129,7 +129,7 @@
                             <span class="card-title">Крепость Орешек</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/kruizy/krepost-oreshek')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/catalog/tours/t-4')">Узнать подробнее</button>
                     </div>
                 </div>
             </template>

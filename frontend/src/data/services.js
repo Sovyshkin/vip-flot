@@ -290,6 +290,10 @@ export const services = [
 ];
 
 export function getServiceBySlug(slug) {
+  const publicIdMatch = String(slug || '').match(/^s-(\d+)$/)
+  if (publicIdMatch) {
+    return services.find(service => service.id === Number(publicIdMatch[1]));
+  }
   return services.find(service => service.slug === slug);
 }
 
