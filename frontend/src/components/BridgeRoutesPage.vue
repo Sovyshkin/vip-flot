@@ -9,7 +9,7 @@
       <div class="routes-grid">
         <article v-for="route in bridgeRoutes" :key="route.id" class="route-card">
           <div class="route-media">
-            <img :src="route.image" :alt="route.title">
+            <img :src="route.image" :alt="route.title" loading="lazy" decoding="async">
             <div class="route-badge">{{ route.duration }}</div>
           </div>
           <div class="route-info">

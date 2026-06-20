@@ -19,7 +19,7 @@
              @pointercancel.passive="onPointerUp">
             <router-link class="card" :to="{ name: 'BlogArticle', params: { slug: article.slug } }" v-for="article in articles" :key="article.id">
                 <div class="wrap-img">
-                    <img :src="article.image" :alt="article.title">
+                    <img :src="article.image" :alt="article.title" loading="lazy" decoding="async">
                     <div class="badge">{{ article.date }}</div>
                 </div>
                 <div class="card-info">

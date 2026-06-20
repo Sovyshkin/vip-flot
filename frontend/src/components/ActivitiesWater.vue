@@ -15,7 +15,7 @@
         <template v-if="activeTab === 'holidays'">
             <div class="row-cards">
                 <div v-for="card in holidaysRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name">
+                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
@@ -29,7 +29,7 @@
             </div>
             <div class="row-cards">
                 <div v-for="card in holidaysRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name">
+                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
@@ -47,7 +47,7 @@
         <template v-if="activeTab === 'entertainment'">
             <div class="row-cards">
                 <div v-for="card in entertainmentRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name">
+                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
@@ -61,7 +61,7 @@
             </div>
             <div class="row-cards">
                 <div v-for="card in entertainmentRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name">
+                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">

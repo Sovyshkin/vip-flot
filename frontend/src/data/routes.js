@@ -6,9 +6,9 @@ export const routes = [
     duration: 'от 2-х часов',
     pricePerHour: 17000,
     description: 'Познавательная экскурсия по рекам и каналам Санкт-Петербурга. Увидите город с водной перспективы, проплывёте под низкими мостами, мимо дворцов и старинных особняков.',
-    cardImage: require('@/assets/card-2.png'),
+    cardImage: require('@/assets/card-2.webp'),
     images: [
-      require('@/assets/card-2.png'),
+      require('@/assets/card-2.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -47,9 +47,9 @@ export const routes = [
     duration: 'от 1.5 часов',
     pricePerHour: 15000,
     description: 'Классический маршрут вдоль Невского проспекта с водной перспективы. Идеальный вариант для первого знакомства с городом на воде.',
-    cardImage: require('@/assets/card-1.jpg'),
+    cardImage: require('@/assets/card-1.webp'),
     images: [
-      require('@/assets/card-1.jpg'),
+      require('@/assets/card-1.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -85,9 +85,9 @@ export const routes = [
     duration: 'от 4-х часов',
     pricePerHour: 25000,
     description: 'Морское путешествие до города-порта Кронштадт. Осмотр исторических фортов и военно-морских сооружений.',
-    cardImage: require('@/assets/card-2.png'),
+    cardImage: require('@/assets/card-2.webp'),
     images: [
-      require('@/assets/card-2.png'),
+      require('@/assets/card-2.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -127,9 +127,9 @@ export const routes = [
     duration: 'от 2-х часов',
     pricePerHour: 20000,
     description: 'Незабываемый вечер на воде для двоих с видами на ночной Петербург. Шампанское, закаты и огни города — идеальное свидание.',
-    cardImage: require('@/assets/card-1.jpg'),
+    cardImage: require('@/assets/card-1.webp'),
     images: [
-      require('@/assets/card-1.jpg'),
+      require('@/assets/card-1.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -168,9 +168,9 @@ export const routes = [
     duration: 'от 2-х часов',
     pricePerHour: 30000,
     description: 'Корпоратив на воде — яркое мероприятие для команды с профессиональной организацией. Тимбилдинг, банкет и незабываемые виды на Петербург.',
-    cardImage: require('@/assets/card-2.png'),
+    cardImage: require('@/assets/card-2.webp'),
     images: [
-      require('@/assets/card-2.png'),
+      require('@/assets/card-2.webp'),
     ],
     details: `
       <h3>О мероприятии</h3>

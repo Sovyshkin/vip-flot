@@ -1,7 +1,7 @@
 <template>
   <div v-if="tour" class="yacht-tour-detail">
     <section class="hero hero-animate">
-      <img class="hero-image" :src="tour.bannerImage || tour.imageUrl" :alt="tour.title">
+      <img class="hero-image" :src="tour.bannerImage || tour.imageUrl" :alt="tour.title" decoding="async">
       <div class="hero-overlay"></div>
       <div class="hero-content wrap">
         <button class="hero-back" type="button" @click="goBack">Назад к турам</button>
@@ -108,6 +108,8 @@
                 :key="idx"
                 :src="image"
                 :alt="`${tour.title} ${idx + 1}`"
+                loading="lazy"
+                decoding="async"
                 :style="{ '--delay': `${Math.min(idx * 60, 420)}ms` }"
                 @click="openLightbox(idx)">
             </div>
@@ -215,7 +217,7 @@
           </button>
 
           <div class="lightbox-media">
-            <img :src="lightboxImages[activeImageIndex]" :alt="`${tour.title} ${activeImageIndex + 1}`">
+            <img :src="lightboxImages[activeImageIndex]" :alt="`${tour.title} ${activeImageIndex + 1}`" decoding="async">
           </div>
 
           <button

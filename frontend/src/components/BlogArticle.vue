@@ -2,7 +2,7 @@
   <div v-if="article" class="article-detail">
     <div class="hero-section">
       <div class="hero-image">
-        <img :src="article.image" :alt="article.title">
+        <img :src="article.image" :alt="article.title" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <div class="article-meta">
@@ -36,7 +36,7 @@
             <div v-for="relatedArticle in relatedArticles" :key="relatedArticle.id" 
                  class="related-item"
                  @click="goToArticle(relatedArticle.slug)">
-              <img :src="relatedArticle.image" :alt="relatedArticle.title" class="related-thumb">
+              <img :src="relatedArticle.image" :alt="relatedArticle.title" class="related-thumb" loading="lazy" decoding="async">
               <div class="related-info">
                 <span class="related-category">{{ relatedArticle.category }}</span>
                 <span class="related-title">{{ relatedArticle.title }}</span>
@@ -52,34 +52,34 @@
         <h2 class="planning-title">Запланировать водную прогулку</h2>
         <div class="blocks">
           <div class="block block-1" @click="goToRoutes" role="button" tabindex="0">
-            <img class="block-image" src="/img/block-1.d29e1fe6.png" alt="">
+            <img class="block-image" :src="blockRouteImage" alt="" loading="lazy" decoding="async">
             <div class="block-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
               </svg>
             </div>
             <h2 class="title-block">Выбираем маршрут</h2>
-            <button class="go-into"><img src="/img/go-into.eca97daa.svg" alt=""></button>
+            <button class="go-into"><img :src="goIntoIcon" alt="" loading="lazy" decoding="async"></button>
           </div>
           <div class="block block-2" @click="goToActivities" role="button" tabindex="0">
-            <img class="block-image" src="/img/block-2.3f3e9c30.png" alt="">
+            <img class="block-image" :src="blockActivityImage" alt="" loading="lazy" decoding="async">
             <div class="block-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z" fill="white"/>
               </svg>
             </div>
             <h2 class="title-block">Выбираем повод</h2>
-            <button class="go-into"><img src="/img/go-into.eca97daa.svg" alt=""></button>
+            <button class="go-into"><img :src="goIntoIcon" alt="" loading="lazy" decoding="async"></button>
           </div>
           <div class="block block-3" @click="goToCatalog" role="button" tabindex="0">
-            <img class="block-image" src="/img/block-3.243ea7d4.png" alt="">
+            <img class="block-image" :src="blockCatalogImage" alt="" loading="lazy" decoding="async">
             <div class="block-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.64 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.15.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z" fill="white"/>
               </svg>
             </div>
             <h2 class="title-block">Выбираем судно</h2>
-            <button class="go-into"><img src="/img/go-into.eca97daa.svg" alt=""></button>
+            <button class="go-into"><img :src="goIntoIcon" alt="" loading="lazy" decoding="async"></button>
           </div>
         </div>
       </div>
@@ -96,6 +96,10 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArticleBySlug, articles } from '../data/blog-articles'
+import blockRouteImage from '../assets/block-1.webp'
+import blockActivityImage from '../assets/block-2.webp'
+import blockCatalogImage from '../assets/block-3.webp'
+import goIntoIcon from '../assets/go-into.svg'
 
 const route = useRoute()
 const router = useRouter()

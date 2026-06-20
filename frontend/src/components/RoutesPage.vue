@@ -19,7 +19,7 @@
           :class="{ 'route-card--custom': isCustomRoute(route) }"
           @click="handleRouteClick(route)">
           <div v-if="!isCustomRoute(route)" class="route-media">
-            <img :src="route.image" :alt="route.title">
+            <img :src="route.image" :alt="route.title" loading="lazy" decoding="async">
             <div class="route-badge">{{ route.duration || 'По договоренности' }}</div>
           </div>
           <div class="route-info" :class="{ 'route-info--custom': isCustomRoute(route) }">

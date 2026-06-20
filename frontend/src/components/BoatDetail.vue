@@ -23,7 +23,7 @@
           :class="{ 'hero-thumbnail--active': index === heroActiveIndex }"
           :aria-label="`Показать фото ${index + 1}`"
           @click="goToHeroThumbnail(index)">
-          <img :src="getImageUrl(image)" :alt="`${boat.name} — фото ${index + 1}`">
+          <img :src="getImageUrl(image)" :alt="`${boat.name} — фото ${index + 1}`" loading="lazy" decoding="async">
         </button>
       </div>
       <div class="boat-header">
@@ -235,7 +235,7 @@
               :class="{ 'thumbnail--active': index === fullscreenActiveIndex }"
               @click="goToThumbnail(index)"
             >
-              <img :src="image" :alt="`Миниатюра ${index + 1}`">
+              <img :src="getImageUrl(image)" :alt="`Миниатюра ${index + 1}`" loading="lazy" decoding="async">
             </div>
           </div>
         </div>

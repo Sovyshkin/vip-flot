@@ -82,7 +82,7 @@
       </form>
     </div>
     <div class="wrap-image">
-        <img src="../assets/card-1.jpg" alt="">
+        <img src="../assets/card-1.webp" alt="">
     </div>
   </div>
 </template>

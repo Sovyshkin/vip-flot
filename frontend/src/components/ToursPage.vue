@@ -9,7 +9,7 @@
       <div class="tours-grid">
         <div v-for="tour in yachtTours" :key="tour.id" class="tour-card" @click="goToTour(tour.link)">
           <div class="tour-image">
-            <img :src="tour.imageUrl" :alt="tour.title">
+            <img :src="tour.imageUrl" :alt="tour.title" loading="lazy" decoding="async">
             <div class="badge">{{ tour.duration }}</div>
           </div>
           <div class="tour-info">

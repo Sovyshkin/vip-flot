@@ -20,7 +20,7 @@
             <div class="cards">
                 <div v-for="tour in yachtTours" :key="tour.id" class="card" @click="handleCardClick(tour)">
                     <div class="wrap-img">
-                        <img :src="tour.imageUrl" :alt="tour.title" draggable="false">
+                        <img :src="tour.imageUrl" :alt="tour.title" loading="lazy" decoding="async" draggable="false">
                         <div class="badge">{{ tour.duration }}</div>
                     </div>
                     <div class="card-info">

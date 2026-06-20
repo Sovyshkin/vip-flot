@@ -511,7 +511,7 @@ const filteredTours = computed(() => {
           class="route-card"
           :class="{ 'route-card--custom': isCustomRoute(route) }">
           <div v-if="!isCustomRoute(route)" class="wrap-img">
-            <img :src="route.image" :alt="route.title">
+            <img :src="route.image" :alt="route.title" loading="lazy" decoding="async">
             <div class="badge">{{ route.duration }}</div>
           </div>
           <div class="card-info" :class="{ 'card-info--custom': isCustomRoute(route) }">
@@ -532,7 +532,7 @@ const filteredTours = computed(() => {
           :key="tour.id" 
           class="route-card">
           <div class="wrap-img">
-            <img :src="tour.imageUrl" :alt="tour.title">
+            <img :src="tour.imageUrl" :alt="tour.title" loading="lazy" decoding="async">
             <div class="badge">{{ tour.duration }}</div>
           </div>
           <div class="card-info">

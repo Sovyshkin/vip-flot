@@ -7,7 +7,7 @@ export const routes = [
     pricePerHour: 19000,
     description: 'Незабываемое зрелище развода мостов — одна из главных достопримечательностей Санкт-Петербурга. Наслаждайтесь романтической атмосферой белых ночей с палубы комфортабельного катера или яхты.',
     images: [
-      require('@/assets/card-1.jpg'),
+      require('@/assets/card-1.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -47,7 +47,7 @@ export const routes = [
     pricePerHour: 17000,
     description: 'Познавательная экскурсия по рекам и каналам Санкт-Петербурга. Увидите город с водной перспективы, проплывёте под низкими мостами, мимо дворцов и старинных особняков.',
     images: [
-      require('@/assets/card-2.png'),
+      require('@/assets/card-2.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -87,7 +87,7 @@ export const routes = [
     pricePerHour: 22000,
     description: 'Живописный маршрут до Петергофа по Финскому заливу. Повторите путь царских особ, которые добирались в летнюю резиденцию именно по воде.',
     images: [
-      require('@/assets/card-1.jpg'),
+      require('@/assets/card-1.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -128,7 +128,7 @@ export const routes = [
     pricePerHour: 25000,
     description: 'Морское путешествие в город-крепость Кронштадт. Посетите Морской собор, увидите форты, узнаете историю русского флота.',
     images: [
-      require('@/assets/card-2.png'),
+      require('@/assets/card-2.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -170,7 +170,7 @@ export const routes = [
     pricePerHour: 15000,
     description: 'Уютная вечерняя прогулка для двоих. Закат над Невой, шампанское и незабываемые виды — идеальное свидание на воде.',
     images: [
-      require('@/assets/card-1.jpg'),
+      require('@/assets/card-1.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -210,7 +210,7 @@ export const routes = [
     pricePerHour: 30000,
     description: 'Организация корпоративных мероприятий на воде. Тимбилдинг, деловые встречи, празднования — всё с видом на Неву.',
     images: [
-      require('@/assets/card-2.png'),
+      require('@/assets/card-2.webp'),
     ],
     details: `
       <h3>О маршруте</h3>

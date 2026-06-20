@@ -29,7 +29,7 @@ function goToTour(link) {
           @click="goToTour(tour.link)"
         >
           <div class="wrap-img">
-            <img :src="tour.imageUrl" :alt="tour.title">
+            <img :src="tour.imageUrl" :alt="tour.title" loading="lazy" decoding="async">
             <div class="badge">{{ tour.duration }}</div>
           </div>
           <div class="card-info">

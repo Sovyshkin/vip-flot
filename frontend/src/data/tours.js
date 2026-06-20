@@ -6,9 +6,9 @@ export const tours = [
     duration: 'от 2-х часов',
     pricePerHour: 19000,
     description: 'Незабываемое зрелище развода мостов — одна из главных достопримечательностей Санкт-Петербурга. Наслаждайтесь романтической атмосферой белых ночей с палубы комфортабельного катера или яхты.',
-    cardImage: require('@/assets/card-1.jpg'),
+    cardImage: require('@/assets/card-1.webp'),
     images: [
-      require('@/assets/card-1.jpg'),
+      require('@/assets/card-1.webp'),
     ],
     details: `
       <h3>О маршруте</h3>
@@ -47,9 +47,9 @@ export const tours = [
     duration: 'от 3-х часов',
     pricePerHour: 22000,
     description: 'Живописный маршрут до Петергофа по Финскому заливу. Повторите путь царских особ, которые добирались в летнюю резиденцию именно по воде.',
-    cardImage: require('@/assets/card-1.jpg'),
+    cardImage: require('@/assets/card-1.webp'),
     images: [
-      require('@/assets/card-1.jpg'),
+      require('@/assets/card-1.webp'),
     ],
     details: `
       <h3>О маршруте</h3>

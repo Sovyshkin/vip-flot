@@ -2,7 +2,7 @@
   <div v-if="activity" class="activity-detail">
     <div class="hero-section">
       <div class="hero-image">
-        <img :src="activity.image" :alt="activity.name">
+        <img :src="activity.image" :alt="activity.name" loading="lazy" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <h1 class="activity-name">{{ activity.name }}</h1>

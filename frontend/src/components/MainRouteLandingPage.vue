@@ -9,7 +9,7 @@
       <div class="routes-grid">
         <article v-for="card in routeConfig.cards" :key="card.id" class="route-card">
           <div class="route-media">
-            <img :src="card.image" :alt="card.title">
+            <img :src="card.image" :alt="card.title" loading="lazy" decoding="async">
             <div class="route-badge">{{ card.duration }}</div>
           </div>
 

@@ -17,7 +17,7 @@
         :key="`${image}-${index}`"
         class="carousel-slide"
       >
-        <img :src="getImageUrl(image)" :alt="alt">
+        <img :src="getImageUrl(image)" :alt="alt" loading="lazy" decoding="async" draggable="false">
       </div>
     </div>
     <button v-if="images.length > 1" class="arrow arrow-prev" @click.stop="prev">

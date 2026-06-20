@@ -10,7 +10,7 @@ import { getYachtTourBySlug } from '../data/yachtsTours'
 const SITE_NAME = 'VIP FLOT'
 const DEFAULT_TITLE = 'Аренда яхт и катеров в Санкт-Петербурге | VIP FLOT'
 const DEFAULT_DESCRIPTION = 'VIP FLOT — аренда яхт, катеров и парусных судов в Санкт-Петербурге для прогулок, маршрутов по Неве, Финскому заливу, праздников и мероприятий на воде.'
-const DEFAULT_IMAGE = '/images/main-block.jpg'
+const DEFAULT_IMAGE = '/images/main-block.webp'
 const SITE_URL = (process.env.VUE_APP_SITE_URL || 'https://vipflot.ru').replace(/\/$/, '')
 
 const staticPages = {

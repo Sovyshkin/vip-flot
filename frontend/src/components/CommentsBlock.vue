@@ -20,7 +20,7 @@
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-1.png" alt="">
+                    <img src="../assets/avatar-1.webp" alt="">
                 </div>
                 <div class="user-info">
                     <span class="name">Анна Петрова</span>
@@ -36,7 +36,7 @@
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-2.png" alt="">
+                    <img src="../assets/avatar-2.webp" alt="">
                 </div>
                 <div class="user-info">
                     <span class="name">Ника Морозова</span>
@@ -52,7 +52,7 @@
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-3.png" alt="">
+                    <img src="../assets/avatar-3.webp" alt="">
                 </div>
                 <div class="user-info">
                     <span class="name">Наталья Гриневич</span>
@@ -68,7 +68,7 @@
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-1.png" alt="">
+                    <img src="../assets/avatar-1.webp" alt="">
                 </div>
                 <div class="user-info">
                     <span class="name">Анна Петрова</span>

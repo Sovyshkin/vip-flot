@@ -7,42 +7,42 @@
     <div class="cards">
       <div class="row-cards">
         <div class="row-1-card card" @click="goToService('catering')">
-          <img class="image-card" src="../assets/services-1.png" alt="" />
+          <img class="image-card" src="../assets/services-1.webp" alt="" />
           <span class="card-title">Кейтеринг</span>
         </div>
         <div class="row-1-card card" @click="goToService('guide')">
-          <img class="image-card" src="../assets/services-2.png" alt="" />
+          <img class="image-card" src="../assets/services-2.webp" alt="" />
           <span class="card-title">Гид</span>
         </div>
         <div class="row-1-card card" @click="goToService('chef')">
-          <img class="image-card" src="../assets/services-3.png" alt="" />
+          <img class="image-card" src="../assets/services-3.webp" alt="" />
           <span class="card-title">Повар</span>
         </div>
         <div class="row-1-card card" @click="goToService('bartender')">
-          <img class="image-card" src="../assets/services-4.png" alt="" />
+          <img class="image-card" src="../assets/services-4.webp" alt="" />
           <span class="card-title">Бармен</span>
         </div>
         <div class="row-1-card card" @click="goToService('photographer')">
-          <img class="image-card" src="../assets/services-5.png" alt="" />
+          <img class="image-card" src="../assets/services-5.webp" alt="" />
           <span class="card-title">Фотограф</span>
         </div>
         <div class="row-1-card card" @click="goToService('decoration')">
-          <img class="image-card" src="../assets/services-6.png" alt="" />
+          <img class="image-card" src="../assets/services-6.webp" alt="" />
           <span class="card-title">Украшение палубы</span>
         </div>
       </div>
       <div class="row-cards">
         
         <div class="row-2-card card" @click="goToService('host')">
-          <img class="image-card" src="../assets/services-7.png" alt="" />
+          <img class="image-card" src="../assets/services-7.webp" alt="" />
           <span class="card-title">Ведущий</span>
         </div>
         <div class="row-2-card card" @click="goToService('dj')">
-          <img class="image-card" src="../assets/services-8.png" alt="" />
+          <img class="image-card" src="../assets/services-8.webp" alt="" />
           <span class="card-title">Диджей</span>
         </div>
         <!-- <div class="row-2-card card" @click="goToService('live-music')">
-          <img class="image-card" src="../assets/services-9.png" alt="" />
+          <img class="image-card" src="../assets/services-9.webp" alt="" />
           <span class="card-title">Живая музыка</span>
         </div> -->
       </div>
