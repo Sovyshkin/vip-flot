@@ -113,7 +113,6 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getRouteBySlug } from '../data/routes';
 import { getTourBySlug } from '../data/tours';
-import { toCanonicalSlug } from '../router/publicIds';
 import DetailPageSections from './DetailPageSections.vue';
 
 const vueRoute = useRoute();
@@ -122,7 +121,7 @@ const route = ref(null);
 const bookingDate = ref('');
 
 onMounted(() => {
-  const slug = toCanonicalSlug('RouteDetail', vueRoute.params.slug);
+  const slug = vueRoute.params.slug;
   // Try to find in routes first, then in tours
   route.value = getRouteBySlug(slug) || getTourBySlug(slug);
 });

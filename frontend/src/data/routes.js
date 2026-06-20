@@ -205,9 +205,5 @@ export const routes = [
 ]
 
 export function getRouteBySlug(slug) {
-  const publicIdMatch = String(slug || '').match(/^r-(\d+)$/)
-  if (publicIdMatch) {
-    return routes.find(route => route.id === Number(publicIdMatch[1]))
-  }
   return routes.find(route => route.slug === slug)
 }

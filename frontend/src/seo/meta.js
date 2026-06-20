@@ -6,7 +6,6 @@ import { services } from '../data/services'
 import { activities } from '../data/activities'
 import { routes as routeItems } from '../data/routes'
 import { getYachtTourBySlug } from '../data/yachtsTours'
-import { getPublicPath, toCanonicalSlug } from '../router/publicIds'
 
 const SITE_NAME = 'VIP FLOT'
 const DEFAULT_TITLE = 'Аренда яхт и катеров в Санкт-Петербурге | VIP FLOT'
@@ -86,8 +85,7 @@ function resolveRouteItem(slug) {
 
 function resolveSeo(to) {
   const base = staticPages[to.name] || {}
-  const publicPath = to.params?.slug ? getPublicPath(to.name, to.params.slug) : null
-  const path = publicPath || to.path || '/'
+  const path = to.path || '/'
   let seo = {
     title: base.title || DEFAULT_TITLE,
     description: base.description || DEFAULT_DESCRIPTION,
@@ -97,7 +95,7 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'BoatDetail') {
-    const slug = toCanonicalSlug(to.name, to.params.slug)
+    const slug = to.params.slug
     const item = findFleetItem(slug)
     if (item) {
       const price = item.pricePerHour ? ` от ${Number(item.pricePerHour).toLocaleString('ru-RU')} ₽/час` : ''
@@ -125,7 +123,7 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'BlogArticle') {
-    const slug = toCanonicalSlug(to.name, to.params.slug)
+    const slug = to.params.slug
     const article = articles.find(item => item.slug === slug)
     if (article) {
       seo = {
@@ -139,7 +137,7 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'RouteDetail') {
-    const slug = toCanonicalSlug(to.name, to.params.slug)
+    const slug = to.params.slug
     const route = resolveRouteItem(slug)
     if (route) {
       seo = {
@@ -151,12 +149,12 @@ function resolveSeo(to) {
     }
   }
 
-  if (to.name === 'MainRouteLanding') {
+  if (String(to.name || '').startsWith('MainRouteLanding')) {
     seo = { ...seo, ...(routeLandingPages[to.params.slug] || {}) }
   }
 
   if (to.name === 'ServiceDetail') {
-    const slug = toCanonicalSlug(to.name, to.params.slug)
+    const slug = to.params.slug
     const service = services.find(item => item.slug === slug)
     if (service) {
       seo = {
@@ -169,7 +167,7 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'ActivityDetail') {
-    const slug = toCanonicalSlug(to.name, to.params.slug)
+    const slug = to.params.slug
     const activity = activities.find(item => item.slug === slug)
     if (activity) {
       seo = {

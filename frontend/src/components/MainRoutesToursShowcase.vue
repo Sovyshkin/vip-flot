@@ -64,28 +64,28 @@ const routeItems = [
     title: 'Разводные мосты',
     subtitle: 'Ночные прогулки',
     duration: 'от 2-х часов',
-    link: '/marshruty/razvod-mostov',
+    link: '/routes/razvod-mostov',
     image: 'https://optim.tildacdn.com/tild6434-6331-4266-b764-633232333538/-/cover/420x500/center/center/-/format/webp/photo_2024-06-06_171.jpeg.webp'
   },
   {
     title: 'Реки каналы',
     subtitle: '',
     duration: 'от 2-х часов',
-    link: '/marshruty/reki-i-kanaly',
+    link: '/routes/reki-i-kanaly',
     image: 'https://optim.tildacdn.com/tild3361-6531-4965-b265-333331303831/-/cover/420x500/center/center/-/format/webp/photo_2024-06-16_003.jpeg.webp'
   },
   {
     title: 'Прогулка по Неве',
     subtitle: '',
     duration: 'от 2-х часов',
-    link: '/marshruty/neva',
+    link: '/routes/neva',
     image: 'https://static.tildacdn.com/tild3061-3762-4232-b965-626430373734/photo_2025-05-27_21-.jpg'
   },
   {
     title: 'Выход в Финский залив',
     subtitle: '',
     duration: 'от 3-х часов',
-    link: '/marshruty/finskij-zaliv',
+    link: '/routes/finskij-zaliv',
     image: 'https://optim.tildacdn.com/tild6133-3134-4965-b836-373061356438/-/cover/420x500/center/top/-/format/webp/photo_2024-06-16_001.jpeg.webp'
   }
 ]
@@ -102,19 +102,19 @@ const shortTours = [
   {
     title: 'Петергоф',
     duration: 'от 4-х часов',
-    link: '/catalog/tours/t-3',
+    link: '/tours/petergof',
     image: 'https://optim.tildacdn.com/tild3963-6461-4834-b132-646436323435/-/cover/464x510/center/center/-/format/webp/photo_2024-08-02_151.jpeg.webp'
   },
   {
     title: 'Кронштадт',
     duration: 'от 5-ти часов',
-    link: '/catalog/tours/t-2',
+    link: '/tours/kronshtadt',
     image: 'https://optim.tildacdn.com/tild3061-3632-4838-b437-636638303837/-/cover/464x510/center/bottom/-/format/webp/photo_2024-07-23_163.jpeg.webp'
   },
   {
     title: 'Крепость Орешек',
     duration: 'от 8-ми часов',
-    link: '/catalog/tours/t-4',
+    link: '/tours/krepost-oreshek',
     image: 'https://optim.tildacdn.com/tild3130-6535-4633-b061-376236646366/-/cover/464x510/center/center/-/format/webp/photo_2025-06-01_15-.jpg.webp'
   }
 ]

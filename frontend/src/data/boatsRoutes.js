@@ -5,7 +5,7 @@ export const boatsRoutes = [
     duration: "от 2-х часов",
     description: "По Фонтанке и Мойке, выходим в Неву и проходим под разводными мостами: Благовещенским, Дворцовым, Троицким",
     image: "https://static.tildacdn.com/tild3737-3366-4431-b961-623730633434/_09-06-2025_21-05-56.jpeg",
-    link: "/marshruty/razvod-mostov",
+    link: "/routes/razvod-mostov",
     hasButton: true,
     isPopup: false
   },

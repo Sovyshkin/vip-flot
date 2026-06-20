@@ -34,7 +34,7 @@
                             <span class="card-title">Разводные мосты</span>
                             <span class="card-desc">Ночные прогулки</span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/marshruty/razvod-mostov')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/routes/razvod-mostov')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
@@ -47,7 +47,7 @@
                             <span class="card-title">Реки каналы</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/marshruty/reki-i-kanaly')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/routes/reki-i-kanaly')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
@@ -60,7 +60,7 @@
                             <span class="card-title">Прогулка по Неве</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/marshruty/neva')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/routes/neva')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card" v-show="!isMobile || showAll">
@@ -73,7 +73,7 @@
                             <span class="card-title">Выход в Финский залив</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/marshruty/finskij-zaliv')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/routes/finskij-zaliv')">Узнать подробнее</button>
                     </div>
                 </div>
             </template>
@@ -103,7 +103,7 @@
                             <span class="card-title">Петергоф</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/catalog/tours/t-3')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/tours/petergof')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
@@ -116,7 +116,7 @@
                             <span class="card-title">Кронштадт</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/catalog/tours/t-2')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/tours/kronshtadt')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
@@ -129,7 +129,7 @@
                             <span class="card-title">Крепость Орешек</span>
                             <span class="card-desc"></span>
                         </div>
-                        <button class="card-btn" @click="goToPath('/catalog/tours/t-4')">Узнать подробнее</button>
+                        <button class="card-btn" @click="goToPath('/tours/krepost-oreshek')">Узнать подробнее</button>
                     </div>
                 </div>
             </template>

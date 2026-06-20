@@ -12,34 +12,22 @@ import ServiceDetail from '../components/ServiceDetail.vue'
 import ActivityDetail from '../components/ActivityDetail.vue'
 import MainRouteLandingPage from '../components/MainRouteLandingPage.vue'
 import { applyRouteSeo } from '../seo/meta'
-import { canonicalizeCatalogRoute } from './publicIds'
-
-const redirectToNamedRoute = (name) => (to) => ({
-  name,
-  params: to.params,
-  query: to.query,
-  hash: to.hash,
-})
 
 const routes = [
   { path: '/', name: 'Main', component: AppMain },
   { path: '/catalog', name: 'Catalog', component: CatalogPage },
-  { path: '/catalog/tours/:slug', name: 'YachtTourDetail', component: YachtTourDetail },
-  { path: '/catalog/routes/:slug', name: 'RouteDetail', component: RouteDetail },
-  { path: '/catalog/services/:slug', name: 'ServiceDetail', component: ServiceDetail },
-  { path: '/catalog/events/:slug', name: 'ActivityDetail', component: ActivityDetail },
-  { path: '/catalog/articles/:slug', name: 'BlogArticle', component: BlogArticle },
   { path: '/catalog/:slug', name: 'BoatDetail', component: BoatDetail },
+  { path: '/blog/:slug', name: 'BlogArticle', component: BlogArticle },
   { path: '/routes', name: 'Routes', component: RoutesPage },
-  { path: '/marshruty/razvod-mostov', name: 'BridgeRoutes', component: BridgeRoutesPage },
-  { path: '/marshruty/:slug', name: 'MainRouteLanding', component: MainRouteLandingPage },
+  { path: '/routes/razvod-mostov', name: 'BridgeRoutes', component: BridgeRoutesPage },
+  { path: '/routes/reki-i-kanaly', name: 'MainRouteLandingRekiKanaly', component: MainRouteLandingPage },
+  { path: '/routes/neva', name: 'MainRouteLandingNeva', component: MainRouteLandingPage },
+  { path: '/routes/finskij-zaliv', name: 'MainRouteLandingFinskijZaliv', component: MainRouteLandingPage },
+  { path: '/routes/:slug', name: 'RouteDetail', component: RouteDetail },
   { path: '/tours', name: 'Tours', component: ToursPage },
-  { path: '/kruizy/:slug', redirect: redirectToNamedRoute('YachtTourDetail') },
-  { path: '/boat/:slug', redirect: redirectToNamedRoute('BoatDetail') },
-  { path: '/blog/:slug', redirect: redirectToNamedRoute('BlogArticle') },
-  { path: '/route/:slug', redirect: redirectToNamedRoute('RouteDetail') },
-  { path: '/service/:slug', redirect: redirectToNamedRoute('ServiceDetail') },
-  { path: '/activity/:slug', redirect: redirectToNamedRoute('ActivityDetail') },
+  { path: '/tours/:slug', name: 'YachtTourDetail', component: YachtTourDetail },
+  { path: '/services/:slug', name: 'ServiceDetail', component: ServiceDetail },
+  { path: '/events/:slug', name: 'ActivityDetail', component: ActivityDetail },
 ]
 
 const router = createRouter({
@@ -67,10 +55,6 @@ const router = createRouter({
     }
     return { top: 0 }
   }
-})
-
-router.beforeEach((to) => {
-  return canonicalizeCatalogRoute(to) || true
 })
 
 router.afterEach((to) => {

@@ -254,7 +254,6 @@ import { yachts, getYachtBySlug } from '../data/yachts';
 import { sailingYachts, getSailingBySlug } from '../data/sailing';
 import { boatsRoutes } from '../data/boatsRoutes';
 import { yachtsRoutes } from '../data/yachtsRoutes';
-import { toCanonicalSlug } from '../router/publicIds';
 import Carousel from './Carousel.vue';
 import BookingModal from './BookingModal.vue';
 import DetailPageSections from './DetailPageSections.vue';
@@ -337,7 +336,7 @@ const successMessage = ref('');
 const errorMessage = ref('');
 
 onMounted(() => {
-  const slug = toCanonicalSlug('BoatDetail', route.params.slug);
+  const slug = route.params.slug;
   boat.value = getBoatBySlug(slug) || getYachtBySlug(slug) || getSailingBySlug(slug);
 });
 

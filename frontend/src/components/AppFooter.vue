@@ -37,10 +37,10 @@
         <div class="footer-column">
           <h3 class="footer-title">Услуги</h3>
           <ul class="footer-links">
-            <li><router-link to="/catalog/services/s-1">Кейтеринг</router-link></li>
-            <li><router-link to="/catalog/services/s-5">Фотограф</router-link></li>
-            <li><router-link to="/catalog/services/s-6">Украшение палубы</router-link></li>
-            <li><router-link to="/catalog/services/s-9">Живая музыка</router-link></li>
+            <li><router-link to="/services/catering">Кейтеринг</router-link></li>
+            <li><router-link to="/services/photographer">Фотограф</router-link></li>
+            <li><router-link to="/services/decoration">Украшение палубы</router-link></li>
+            <li><router-link to="/services/live-music">Живая музыка</router-link></li>
           </ul>
         </div>
 
@@ -48,28 +48,28 @@
           <h3 class="footer-title">Маршруты</h3>
           <ul class="footer-links">
             <li><router-link to="/routes">Все маршруты</router-link></li>
-            <li><router-link to="/catalog/routes/r-1">Реки и каналы</router-link></li>
-            <li><router-link to="/catalog/routes/r-2">Невский проспект</router-link></li>
-            <li><router-link to="/catalog/routes/r-3">Кронштадт</router-link></li>
+            <li><router-link to="/routes/reki-kanaly">Реки и каналы</router-link></li>
+            <li><router-link to="/routes/nevskiy-prospekt">Невский проспект</router-link></li>
+            <li><router-link to="/routes/kronshtadt">Кронштадт</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Яхт-туры</h3>
           <ul class="footer-links">
-            <li><router-link to="/marshruty/razvod-mostov">Развод мостов</router-link></li>
-            <li><router-link to="/catalog/tours/t-3">Петергоф морем</router-link></li>
+            <li><router-link to="/routes/razvod-mostov">Развод мостов</router-link></li>
+            <li><router-link to="/tours/petergof">Петергоф морем</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Мероприятия</h3>
           <ul class="footer-links">
-            <li><router-link to="/catalog/events/e-2">День рождения на яхте</router-link></li>
-            <li><router-link to="/catalog/events/e-5">Свадьба на яхте</router-link></li>
-            <li><router-link to="/catalog/events/e-6">Девичник на яхте</router-link></li>
-            <li><router-link to="/catalog/events/e-7">Мальчишник на яхте</router-link></li>
-            <li><router-link to="/catalog/events/e-8">Корпоратив на яхте</router-link></li>
+            <li><router-link to="/events/den-rozhdeniya">День рождения на яхте</router-link></li>
+            <li><router-link to="/events/svadba">Свадьба на яхте</router-link></li>
+            <li><router-link to="/events/devichnik">Девичник на яхте</router-link></li>
+            <li><router-link to="/events/malchishnik">Мальчишник на яхте</router-link></li>
+            <li><router-link to="/events/korporativy">Корпоратив на яхте</router-link></li>
           </ul>
         </div>
 
