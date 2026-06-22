@@ -34,7 +34,7 @@
       <div class="row-cards">
         
         <div class="row-2-card card" @click="goToService('host')">
-          <img class="image-card" src="../assets/services-7.webp" alt="" />
+          <img class="image-card image-card--host" src="../assets/services-7.webp" alt="" />
           <span class="card-title">Ведущий</span>
         </div>
         <div class="row-2-card card" @click="goToService('dj')">
@@ -184,6 +184,10 @@ function goToBooking() {
   border-radius: 12px;
   z-index: 0;
   transition: transform 0.3s ease;
+}
+
+.image-card--host {
+  object-position: center 22%;
 }
 
 .card:hover .image-card {

@@ -2,7 +2,13 @@
   <div v-if="service" class="service-detail">
     <div class="hero-section">
       <div class="hero-image">
-        <img :src="service.image" :alt="service.name" loading="lazy" decoding="async">
+        <img
+          :src="service.image"
+          :alt="service.name"
+          :style="service.heroImagePosition ? { objectPosition: service.heroImagePosition } : undefined"
+          loading="lazy"
+          decoding="async"
+        >
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <h1 class="service-name">{{ service.name }}</h1>
