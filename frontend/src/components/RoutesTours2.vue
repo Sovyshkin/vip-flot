@@ -26,52 +26,52 @@
             <template v-if="activeTab === 'city'">
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="https://optim.tildacdn.com/tild6434-6331-4266-b764-633232333538/-/cover/420x500/center/center/-/format/webp/photo_2024-06-06_171.jpeg.webp" alt="">
+                        <img src="/images/routes-drawbridges.webp" alt="Разводные мосты" loading="lazy" decoding="async">
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
                             <span class="card-title">Разводные мосты</span>
-                            <span class="card-desc">Ночные прогулки</span>
+                            <span class="card-desc">Вечерняя романтика Петербурга с борта яхты: сияние огней, тихий плеск воды и грандиозное шоу развода мостов над Невой.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/routes/razvod-mostov')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="https://optim.tildacdn.com/tild3361-6531-4965-b265-333331303831/-/cover/420x500/center/center/-/format/webp/photo_2024-06-16_003.jpeg.webp" alt="">
+                        <img src="/images/routes-rivers-canals.webp" alt="Реки и каналы" loading="lazy" decoding="async">
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
-                            <span class="card-title">Реки каналы</span>
-                            <span class="card-desc"></span>
+                            <span class="card-title">Реки и каналы</span>
+                            <span class="card-desc">Уютная прогулка по тихим рекам и извилистым каналам с дворцами, ажурными мостиками и самыми живописными видами Петербурга.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/routes/reki-i-kanaly')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="https://static.tildacdn.com/tild3061-3762-4232-b965-626430373734/photo_2025-05-27_21-.jpg" alt="">
+                        <img src="/images/routes-neva-walk.webp" alt="Прогулка по Неве" loading="lazy" decoding="async">
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
                             <span class="card-title">Прогулка по Неве</span>
-                            <span class="card-desc"></span>
+                            <span class="card-desc">Простор открытой воды, свежий ветер и северное небо: от спокойного круиза по Неве до динамичного выхода к Финскому заливу.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/routes/neva')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card" v-show="!isMobile || showAll">
                     <div class="wrap-img">
-                        <img src="https://optim.tildacdn.com/tild6133-3134-4965-b836-373061356438/-/cover/420x500/center/top/-/format/webp/photo_2024-06-16_001.jpeg.webp" alt="">
+                        <img src="/images/route-finskiy-zaliv.webp" alt="Выход в Финский залив" loading="lazy" decoding="async">
                         <div class="badge">от 3-х часов</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
                             <span class="card-title">Выход в Финский залив</span>
-                            <span class="card-desc"></span>
+                            <span class="card-desc">Широкая вода, свежий морской ветер и панорамы Петербурга, которые постепенно растворяются за кормой, открывая настоящий простор Финского залива.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/routes/finskij-zaliv')">Узнать подробнее</button>
                     </div>
@@ -82,52 +82,52 @@
             <template v-if="activeTab === 'tours'">
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="https://optim.tildacdn.com/tild3334-3363-4366-b064-626562613062/-/cover/848x510/center/center/-/format/webp/photo_2024-06-06_171.jpeg.webp" alt="">
+                        <img src="/images/routes-yacht-tours.webp" alt="Яхт-туры" loading="lazy" decoding="async">
                         <div class="badge">от 1 дня и более</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
                             <span class="card-title">Яхт-туры</span>
-                            <span class="card-desc">Выборг, Карелия, Валаам, Мандроги, Кижи, Соловки и др.</span>
+                            <span class="card-desc">Выборг, Карелия, Валаам, Кижи, Соловки и другие жемчужины Северо-Запада в формате большого водного путешествия.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/tours')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="https://optim.tildacdn.com/tild3963-6461-4834-b132-646436323435/-/cover/464x510/center/center/-/format/webp/photo_2024-08-02_151.jpeg.webp" alt="">
+                        <img src="/images/tour-petergof.webp" alt="Петергоф" loading="lazy" decoding="async">
                         <div class="badge">от 4-х часов</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
                             <span class="card-title">Петергоф</span>
-                            <span class="card-desc"></span>
+                            <span class="card-desc">Водная прогулка в Петергоф — самый красивый способ добраться до императорской резиденции с видами на Финский залив и парадным прибытием прямо к парку.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/tours/petergof')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="https://optim.tildacdn.com/tild3061-3632-4838-b437-636638303837/-/cover/464x510/center/bottom/-/format/webp/photo_2024-07-23_163.jpeg.webp" alt="">
+                        <img src="/images/tour-kronshtadt.webp" alt="Кронштадт" loading="lazy" decoding="async">
                         <div class="badge">от 5-ти часов</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
                             <span class="card-title">Кронштадт</span>
-                            <span class="card-desc"></span>
+                            <span class="card-desc">Морская прогулка в Кронштадт с видами на форты, просторы Финского залива и знакомством с главными символами военно-морской истории России.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/tours/kronshtadt')">Узнать подробнее</button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="https://optim.tildacdn.com/tild3130-6535-4633-b061-376236646366/-/cover/464x510/center/center/-/format/webp/photo_2025-06-01_15-.jpg.webp" alt="">
+                        <img src="/images/tour-krepost-oreshek.webp" alt="Крепость Орешек" loading="lazy" decoding="async">
                         <div class="badge">от 8-ми часов</div>
                     </div>
                     <div class="card-info">
                         <div class="card-text">
                             <span class="card-title">Крепость Орешек</span>
-                            <span class="card-desc"></span>
+                            <span class="card-desc">Путешествие к легендарной крепости на острове, где старинные стены, воды Невы и атмосфера северной истории складываются в по-настоящему сильный маршрут.</span>
                         </div>
                         <button class="card-btn" @click="goToPath('/tours/krepost-oreshek')">Узнать подробнее</button>
                     </div>
@@ -467,8 +467,13 @@ onBeforeUnmount(() => {
     color: #1A1A1A;
     font-weight: 300;
     font-size: 18px;
+    line-height: 1.45;
     letter-spacing: 1px;
     opacity: .7;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .card-btn {
@@ -500,6 +505,7 @@ onBeforeUnmount(() => {
     
     .card-desc {
         font-size: 16px;
+        -webkit-line-clamp: 4;
     }
 }
 
@@ -611,7 +617,7 @@ onBeforeUnmount(() => {
         line-height: 1.35;
         opacity: 0.7;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }

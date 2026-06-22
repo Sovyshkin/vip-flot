@@ -266,14 +266,16 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 240px;
     overflow: hidden;
+    background-color: #eef3f8;
 }
 
 .wrap-img img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     transition: transform 0.3s;
+    display: block;
 }
 
 .card:hover .wrap-img img {

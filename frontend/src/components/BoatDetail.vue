@@ -52,18 +52,21 @@
             <h2 class="section-title">Характеристики</h2>
             <div class="specs-grid">
               <div class="spec-item">
+                <span class="spec-kicker">Гостей</span>
                 <div class="spec-content">
                   <span class="spec-label">Вместимость</span>
                   <span class="spec-value">до {{ boat.capacity }} гостей</span>
                 </div>
               </div>
               <div class="spec-item">
+                <span class="spec-kicker">Размер</span>
                 <div class="spec-content">
                   <span class="spec-label">Длина</span>
                   <span class="spec-value">{{ boat.length }} метров</span>
                 </div>
               </div>
               <div class="spec-item">
+                <span class="spec-kicker">Комфорт</span>
                 <div class="spec-content">
                   <span class="spec-label">Каюты</span>
                   <span class="spec-value">{{ boat.specifications ? boat.specifications.cabins : boat.cabins }}</span>
@@ -73,8 +76,54 @@
           </section>
 
           <section class="info-section">
-            <h2 class="section-title">О катере</h2>
-            <div class="boat-description" v-html="formattedDescription"></div>
+            <h2 class="section-title">О {{ boatTypeLabelAccusative }}</h2>
+            <div class="boat-description">
+              <p v-if="descriptionLead" class="boat-description__lead">{{ descriptionLead }}</p>
+
+              <div v-if="descriptionSections.length" class="description-sections">
+                <div
+                  v-for="(section, index) in descriptionSections"
+                  :key="`description-section-${index}`"
+                  class="description-card"
+                  :class="{
+                    'description-card--list': section.type === 'list',
+                    'description-card--facts': section.type === 'facts'
+                  }"
+                >
+                  <div v-if="section.title" class="description-card__title">{{ section.title }}</div>
+
+                  <template v-if="section.type === 'paragraph'">
+                    <p
+                      v-for="(paragraph, paragraphIndex) in section.content"
+                      :key="`paragraph-${index}-${paragraphIndex}`"
+                      class="description-card__text"
+                    >
+                      {{ paragraph }}
+                    </p>
+                  </template>
+
+                  <ul v-else-if="section.type === 'list'" class="description-list">
+                    <li
+                      v-for="(item, itemIndex) in section.items"
+                      :key="`list-item-${index}-${itemIndex}`"
+                      class="description-list__item"
+                    >
+                      {{ item }}
+                    </li>
+                  </ul>
+
+                  <div v-else-if="section.type === 'facts'" class="description-facts">
+                    <div
+                      v-for="(fact, factIndex) in section.items"
+                      :key="`fact-${index}-${factIndex}`"
+                      class="description-fact"
+                    >
+                      {{ fact }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section class="info-section">
@@ -85,7 +134,7 @@
                   <circle cx="10" cy="10" r="10" fill="#0076FC"/>
                   <path d="M6 10L9 13L14 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span>{{ feature }}</span>
+                <span class="feature-item__text">{{ feature }}</span>
               </div>
             </div>
           </section>
@@ -269,13 +318,98 @@ const fullscreenKey = ref(0);
 const heroActiveIndex = ref(0);
 const heroCarousel = ref(null);
 
-const formattedDescription = computed(() => {
-  if (!boat.value?.description) return ''
+const boatTypeLabel = computed(() => {
+  if (isSailing.value) return 'парусная яхта';
+  if (isYacht.value) return 'яхта';
+  return 'катер';
+});
+
+const boatTypeLabelAccusative = computed(() => {
+  if (isSailing.value) return 'парусной яхте';
+  if (isYacht.value) return 'яхте';
+  return 'катере';
+});
+
+const descriptionBlocks = computed(() => {
+  if (!boat.value?.description) return [];
   return boat.value.description
     .split(/\n{2,}/)
-    .map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`)
-    .join('')
-})
+    .map(block => block.trim())
+    .filter(Boolean);
+});
+
+const descriptionLead = computed(() => descriptionBlocks.value[0] || '');
+
+const descriptionSections = computed(() => {
+  return descriptionBlocks.value
+    .slice(1)
+    .map(parseDescriptionBlock)
+    .filter(Boolean);
+});
+
+function isBulletLine(line) {
+  return /^[-—•]\s*/.test(line);
+}
+
+function isFactLine(line) {
+  return /^[^:]{2,40}:\s+.+$/.test(line);
+}
+
+function normalizeBullet(line) {
+  return line.replace(/^[-—•]\s*/, '').trim();
+}
+
+function parseDescriptionBlock(block) {
+  const lines = block
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean);
+
+  if (!lines.length) return null;
+
+  if (lines.length === 1) {
+    return {
+      type: 'paragraph',
+      title: '',
+      content: [lines[0]]
+    };
+  }
+
+  const [firstLine, ...restLines] = lines;
+  const hasTitle = /:$/.test(firstLine);
+  const title = hasTitle ? firstLine.replace(/:$/, '') : '';
+  const bodyLines = hasTitle ? restLines : lines;
+
+  if (bodyLines.length && bodyLines.every(isBulletLine)) {
+    return {
+      type: 'list',
+      title,
+      items: bodyLines.map(normalizeBullet)
+    };
+  }
+
+  if (bodyLines.length && bodyLines.every(isFactLine)) {
+    return {
+      type: 'facts',
+      title,
+      items: bodyLines
+    };
+  }
+
+  if (!title && lines.every(isFactLine)) {
+    return {
+      type: 'facts',
+      title: '',
+      items: lines
+    };
+  }
+
+  return {
+    type: 'paragraph',
+    title,
+    content: bodyLines.map(normalizeBullet)
+  };
+}
 
 const relatedVessels = computed(() => {
   if (!boat.value) return [];
@@ -810,6 +944,8 @@ function onPhoneKeydown(e) {
   background: #FFFFFF;
   border-radius: 24px;
   padding: 32px;
+  border: 1px solid rgba(17, 34, 68, 0.06);
+  box-shadow: 0 18px 50px rgba(18, 32, 56, 0.06);
 }
 
 .section-title {
@@ -822,61 +958,170 @@ function onPhoneKeydown(e) {
 }
 
 .boat-description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   color: #1A1A1A;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.7;
   margin: 0;
 }
 
-.boat-description :deep(p) {
-  margin: 0 0 12px 0;
+.boat-description__lead {
+  margin: 0;
+  padding: 22px 24px;
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(0, 118, 252, 0.12), rgba(0, 118, 252, 0.04)),
+    #F7FAFF;
+  color: #10233D;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.65;
 }
 
-.boat-description :deep(p:last-child) {
-  margin-bottom: 0;
+.description-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.description-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 24px;
+  border-radius: 22px;
+  background: #FAFBFD;
+  border: 1px solid rgba(17, 34, 68, 0.08);
+}
+
+.description-card--list,
+.description-card--facts {
+  background:
+    linear-gradient(180deg, rgba(0, 118, 252, 0.04) 0%, rgba(0, 118, 252, 0.01) 100%),
+    #FFFFFF;
+}
+
+.description-card__title {
+  color: #0076FC;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.description-card__text {
+  margin: 0;
+  color: #334155;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.description-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.description-list__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  min-height: 100%;
+  padding: 14px 16px 14px 38px;
+  border-radius: 16px;
+  background: #F4F8FF;
+  color: #1F2F46;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.description-list__item::before {
+  content: '';
+  position: absolute;
+  top: 19px;
+  left: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #0076FC;
+  box-shadow: 0 0 0 4px rgba(0, 118, 252, 0.12);
+}
+
+.description-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.description-fact {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #F7F9FC;
+  color: #1F2F46;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 .specs-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
 .spec-item {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 22px;
+  min-height: 170px;
+  background:
+    radial-gradient(circle at top right, rgba(0, 118, 252, 0.14), transparent 42%),
+    #F7FAFF;
+  border: 1px solid rgba(0, 118, 252, 0.1);
+  border-radius: 22px;
+}
+
+.spec-kicker {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #F5F5F5;
-  border-radius: 12px;
-}
-
-.spec-item img {
-  width: 24px;
-  height: 24px;
-}
-
-.spec-icon {
-  font-size: 24px;
+  min-height: 32px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(0, 118, 252, 0.1);
+  color: #0076FC;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .spec-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .spec-label {
-  color: #949CA4;
-  font-size: 12px;
-  font-weight: 500;
+  color: #6E7C90;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .spec-value {
-  color: #1A1A1A;
-  font-size: 14px;
-  font-weight: 600;
+  color: #0F172A;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .features-grid {
@@ -887,15 +1132,26 @@ function onPhoneKeydown(e) {
 
 .feature-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+  min-height: 100%;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: #F8FAFD;
+  border: 1px solid rgba(17, 34, 68, 0.08);
   color: #1A1A1A;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 .check-icon {
   flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.feature-item__text {
+  display: block;
 }
 
 .sidebar {
@@ -1234,7 +1490,12 @@ function onPhoneKeydown(e) {
   }
 
   .boat-description {
-    font-size: 15px;
+    gap: 16px;
+  }
+
+  .boat-description__lead {
+    font-size: 17px;
+    padding: 20px;
   }
 
   .specs-grid {
@@ -1243,6 +1504,11 @@ function onPhoneKeydown(e) {
   }
 
   .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .description-list,
+  .description-facts {
     grid-template-columns: 1fr;
   }
 
@@ -1296,12 +1562,54 @@ function onPhoneKeydown(e) {
   }
 
   .boat-description {
+    gap: 14px;
+  }
+
+  .boat-description__lead {
+    padding: 18px;
+    font-size: 16px;
+    border-radius: 18px;
+  }
+
+  .description-card {
+    padding: 18px;
+    border-radius: 18px;
+    gap: 12px;
+  }
+
+  .description-card__text,
+  .description-list__item,
+  .description-fact,
+  .feature-item {
     font-size: 14px;
   }
 
-  .spec-label,
+  .description-list__item,
   .feature-item {
-    font-size: 13px;
+    padding: 14px 14px 14px 36px;
+  }
+
+  .description-fact {
+    padding: 14px;
+  }
+
+  .description-list__item::before {
+    top: 18px;
+    left: 14px;
+  }
+
+  .spec-item {
+    min-height: unset;
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .spec-label {
+    font-size: 12px;
+  }
+
+  .spec-value {
+    font-size: 20px;
   }
 
   .booking-card {

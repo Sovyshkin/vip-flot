@@ -15,7 +15,7 @@
         <template v-if="activeTab === 'holidays'">
             <div class="row-cards">
                 <div v-for="card in holidaysRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
@@ -29,7 +29,7 @@
             </div>
             <div class="row-cards">
                 <div v-for="card in holidaysRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
@@ -47,7 +47,7 @@
         <template v-if="activeTab === 'entertainment'">
             <div class="row-cards">
                 <div v-for="card in entertainmentRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
@@ -61,7 +61,7 @@
             </div>
             <div class="row-cards">
                 <div v-for="card in entertainmentRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="card.image" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
@@ -96,6 +96,20 @@ const entertainmentRow1 = getActivitiesByCategory('entertainment').slice(0, 4)
 
 // Развлекательные программы - второй ряд (3 карточки)
 const entertainmentRow2 = getActivitiesByCategory('entertainment').slice(4, 6)
+
+const mainImages = {
+  'den-rozhdeniya': '/images/activity-den-rozhdeniya.webp',
+  svadba: '/images/activity-svadba.webp',
+  devichnik: '/images/activity-devichnik.webp',
+  malchishnik: '/images/activity-malchishnik.webp',
+  korporativy: '/images/activity-korporativy.webp',
+  vypusknoy: '/images/activity-vypusknoy.webp',
+  'ekskursiya-s-gidom': '/images/activity-ekskursiya-s-gidom.webp'
+}
+
+function getMainImage(card) {
+  return mainImages[card.slug] || card.image
+}
 
 function goToActivity(slug) {
   router.push({ name: 'ActivityDetail', params: { slug } })
