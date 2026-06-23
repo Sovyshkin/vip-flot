@@ -2,7 +2,7 @@
   <div v-if="activity" class="activity-detail">
     <div class="hero-section">
       <div class="hero-image">
-        <img :src="activity.image" :alt="activity.name" loading="lazy" decoding="async">
+        <img :src="getHeroImage(activity)" :alt="activity.name" loading="lazy" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <h1 class="activity-name">{{ activity.name }}</h1>
@@ -176,6 +176,16 @@ import DetailPageSectionsEvents from './DetailPageSectionsEvents.vue'
 const route = useRoute()
 const activity = ref(null)
 
+const heroImages = {
+  'den-rozhdeniya': '/images/activity-den-rozhdeniya.webp',
+  svadba: '/images/activity-svadba.webp',
+  devichnik: '/images/activity-devichnik.webp',
+  malchishnik: '/images/activity-malchishnik.webp',
+  korporativy: '/images/activity-korporativy.webp',
+  vypusknoy: '/images/activity-vypusknoy.webp',
+  'ekskursiya-s-gidom': '/images/activity-ekskursiya-s-gidom.webp'
+}
+
 // API endpoint
 const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php'
 
@@ -197,6 +207,11 @@ onMounted(() => {
   const slug = route.params.slug
   activity.value = getActivityBySlug(slug)
 })
+
+function getHeroImage(activityData) {
+  if (!activityData) return ''
+  return heroImages[activityData.slug] || activityData.image
+}
 
 // Функции форматирования телефона
 function formatPhoneDigits(digits) {
