@@ -1,97 +1,63 @@
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
+import { defineAsyncComponent } from 'vue'
 import MainBlock from "./MainBlock.vue"
-// import YachtTours from "./YachtTours.vue"
-// import MainRoutesToursShowcase from "./MainRoutesToursShowcase.vue"
 import MainRoutesToursShowcase from "./RoutesTours2.vue"
-import ActivitiesWater from "./ActivitiesWater.vue"
-import OurBoats from "./OurBoats.vue"
-import OurYachts from "./OurYachts.vue"
-import OurSailing from "./OurSailing.vue"
-import BoardServices from "./BoardServices.vue"
-import HowToOrder from "./HowToOrder.vue"
-import RequestBook from "./RequestBook.vue"
-import FaqBlock from "./FaqBlock.vue"
-import CommentsBlock from "./CommentsBlock.vue"
-import OurVideos from "./OurVideos.vue"
-import BlogBlock from "./BlogBlock.vue"
+import LazyRender from "./LazyRender.vue"
 
-let observer = null
-
-onMounted(() => {
-  const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  }
-
-  observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible')
-      }
-    })
-  }, options)
-
-  const blocks = document.querySelectorAll('.animate-block')
-  blocks.forEach(block => observer.observe(block))
-})
-
-onBeforeUnmount(() => {
-  if (observer) {
-    observer.disconnect()
-  }
-})
+const ActivitiesWater = defineAsyncComponent(() => import("./ActivitiesWater.vue"))
+const OurBoats = defineAsyncComponent(() => import("./OurBoats.vue"))
+const OurYachts = defineAsyncComponent(() => import("./OurYachts.vue"))
+const OurSailing = defineAsyncComponent(() => import("./OurSailing.vue"))
+const BoardServices = defineAsyncComponent(() => import("./BoardServices.vue"))
+const HowToOrder = defineAsyncComponent(() => import("./HowToOrder.vue"))
+const RequestBook = defineAsyncComponent(() => import("./RequestBook.vue"))
+const FaqBlock = defineAsyncComponent(() => import("./FaqBlock.vue"))
+const CommentsBlock = defineAsyncComponent(() => import("./CommentsBlock.vue"))
+const OurVideos = defineAsyncComponent(() => import("./OurVideos.vue"))
+const BlogBlock = defineAsyncComponent(() => import("./BlogBlock.vue"))
 </script>
 <template>
 	<div class="wrap">
 		<MainBlock/>
-		<!-- <div id="tours" class="animate-block" style="--delay: 0s;"><YachtTours/></div> -->
-  <div id="tours" class="animate-block" style="--delay: 0s;"><MainRoutesToursShowcase/></div>
-        <div id="activities" class="animate-block" style="--delay: 0s;"><ActivitiesWater/></div>
-        <div id="boats" class="animate-block" style="--delay: 0s;"><OurBoats/></div>
-        <div id="yachts" class="animate-block" style="--delay: 0s;"><OurYachts/></div>
-        <div id="sailing" class="animate-block" style="--delay: 0s;"><OurSailing/></div>
-        <div id="services" class="animate-block" style="--delay: 0s;"><BoardServices/></div>
-        <div class="animate-block" style="--delay: 0s;"><HowToOrder/></div>
-        <div id="booking" class="animate-block" style="--delay: 0s;"><RequestBook/></div>
-        <div class="animate-block" style="--delay: 0s;"><FaqBlock/></div>
-        <div class="animate-block" style="--delay: 0s;"><CommentsBlock/></div>
-        <div class="animate-block" style="--delay: 0s;"><OurVideos/></div>
-        <div id="blog" class="animate-block" style="--delay: 0s;"><BlogBlock/></div>
+    <div id="tours"><MainRoutesToursShowcase/></div>
+    <LazyRender root-margin="180px 0px">
+      <div id="activities"><ActivitiesWater/></div>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <div id="boats"><OurBoats/></div>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <div id="yachts"><OurYachts/></div>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <div id="sailing"><OurSailing/></div>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <div id="services"><BoardServices/></div>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <HowToOrder/>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <div id="booking"><RequestBook/></div>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <FaqBlock/>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <CommentsBlock/>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <OurVideos/>
+    </LazyRender>
+    <LazyRender root-margin="220px 0px">
+      <div id="blog"><BlogBlock/></div>
+    </LazyRender>
 	</div>
 </template>
 <style scoped>
 .wrap > div,
-.wrap > .animate-block {
+.wrap > :deep(.lazy-render) {
 	scroll-margin-top: 100px;
-}
-
-/* Smooth fade-in animations */
-.animate-block {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: var(--delay, 0s);
-}
-
-.animate-block.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Prevent layout shift */
-.animate-block > * {
-  width: 100%;
-}
-
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  .animate-block {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 </style>

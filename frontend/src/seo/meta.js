@@ -1,12 +1,3 @@
-import { boats } from '../data/boats'
-import { yachts } from '../data/yachts'
-import { sailingYachts } from '../data/sailing'
-import { articles } from '../data/blog-articles'
-import { services } from '../data/services'
-import { activities } from '../data/activities'
-import { routes as routeItems } from '../data/routes'
-import { getYachtTourBySlug } from '../data/yachtsTours'
-
 const SITE_NAME = 'VIP FLOT'
 const DEFAULT_TITLE = 'Аренда яхт и катеров в Санкт-Петербурге | VIP FLOT'
 const DEFAULT_DESCRIPTION = 'VIP FLOT — аренда яхт, катеров и парусных судов в Санкт-Петербурге для прогулок, маршрутов по Неве, Финскому заливу, праздников и мероприятий на воде.'
@@ -75,15 +66,22 @@ function absoluteImage(path = DEFAULT_IMAGE) {
   return absoluteUrl(path.startsWith('/') ? path : `/images/${path}`)
 }
 
-function findFleetItem(slug) {
+async function findFleetItem(slug) {
+  const [{ boats }, { yachts }, { sailingYachts }] = await Promise.all([
+    import('../data/boats'),
+    import('../data/yachts'),
+    import('../data/sailing'),
+  ])
+
   return [...boats, ...yachts, ...sailingYachts].find(item => item.slug === slug)
 }
 
-function resolveRouteItem(slug) {
-  return routeItems.find(item => item.slug === slug)
+async function resolveRouteItem(slug) {
+  const { routes } = await import('../data/routes')
+  return routes.find(item => item.slug === slug)
 }
 
-function resolveSeo(to) {
+async function resolveSeo(to) {
   const base = staticPages[to.name] || {}
   const path = to.path || '/'
   let seo = {
@@ -95,8 +93,7 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'BoatDetail') {
-    const slug = to.params.slug
-    const item = findFleetItem(slug)
+    const item = await findFleetItem(to.params.slug)
     if (item) {
       const price = item.pricePerHour ? ` от ${Number(item.pricePerHour).toLocaleString('ru-RU')} ₽/час` : ''
       seo = {
@@ -110,6 +107,7 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'YachtTourDetail') {
+    const { getYachtTourBySlug } = await import('../data/yachtsTours')
     const tour = getYachtTourBySlug(to.params.slug)
     if (tour) {
       seo = {
@@ -123,8 +121,8 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'BlogArticle') {
-    const slug = to.params.slug
-    const article = articles.find(item => item.slug === slug)
+    const { articles } = await import('../data/blog-articles')
+    const article = articles.find(item => item.slug === to.params.slug)
     if (article) {
       seo = {
         ...seo,
@@ -137,8 +135,7 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'RouteDetail') {
-    const slug = to.params.slug
-    const route = resolveRouteItem(slug)
+    const route = await resolveRouteItem(to.params.slug)
     if (route) {
       seo = {
         ...seo,
@@ -154,8 +151,8 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'ServiceDetail') {
-    const slug = to.params.slug
-    const service = services.find(item => item.slug === slug)
+    const { services } = await import('../data/services')
+    const service = services.find(item => item.slug === to.params.slug)
     if (service) {
       seo = {
         ...seo,
@@ -167,8 +164,8 @@ function resolveSeo(to) {
   }
 
   if (to.name === 'ActivityDetail') {
-    const slug = to.params.slug
-    const activity = activities.find(item => item.slug === slug)
+    const { activities } = await import('../data/activities')
+    const activity = activities.find(item => item.slug === to.params.slug)
     if (activity) {
       seo = {
         ...seo,
@@ -218,10 +215,10 @@ function setJsonLd(id, data) {
   script.textContent = JSON.stringify(data)
 }
 
-export function applyRouteSeo(to) {
+export async function applyRouteSeo(to) {
   if (typeof document === 'undefined') return
 
-  const seo = resolveSeo(to)
+  const seo = await resolveSeo(to)
   document.title = seo.title
 
   setMeta('name', 'description', seo.description)

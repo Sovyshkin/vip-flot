@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AppMain from '../components/AppMain.vue'
-import BoatDetail from '../components/BoatDetail.vue'
-import BlogArticle from '../components/BlogArticle.vue'
-import RouteDetail from '../components/RouteDetail.vue'
-import BridgeRoutesPage from '../components/BridgeRoutesPage.vue'
-import CatalogPage from '../components/CatalogPage.vue'
-import RoutesPage from '../components/RoutesPage.vue'
-import ToursPage from '../components/ToursPage.vue'
-import YachtTourDetail from '../components/YachtTourDetail.vue'
-import ServiceDetail from '../components/ServiceDetail.vue'
-import ActivityDetail from '../components/ActivityDetail.vue'
-import MainRouteLandingPage from '../components/MainRouteLandingPage.vue'
-import { applyRouteSeo } from '../seo/meta'
+
+const AppMain = () => import('../components/AppMain.vue')
+const BoatDetail = () => import('../components/BoatDetail.vue')
+const BlogArticle = () => import('../components/BlogArticle.vue')
+const RouteDetail = () => import('../components/RouteDetail.vue')
+const BridgeRoutesPage = () => import('../components/BridgeRoutesPage.vue')
+const CatalogPage = () => import('../components/CatalogPage.vue')
+const RoutesPage = () => import('../components/RoutesPage.vue')
+const ToursPage = () => import('../components/ToursPage.vue')
+const YachtTourDetail = () => import('../components/YachtTourDetail.vue')
+const ServiceDetail = () => import('../components/ServiceDetail.vue')
+const ActivityDetail = () => import('../components/ActivityDetail.vue')
+const MainRouteLandingPage = () => import('../components/MainRouteLandingPage.vue')
 
 const routes = [
   { path: '/', name: 'Main', component: AppMain },
@@ -57,8 +57,9 @@ const router = createRouter({
   }
 })
 
-router.afterEach((to) => {
-  applyRouteSeo(to)
+router.afterEach(async (to) => {
+  const { applyRouteSeo } = await import('../seo/meta')
+  await applyRouteSeo(to)
 })
 
 export default router

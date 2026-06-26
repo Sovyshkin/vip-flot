@@ -1,14 +1,14 @@
 <template>
     <div class="wrap-main-block">
         <div class="main-block">
-            <img class="block-image" src="../assets/main-block.webp" alt="">
+            <img class="block-image" src="../assets/main-block.webp" alt="VIP FLOT аренда яхт и катеров" width="1248" height="832" fetchpriority="high" decoding="async">
             <div class="badge">VIP FLOT</div>
             <h1 class="title-main-block">Аренда яхты и катера <br>в Санкт-Петербурге</h1>
             <span class="subtitle-main-block">Ваш идеальный отдых на воде без лишних забот</span>
         </div>
         <div class="blocks">
             <div class="block block-1" role="button" tabindex="0" @click="scrollToId('tours')" @keydown.enter="scrollToId('tours')">
-                <img class="block-image" src="../assets/block-1.webp" alt="">
+                <img class="block-image" src="../assets/block-1.webp" alt="Выбираем маршрут" width="1800" height="1350" loading="eager" decoding="async">
                 <div class="block-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="white"/>
@@ -18,7 +18,7 @@
                 <button class="go-into"><img src="../assets/go-into.svg" alt=""></button>
             </div>
             <div class="block block-2" role="button" tabindex="0" @click="scrollToId('activities')" @keydown.enter="scrollToId('activities')">
-                <img class="block-image" src="../assets/block-2.webp" alt="">
+                <img class="block-image" src="../assets/block-2.webp" alt="Выбираем повод" width="1800" height="1350" loading="eager" decoding="async">
                 <div class="block-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z" fill="white"/>
@@ -28,7 +28,7 @@
                 <button class="go-into"><img src="../assets/go-into.svg" alt=""></button>
             </div>
             <div class="block block-3" role="button" tabindex="0" @click="scrollToId('boats')" @keydown.enter="scrollToId('boats')">
-                <img class="block-image" src="../assets/block-3.webp" alt="">
+                <img class="block-image" src="../assets/block-3.webp" alt="Выбираем судно" width="1680" height="945" loading="eager" decoding="async">
                 <div class="block-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.64 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.15.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z" fill="white"/>

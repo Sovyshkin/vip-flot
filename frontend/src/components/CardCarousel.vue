@@ -17,7 +17,14 @@
         :key="`${image}-${index}`"
         class="carousel-slide"
       >
-        <img :src="getImageUrl(image)" :alt="alt" loading="lazy" decoding="async" draggable="false">
+        <img
+          :src="getImageUrl(image)"
+          :alt="alt"
+          :width="imageWidth"
+          :height="imageHeight"
+          loading="lazy"
+          decoding="async"
+          draggable="false">
       </div>
     </div>
     <button v-if="images.length > 1" class="arrow arrow-prev" @click.stop="prev">
@@ -49,6 +56,18 @@ const props = defineProps({
   alt: {
     type: String,
     default: ''
+  },
+  useThumbs: {
+    type: Boolean,
+    default: false
+  },
+  imageWidth: {
+    type: Number,
+    default: 1200
+  },
+  imageHeight: {
+    type: Number,
+    default: 800
   }
 })
 
@@ -101,6 +120,9 @@ function getImageUrl(imageName) {
   if (typeof imageName !== 'string') return imageName
   if (/^(https?:)?\/\//i.test(imageName) || imageName.startsWith('data:') || imageName.startsWith('/')) {
     return imageName
+  }
+  if (props.useThumbs) {
+    return `/images/thumbs/${encodeURIComponent(imageName)}.webp`
   }
   return `/images/${encodeURIComponent(imageName)}`
 }

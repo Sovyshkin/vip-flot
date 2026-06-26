@@ -26,7 +26,7 @@
             <template v-if="activeTab === 'city'">
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/routes-drawbridges.webp" alt="Разводные мосты" loading="lazy" decoding="async">
+                        <img src="/images/routes-drawbridges.webp" alt="Разводные мосты" width="1196" height="792" loading="eager" fetchpriority="high" decoding="async">
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
@@ -39,7 +39,7 @@
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/routes-rivers-canals.webp" alt="Реки и каналы" loading="lazy" decoding="async">
+                        <img src="/images/routes-rivers-canals.webp" alt="Реки и каналы" width="1198" height="892" loading="eager" decoding="async">
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/routes-neva-walk.webp" alt="Прогулка по Неве" loading="lazy" decoding="async">
+                        <img src="/images/routes-neva-walk.webp" alt="Прогулка по Неве" width="1198" height="890" loading="eager" decoding="async">
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="card" v-show="!isMobile || showAll">
                     <div class="wrap-img">
-                        <img src="/images/route-finskiy-zaliv.webp" alt="Выход в Финский залив" loading="lazy" decoding="async">
+                        <img src="/images/route-finskiy-zaliv.webp" alt="Выход в Финский залив" width="1200" height="800" loading="lazy" decoding="async">
                         <div class="badge">от 3-х часов</div>
                     </div>
                     <div class="card-info">
@@ -82,7 +82,7 @@
             <template v-if="activeTab === 'tours'">
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/routes-yacht-tours.webp" alt="Яхт-туры" loading="lazy" decoding="async">
+                        <img src="/images/routes-yacht-tours.webp" alt="Яхт-туры" width="1210" height="1106" loading="lazy" decoding="async">
                         <div class="badge">от 1 дня и более</div>
                     </div>
                     <div class="card-info">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/tour-petergof.webp" alt="Петергоф" loading="lazy" decoding="async">
+                        <img src="/images/tour-petergof.webp" alt="Петергоф" width="1200" height="800" loading="lazy" decoding="async">
                         <div class="badge">от 4-х часов</div>
                     </div>
                     <div class="card-info">
@@ -108,7 +108,7 @@
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/tour-kronshtadt.webp" alt="Кронштадт" loading="lazy" decoding="async">
+                        <img src="/images/tour-kronshtadt.webp" alt="Кронштадт" width="1200" height="800" loading="lazy" decoding="async">
                         <div class="badge">от 5-ти часов</div>
                     </div>
                     <div class="card-info">
@@ -121,7 +121,7 @@
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/tour-krepost-oreshek.webp" alt="Крепость Орешек" loading="lazy" decoding="async">
+                        <img src="/images/tour-krepost-oreshek.webp" alt="Крепость Орешек" width="1200" height="800" loading="lazy" decoding="async">
                         <div class="badge">от 8-ми часов</div>
                     </div>
                     <div class="card-info">

@@ -18,16 +18,16 @@
                @pointerup.passive="onPointerUp"
                @pointercancel.passive="onPointerUp">
            <div class="card">
-            <video class="video" ref="video1" src="../assets/video-1.mp4" playsinline preload="metadata" @play="onVideoPlay(0)" @mouseenter="onVideoMouseEnter(0)" @mouseleave="onVideoMouseLeave(0)"></video>
+            <video class="video" ref="video1" src="../assets/video-1.mp4" playsinline preload="none" @play="onVideoPlay(0)" @mouseenter="onVideoMouseEnter(0)" @mouseleave="onVideoMouseLeave(0)"></video>
            </div>
            <div class="card">
-            <video class="video" ref="video2" src="../assets/video-2.mp4" playsinline preload="metadata" @play="onVideoPlay(1)" @mouseenter="onVideoMouseEnter(1)" @mouseleave="onVideoMouseLeave(1)"></video>
+            <video class="video" ref="video2" src="../assets/video-2.mp4" playsinline preload="none" @play="onVideoPlay(1)" @mouseenter="onVideoMouseEnter(1)" @mouseleave="onVideoMouseLeave(1)"></video>
            </div>
            <div class="card">
-            <video class="video" ref="video3" src="../assets/video-3.mp4" playsinline preload="metadata" @play="onVideoPlay(2)" @mouseenter="onVideoMouseEnter(2)" @mouseleave="onVideoMouseLeave(2)"></video>
+            <video class="video" ref="video3" src="../assets/video-3.mp4" playsinline preload="none" @play="onVideoPlay(2)" @mouseenter="onVideoMouseEnter(2)" @mouseleave="onVideoMouseLeave(2)"></video>
            </div>
            <div class="card">
-            <video class="video" ref="video4" src="../assets/video-4.mp4" playsinline preload="metadata" @play="onVideoPlay(3)" @mouseenter="onVideoMouseEnter(3)" @mouseleave="onVideoMouseLeave(3)"></video>
+            <video class="video" ref="video4" src="../assets/video-4.mp4" playsinline preload="none" @play="onVideoPlay(3)" @mouseenter="onVideoMouseEnter(3)" @mouseleave="onVideoMouseLeave(3)"></video>
            </div>
         </div>
         <div class="cards-indicator" aria-hidden="true">
