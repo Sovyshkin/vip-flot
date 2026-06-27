@@ -133,8 +133,6 @@
     </div>
   </transition>
 
-  <!-- Backdrop -->
-  <div v-if="false" class="mobile-drawer__backdrop"></div>
 </template>
 
 <script setup>
@@ -218,9 +216,11 @@ function scrollToElement(id) {
   justify-content: space-between;
   align-items: center;
   padding: 8px 40px;
+  min-height: 85px;
   background-color: #f5f5f5;
   z-index: 1000;
   transition: box-shadow 0.3s ease;
+  contain: layout paint;
 }
 
 /* Header - Блок Логотипа */
@@ -229,6 +229,7 @@ function scrollToElement(id) {
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  min-height: 36px;
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.2s ease;
@@ -374,6 +375,8 @@ function scrollToElement(id) {
   display: none;
   flex-direction: column;
   justify-content: space-between;
+  align-items: stretch;
+  flex: 0 0 28px;
   width: 28px;
   height: 20px;
   background: transparent;
@@ -405,6 +408,7 @@ function scrollToElement(id) {
 @media (max-width: 768px) {
   .vipflot-header {
     padding: 16px 24px;
+    min-height: 75px;
   }
   
   .vipflot-header__contacts {
@@ -418,6 +422,10 @@ function scrollToElement(id) {
   
   .vipflot-header__logo-subtitle {
     font-size: 10px;
+  }
+
+  .vipflot-header__logo {
+    min-height: 40px;
   }
 }
 

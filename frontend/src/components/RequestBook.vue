@@ -82,7 +82,7 @@
       </form>
     </div>
     <div class="wrap-image">
-        <img src="../assets/card-1.webp" alt="">
+        <img src="../assets/card-1.webp" alt="" width="1200" height="1200" loading="lazy" decoding="async">
     </div>
   </div>
 </template>

@@ -29,7 +29,7 @@ function goToBooking() {
                 <h1 class="title">Наши парусные</h1>
                 <div class="view-catalog" @click="goToCatalog">
                     <span class="text-catalog">Перейти в каталог</span>
-                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="" width="20" height="20" decoding="async">
                 </div>
             </div>
         </div>
@@ -44,11 +44,11 @@ function goToBooking() {
                         <span class="card-title">{{ yacht.name }}</span>
                         <div class="card-desc">
                             <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
+                                <img src="../assets/card-desc-icon-1.svg" alt="" width="20" height="20" decoding="async">
                                 <span>до {{ yacht.capacity }} гостей</span>
                             </div>
                             <div class="item-desc" v-if="yacht.length">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
+                                <img src="../assets/card-desc-icon-2.svg" alt="" width="20" height="20" decoding="async">
                                 <span>{{ yacht.length }} метров</span>
                             </div>
                         </div>

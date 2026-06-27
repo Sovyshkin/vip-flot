@@ -3,8 +3,8 @@
         <div class="wrap-title">
             <h1 class="title">Отзывы наших клиентов</h1>
             <div class="actions">
-                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
-                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
+                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt="" width="24" height="24" decoding="async"></button>
+                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt="" width="24" height="24" decoding="async"></button>
             </div>
         </div>
            <div class="cards"
@@ -20,7 +20,7 @@
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-1.webp" alt="">
+                    <img src="../assets/avatar-1.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
                 </div>
                 <div class="user-info">
                     <span class="name">Анна Петрова</span>
@@ -30,13 +30,13 @@
             <p class="text">Отличная прогулка на развод мостов! Катер комфортный, капитан профессиональный. Рекомендую!</p>
             <div class="rating">
                 <span>5.0</span>
-                <img src="../assets/rating.svg" alt="">
+                <img src="../assets/rating.svg" alt="" width="76" height="16" loading="lazy" decoding="async">
             </div>
            </div>
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-2.webp" alt="">
+                    <img src="../assets/avatar-2.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
                 </div>
                 <div class="user-info">
                     <span class="name">Ника Морозова</span>
@@ -46,13 +46,13 @@
             <p class="text">Отличная прогулка на развод мостов! Катер комфортный, капитан профессиональный. Рекомендую!</p>
             <div class="rating">
                 <span>5.0</span>
-                <img src="../assets/rating.svg" alt="">
+                <img src="../assets/rating.svg" alt="" width="76" height="16" loading="lazy" decoding="async">
             </div>
            </div>
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-3.webp" alt="">
+                    <img src="../assets/avatar-3.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
                 </div>
                 <div class="user-info">
                     <span class="name">Наталья Гриневич</span>
@@ -62,13 +62,13 @@
             <p class="text">Отличная прогулка на развод мостов! Катер комфортный, капитан профессиональный. Рекомендую!</p>
             <div class="rating">
                 <span>5.0</span>
-                <img src="../assets/rating.svg" alt="">
+                <img src="../assets/rating.svg" alt="" width="76" height="16" loading="lazy" decoding="async">
             </div>
            </div>
            <div class="card">
             <div class="user">
                 <div class="wrap-avatar">
-                    <img src="../assets/avatar-1.webp" alt="">
+                    <img src="../assets/avatar-1.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
                 </div>
                 <div class="user-info">
                     <span class="name">Анна Петрова</span>
@@ -78,7 +78,7 @@
             <p class="text">Отличная прогулка на развод мостов! Катер комфортный, капитан профессиональный. Рекомендую!</p>
             <div class="rating">
                 <span>5.0</span>
-                <img src="../assets/rating.svg" alt="">
+                <img src="../assets/rating.svg" alt="" width="76" height="16" loading="lazy" decoding="async">
             </div>
            </div>
         </div>
@@ -195,21 +195,13 @@ function onPointerUp() {
     touchDeltaX.value = 0
 }
 
-let resizeObserver
 onMounted(() => {
     updatePages()
-    // Observe resize to recalc pages
-    if (window.ResizeObserver) {
-        resizeObserver = new ResizeObserver(() => updatePages())
-        resizeObserver.observe(document.body)
-    } else {
-        window.addEventListener('resize', updatePages)
-    }
+    window.addEventListener('resize', updatePages)
 })
 
 onBeforeUnmount(() => {
-    if (resizeObserver) resizeObserver.disconnect()
-    else window.removeEventListener('resize', updatePages)
+    window.removeEventListener('resize', updatePages)
 })
 </script>
 

@@ -9,13 +9,13 @@
           </div>
           <div class="footer-socials">
             <a href="https://t.me/vipflot" target="_blank" class="social-link" aria-label="Telegram">
-              <img src="../assets/telegram.svg" alt="Telegram">
+              <img src="../assets/telegram.svg" alt="Telegram" width="24" height="24" loading="lazy" decoding="async">
             </a>
             <a href="https://wa.me/78126605516" target="_blank" class="social-link" aria-label="WhatsApp">
-              <img src="../assets/whatsapp.svg" alt="WhatsApp">
+              <img src="../assets/whatsapp.svg" alt="WhatsApp" width="24" height="24" loading="lazy" decoding="async">
             </a>
             <a href="https://www.instagram.com/vipflot?igsh=cGRvc3ExdDJ4djZv" target="_blank" class="social-link" aria-label="Instagram">
-              <img src="../assets/instagram.svg" alt="Instagram">
+              <img src="../assets/instagram.svg" alt="Instagram" width="24" height="24" loading="lazy" decoding="async">
             </a>
           </div>
           <div class="footer-contacts">

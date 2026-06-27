@@ -3,8 +3,8 @@
         <div class="wrap-title">
             <h1 class="title">Видео от наших гостей</h1>
             <div class="actions">
-                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
-                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
+                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt="" width="24" height="24" decoding="async"></button>
+                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt="" width="24" height="24" decoding="async"></button>
             </div>
         </div>
            <div class="cards"
@@ -171,21 +171,13 @@ function onPointerUp() {
     touchDeltaX.value = 0
 }
 
-let resizeObserver
 onMounted(() => {
     updatePages()
-    // Observe resize to recalc pages
-    if (window.ResizeObserver) {
-        resizeObserver = new ResizeObserver(() => updatePages())
-        resizeObserver.observe(document.body)
-    } else {
-        window.addEventListener('resize', updatePages)
-    }
+    window.addEventListener('resize', updatePages)
 })
 
 onBeforeUnmount(() => {
-    if (resizeObserver) resizeObserver.disconnect()
-    else window.removeEventListener('resize', updatePages)
+    window.removeEventListener('resize', updatePages)
 })
 </script>
 

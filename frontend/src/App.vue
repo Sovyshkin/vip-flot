@@ -16,6 +16,7 @@ const route = useRoute()
 :root {
   --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-logo: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+  --header-height: 85px;
 }
 
 #app {
@@ -58,7 +59,7 @@ body,
 }
 
 .main-content {
-  padding-top: 85px;
+  padding-top: var(--header-height);
   flex: 1;
 }
 
@@ -150,24 +151,24 @@ button:active {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --header-height: 75px;
+  }
+
   .wrap {
     padding: 16px 24px;
     gap: 48px;
   }
-  
-  .main-content {
-    padding-top: 75px;
-  }
 }
 
 @media (max-width: 480px) {
+  :root {
+    --header-height: 75px;
+  }
+
   .wrap {
     padding: 12px 20px;
     gap: 40px;
-  }
-  
-  .main-content {
-    padding-top: 70px;
   }
 }
 

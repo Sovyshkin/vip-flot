@@ -3,8 +3,8 @@
         <div class="wrap-title">
             <h1 class="title">Блог о судоходстве</h1>
             <div class="actions">
-                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt="Предыдущая"></button>
-                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt="Следующая"></button>
+                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt="Предыдущая" width="24" height="24" decoding="async"></button>
+                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt="Следующая" width="24" height="24" decoding="async"></button>
             </div>
         </div>
         <div class="cards"
@@ -19,7 +19,7 @@
              @pointercancel.passive="onPointerUp">
             <router-link class="card" :to="{ name: 'BlogArticle', params: { slug: article.slug } }" v-for="article in articles" :key="article.id">
                 <div class="wrap-img">
-                    <img :src="article.image" :alt="article.title" loading="lazy" decoding="async">
+                    <img :src="article.image" :alt="article.title" width="1200" height="800" loading="lazy" decoding="async">
                     <div class="badge">{{ article.date }}</div>
                 </div>
                 <div class="card-info">
@@ -51,8 +51,6 @@ let startX = 0
 let currentX = 0
 let isDragging = false
 let startTime = 0
-let resizeObserver = null
-
 function scrollNext() {
   if (!cardsContainer.value) return
   const container = cardsContainer.value
@@ -162,21 +160,13 @@ function updatePages() {
 
 onMounted(() => {
   updatePages()
-  
-  resizeObserver = new ResizeObserver(() => {
-    updatePages()
-    onScroll()
-  })
-  
-  if (cardsContainer.value) {
-    resizeObserver.observe(cardsContainer.value)
-  }
+  window.addEventListener('resize', updatePages)
+  window.addEventListener('resize', onScroll)
 })
 
 onBeforeUnmount(() => {
-  if (resizeObserver) {
-    resizeObserver.disconnect()
-  }
+  window.removeEventListener('resize', updatePages)
+  window.removeEventListener('resize', onScroll)
 })
 </script>
 
