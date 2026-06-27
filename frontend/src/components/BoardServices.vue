@@ -7,38 +7,38 @@
     <div class="cards">
       <div class="row-cards">
         <div class="row-1-card card" @click="goToService('catering')">
-          <img class="image-card" src="../assets/services-1.webp" alt="" />
+          <img class="image-card" src="../assets/services-1.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Кейтеринг</span>
         </div>
         <div class="row-1-card card" @click="goToService('guide')">
-          <img class="image-card" src="../assets/services-2.webp" alt="" />
+          <img class="image-card" src="../assets/services-2.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Гид</span>
         </div>
         <div class="row-1-card card" @click="goToService('chef')">
-          <img class="image-card" src="../assets/services-3.webp" alt="" />
+          <img class="image-card" src="../assets/services-3.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Повар</span>
         </div>
         <div class="row-1-card card" @click="goToService('bartender')">
-          <img class="image-card" src="../assets/services-4.webp" alt="" />
+          <img class="image-card" src="../assets/services-4.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Бармен</span>
         </div>
         <div class="row-1-card card" @click="goToService('photographer')">
-          <img class="image-card" src="../assets/services-5.webp" alt="" />
+          <img class="image-card" src="../assets/services-5.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Фотограф</span>
         </div>
         <div class="row-1-card card" @click="goToService('decoration')">
-          <img class="image-card" src="../assets/services-6.webp" alt="" />
+          <img class="image-card" src="../assets/services-6.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Украшение палубы</span>
         </div>
       </div>
       <div class="row-cards">
         
         <div class="row-2-card card" @click="goToService('host')">
-          <img class="image-card image-card--host" src="../assets/services-7.webp" alt="" />
+          <img class="image-card image-card--host" src="../assets/services-7.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Ведущий</span>
         </div>
         <div class="row-2-card card" @click="goToService('dj')">
-          <img class="image-card" src="../assets/services-8.webp" alt="" />
+          <img class="image-card" src="../assets/services-8.webp" alt="" loading="lazy" decoding="async" width="1200" height="800" />
           <span class="card-title">Диджей</span>
         </div>
         <!-- <div class="row-2-card card" @click="goToService('live-music')">

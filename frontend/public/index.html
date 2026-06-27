@@ -14,6 +14,22 @@
     <link rel="icon" type="image/svg+xml" href="<%= BASE_URL %>favicon.svg" />
     <link rel="icon" type="image/png" href="<%= BASE_URL %>favicon.png" />
     <link rel="apple-touch-icon" href="<%= BASE_URL %>favicon.png" />
+    <link
+      rel="preload"
+      as="image"
+      href="<%= BASE_URL %>images/main-block.webp"
+      imagesizes="100vw"
+      fetchpriority="high"
+      media="(min-width: 769px)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="<%= BASE_URL %>images/main-block-mobile.webp"
+      imagesizes="100vw"
+      fetchpriority="high"
+      media="(max-width: 768px)"
+    />
     <meta property="og:site_name" content="VIP FLOT" />
     <meta property="og:title" content="Аренда яхт и катеров в Санкт-Петербурге | VIP FLOT" />
     <meta

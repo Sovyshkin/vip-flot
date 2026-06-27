@@ -13,10 +13,13 @@ const route = useRoute()
   <AppFooter/>
 </template>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Geologica:wght,CRSV@100..900,0&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+:root {
+  --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-logo: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+}
+
 #app {
-  font-family: "Geologica", sans-serif;
+  font-family: var(--font-base);
   width: 100%;
 }
 * {
@@ -25,7 +28,7 @@ const route = useRoute()
   border: none;
   font-weight: 400;
   font-style: normal;
-  font-family: "Geologica", sans-serif;
+  font-family: var(--font-base);
 }
 
 *,

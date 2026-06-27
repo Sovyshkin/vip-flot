@@ -163,7 +163,7 @@ function scrollToElement(id) {
 }
 
 .footer-logo-text {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-logo);
   font-weight: 600;
   font-size: 25px;
   letter-spacing: 9px;

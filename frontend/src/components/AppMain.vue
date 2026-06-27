@@ -20,37 +20,37 @@ const BlogBlock = defineAsyncComponent(() => import("./BlogBlock.vue"))
 	<div class="wrap">
 		<MainBlock/>
     <div id="tours"><MainRoutesToursShowcase/></div>
-    <LazyRender root-margin="180px 0px">
+    <LazyRender root-margin="180px 0px" min-height="420px">
       <div id="activities"><ActivitiesWater/></div>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="620px">
       <div id="boats"><OurBoats/></div>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="620px">
       <div id="yachts"><OurYachts/></div>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="620px">
       <div id="sailing"><OurSailing/></div>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="360px">
       <div id="services"><BoardServices/></div>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="240px">
       <HowToOrder/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="520px">
       <div id="booking"><RequestBook/></div>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="360px">
       <FaqBlock/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="320px">
       <CommentsBlock/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="320px">
       <OurVideos/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px">
+    <LazyRender root-margin="220px 0px" min-height="360px">
       <div id="blog"><BlogBlock/></div>
     </LazyRender>
 	</div>

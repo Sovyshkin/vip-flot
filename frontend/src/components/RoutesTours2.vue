@@ -3,8 +3,8 @@
         <div class="wrap-title">
             <h1 class="title">Маршруты и туры</h1>
             <div class="actions">
-                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
-                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>
+                <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt="" width="20" height="20" decoding="async"></button>
+                <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt="" width="20" height="20" decoding="async"></button>
             </div>
         </div>
         <div class="tabs">
@@ -26,7 +26,10 @@
             <template v-if="activeTab === 'city'">
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/routes-drawbridges.webp" alt="Разводные мосты" width="1196" height="792" loading="eager" fetchpriority="high" decoding="async">
+                        <picture>
+                            <source media="(max-width: 768px)" srcset="/images/routes-drawbridges-mobile.webp">
+                            <img src="/images/routes-drawbridges.webp" alt="Разводные мосты" width="1196" height="792" loading="eager" fetchpriority="high" decoding="async">
+                        </picture>
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
@@ -39,7 +42,10 @@
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/routes-rivers-canals.webp" alt="Реки и каналы" width="1198" height="892" loading="eager" decoding="async">
+                        <picture>
+                            <source media="(max-width: 768px)" srcset="/images/routes-rivers-canals-mobile.webp">
+                            <img src="/images/routes-rivers-canals.webp" alt="Реки и каналы" width="1198" height="892" loading="lazy" fetchpriority="low" decoding="async">
+                        </picture>
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
@@ -52,7 +58,10 @@
                 </div>
                 <div class="card">
                     <div class="wrap-img">
-                        <img src="/images/routes-neva-walk.webp" alt="Прогулка по Неве" width="1198" height="890" loading="eager" decoding="async">
+                        <picture>
+                            <source media="(max-width: 768px)" srcset="/images/routes-neva-walk-mobile.webp">
+                            <img src="/images/routes-neva-walk.webp" alt="Прогулка по Неве" width="1198" height="890" loading="lazy" fetchpriority="low" decoding="async">
+                        </picture>
                         <div class="badge">от 2-х часов</div>
                     </div>
                     <div class="card-info">
@@ -63,7 +72,7 @@
                         <button class="card-btn" @click="goToPath('/routes/neva')">Узнать подробнее</button>
                     </div>
                 </div>
-                <div class="card" v-show="!isMobile || showAll">
+                <div v-if="!isMobile || showAll" class="card">
                     <div class="wrap-img">
                         <img src="/images/route-finskiy-zaliv.webp" alt="Выход в Финский залив" width="1200" height="800" loading="lazy" decoding="async">
                         <div class="badge">от 3-х часов</div>
@@ -152,10 +161,12 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const cardsContainer = ref(null)
 const currentPage = ref(0)
-const pagesCount = ref(1)
+const pagesCount = ref(typeof window !== 'undefined'
+  ? Math.max(1, Math.ceil(4 / getVisibleCount()))
+  : 1)
 const activeTab = ref('city')
 const showAll = ref(false)
-const isMobile = ref(false)
+const isMobile = ref(typeof window !== 'undefined' ? window.innerWidth <= 768 : false)
 
 function goToPath(path) {
   if (!path) return
@@ -284,21 +295,16 @@ function checkMobile() {
     isMobile.value = window.innerWidth <= 768
 }
 
-let resizeObserver
 onMounted(() => {
     checkMobile()
     updatePages()
-    if (window.ResizeObserver) {
-        resizeObserver = new ResizeObserver(() => { checkMobile(); updatePages() })
-        resizeObserver.observe(document.body)
-    } else {
-        window.addEventListener('resize', () => { checkMobile(); updatePages() })
-    }
+    window.addEventListener('resize', checkMobile)
+    window.addEventListener('resize', updatePages)
 })
 
 onBeforeUnmount(() => {
-    if (resizeObserver) resizeObserver.disconnect()
-    else window.removeEventListener('resize', updatePages)
+    window.removeEventListener('resize', checkMobile)
+    window.removeEventListener('resize', updatePages)
 })
 </script>
 
@@ -419,13 +425,18 @@ onBeforeUnmount(() => {
     overflow: hidden;
     border-radius: 16px;
     height: 238px;
+    aspect-ratio: 3 / 2;
 }
 
+.wrap-img picture,
 .wrap-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
+}
+
+.wrap-img img {
+    object-fit: cover;
 }
 
 .badge {

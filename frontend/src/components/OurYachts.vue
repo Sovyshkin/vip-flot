@@ -14,7 +14,7 @@ defineProps({
 
 const router = useRouter()
 const showAll = ref(false)
-const isMobile = ref(false)
+const isMobile = ref(typeof window !== 'undefined' ? window.innerWidth <= 768 : false)
 function checkMobile() { isMobile.value = window.innerWidth <= 768 }
 
 const visibleYachts = computed(() => showAll.value ? yachts : yachts.slice(0, isMobile.value ? 4 : 6))
@@ -48,7 +48,7 @@ onBeforeUnmount(() => {
                 <h1 class="title">{{ customTitle || 'Наши яхты' }}</h1>
                 <div class="view-catalog" @click="goToCatalog">
                     <span class="text-catalog">Перейти в каталог</span>
-                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="" width="20" height="20" decoding="async">
                 </div>
             </div>
         </div>
@@ -63,11 +63,11 @@ onBeforeUnmount(() => {
                         <span class="card-title">{{ yacht.name }}</span>
                         <div class="card-desc">
                             <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
+                                <img src="../assets/card-desc-icon-1.svg" alt="" width="20" height="20" decoding="async">
                                 <span>до {{ yacht.capacity }} гостей</span>
                             </div>
                             <div class="item-desc">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
+                                <img src="../assets/card-desc-icon-2.svg" alt="" width="20" height="20" decoding="async">
                                 <span>{{ yacht.length }} м</span>
                             </div>
                         </div>

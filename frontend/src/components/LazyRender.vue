@@ -1,5 +1,8 @@
 <template>
-  <div ref="root" class="lazy-render">
+  <div
+    ref="root"
+    class="lazy-render"
+    :style="{ '--lazy-render-min-height': props.minHeight }">
     <slot v-if="isVisible"></slot>
   </div>
 </template>
@@ -11,6 +14,10 @@ const props = defineProps({
   rootMargin: {
     type: String,
     default: '300px 0px'
+  },
+  minHeight: {
+    type: String,
+    default: '1px'
   }
 })
 
@@ -45,6 +52,6 @@ onBeforeUnmount(() => {
 <style scoped>
 .lazy-render {
   width: 100%;
-  min-height: 1px;
+  min-height: var(--lazy-render-min-height, 1px);
 }
 </style>

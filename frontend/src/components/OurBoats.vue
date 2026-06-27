@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const showAll = ref(false)
-const isMobile = ref(false)
+const isMobile = ref(typeof window !== 'undefined' ? window.innerWidth <= 768 : false)
 function checkMobile() { isMobile.value = window.innerWidth <= 768 }
 
 const visibleBoats = computed(() => showAll.value ? boats : boats.slice(0, isMobile.value ? 4 : 6))
@@ -40,7 +40,7 @@ onBeforeUnmount(() => {
                 <h1 class="title">Наши катера</h1>
                 <div class="view-catalog" @click="goToCatalog">
                     <span class="text-catalog">Перейти в каталог</span>
-                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+                    <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="" width="20" height="20" decoding="async">
                 </div>
             </div>
         </div>
@@ -55,11 +55,11 @@ onBeforeUnmount(() => {
                         <span class="card-title">{{ boat.name }}</span>
                         <div class="card-desc">
                             <div class="item-desc">
-                                <img src="../assets/card-desc-icon-1.svg" alt="">
+                                <img src="../assets/card-desc-icon-1.svg" alt="" width="20" height="20" decoding="async">
                                 <span>до {{ boat.capacity }} гостей</span>
                             </div>
                             <div class="item-desc">
-                                <img src="../assets/card-desc-icon-2.svg" alt="">
+                                <img src="../assets/card-desc-icon-2.svg" alt="" width="20" height="20" decoding="async">
                                 <span>{{ boat.length }} метров</span>
                             </div>
                         </div>

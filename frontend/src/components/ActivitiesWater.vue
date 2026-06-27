@@ -15,29 +15,29 @@
         <template v-if="activeTab === 'holidays'">
             <div class="row-cards">
                 <div v-for="card in holidaysRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async" width="1200" height="800">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
-                                <img :src="card.icon" :alt="card.name">
+                                <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
                             <h2 class="title-card">{{ card.name }}</h2>
                         </div>
-                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
+                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>
                 </div>
             </div>
             <div class="row-cards">
                 <div v-for="card in holidaysRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async" width="1200" height="800">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
-                                <img :src="card.icon" :alt="card.name">
+                                <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
                             <h2 class="title-card">{{ card.name }}</h2>
                         </div>
-                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
+                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>
                 </div>
             </div>
@@ -47,29 +47,29 @@
         <template v-if="activeTab === 'entertainment'">
             <div class="row-cards">
                 <div v-for="card in entertainmentRow1" :key="card.id" class="row-1-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async" width="1200" height="800">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
-                                <img :src="card.icon" :alt="card.name">
+                                <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
                             <h2 class="title-card">{{ card.name }}</h2>
                         </div>
-                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
+                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>
                 </div>
             </div>
             <div class="row-cards">
                 <div v-for="card in entertainmentRow2" :key="card.id" class="row-2-card card" @click="goToActivity(card.slug)">
-                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async">
+                    <img class="image-card" :src="getMainImage(card)" :alt="card.name" loading="lazy" decoding="async" width="1200" height="800">
                     <div class="card-content">
                         <div class="card-info">
                             <div class="wrap-icon">
-                                <img :src="card.icon" :alt="card.name">
+                                <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
                             <h2 class="title-card">{{ card.name }}</h2>
                         </div>
-                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="">
+                        <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>
                 </div>
             </div>

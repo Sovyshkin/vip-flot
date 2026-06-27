@@ -9,7 +9,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const activeTab = ref('boats')
 const showAll = ref(false)
-const isMobile = ref(false)
+const isMobile = ref(typeof window !== 'undefined' ? window.innerWidth <= 768 : false)
 
 function checkMobile() { isMobile.value = window.innerWidth <= 768 }
 
@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
         <h1 class="title">Наш флот</h1>
         <div class="view-catalog" @click="goToCatalog">
           <span class="text-catalog">Перейти в каталог</span>
-          <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="">
+          <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="" width="20" height="20" decoding="async">
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
     <div class="cards">
       <div v-for="item in visibleItems" :key="item.id || item.name" class="card" @click="goToDetail(item.slug)">
         <div class="wrap-img">
-          <CardCarousel :images="Array.isArray(item.cardImage) ? item.cardImage : [item.cardImage]" :alt="item.name">
+          <CardCarousel :images="Array.isArray(item.cardImage) ? item.cardImage : [item.cardImage]" :alt="item.name" :useThumbs="true">
           </CardCarousel>
         </div>
         <div class="card-info">
@@ -92,11 +92,11 @@ onBeforeUnmount(() => {
             <span class="card-title">{{ item.name }}</span>
             <div class="card-desc">
               <div class="item-desc">
-                <img src="../assets/card-desc-icon-1.svg" alt="">
+                <img src="../assets/card-desc-icon-1.svg" alt="" width="20" height="20" decoding="async">
                 <span>до {{ item.capacity }} гостей</span>
               </div>
               <div class="item-desc" v-if="item.length">
-                <img src="../assets/card-desc-icon-2.svg" alt="">
+                <img src="../assets/card-desc-icon-2.svg" alt="" width="20" height="20" decoding="async">
                 <span>{{ item.length }} {{ item.length < 10 ? 'метров' : 'м' }}</span>
               </div>
             </div>

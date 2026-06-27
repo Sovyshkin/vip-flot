@@ -239,7 +239,7 @@ function scrollToElement(id) {
 }
 
 .vipflot-header__logo-text {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-logo);
   font-weight: 600;
   font-size: 18px;
   letter-spacing: 6px;
@@ -352,7 +352,7 @@ function scrollToElement(id) {
 .vipflot-header__contacts-phone {
   color: #1a1a1a;
   font-weight: 600;
-  font-family: "Golos Text", sans-serif;
+  font-family: var(--font-base);
   text-transform: uppercase;
   font-size: 14px;
   text-decoration: none;
@@ -451,7 +451,7 @@ function scrollToElement(id) {
 }
 
 .mobile-drawer__logo {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-logo);
   font-size: 26px;
   letter-spacing: 8px;
   color: #1a1a1a;
