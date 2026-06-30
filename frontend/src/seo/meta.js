@@ -1,3 +1,11 @@
+import { buildFleetMetaDescription } from '../utils/fleetCopy'
+import {
+  buildActivityMetaDescription,
+  buildRouteMetaDescription,
+  buildServiceMetaDescription,
+  buildYachtTourMetaDescription,
+} from '../utils/pageCopy'
+
 const SITE_NAME = 'VIP FLOT'
 const DEFAULT_TITLE = 'Аренда яхт и катеров в Санкт-Петербурге | VIP FLOT'
 const DEFAULT_DESCRIPTION = 'VIP FLOT — аренда яхт, катеров и парусных судов в Санкт-Петербурге для прогулок, маршрутов по Неве, Финскому заливу, праздников и мероприятий на воде.'
@@ -95,11 +103,10 @@ async function resolveSeo(to) {
   if (to.name === 'BoatDetail') {
     const item = await findFleetItem(to.params.slug)
     if (item) {
-      const price = item.pricePerHour ? ` от ${Number(item.pricePerHour).toLocaleString('ru-RU')} ₽/час` : ''
       seo = {
         ...seo,
         title: `Аренда ${item.name} в Санкт-Петербурге | VIP FLOT`,
-        description: truncate(`${item.name}: аренда судна в Санкт-Петербурге${price}. Вместимость до ${item.capacity || 'нескольких'} гостей. ${item.description || 'Фото, характеристики и условия аренды.'}`),
+        description: truncate(buildFleetMetaDescription(item)),
         image: Array.isArray(item.cardImage) ? item.cardImage[0] : item.cardImage || item.images?.[0],
         type: 'product',
       }
@@ -113,7 +120,7 @@ async function resolveSeo(to) {
       seo = {
         ...seo,
         title: `${tour.title} — яхт-тур из Санкт-Петербурга | VIP FLOT`,
-        description: truncate(`${tour.route || tour.title}. ${tour.description}`),
+        description: truncate(buildYachtTourMetaDescription(tour)),
         image: tour.bannerImage || tour.imageUrl,
         type: 'article',
       }
@@ -127,7 +134,7 @@ async function resolveSeo(to) {
       seo = {
         ...seo,
         title: `${article.title} | Блог VIP FLOT`,
-        description: truncate(article.description || article.excerpt || article.content),
+        description: truncate(article.description || article.excerpt || cleanText(article.content).slice(0, 220)),
         image: article.image,
         type: 'article',
       }
@@ -140,7 +147,7 @@ async function resolveSeo(to) {
       seo = {
         ...seo,
         title: `${route.name} — маршрут прогулки по Санкт-Петербургу | VIP FLOT`,
-        description: truncate(route.description),
+        description: truncate(buildRouteMetaDescription(route)),
         image: route.cardImage,
       }
     }
@@ -157,7 +164,7 @@ async function resolveSeo(to) {
       seo = {
         ...seo,
         title: `${service.name} на яхте или катере | VIP FLOT`,
-        description: truncate(service.fullDescription || service.description),
+        description: truncate(buildServiceMetaDescription(service)),
         image: service.image,
       }
     }
@@ -170,7 +177,7 @@ async function resolveSeo(to) {
       seo = {
         ...seo,
         title: `${activity.name} на яхте или катере в Санкт-Петербурге | VIP FLOT`,
-        description: truncate(activity.fullDescription || activity.description),
+        description: truncate(buildActivityMetaDescription(activity)),
         image: activity.image,
       }
     }

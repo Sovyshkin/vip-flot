@@ -20,18 +20,21 @@
         <div class="main-info">
           <section class="info-section">
             <h2 class="section-title">О маршруте</h2>
-            <p class="route-description">{{ route.description }}</p>
+            <p class="route-description">{{ routeLead }}</p>
           </section>
 
-          <section class="info-section">
-            <h2 class="section-title">Программа и детали</h2>
-            <div class="details-content" v-html="route.details"></div>
+          <section
+            v-for="(section, sectionIndex) in routeSections"
+            :key="`route-section-${sectionIndex}`"
+            class="info-section">
+            <h2 class="section-title">{{ section.title }}</h2>
+            <p class="route-description">{{ section.text }}</p>
           </section>
 
-          <section class="info-section">
-            <h2 class="section-title">Что включено</h2>
+          <section v-if="routeHighlights.length" class="info-section">
+            <h2 class="section-title">Особенности маршрута</h2>
             <div class="features-grid">
-              <div v-for="(feature, idx) in route.features" :key="idx" class="feature-item">
+              <div v-for="(feature, idx) in routeHighlights" :key="idx" class="feature-item">
                 <svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="10" fill="#0076FC"/>
                   <path d="M6 10L9 13L14 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -109,16 +112,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getRouteBySlug } from '../data/routes';
 import { getTourBySlug } from '../data/tours';
 import DetailPageSections from './DetailPageSections.vue';
+import { buildRouteLead, buildRouteSections, buildRouteExcerpt } from '../utils/pageCopy';
 
 const vueRoute = useRoute();
 const router = useRouter();
 const route = ref(null);
 const bookingDate = ref('');
+const routeLead = computed(() => (route.value ? buildRouteLead(route.value) : ''));
+const routeSections = computed(() => (route.value ? buildRouteSections(route.value) : []));
+const routeHighlights = computed(() => {
+  if (!route.value) return [];
+  const excerpt = buildRouteExcerpt(route.value);
+  return excerpt
+    .split(/[.;]/)
+    .map(part => part.trim())
+    .filter(Boolean)
+    .slice(0, 4);
+});
 
 onMounted(() => {
   const slug = vueRoute.params.slug;

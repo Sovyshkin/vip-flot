@@ -46,6 +46,7 @@ import { useRouter } from 'vue-router'
 import { boatsRoutes } from '../data/boatsRoutes'
 import { yachtsRoutes } from '../data/yachtsRoutes'
 import BookingModal from './BookingModal.vue'
+import { buildRouteExcerpt } from '../utils/pageCopy'
 
 const router = useRouter()
 const activeTab = ref('boats')
@@ -68,7 +69,7 @@ function isCustomRoute(route) {
 }
 
 function getCustomDescription(route) {
-  if (!isCustomRoute(route)) return route.description
+  if (!isCustomRoute(route)) return buildRouteExcerpt(route)
   return 'Соберем индивидуальный маршрут под ваши пожелания, учтем формат прогулки и состав гостей.'
 }
 

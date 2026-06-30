@@ -9,6 +9,7 @@ import { sailingYachts } from '../data/sailing'
 import { boatsRoutes } from '../data/boatsRoutes'
 import { yachtsRoutes } from '../data/yachtsRoutes'
 import { yachtTours } from '../data/yachtsTours'
+import { buildRouteExcerpt, buildYachtTourExcerpt } from '../utils/pageCopy'
 
 const router = useRouter()
 const route = useRoute()
@@ -97,7 +98,7 @@ function isCustomRoute(route) {
 }
 
 function getCustomDescription(route) {
-  if (!isCustomRoute(route)) return route.description
+  if (!isCustomRoute(route)) return buildRouteExcerpt(route)
   return 'Соберем индивидуальный маршрут под ваши пожелания, учтем формат прогулки и состав гостей.'
 }
 
@@ -188,7 +189,7 @@ const filteredRoutes = computed(() => {
     const query = routeSearchQuery.value.toLowerCase()
     result = result.filter(route => 
       route.title.toLowerCase().includes(query) || 
-      route.description.toLowerCase().includes(query)
+      buildRouteExcerpt(route).toLowerCase().includes(query)
     )
   }
 
@@ -242,7 +243,7 @@ const filteredTours = computed(() => {
     const query = routeSearchQuery.value.toLowerCase()
     result = result.filter(tour => 
       tour.title.toLowerCase().includes(query) || 
-      tour.description.toLowerCase().includes(query)
+      buildYachtTourExcerpt(tour).toLowerCase().includes(query)
     )
   }
 
@@ -538,7 +539,7 @@ const filteredTours = computed(() => {
           <div class="card-info">
             <div class="card-text">
               <span class="card-title">{{ tour.title }}</span>
-              <span class="card-desc">{{ tour.description }}</span>
+              <span class="card-desc">{{ buildYachtTourExcerpt(tour) }}</span>
             </div>
             <button class="card-btn" @click="handleTourClick(tour)">Узнать подробнее</button>
           </div>

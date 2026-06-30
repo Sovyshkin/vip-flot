@@ -33,18 +33,21 @@
         <div class="main-info">
           <section class="info-section">
             <h2 class="section-title">О мероприятии</h2>
-            <p class="activity-description">{{ activity.fullDescription }}</p>
+            <p class="activity-description">{{ activityLead }}</p>
           </section>
 
-          <section class="info-section">
-            <h2 class="section-title">Подробная информация</h2>
-            <div class="details-content" v-html="activity.details"></div>
+          <section
+            v-for="(section, sectionIndex) in activitySections"
+            :key="`activity-section-${sectionIndex}`"
+            class="info-section">
+            <h2 class="section-title">{{ section.title }}</h2>
+            <p class="activity-description">{{ section.text }}</p>
           </section>
 
-          <section class="info-section">
-            <h2 class="section-title">Что входит в программу</h2>
+          <section v-if="activityHighlights.length" class="info-section">
+            <h2 class="section-title">Что важно знать</h2>
             <div class="features-grid">
-              <div v-for="(feature, idx) in activity.features" :key="idx" class="feature-item">
+              <div v-for="(feature, idx) in activityHighlights" :key="idx" class="feature-item">
                 <svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="10" fill="#0076FC"/>
                   <path d="M6 10L9 13L14 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -168,10 +171,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getActivityBySlug } from '../data/activities'
 import DetailPageSectionsEvents from './DetailPageSectionsEvents.vue'
+import {
+  buildActivityHighlights,
+  buildActivityLead,
+  buildActivitySections
+} from '../utils/pageCopy'
 
 const route = useRoute()
 const activity = ref(null)
@@ -202,6 +210,10 @@ const formData = ref({
 const isLoading = ref(false)
 const successMessage = ref('')
 const errorMessage = ref('')
+
+const activityLead = computed(() => (activity.value ? buildActivityLead(activity.value) : ''))
+const activitySections = computed(() => (activity.value ? buildActivitySections(activity.value) : []))
+const activityHighlights = computed(() => (activity.value ? buildActivityHighlights(activity.value) : []))
 
 onMounted(() => {
   const slug = route.params.slug

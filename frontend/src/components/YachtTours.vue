@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-info">
                         <span class="card-title">{{ tour.title }}</span>
-                        <span class="card-desc">{{ tour.description }}</span>
+                        <span class="card-desc">{{ getTourExcerpt(tour) }}</span>
                         <button
                             class="details-btn"
                             type="button"
@@ -44,6 +44,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getYachtTourSlugFromLink, yachtTours } from '../data/yachtsTours'
+import { buildYachtTourExcerpt } from '../utils/pageCopy'
 
 const router = useRouter()
 const scrollEl = ref(null)
@@ -67,6 +68,10 @@ function handleCardClick(tour) {
     return
   }
   goToTour(tour.link)
+}
+
+function getTourExcerpt(tour) {
+  return buildYachtTourExcerpt(tour)
 }
 
 function scrollCards(direction) {

@@ -34,13 +34,13 @@
         <main class="main-column">
           <article class="panel panel-reveal panel-reveal--1">
             <h2 class="panel-title">О туре</h2>
-            <p class="panel-text">{{ tour.fullDescription || tour.description }}</p>
+            <p class="panel-text">{{ tourLead }}</p>
           </article>
 
           <article v-if="tour.route" class="panel panel-reveal panel-reveal--2">
             <h2 class="panel-title">Маршрут</h2>
             <p class="route-line">{{ tour.route }}</p>
-            <p v-if="tour.routeDescription" class="panel-text">{{ tour.routeDescription }}</p>
+            <p class="panel-text">{{ tourRouteText }}</p>
           </article>
 
           <article v-if="hasItinerary" class="panel panel-reveal panel-reveal--3">
@@ -63,21 +63,21 @@
           <article v-if="hasWhatToSee" class="panel panel-reveal panel-reveal--4">
             <h2 class="panel-title">Что посмотреть</h2>
             <ul class="list">
-              <li v-for="(point, idx) in tour.whatToSee" :key="idx">{{ point }}</li>
+              <li v-for="(point, idx) in whatToSee" :key="idx">{{ point }}</li>
             </ul>
           </article>
 
           <article v-if="hasTourOptions" class="panel panel-reveal panel-reveal--5">
             <h2 class="panel-title">Варианты тура</h2>
             <ul class="list">
-              <li v-for="(option, idx) in tour.tourOptions" :key="idx">{{ option }}</li>
+              <li v-for="(option, idx) in tourOptions" :key="idx">{{ option }}</li>
             </ul>
           </article>
 
           <article v-if="hasFaq" class="panel panel-reveal panel-reveal--6">
             <h2 class="panel-title">FAQ</h2>
             <div class="faq-list">
-              <details v-for="(item, idx) in tour.faq" :key="idx" class="faq-item">
+              <details v-for="(item, idx) in faqItems" :key="idx" class="faq-item">
                 <summary>{{ item.question }}</summary>
                 <p>{{ item.answer }}</p>
               </details>
@@ -89,13 +89,13 @@
             <div v-if="hasIncluded" class="terms-group">
               <h3>Включено</h3>
               <ul class="list compact terms-list">
-                <li v-for="(item, idx) in tour.details.included" :key="`inc-${idx}`">{{ item }}</li>
+                <li v-for="(item, idx) in includedItems" :key="`inc-${idx}`">{{ item }}</li>
               </ul>
             </div>
             <div v-if="hasPaidSeparately" class="terms-group">
               <h3>Оплачивается отдельно</h3>
               <ul class="list compact terms-list terms-list--warning">
-                <li v-for="(item, idx) in tour.details.paidSeparately" :key="`paid-${idx}`">{{ item }}</li>
+                <li v-for="(item, idx) in paidSeparatelyItems" :key="`paid-${idx}`">{{ item }}</li>
               </ul>
             </div>
           </article>
@@ -255,19 +255,37 @@ import OurYachts from './OurYachts.vue'
 import YachtTours from './YachtTours.vue'
 import RequestBook from './RequestBook.vue'
 import { getYachtTourBySlug } from '../data/yachtsTours'
+import {
+  buildYachtTourFaq,
+  buildYachtTourIncluded,
+  buildYachtTourItinerary,
+  buildYachtTourLead,
+  buildYachtTourOptions,
+  buildYachtTourPaidSeparately,
+  buildYachtTourRouteText,
+  buildYachtTourWhatToSee
+} from '../utils/pageCopy'
 
 const route = useRoute()
 const router = useRouter()
 
 const tour = computed(() => getYachtTourBySlug(route.params.slug))
+const tourLead = computed(() => (tour.value ? buildYachtTourLead(tour.value) : ''))
+const tourRouteText = computed(() => (tour.value ? buildYachtTourRouteText(tour.value) : ''))
+const itineraryItems = computed(() => (tour.value ? buildYachtTourItinerary(tour.value) : []))
+const whatToSee = computed(() => (tour.value ? buildYachtTourWhatToSee(tour.value) : []))
+const tourOptions = computed(() => (tour.value ? buildYachtTourOptions(tour.value) : []))
+const faqItems = computed(() => (tour.value ? buildYachtTourFaq(tour.value) : []))
+const includedItems = computed(() => (tour.value ? buildYachtTourIncluded(tour.value) : []))
+const paidSeparatelyItems = computed(() => (tour.value ? buildYachtTourPaidSeparately(tour.value) : []))
 
-const hasItinerary = computed(() => Boolean(tour.value?.itinerary?.length))
-const hasWhatToSee = computed(() => Boolean(tour.value?.whatToSee?.length))
-const hasTourOptions = computed(() => Boolean(tour.value?.tourOptions?.length))
-const hasFaq = computed(() => Boolean(tour.value?.faq?.length))
+const hasItinerary = computed(() => Boolean(itineraryItems.value.length))
+const hasWhatToSee = computed(() => Boolean(whatToSee.value.length))
+const hasTourOptions = computed(() => Boolean(tourOptions.value.length))
+const hasFaq = computed(() => Boolean(faqItems.value.length))
 const hasGallery = computed(() => Boolean(tour.value?.gallery?.length))
-const hasIncluded = computed(() => Boolean(tour.value?.details?.included?.length))
-const hasPaidSeparately = computed(() => Boolean(tour.value?.details?.paidSeparately?.length))
+const hasIncluded = computed(() => Boolean(includedItems.value.length))
+const hasPaidSeparately = computed(() => Boolean(paidSeparatelyItems.value.length))
 
 const formData = ref({
   name: '',

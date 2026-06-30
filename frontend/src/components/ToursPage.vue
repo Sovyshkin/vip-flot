@@ -14,7 +14,7 @@
           </div>
           <div class="tour-info">
             <h2 class="tour-title">{{ tour.title }}</h2>
-            <p class="tour-description">{{ tour.description }}</p>
+            <p class="tour-description">{{ getTourExcerpt(tour) }}</p>
             <div class="tour-details">
               <div class="tour-guests">{{ tour.guestsRaw }}</div>
               <button class="tour-btn">Подробнее</button>
@@ -32,6 +32,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { yachtTours } from '../data/yachtsTours'
 import BookingModal from './BookingModal.vue'
+import { buildYachtTourExcerpt } from '../utils/pageCopy'
 
 const router = useRouter()
 const isBookingOpen = ref(false)
@@ -47,6 +48,10 @@ function goToTour(link) {
   } else if (link.startsWith('/')) {
     router.push(link)
   }
+}
+
+function getTourExcerpt(tour) {
+  return buildYachtTourExcerpt(tour)
 }
 </script>
 

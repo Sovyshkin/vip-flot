@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { yachtTours } from '../data/yachtsTours'
+import { buildYachtTourExcerpt } from '../utils/pageCopy'
 
 const router = useRouter()
 
@@ -11,6 +12,10 @@ function goToTour(link) {
   if (link.startsWith('/')) {
     router.push(link)
   }
+}
+
+function getTourExcerpt(tour) {
+  return buildYachtTourExcerpt(tour)
 }
 </script>
 
@@ -34,7 +39,7 @@ function goToTour(link) {
           </div>
           <div class="card-info">
             <span class="card-title">{{ tour.title }}</span>
-            <span class="card-desc">{{ tour.description }}</span>
+            <span class="card-desc">{{ getTourExcerpt(tour) }}</span>
           </div>
         </div>
       </div>

@@ -78,11 +78,11 @@
           <section class="info-section">
             <h2 class="section-title">О {{ boatTypeLabelAccusative }}</h2>
             <div class="boat-description">
-              <p v-if="descriptionLead" class="boat-description__lead">{{ descriptionLead }}</p>
+              <p v-if="generatedLead" class="boat-description__lead">{{ generatedLead }}</p>
 
-              <div v-if="descriptionSections.length" class="description-sections">
+              <div v-if="generatedSections.length" class="description-sections">
                 <div
-                  v-for="(section, index) in descriptionSections"
+                  v-for="(section, index) in generatedSections"
                   :key="`description-section-${index}`"
                   class="description-card"
                   :class="{
@@ -129,7 +129,7 @@
           <section class="info-section">
             <h2 class="section-title">Что включено</h2>
             <div class="features-grid">
-              <div v-for="(feature, idx) in boat.features" :key="idx" class="feature-item">
+              <div v-for="(feature, idx) in displayFeatures" :key="idx" class="feature-item">
                 <svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="10" fill="#0076FC"/>
                   <path d="M6 10L9 13L14 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -303,6 +303,12 @@ import { yachts, getYachtBySlug } from '../data/yachts';
 import { sailingYachts, getSailingBySlug } from '../data/sailing';
 import { boatsRoutes } from '../data/boatsRoutes';
 import { yachtsRoutes } from '../data/yachtsRoutes';
+import {
+  buildFleetDescriptionSections,
+  buildFleetLead,
+  getFleetHighlights,
+} from '../utils/fleetCopy';
+import { buildRouteExcerpt } from '../utils/pageCopy';
 import Carousel from './Carousel.vue';
 import BookingModal from './BookingModal.vue';
 import DetailPageSections from './DetailPageSections.vue';
@@ -330,86 +336,9 @@ const boatTypeLabelAccusative = computed(() => {
   return 'катере';
 });
 
-const descriptionBlocks = computed(() => {
-  if (!boat.value?.description) return [];
-  return boat.value.description
-    .split(/\n{2,}/)
-    .map(block => block.trim())
-    .filter(Boolean);
-});
-
-const descriptionLead = computed(() => descriptionBlocks.value[0] || '');
-
-const descriptionSections = computed(() => {
-  return descriptionBlocks.value
-    .slice(1)
-    .map(parseDescriptionBlock)
-    .filter(Boolean);
-});
-
-function isBulletLine(line) {
-  return /^[-—•]\s*/.test(line);
-}
-
-function isFactLine(line) {
-  return /^[^:]{2,40}:\s+.+$/.test(line);
-}
-
-function normalizeBullet(line) {
-  return line.replace(/^[-—•]\s*/, '').trim();
-}
-
-function parseDescriptionBlock(block) {
-  const lines = block
-    .split('\n')
-    .map(line => line.trim())
-    .filter(Boolean);
-
-  if (!lines.length) return null;
-
-  if (lines.length === 1) {
-    return {
-      type: 'paragraph',
-      title: '',
-      content: [lines[0]]
-    };
-  }
-
-  const [firstLine, ...restLines] = lines;
-  const hasTitle = /:$/.test(firstLine);
-  const title = hasTitle ? firstLine.replace(/:$/, '') : '';
-  const bodyLines = hasTitle ? restLines : lines;
-
-  if (bodyLines.length && bodyLines.every(isBulletLine)) {
-    return {
-      type: 'list',
-      title,
-      items: bodyLines.map(normalizeBullet)
-    };
-  }
-
-  if (bodyLines.length && bodyLines.every(isFactLine)) {
-    return {
-      type: 'facts',
-      title,
-      items: bodyLines
-    };
-  }
-
-  if (!title && lines.every(isFactLine)) {
-    return {
-      type: 'facts',
-      title: '',
-      items: lines
-    };
-  }
-
-  return {
-    type: 'paragraph',
-    title,
-    content: bodyLines.map(normalizeBullet)
-  };
-}
+const generatedLead = computed(() => buildFleetLead(boat.value));
+const generatedSections = computed(() => buildFleetDescriptionSections(boat.value));
+const displayFeatures = computed(() => getFleetHighlights(boat.value, 10));
 
 const relatedVessels = computed(() => {
   if (!boat.value) return [];
@@ -505,7 +434,7 @@ function getPreviewDescription(route) {
   if (/свой маршрут/i.test(route.title)) {
     return 'Соберем индивидуальный маршрут под ваши пожелания.';
   }
-  return route.description;
+  return buildRouteExcerpt(route);
 }
 
 function openFullscreen() {

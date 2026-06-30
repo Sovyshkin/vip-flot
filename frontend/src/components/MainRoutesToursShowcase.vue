@@ -92,7 +92,7 @@ const routeItems = [
 
 const featuredTour = {
   title: 'Яхт-туры',
-  description: 'Выборг, Карелия, Валаам, Мандроги, Кижи, Соловки и др.',
+  description: 'Многодневные путешествия по северным маршрутам: от Выборга и Кронштадта до Валаама, Карелии и дальних островов.',
   duration: 'от 1 дня и более',
   link: '/tours',
   image: 'https://optim.tildacdn.com/tild3334-3363-4366-b064-626562613062/-/cover/848x510/center/center/-/format/webp/photo_2024-06-06_171.jpeg.webp'

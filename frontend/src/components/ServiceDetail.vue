@@ -24,18 +24,21 @@
         <div class="main-info">
           <section class="info-section">
             <h2 class="section-title">Описание услуги</h2>
-            <p class="service-description">{{ service.fullDescription }}</p>
+            <p class="service-description">{{ serviceLead }}</p>
           </section>
 
-          <section class="info-section">
-            <h2 class="section-title">Детали и особенности</h2>
-            <div class="details-content" v-html="service.details"></div>
+          <section
+            v-for="(section, sectionIndex) in serviceSections"
+            :key="`service-section-${sectionIndex}`"
+            class="info-section">
+            <h2 class="section-title">{{ section.title }}</h2>
+            <p class="service-description">{{ section.text }}</p>
           </section>
 
-          <section class="info-section">
-            <h2 class="section-title">Что включено</h2>
+          <section v-if="serviceHighlights.length" class="info-section">
+            <h2 class="section-title">Что входит</h2>
             <div class="features-grid">
-              <div v-for="(feature, idx) in service.features" :key="idx" class="feature-item">
+              <div v-for="(feature, idx) in serviceHighlights" :key="idx" class="feature-item">
                 <svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="10" fill="#0076FC"/>
                   <path d="M6 10L9 13L14 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -136,10 +139,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { getServiceBySlug } from '../data/services';
 import DetailPageSectionsEvents from './DetailPageSectionsEvents.vue';
+import {
+  buildServiceHighlights,
+  buildServiceLead,
+  buildServiceSections
+} from '../utils/pageCopy';
 
 const route = useRoute();
 const service = ref(null);
@@ -159,6 +167,10 @@ const formData = ref({
 const isLoading = ref(false);
 const successMessage = ref('');
 const errorMessage = ref('');
+
+const serviceLead = computed(() => (service.value ? buildServiceLead(service.value) : ''));
+const serviceSections = computed(() => (service.value ? buildServiceSections(service.value) : []));
+const serviceHighlights = computed(() => (service.value ? buildServiceHighlights(service.value) : []));
 
 onMounted(() => {
   const slug = route.params.slug;

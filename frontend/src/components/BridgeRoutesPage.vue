@@ -17,7 +17,7 @@
               <h2 class="route-title">{{ route.title }}</h2>
               <span v-if="route.time" class="route-time">{{ route.time }}</span>
             </div>
-            <p class="route-description">{{ route.description }}</p>
+            <p class="route-description">{{ getRouteExcerpt(route) }}</p>
 
             <div v-if="route.features && route.features.length" class="route-features">
               <span v-for="(feature, idx) in route.features" :key="idx" class="feature-chip">{{ feature }}</span>
@@ -42,11 +42,16 @@ import { bridgeRoutes } from '../data/bridgeRoutes'
 import BookingModal from './BookingModal.vue'
 import DetailPageSections from './DetailPageSections.vue'
 import { ref } from 'vue'
+import { buildBridgeRouteExcerpt } from '../utils/pageCopy'
 
 const isBookingOpen = ref(false)
 
 function openBooking() {
   isBookingOpen.value = true
+}
+
+function getRouteExcerpt(route) {
+  return buildBridgeRouteExcerpt(route)
 }
 </script>
 
