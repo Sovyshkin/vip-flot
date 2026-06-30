@@ -62,9 +62,9 @@ VIP FLOT приглашает вас на борт парусной яхты «�
       "2024-06-13 15.41.51.webp"
     ],
     images: [
-      "https://optim.tildacdn.com/tild3464-3931-4532-b938-333339656536/-/format/webp/photo_2024-06-25_000.jpeg.webp",
-      "https://optim.tildacdn.com/tild3438-3638-4437-b634-303737363737/-/format/webp/photo_2024-06-25_000.jpeg.webp",
-      "https://optim.tildacdn.com/tild3166-6163-4336-b338-653937633034/-/format/webp/photo_2024-06-25_000.jpeg.webp"
+      "/images/imported/sailing/aura/photo_2024-06-25_000.jpeg.webp",
+      "/images/imported/sailing/aura/photo_2024-06-25_000.jpeg-1.webp",
+      "/images/imported/sailing/aura/photo_2024-06-25_000.jpeg-2.webp"
     ],
     pricePerHour: 13000,
     pricePerDay: null,
