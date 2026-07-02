@@ -1,7 +1,7 @@
 <template>
     <div class="routes-tours-block">
         <div class="wrap-title">
-            <h1 class="title">Маршруты</h1>
+            <h2 class="title">Маршруты</h2>
             <div class="actions">
                 <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt=""></button>
                 <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt=""></button>

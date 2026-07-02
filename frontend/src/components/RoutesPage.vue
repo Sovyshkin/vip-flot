@@ -2,7 +2,7 @@
   <div class="routes-page">
     <div class="wrap">
       <div class="page-header">
-        <h1 class="page-title">Маршруты</h1>
+        <h1 class="page-title">Маршруты прогулок по Санкт-Петербургу</h1>
         <p class="page-subtitle">Выберите маршрут для катера или яхты — покажем город с воды в самом красивом ракурсе</p>
       </div>
 

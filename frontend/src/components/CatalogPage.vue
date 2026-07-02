@@ -273,7 +273,7 @@ const filteredTours = computed(() => {
 <template>
   <div class="catalog-page">
     <div class="catalog-header">
-      <h1 class="catalog-title">Каталог</h1>
+      <h1 class="catalog-title">Каталог яхт, катеров и парусных судов</h1>
       <div class="catalog-tabs">
         <button 
           :class="['tab-btn', { active: activeTab === 'fleet' }]" 

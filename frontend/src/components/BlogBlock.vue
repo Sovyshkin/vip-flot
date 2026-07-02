@@ -1,7 +1,7 @@
 <template>
     <div class="blog-block">
         <div class="wrap-title">
-            <h1 class="title">Блог о судоходстве</h1>
+        <h2 class="title">Блог о судоходстве</h2>
             <div class="actions">
                 <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt="Предыдущая" width="24" height="24" decoding="async"></button>
                 <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt="Следующая" width="24" height="24" decoding="async"></button>

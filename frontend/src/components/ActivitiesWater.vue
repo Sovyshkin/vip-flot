@@ -2,7 +2,7 @@
     <div class="routes-tours-block">
         <div class="wrap-title">
             <div class="info-title">
-                <h1 class="title">Мероприятия на воде</h1>
+        <h2 class="title">Мероприятия на воде</h2>
                 <p class="subtitle">Вам не нужно быть организатором, мы уже всё продумали</p>
             </div>
             <div class="actions">
@@ -21,7 +21,7 @@
                             <div class="wrap-icon">
                                 <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
-                            <h2 class="title-card">{{ card.name }}</h2>
+                            <h3 class="title-card">{{ card.name }}</h3>
                         </div>
                         <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>
@@ -35,7 +35,7 @@
                             <div class="wrap-icon">
                                 <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
-                            <h2 class="title-card">{{ card.name }}</h2>
+                            <h3 class="title-card">{{ card.name }}</h3>
                         </div>
                         <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>
@@ -53,7 +53,7 @@
                             <div class="wrap-icon">
                                 <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
-                            <h2 class="title-card">{{ card.name }}</h2>
+                            <h3 class="title-card">{{ card.name }}</h3>
                         </div>
                         <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>
@@ -67,7 +67,7 @@
                             <div class="wrap-icon">
                                 <img :src="card.icon" :alt="card.name" width="24" height="24" decoding="async">
                             </div>
-                            <h2 class="title-card">{{ card.name }}</h2>
+                            <h3 class="title-card">{{ card.name }}</h3>
                         </div>
                         <img class="go-into-card" src="../assets/go-into-card.svg" alt="" width="24" height="24" decoding="async">
                     </div>

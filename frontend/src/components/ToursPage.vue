@@ -2,7 +2,7 @@
   <div class="tours-page">
     <div class="wrap">
       <div class="page-header">
-        <h1 class="page-title">Длительные яхт-туры</h1>
+        <h1 class="page-title">Длительные яхт-туры из Санкт-Петербурга</h1>
         <p class="page-subtitle">Многодневные путешествия на яхтах по живописным маршрутам — незабываемые впечатления для вас и ваших близких</p>
       </div>
 

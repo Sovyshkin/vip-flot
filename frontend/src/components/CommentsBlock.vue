@@ -1,7 +1,7 @@
 <template>
     <div class="comments-block">
         <div class="wrap-title">
-            <h1 class="title">Отзывы наших клиентов</h1>
+      <h2 class="title">Отзывы наших клиентов</h2>
             <div class="actions">
                 <button type="button" class="action-btn" @click="scrollPrev"><img src="../assets/arrow-left.svg" alt="" width="24" height="24" decoding="async"></button>
                 <button type="button" class="action-btn" @click="scrollNext"><img src="../assets/arrow-right.svg" alt="" width="24" height="24" decoding="async"></button>

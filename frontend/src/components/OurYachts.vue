@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
     <div class="yachts-block">
         <div class="wrap-title">
             <div class="title-left">
-                <h1 class="title">{{ customTitle || 'Наши яхты' }}</h1>
+        <h2 class="title">{{ customTitle || 'Наши яхты' }}</h2>
                 <div class="view-catalog" @click="goToCatalog">
                     <span class="text-catalog">Перейти в каталог</span>
                     <img class="icon-catalog" src="../assets/go-to-catalog.svg" alt="" width="20" height="20" decoding="async">

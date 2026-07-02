@@ -2,7 +2,7 @@
   <div class="bridge-routes-page">
     <div class="wrap">
       <div class="page-header">
-        <h1 class="page-title">Разводные мосты</h1>
+        <h1 class="page-title">Разводные мосты в Санкт-Петербурге</h1>
         <p class="page-subtitle">Все доступные варианты прогулки под разводными мостами Санкт-Петербурга</p>
       </div>
 
