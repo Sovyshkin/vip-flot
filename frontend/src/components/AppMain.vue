@@ -19,30 +19,44 @@ const BlogBlock = defineAsyncComponent(() => import("./BlogBlock.vue"))
 <template>
 	<div class="wrap">
 		<MainBlock/>
-    <LazyRender root-margin="140px 0px" min-height="420px" mobile-min-height="1120px">
-      <div id="tours"><MainRoutesToursShowcase/></div>
-    </LazyRender>
-    <LazyRender root-margin="180px 0px" min-height="420px" mobile-min-height="1040px">
-      <div id="activities"><ActivitiesWater/></div>
-    </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
-      <div id="boats"><OurBoats/></div>
-    </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
-      <div id="yachts"><OurYachts/></div>
-    </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
-      <div id="sailing"><OurSailing/></div>
-    </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="760px">
-      <div id="services"><BoardServices/></div>
-    </LazyRender>
+    <div id="tours">
+      <LazyRender root-margin="140px 0px" min-height="420px" mobile-min-height="1120px">
+        <MainRoutesToursShowcase/>
+      </LazyRender>
+    </div>
+    <div id="activities">
+      <LazyRender root-margin="180px 0px" min-height="420px" mobile-min-height="1040px">
+        <ActivitiesWater/>
+      </LazyRender>
+    </div>
+    <div id="boats">
+      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
+        <OurBoats/>
+      </LazyRender>
+    </div>
+    <div id="yachts">
+      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
+        <OurYachts/>
+      </LazyRender>
+    </div>
+    <div id="sailing">
+      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
+        <OurSailing/>
+      </LazyRender>
+    </div>
+    <div id="services">
+      <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="760px">
+        <BoardServices/>
+      </LazyRender>
+    </div>
     <LazyRender root-margin="220px 0px" min-height="240px" mobile-min-height="780px">
       <HowToOrder/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="520px" mobile-min-height="980px">
-      <div id="booking"><RequestBook/></div>
-    </LazyRender>
+    <div id="booking">
+      <LazyRender root-margin="220px 0px" min-height="520px" mobile-min-height="980px">
+        <RequestBook/>
+      </LazyRender>
+    </div>
     <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="640px">
       <FaqBlock/>
     </LazyRender>
@@ -52,9 +66,11 @@ const BlogBlock = defineAsyncComponent(() => import("./BlogBlock.vue"))
     <LazyRender root-margin="220px 0px" min-height="320px" mobile-min-height="420px">
       <OurVideos/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="520px">
-      <div id="blog"><BlogBlock/></div>
-    </LazyRender>
+    <div id="blog">
+      <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="520px">
+        <BlogBlock/>
+      </LazyRender>
+    </div>
 	</div>
 </template>
 <style scoped>

@@ -53,17 +53,13 @@
     </div>
 </template>
 <script setup>
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
+import { navigateToSection } from '../utils/scrollToSection'
 
-// const router = useRouter()
+const router = useRouter()
 
 function scrollToId(id) {
-    const el = document.getElementById(id)
-    if (el) {
-        const headerOffset = 68
-        const top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset
-        window.scrollTo({ top, behavior: 'smooth' })
-    }
+    navigateToSection(router, id)
 }
 </script>
 <style scoped>

@@ -138,6 +138,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { navigateToSection } from '../utils/scrollToSection'
 
 const router = useRouter()
 const mobileMenuOpen = ref(false)
@@ -179,29 +180,7 @@ function goToTours() {
 
 function scrollToSection(sectionId) {
   mobileMenuOpen.value = false
-  
-  if (router.currentRoute.value.path !== '/') {
-    router.push('/')
-    setTimeout(() => {
-      scrollToElement(sectionId)
-    }, 300)
-  } else {
-    scrollToElement(sectionId)
-  }
-}
-
-function scrollToElement(id) {
-  const element = document.getElementById(id)
-  if (element) {
-    const headerOffset = 68
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    })
-  }
+  navigateToSection(router, sectionId)
 }
 </script>
 
