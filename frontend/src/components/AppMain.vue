@@ -20,54 +20,54 @@ const BlogBlock = defineAsyncComponent(() => import("./BlogBlock.vue"))
 	<div class="wrap">
 		<MainBlock/>
     <div id="tours">
-      <LazyRender root-margin="140px 0px" min-height="420px" mobile-min-height="1120px">
+      <LazyRender root-margin="140px 0px" min-height="420px" mobile-min-height="560px">
         <MainRoutesToursShowcase/>
       </LazyRender>
     </div>
     <div id="activities">
-      <LazyRender root-margin="180px 0px" min-height="420px" mobile-min-height="1040px">
+      <LazyRender root-margin="180px 0px" min-height="420px" mobile-min-height="520px">
         <ActivitiesWater/>
       </LazyRender>
     </div>
     <div id="boats">
-      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
+      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="680px">
         <OurBoats/>
       </LazyRender>
     </div>
     <div id="yachts">
-      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
+      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="680px">
         <OurYachts/>
       </LazyRender>
     </div>
     <div id="sailing">
-      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="2780px">
+      <LazyRender root-margin="220px 0px" min-height="620px" mobile-min-height="680px">
         <OurSailing/>
       </LazyRender>
     </div>
     <div id="services">
-      <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="760px">
+      <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="420px">
         <BoardServices/>
       </LazyRender>
     </div>
-    <LazyRender root-margin="220px 0px" min-height="240px" mobile-min-height="780px">
+    <LazyRender root-margin="220px 0px" min-height="240px" mobile-min-height="280px">
       <HowToOrder/>
     </LazyRender>
     <div id="booking">
-      <LazyRender root-margin="220px 0px" min-height="520px" mobile-min-height="980px">
+      <LazyRender root-margin="220px 0px" min-height="520px" mobile-min-height="520px">
         <RequestBook/>
       </LazyRender>
     </div>
-    <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="640px">
+    <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="340px">
       <FaqBlock/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="320px" mobile-min-height="520px">
+    <LazyRender root-margin="220px 0px" min-height="320px" mobile-min-height="280px">
       <CommentsBlock/>
     </LazyRender>
-    <LazyRender root-margin="220px 0px" min-height="320px" mobile-min-height="420px">
+    <LazyRender root-margin="220px 0px" min-height="320px" mobile-min-height="260px">
       <OurVideos/>
     </LazyRender>
     <div id="blog">
-      <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="520px">
+      <LazyRender root-margin="220px 0px" min-height="360px" mobile-min-height="320px">
         <BlogBlock/>
       </LazyRender>
     </div>

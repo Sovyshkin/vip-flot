@@ -31,11 +31,21 @@ const resolvedMinHeight = ref(props.minHeight)
 
 let observer = null
 
+function resolveMobileMinHeight(value) {
+  if (!value) return value
+
+  const numericValue = Number.parseInt(value, 10)
+  if (Number.isNaN(numericValue)) return value
+
+  const viewportCap = Math.round(window.innerHeight * 0.72)
+  return `${Math.min(numericValue, viewportCap)}px`
+}
+
 onMounted(() => {
   if (!root.value) return
 
   if (props.mobileMinHeight && window.matchMedia('(max-width: 768px)').matches) {
-    resolvedMinHeight.value = props.mobileMinHeight
+    resolvedMinHeight.value = resolveMobileMinHeight(props.mobileMinHeight)
   }
 
   observer = new IntersectionObserver((entries) => {
