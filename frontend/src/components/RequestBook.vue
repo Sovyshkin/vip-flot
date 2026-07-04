@@ -1,5 +1,5 @@
 <template>
-  <div class="request-book">
+  <div :class="['request-book', { 'request-book--hide-image-mobile': hideImageOnMobile }]">
     <div class="form-to-book">
       <div class="wrap-title">
         <h2>
@@ -401,6 +401,10 @@ p {
     .request-book {
         flex-direction: column;
     }
+
+    .request-book--hide-image-mobile .wrap-image {
+        display: none;
+    }
     
     .wrap-image {
         height: 250px;
@@ -457,6 +461,13 @@ p {
 
 <script setup>
 import { ref } from 'vue'
+
+defineProps({
+  hideImageOnMobile: {
+    type: Boolean,
+    default: false
+  }
+})
 
 // API endpoint - замените на свой URL WordPress
 const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php'

@@ -8,7 +8,7 @@
               <path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </button>
-          <RequestBook />
+          <RequestBook hide-image-on-mobile />
         </div>
       </div>
     </Transition>
