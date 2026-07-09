@@ -1,24 +1,24 @@
 <template>
-  <header class="vipflot-header">
-    <router-link to="/" class="vipflot-header__logo">
-      <span class="vipflot-header__logo-text">VIP FLOT</span>
-      <span class="vipflot-header__logo-subtitle">Аренда яхт и катеров</span>
+  <header class="site-header">
+    <router-link to="/" class="site-header__logo">
+      <span class="site-header__logo-text">ГАЛЕРЕЯ ЯХТ</span>
+      <span class="site-header__logo-subtitle">Аренда яхт и катеров</span>
     </router-link>
 
-    <nav class="vipflot-header__nav">
-      <li class="vipflot-header__nav-item" @click="scrollToSection('boats')">Катера</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('yachts')">Яхты</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('sailing')">Парусные</li>
-      <li class="vipflot-header__nav-item" @click="goToRoutes">Маршруты</li>
-      <li class="vipflot-header__nav-item" @click="goToTours">Длительные яхт-туры</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('activities')">Мероприятия</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('services')">Услуги</li>
-      <li class="vipflot-header__nav-item" @click="scrollToSection('booking')">Контакты</li>
+    <nav class="site-header__nav">
+      <li class="site-header__nav-item" @click="scrollToSection('boats')">Катера</li>
+      <li class="site-header__nav-item" @click="scrollToSection('yachts')">Яхты</li>
+      <li class="site-header__nav-item" @click="scrollToSection('sailing')">Парусные</li>
+      <li class="site-header__nav-item" @click="goToRoutes">Маршруты</li>
+      <li class="site-header__nav-item" @click="goToTours">Длительные яхт-туры</li>
+      <li class="site-header__nav-item" @click="scrollToSection('activities')">Мероприятия</li>
+      <li class="site-header__nav-item" @click="scrollToSection('services')">Услуги</li>
+      <li class="site-header__nav-item" @click="scrollToSection('booking')">Контакты</li>
     </nav>
 
-    <div class="vipflot-header__contacts">
-      <a href="tel:+70000000000" class="vipflot-header__contacts-phone">+7 000 000 0000</a>
-      <span class="vipflot-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
+    <div class="site-header__contacts">
+      <a href="tel:+70000000000" class="site-header__contacts-phone">+7 000 000 0000</a>
+      <span class="site-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
     </div>
 
     <button class="mobile-menu-btn" @click="toggleMobileMenu" aria-label="Menu">
@@ -32,7 +32,7 @@
   <transition name="drawer">
     <div v-if="mobileMenuOpen" class="mobile-drawer">
       <div class="mobile-drawer__header">
-        <span class="mobile-drawer__logo">VIP FLOT</span>
+        <span class="mobile-drawer__logo">ГАЛЕРЕЯ ЯХТ</span>
         <button class="mobile-drawer__close" @click="toggleMobileMenu" aria-label="Закрыть">×</button>
       </div>
 
@@ -117,7 +117,7 @@ function scrollToSection(sectionId) {
 </script>
 
 <style scoped>
-.vipflot-header {
+.site-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -135,7 +135,7 @@ function scrollToSection(sectionId) {
 }
 
 /* Header - Блок Логотипа */
-.vipflot-header__logo {
+.site-header__logo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,11 +146,11 @@ function scrollToSection(sectionId) {
   transition: opacity 0.2s ease;
 }
 
-.vipflot-header__logo:hover {
+.site-header__logo:hover {
   opacity: 0.8;
 }
 
-.vipflot-header__logo-text {
+.site-header__logo-text {
   font-family: var(--font-logo);
   font-weight: 600;
   font-size: 16px;
@@ -160,7 +160,7 @@ function scrollToSection(sectionId) {
   line-height: 1;
 }
 
-.vipflot-header__logo-subtitle {
+.site-header__logo-subtitle {
   font-weight: 200;
   font-size: 8px;
   color: #949ca4;
@@ -168,7 +168,7 @@ function scrollToSection(sectionId) {
 }
 
 /* Header - Навигация */
-.vipflot-header__nav {
+.site-header__nav {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,7 +176,7 @@ function scrollToSection(sectionId) {
   list-style: none;
 }
 
-.vipflot-header__nav-item {
+.site-header__nav-item {
   color: #1a1a1a;
   font-weight: 500;
   font-size: 14px;
@@ -185,11 +185,11 @@ function scrollToSection(sectionId) {
   position: relative;
 }
 
-.vipflot-header__nav-item:hover {
+.site-header__nav-item:hover {
   color: #949ca4;
 }
 
-.vipflot-header__nav-item a {
+.site-header__nav-item a {
   color: inherit;
   text-decoration: none;
 }
@@ -254,14 +254,14 @@ function scrollToSection(sectionId) {
 }
 
 /* Header - Блок контактов */
-.vipflot-header__contacts {
+.site-header__contacts {
   display: flex;
   flex-direction: column;
   gap: 4px;
   align-items: flex-end;
 }
 
-.vipflot-header__contacts-phone {
+.site-header__contacts-phone {
   color: #1a1a1a;
   font-weight: 600;
   font-family: var(--font-base);
@@ -271,11 +271,11 @@ function scrollToSection(sectionId) {
   transition: color 0.2s ease;
 }
 
-.vipflot-header__contacts-phone:hover {
+.site-header__contacts-phone:hover {
   color: #0076FC;
 }
 
-.vipflot-header__contacts-schedule {
+.site-header__contacts-schedule {
   font-weight: 200;
   font-size: 12px;
   color: #949ca4;
@@ -307,7 +307,7 @@ function scrollToSection(sectionId) {
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .vipflot-header__nav {
+  .site-header__nav {
     display: none;
   }
   
@@ -317,25 +317,25 @@ function scrollToSection(sectionId) {
 }
 
 @media (max-width: 768px) {
-  .vipflot-header {
+  .site-header {
     padding: 8px 20px;
     min-height: 60px;
   }
   
-  .vipflot-header__contacts {
+  .site-header__contacts {
     display: none;
   }
   
-  .vipflot-header__logo-text {
+  .site-header__logo-text {
     font-size: 16px;
     letter-spacing: 6px;
   }
   
-  .vipflot-header__logo-subtitle {
+  .site-header__logo-subtitle {
     font-size: 8px;
   }
 
-  .vipflot-header__logo {
+  .site-header__logo {
     min-height: 28px;
   }
 }

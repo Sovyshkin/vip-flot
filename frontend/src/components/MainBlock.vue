@@ -3,9 +3,9 @@
         <div class="main-block">
             <picture>
                 <source media="(max-width: 768px)" srcset="/images/main-block-mobile.webp">
-                <img class="block-image" src="/images/main-block.webp" alt="VIP FLOT аренда яхт и катеров" width="1248" height="832" fetchpriority="high" decoding="async">
+                <img class="block-image" src="/images/main-block.webp" alt="Галерея яхт аренда яхт и катеров" width="1248" height="832" fetchpriority="high" decoding="async">
             </picture>
-            <div class="badge">VIP FLOT</div>
+            <div class="badge">ГАЛЕРЕЯ ЯХТ</div>
             <h1 class="title-main-block">Аренда яхты и катера <br>в Санкт-Петербурге</h1>
             <span class="subtitle-main-block">Ваш идеальный отдых на воде без лишних забот</span>
         </div>

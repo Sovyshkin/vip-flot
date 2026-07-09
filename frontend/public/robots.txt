@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vipflot.ru/sitemap.xml
-Host: vipflot.ru
+Sitemap: https://galereya-yakht.ru/sitemap.xml
+Host: galereya-yakht.ru

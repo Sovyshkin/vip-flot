@@ -153,7 +153,7 @@ const route = useRoute();
 const service = ref(null);
 
 // API endpoint
-const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php';
+const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/wp-admin/admin-ajax.php';
 
 // Данные формы
 const formData = ref({
@@ -312,7 +312,7 @@ async function goToBooking() {
   
   try {
     const formDataToSend = new FormData();
-    formDataToSend.append('action', 'vip_flot_booking');
+    formDataToSend.append('action', 'gallery_yachts_booking');
     formDataToSend.append('name', formData.value.name);
     formDataToSend.append('phone', formData.value.phone);
     formDataToSend.append('date', formData.value.date);

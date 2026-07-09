@@ -6,11 +6,14 @@ import {
   buildYachtTourMetaDescription,
 } from '../utils/pageCopy'
 
-const SITE_NAME = 'VIP FLOT'
-const DEFAULT_TITLE = 'Аренда яхт и катеров в Санкт-Петербурге | VIP FLOT'
-const DEFAULT_DESCRIPTION = 'VIP FLOT — аренда яхт, катеров и парусных судов в Санкт-Петербурге для прогулок, маршрутов по Неве, Финскому заливу, праздников и мероприятий на воде.'
+const SITE_NAME = 'Галерея яхт'
+const DEFAULT_TITLE = 'Аренда яхт и катеров в Санкт-Петербурге | Галерея яхт'
+const DEFAULT_DESCRIPTION = 'Галерея яхт — аренда яхт, катеров и парусных судов в Санкт-Петербурге для прогулок, маршрутов по Неве, Финскому заливу, праздников и мероприятий на воде.'
 const DEFAULT_IMAGE = '/images/main-block.webp'
-const SITE_URL = (process.env.VUE_APP_SITE_URL || 'https://vipflot.ru').replace(/\/$/, '')
+const SITE_URL = (
+  process.env.VUE_APP_SITE_URL
+  || (typeof window !== 'undefined' ? window.location.origin : 'https://galereya-yakht.ru')
+).replace(/\/$/, '')
 
 const staticPages = {
   Main: {
@@ -19,42 +22,42 @@ const staticPages = {
     type: 'website',
   },
   Catalog: {
-    title: 'Каталог яхт, катеров и парусных судов в Санкт-Петербурге | VIP FLOT',
+    title: 'Каталог яхт, катеров и парусных судов в Санкт-Петербурге | Галерея яхт',
     description: 'Подберите катер, яхту или парусное судно для прогулки по Санкт-Петербургу: вместимость, цены, фото, описание и быстрый переход к бронированию.',
   },
   Routes: {
-    title: 'Маршруты водных прогулок по Санкт-Петербургу | VIP FLOT',
+    title: 'Маршруты водных прогулок по Санкт-Петербургу | Галерея яхт',
     description: 'Готовые маршруты прогулок по рекам и каналам, Неве, Финскому заливу и разводным мостам Санкт-Петербурга.',
   },
   BridgeRoutes: {
-    title: 'Развод мостов на яхте или катере в Санкт-Петербурге | VIP FLOT',
+    title: 'Развод мостов на яхте или катере в Санкт-Петербурге | Галерея яхт',
     description: 'Ночные маршруты на развод мостов в Санкт-Петербурге на катерах и яхтах: красивые виды Невы, главные мосты и индивидуальный формат прогулки.',
   },
   Tours: {
-    title: 'Яхт-туры и круизы из Санкт-Петербурга | VIP FLOT',
+    title: 'Яхт-туры и круизы из Санкт-Петербурга | Галерея яхт',
     description: 'Длительные яхт-туры и круизы из Санкт-Петербурга: Валаам, Кронштадт, Петергоф и другие направления на комфортных судах.',
   },
   PrivacyPolicy: {
-    title: 'Политика конфиденциальности | VIP FLOT',
-    description: 'Политика конфиденциальности сайта VIP FLOT: порядок обработки, хранения и защиты персональных данных пользователей.',
+    title: 'Политика конфиденциальности | Галерея яхт',
+    description: 'Политика конфиденциальности сайта «Галерея яхт»: порядок обработки, хранения и защиты персональных данных пользователей.',
   },
   PersonalDataConsent: {
-    title: 'Согласие на обработку персональных данных | VIP FLOT',
-    description: 'Согласие пользователя на обработку персональных данных при отправке заявок и использовании форм сайта VIP FLOT.',
+    title: 'Согласие на обработку персональных данных | Галерея яхт',
+    description: 'Согласие пользователя на обработку персональных данных при отправке заявок и использовании форм сайта «Галерея яхт».',
   },
 }
 
 const routeLandingPages = {
   'reki-i-kanaly': {
-    title: 'Маршруты по рекам и каналам Санкт-Петербурга | VIP FLOT',
+    title: 'Маршруты по рекам и каналам Санкт-Петербурга | Галерея яхт',
     description: 'Популярные прогулки по рекам и каналам Петербурга: Нева, Фонтанка, Мойка, канал Грибоедова и индивидуальные сценарии маршрута.',
   },
   neva: {
-    title: 'Прогулка по Неве на яхте или катере | VIP FLOT',
+    title: 'Прогулка по Неве на яхте или катере | Галерея яхт',
     description: 'Водные прогулки по Неве с видами на Эрмитаж, Стрелку Васильевского острова, Петропавловскую крепость и разводные мосты.',
   },
   'finskij-zaliv': {
-    title: 'Прогулка в Финский залив на яхте или катере | VIP FLOT',
+    title: 'Прогулка в Финский залив на яхте или катере | Галерея яхт',
     description: 'Маршруты с выходом в Финский залив, видами на Лахта Центр, ЗСД, Газпром Арену и современный Петербург с воды.',
   },
 }
@@ -113,7 +116,7 @@ async function resolveSeo(to) {
     if (item) {
       seo = {
         ...seo,
-        title: `Аренда ${item.name} в Санкт-Петербурге | VIP FLOT`,
+        title: `Аренда ${item.name} в Санкт-Петербурге | Галерея яхт`,
         description: truncate(buildFleetMetaDescription(item)),
         image: Array.isArray(item.cardImage) ? item.cardImage[0] : item.cardImage || item.images?.[0],
         type: 'product',
@@ -127,7 +130,7 @@ async function resolveSeo(to) {
     if (tour) {
       seo = {
         ...seo,
-        title: `${tour.title} — яхт-тур из Санкт-Петербурга | VIP FLOT`,
+        title: `${tour.title} — яхт-тур из Санкт-Петербурга | Галерея яхт`,
         description: truncate(buildYachtTourMetaDescription(tour)),
         image: tour.bannerImage || tour.imageUrl,
         type: 'article',
@@ -141,7 +144,7 @@ async function resolveSeo(to) {
     if (article) {
       seo = {
         ...seo,
-        title: `${article.title} | Блог VIP FLOT`,
+        title: `${article.title} | Блог Галереи яхт`,
         description: truncate(article.description || article.excerpt || cleanText(article.content).slice(0, 220)),
         image: article.image,
         type: 'article',
@@ -154,7 +157,7 @@ async function resolveSeo(to) {
     if (route) {
       seo = {
         ...seo,
-        title: `${route.name} — маршрут прогулки по Санкт-Петербургу | VIP FLOT`,
+        title: `${route.name} — маршрут прогулки по Санкт-Петербургу | Галерея яхт`,
         description: truncate(buildRouteMetaDescription(route)),
         image: route.cardImage,
       }
@@ -171,7 +174,7 @@ async function resolveSeo(to) {
     if (service) {
       seo = {
         ...seo,
-        title: `${service.name} на яхте или катере | VIP FLOT`,
+        title: `${service.name} на яхте или катере | Галерея яхт`,
         description: truncate(buildServiceMetaDescription(service)),
         image: service.image,
       }
@@ -184,7 +187,7 @@ async function resolveSeo(to) {
     if (activity) {
       seo = {
         ...seo,
-        title: `${activity.name} на яхте или катере в Санкт-Петербурге | VIP FLOT`,
+        title: `${activity.name} на яхте или катере в Санкт-Петербурге | Галерея яхт`,
         description: truncate(buildActivityMetaDescription(activity)),
         image: activity.image,
       }
@@ -251,7 +254,7 @@ export async function applyRouteSeo(to) {
   setMeta('name', 'twitter:image', seo.image)
   setCanonical(seo.url)
 
-  setJsonLd('vipflot-structured-data', {
+  setJsonLd('gallery-yachts-structured-data', {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: SITE_NAME,

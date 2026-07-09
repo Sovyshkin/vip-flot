@@ -25,7 +25,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const STORAGE_KEY = 'vipflot-cookie-consent'
+const STORAGE_KEY = 'gallery-yachts-cookie-consent'
 const isVisible = ref(false)
 
 function acceptCookies() {

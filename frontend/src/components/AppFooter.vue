@@ -1,10 +1,10 @@
 <template>
-  <footer class="vipflot-footer">
+  <footer class="site-footer">
     <div class="footer-content">
       <div class="footer-main">
         <div class="footer-column footer-brand">
           <div class="footer-logo">
-            <span class="footer-logo-text">VIP FLOT</span>
+            <span class="footer-logo-text">ГАЛЕРЕЯ ЯХТ</span>
             <span class="footer-logo-subtitle">Аренда яхт и катеров</span>
           </div>
           <div class="footer-socials">
@@ -84,7 +84,7 @@
 
         <div class="footer-bottom">
           <div class="footer-copyright">
-            <p>© 2025 VIPFLOT</p>
+            <p>© 2025 Галерея яхт</p>
             <p>Информация на сайте не является публичной офертой</p>
           </div>
           <div class="footer-meta">
@@ -108,7 +108,7 @@ function scrollToSection(sectionId) {
 </script>
 
 <style scoped>
-.vipflot-footer {
+.site-footer {
   width: 100%;
   background-color: #1A1A1A;
   color: #fff;
@@ -269,7 +269,7 @@ function scrollToSection(sectionId) {
 }
 
 @media (max-width: 768px) {
-  .vipflot-footer {
+  .site-footer {
     padding: 40px 20px 20px;
   }
 

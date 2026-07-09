@@ -1,7 +1,7 @@
 <template>
   <div v-if="tour" class="yacht-tour-detail">
     <section class="hero hero-animate">
-      <img class="hero-image" :src="tour.bannerImage || tour.imageUrl" :alt="tour.title" decoding="async">
+      <img class="hero-image" :src="tour.imageUrl || tour.bannerImage" :alt="tour.title" decoding="async">
       <div class="hero-overlay"></div>
       <div class="hero-content wrap">
         <button class="hero-back" type="button" @click="goBack">Назад к турам</button>
@@ -252,7 +252,7 @@ async function submitBooking() {
   isLoading.value = true
   try {
     const formDataToSend = new FormData()
-    formDataToSend.append('action', 'vip_flot_booking')
+    formDataToSend.append('action', 'gallery_yachts_booking')
     formDataToSend.append('name', formData.value.name)
     formDataToSend.append('phone', formData.value.phone)
     formDataToSend.append('date', formData.value.date)
@@ -261,7 +261,7 @@ async function submitBooking() {
     formDataToSend.append('boat_name', tour.value.title)
     formDataToSend.append('consent', 'true')
 
-    const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/vip-flot/wp-admin/admin-ajax.php'
+    const API_URL = process.env.VUE_APP_API_URL || 'http://localhost/wp-admin/admin-ajax.php'
 
     const response = await fetch(API_URL, {
       method: 'POST',
