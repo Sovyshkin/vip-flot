@@ -4,6 +4,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import CardCarousel from './CardCarousel.vue'
 import { useRouter } from 'vue-router'
 import { yachts } from '../data/yachts'
+import { navigateToSection } from '../utils/scrollToSection'
 
 defineProps({
     customTitle: {
@@ -28,7 +29,7 @@ function goToCatalog() {
 }
 
 function goToBooking() {
-    router.push({ path: '/', hash: '#booking' })
+    navigateToSection(router, 'booking')
 }
 
 onMounted(() => {
@@ -106,6 +107,16 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.title {
+    margin: 0;
+    color: #1A1A1A;
+    font-family: var(--font-base);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.08;
+    text-transform: uppercase;
 }
 
 .actions {

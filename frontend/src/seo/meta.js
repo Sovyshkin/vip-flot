@@ -34,6 +34,14 @@ const staticPages = {
     title: 'Яхт-туры и круизы из Санкт-Петербурга | VIP FLOT',
     description: 'Длительные яхт-туры и круизы из Санкт-Петербурга: Валаам, Кронштадт, Петергоф и другие направления на комфортных судах.',
   },
+  PrivacyPolicy: {
+    title: 'Политика конфиденциальности | VIP FLOT',
+    description: 'Политика конфиденциальности сайта VIP FLOT: порядок обработки, хранения и защиты персональных данных пользователей.',
+  },
+  PersonalDataConsent: {
+    title: 'Согласие на обработку персональных данных | VIP FLOT',
+    description: 'Согласие пользователя на обработку персональных данных при отправке заявок и использовании форм сайта VIP FLOT.',
+  },
 }
 
 const routeLandingPages = {
@@ -250,7 +258,7 @@ export async function applyRouteSeo(to) {
     url: SITE_URL,
     image: absoluteUrl(DEFAULT_IMAGE),
     description: DEFAULT_DESCRIPTION,
-    telephone: '+7 (812) 660-55-16',
+    telephone: '+7 000 000 0000',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Санкт-Петербург',

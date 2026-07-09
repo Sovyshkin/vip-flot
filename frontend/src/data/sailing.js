@@ -122,17 +122,11 @@ VIP FLOT приглашает вас на борт парусной яхты «�
     ],
     images: [
       "gea-Гея - 19.webp",
-      "gea-Гея - 19(1).webp",
       "gea-Гея - 20.webp",
-      "gea-Гея - 20(1).webp",
       "gea-Гея - 21.webp",
-      "gea-Гея - 21(1).webp",
       "gea-Гея - 22.webp",
-      "gea-Гея - 22(1).webp",
       "gea-Гея - 23.webp",
-      "gea-Гея - 23(1).webp",
       "gea-Гея - 24.webp",
-      "gea-Гея - 24(1).webp"
     ],
     pricePerHour: 15000,
     pricePerDay: null,

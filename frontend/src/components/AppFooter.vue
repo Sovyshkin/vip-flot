@@ -8,19 +8,19 @@
             <span class="footer-logo-subtitle">Аренда яхт и катеров</span>
           </div>
           <div class="footer-socials">
-            <a href="https://t.me/vipflot" target="_blank" class="social-link" aria-label="Telegram">
+            <a href="mailto:mail@mail.ru" class="social-link" aria-label="Telegram">
               <img src="../assets/telegram.svg" alt="Telegram" width="24" height="24" loading="lazy" decoding="async">
             </a>
-            <a href="https://wa.me/78126605516" target="_blank" class="social-link" aria-label="WhatsApp">
+            <a href="tel:+70000000000" class="social-link" aria-label="WhatsApp">
               <img src="../assets/whatsapp.svg" alt="WhatsApp" width="24" height="24" loading="lazy" decoding="async">
             </a>
-            <a href="https://www.instagram.com/vipflot?igsh=cGRvc3ExdDJ4djZv" target="_blank" class="social-link" aria-label="Instagram">
+            <a href="mailto:mail@mail.ru" class="social-link" aria-label="Instagram">
               <img src="../assets/instagram.svg" alt="Instagram" width="24" height="24" loading="lazy" decoding="async">
             </a>
           </div>
           <div class="footer-contacts">
-            <a href="tel:+78126605516" class="footer-phone">+7 (812) 660-55-16</a>
-            <a href="mailto:mail@vipflot.ru" class="footer-email">mail@vipflot.ru</a>
+            <a href="tel:+70000000000" class="footer-phone">+7 000 000 0000</a>
+            <a href="mailto:mail@mail.ru" class="footer-email">mail@mail.ru</a>
           </div>
         </div>
 
@@ -77,6 +77,8 @@
           <h3 class="footer-title">Информация</h3>
           <ul class="footer-links">
             <li><a href="#" @click.prevent="scrollToSection('blog')">Новости и статьи</a></li>
+            <li><router-link to="/privacy-policy">Политика конфиденциальности</router-link></li>
+            <li><router-link to="/personal-data-consent">Согласие на обработку данных</router-link></li>
           </ul>
         </div>
 

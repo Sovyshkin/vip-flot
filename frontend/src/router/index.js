@@ -12,6 +12,7 @@ const YachtTourDetail = () => import('../components/YachtTourDetail.vue')
 const ServiceDetail = () => import('../components/ServiceDetail.vue')
 const ActivityDetail = () => import('../components/ActivityDetail.vue')
 const MainRouteLandingPage = () => import('../components/MainRouteLandingPage.vue')
+const LegalPage = () => import('../components/LegalPage.vue')
 
 const routes = [
   { path: '/', name: 'Main', component: AppMain },
@@ -28,6 +29,8 @@ const routes = [
   { path: '/tours/:slug', name: 'YachtTourDetail', component: YachtTourDetail },
   { path: '/services/:slug', name: 'ServiceDetail', component: ServiceDetail },
   { path: '/events/:slug', name: 'ActivityDetail', component: ActivityDetail },
+  { path: '/privacy-policy', name: 'PrivacyPolicy', component: LegalPage },
+  { path: '/personal-data-consent', name: 'PersonalDataConsent', component: LegalPage },
 ]
 
 const router = createRouter({

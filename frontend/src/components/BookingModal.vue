@@ -106,5 +106,14 @@ function close() {
   .booking-modal__dialog {
     border-radius: 18px;
   }
+
+  .booking-modal__close {
+    top: 14px;
+    right: 14px;
+  }
+
+  .booking-modal__dialog :deep(.request-book--hide-image-mobile .form-to-book) {
+    padding-top: 72px;
+  }
 }
 </style>

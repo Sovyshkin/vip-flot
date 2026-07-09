@@ -17,7 +17,7 @@
     </nav>
 
     <div class="vipflot-header__contacts">
-      <a href="tel:+78126605516" class="vipflot-header__contacts-phone">+7 (812) 660-55-16</a>
+      <a href="tel:+70000000000" class="vipflot-header__contacts-phone">+7 000 000 0000</a>
       <span class="vipflot-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
     </div>
 
@@ -37,93 +37,31 @@
       </div>
 
       <nav class="mobile-drawer__nav">
-        <!-- НАШ ФЛОТ accordion -->
-        <div class="mobile-drawer__item" :class="{ open: openSection === 'fleet' }" @click="toggleSection('fleet')">
-          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'fleet' }">НАШ ФЛОТ</span>
-          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'fleet' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'fleet' }">
-          <span class="mobile-drawer__sub-item" @click="navigate('boats')">КАТЕРА</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('yachts')">ЯХТЫ</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('sailing')">ПАРУСНЫЕ</span>
-        </div>
-
-        <!-- ЯХТ-ТУРЫ -->
-        <div class="mobile-drawer__item" :class="{ open: openSection === 'tours' }" @click="toggleSection('tours')">
-          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'tours' }">ЯХТ-ТУРЫ</span>
-          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'tours' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'tours' }">
-          <span class="mobile-drawer__sub-item" @click="navigateTours">Все яхт-туры</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('routes/razvod-mostov')">Развод мостов</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('tours/petergof')">Петергоф морем</span>
-        </div>
-
-        <!-- МАРШРУТЫ -->
-        <div class="mobile-drawer__item" :class="{ open: openSection === 'routes' }" @click="toggleSection('routes')">
-          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'routes' }">МАРШРУТЫ</span>
-          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'routes' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'routes' }">
-          <span class="mobile-drawer__sub-item" @click="navigateRoutes">Все маршруты</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('routes/reki-kanaly')">Реки и каналы</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('routes/nevskiy-prospekt')">Невский проспект</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('routes/kronshtadt')">Кронштадт</span>
-        </div>
-
-        <!-- МЕРОПРИЯТИЯ -->
-        <div class="mobile-drawer__item" :class="{ open: openSection === 'events' }" @click="toggleSection('events')">
-          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'events' }">МЕРОПРИЯТИЯ</span>
-          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'events' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'events' }">
-          <span class="mobile-drawer__sub-item" @click="navigate('activities')">Все мероприятия</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('events/den-rozhdeniya')">День рождения</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('events/svadba')">Свадьба</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('events/devichnik')">Девичник</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('events/malchishnik')">Мальчишник</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('events/korporativy')">Корпотив</span>
-        </div>
-
-        <!-- УСЛУГИ -->
-        <div class="mobile-drawer__item" :class="{ open: openSection === 'services' }" @click="toggleSection('services')">
-          <span class="mobile-drawer__item-label" :class="{ active: openSection === 'services' }">УСЛУГИ</span>
-          <svg class="mobile-drawer__chevron" :class="{ rotated: openSection === 'services' }" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="mobile-drawer__sub" :class="{ visible: openSection === 'services' }">
-          <span class="mobile-drawer__sub-item" @click="navigate('services')">Все услуги</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('services/catering')">Кейтеринг</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('services/photographer')">Фотограф</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('services/decoration')">Украшение палубы</span>
-          <span class="mobile-drawer__sub-item" @click="navigate('services/live-music')">Живая музыка</span>
-        </div>
+        <button class="mobile-drawer__item" @click="navigate('boats')">Катера</button>
+        <button class="mobile-drawer__item" @click="navigate('yachts')">Яхты</button>
+        <button class="mobile-drawer__item" @click="navigate('sailing')">Парусные</button>
+        <button class="mobile-drawer__item" @click="navigateRoutes">Маршруты</button>
+        <button class="mobile-drawer__item" @click="navigateTours">Длительные яхт-туры</button>
+        <button class="mobile-drawer__item" @click="navigate('activities')">Мероприятия</button>
+        <button class="mobile-drawer__item" @click="navigate('services')">Услуги</button>
+        <button class="mobile-drawer__item" @click="navigate('booking')">Контакты</button>
       </nav>
 
       <div class="mobile-drawer__contacts">
-        <a href="tel:+78126605516" class="mobile-drawer__phone">+7 (812) 660-55-16</a>
-        <a href="mailto:mail@vipflot.ru" class="mobile-drawer__email">mail@vipflot.ru</a>
+        <a href="tel:+70000000000" class="mobile-drawer__phone">+7 000 000 0000</a>
+        <a href="mailto:mail@mail.ru" class="mobile-drawer__email">mail@mail.ru</a>
         <div class="mobile-drawer__socials">
-          <a href="#" class="mobile-drawer__social" aria-label="Telegram">
+          <a href="mailto:mail@mail.ru" class="mobile-drawer__social" aria-label="Telegram">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
             </svg>
           </a>
-          <a href="#" class="mobile-drawer__social" aria-label="VK">
+          <a href="tel:+70000000000" class="mobile-drawer__social" aria-label="VK">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.049-1.714-1.032-1-1.49-1.135-1.745-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.677-1.253.677-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .643.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.049.17.474-.085.712-.576.712z"/>
             </svg>
           </a>
-          <a href="#" class="mobile-drawer__social" aria-label="YouTube">
+          <a href="mailto:mail@mail.ru" class="mobile-drawer__social" aria-label="YouTube">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
@@ -142,15 +80,9 @@ import { navigateToSection } from '../utils/scrollToSection'
 
 const router = useRouter()
 const mobileMenuOpen = ref(false)
-const openSection = ref(null)
 
 function toggleMobileMenu() {
   mobileMenuOpen.value = !mobileMenuOpen.value
-  if (!mobileMenuOpen.value) openSection.value = null
-}
-
-function toggleSection(name) {
-  openSection.value = openSection.value === name ? null : name
 }
 
 function navigate(sectionId) {
@@ -194,8 +126,8 @@ function scrollToSection(sectionId) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 40px;
-  min-height: 85px;
+  padding: 8px 32px;
+  min-height: 60px;
   background-color: #f5f5f5;
   z-index: 1000;
   transition: box-shadow 0.3s ease;
@@ -208,7 +140,7 @@ function scrollToSection(sectionId) {
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  min-height: 36px;
+  min-height: 28px;
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.2s ease;
@@ -221,7 +153,7 @@ function scrollToSection(sectionId) {
 .vipflot-header__logo-text {
   font-family: var(--font-logo);
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 6px;
   text-transform: uppercase;
   color: #1a1a1a;
@@ -230,7 +162,7 @@ function scrollToSection(sectionId) {
 
 .vipflot-header__logo-subtitle {
   font-weight: 200;
-  font-size: 9px;
+  font-size: 8px;
   color: #949ca4;
   line-height: 1;
 }
@@ -325,7 +257,7 @@ function scrollToSection(sectionId) {
 .vipflot-header__contacts {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   align-items: flex-end;
 }
 
@@ -386,8 +318,8 @@ function scrollToSection(sectionId) {
 
 @media (max-width: 768px) {
   .vipflot-header {
-    padding: 16px 24px;
-    min-height: 75px;
+    padding: 8px 20px;
+    min-height: 60px;
   }
   
   .vipflot-header__contacts {
@@ -395,16 +327,16 @@ function scrollToSection(sectionId) {
   }
   
   .vipflot-header__logo-text {
-    font-size: 20px;
+    font-size: 16px;
     letter-spacing: 6px;
   }
   
   .vipflot-header__logo-subtitle {
-    font-size: 10px;
+    font-size: 8px;
   }
 
   .vipflot-header__logo {
-    min-height: 40px;
+    min-height: 28px;
   }
 }
 
@@ -456,76 +388,29 @@ function scrollToSection(sectionId) {
 
 .mobile-drawer__nav {
   flex: 1;
-  padding: 8px 0;
+  padding: 8px 0 24px;
 }
 
 .mobile-drawer__item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
   padding: 18px 24px;
+  border: none;
+  background: transparent;
   cursor: pointer;
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.15s;
+  text-align: left;
+  color: #1a1a1a;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .mobile-drawer__item:active {
   background: #f8f8f8;
-}
-
-.mobile-drawer__item-label {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: #1a1a1a;
-}
-
-.mobile-drawer__item-label.active {
-  color: #0076FC;
-}
-
-.mobile-drawer__chevron {
-  color: #aaa;
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  transition: transform 0.25s ease;
-}
-
-.mobile-drawer__chevron.rotated {
-  transform: rotate(180deg);
-  color: #0076FC;
-}
-
-.mobile-drawer__sub {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  background: #f7f9ff;
-}
-
-.mobile-drawer__sub.visible {
-  max-height: 200px;
-}
-
-.mobile-drawer__sub-item {
-  display: block;
-  padding: 15px 24px 15px 40px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: #444;
-  cursor: pointer;
-  border-bottom: 1px solid #eef0f8;
-  transition: color 0.15s;
-}
-
-.mobile-drawer__sub-item:last-child {
-  border-bottom: none;
-}
-
-.mobile-drawer__sub-item:active {
-  color: #0076FC;
 }
 
 .mobile-drawer__contacts {

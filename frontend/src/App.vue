@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+import CookieBanner from './components/CookieBanner.vue'
 
 const route = useRoute()
 </script>
@@ -10,13 +11,14 @@ const route = useRoute()
   <main :class="['main-content', { 'main-content--inner': route.name !== 'Main' }]">
     <router-view/>
   </main>
+  <CookieBanner />
   <AppFooter/>
 </template>
 <style>
 :root {
   --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-logo: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
-  --header-height: 85px;
+  --header-height: 60px;
 }
 
 #app {
@@ -152,7 +154,7 @@ button:active {
 
 @media (max-width: 768px) {
   :root {
-    --header-height: 75px;
+    --header-height: 60px;
   }
 
   .wrap {
@@ -163,7 +165,7 @@ button:active {
 
 @media (max-width: 480px) {
   :root {
-    --header-height: 75px;
+    --header-height: 60px;
   }
 
   .wrap {

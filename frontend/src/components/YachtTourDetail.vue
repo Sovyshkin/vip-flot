@@ -100,20 +100,6 @@
             </div>
           </article>
 
-          <article v-if="hasGallery" class="panel panel-reveal panel-reveal--8">
-            <h2 class="panel-title">Галерея</h2>
-            <div class="gallery-grid">
-              <img
-                v-for="(image, idx) in tour.gallery"
-                :key="idx"
-                :src="image"
-                :alt="`${tour.title} ${idx + 1}`"
-                loading="lazy"
-                decoding="async"
-                :style="{ '--delay': `${Math.min(idx * 60, 420)}ms` }"
-                @click="openLightbox(idx)">
-            </div>
-          </article>
         </main>
 
         <aside class="side-column">
@@ -196,50 +182,6 @@
         <RequestBook />
       </div>
     </section>
-
-    <teleport to="body">
-      <transition name="lightbox-fade">
-        <div
-          v-if="isLightboxOpen"
-          class="lightbox"
-          @click.self="closeLightbox"
-          @touchstart.passive="onTouchStart"
-          @touchmove.passive="onTouchMove"
-          @touchend.passive="onTouchEnd">
-          <button type="button" class="lightbox-close" @click="closeLightbox">✕</button>
-
-          <button
-            v-if="lightboxImages.length > 1"
-            type="button"
-            class="lightbox-arrow lightbox-arrow--prev"
-            @click.stop="prevImage">
-            ‹
-          </button>
-
-          <div class="lightbox-media">
-            <img :src="lightboxImages[activeImageIndex]" :alt="`${tour.title} ${activeImageIndex + 1}`" decoding="async">
-          </div>
-
-          <button
-            v-if="lightboxImages.length > 1"
-            type="button"
-            class="lightbox-arrow lightbox-arrow--next"
-            @click.stop="nextImage">
-            ›
-          </button>
-
-          <div v-if="lightboxImages.length > 1" class="lightbox-dots">
-            <button
-              v-for="(img, idx) in lightboxImages"
-              :key="img + idx"
-              type="button"
-              class="lightbox-dot"
-              :class="{ 'lightbox-dot--active': idx === activeImageIndex }"
-              @click="activeImageIndex = idx" />
-          </div>
-        </div>
-      </transition>
-    </teleport>
   </div>
 
   <div v-else class="not-found wrap">
@@ -249,7 +191,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, onUnmounted } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import OurYachts from './OurYachts.vue'
 import YachtTours from './YachtTours.vue'
@@ -283,7 +225,6 @@ const hasItinerary = computed(() => Boolean(itineraryItems.value.length))
 const hasWhatToSee = computed(() => Boolean(whatToSee.value.length))
 const hasTourOptions = computed(() => Boolean(tourOptions.value.length))
 const hasFaq = computed(() => Boolean(faqItems.value.length))
-const hasGallery = computed(() => Boolean(tour.value?.gallery?.length))
 const hasIncluded = computed(() => Boolean(includedItems.value.length))
 const hasPaidSeparately = computed(() => Boolean(paidSeparatelyItems.value.length))
 
@@ -403,76 +344,6 @@ const itinerarySectionTitle = computed(() => {
   const itinerary = tour.value?.itinerary || []
   const hasDayBasedLabels = itinerary.some((item) => dayPattern.test((item?.day || '').trim()))
   return hasDayBasedLabels ? 'Программа по дням' : 'План тура'
-})
-
-const isLightboxOpen = ref(false)
-const activeImageIndex = ref(0)
-const touchStartX = ref(0)
-const touchDeltaX = ref(0)
-
-const lightboxImages = computed(() => {
-  if (tour.value?.gallery?.length) return tour.value.gallery
-  if (tour.value?.bannerImage) return [tour.value.bannerImage]
-  if (tour.value?.imageUrl) return [tour.value.imageUrl]
-  return []
-})
-
-function openLightbox(index) {
-  activeImageIndex.value = index
-  isLightboxOpen.value = true
-}
-
-function closeLightbox() {
-  isLightboxOpen.value = false
-}
-
-function prevImage() {
-  const count = lightboxImages.value.length
-  if (!count) return
-  activeImageIndex.value = (activeImageIndex.value - 1 + count) % count
-}
-
-function nextImage() {
-  const count = lightboxImages.value.length
-  if (!count) return
-  activeImageIndex.value = (activeImageIndex.value + 1) % count
-}
-
-function onTouchStart(event) {
-  touchStartX.value = event.changedTouches[0]?.clientX || 0
-  touchDeltaX.value = 0
-}
-
-function onTouchMove(event) {
-  const currentX = event.changedTouches[0]?.clientX || 0
-  touchDeltaX.value = currentX - touchStartX.value
-}
-
-function onTouchEnd() {
-  if (Math.abs(touchDeltaX.value) < 40) return
-  if (touchDeltaX.value > 0) {
-    prevImage()
-  } else {
-    nextImage()
-  }
-  touchDeltaX.value = 0
-}
-
-function handleKeydown(event) {
-  if (!isLightboxOpen.value) return
-  if (event.key === 'Escape') closeLightbox()
-  if (event.key === 'ArrowLeft') prevImage()
-  if (event.key === 'ArrowRight') nextImage()
-}
-
-watch(isLightboxOpen, (isOpen) => {
-  document.body.style.overflow = isOpen ? 'hidden' : ''
-})
-
-window.addEventListener('keydown', handleKeydown)
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown)
-  document.body.style.overflow = ''
 })
 
 function goBack() {
@@ -841,29 +712,6 @@ function goBack() {
   content: '-';
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.gallery-grid img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeSlideUp 0.45s ease forwards;
-  animation-delay: var(--delay, 0ms);
-}
-
-.gallery-grid img:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(10, 20, 45, 0.18);
-}
-
 .tour-video {
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -991,28 +839,6 @@ function goBack() {
 
 .terms-list li::marker {
   content: '';
-}
-
-.lightbox-fade-enter-active,
-.lightbox-fade-leave-active {
-  transition: opacity 0.24s ease;
-}
-
-.lightbox-fade-enter-from,
-.lightbox-fade-leave-to {
-  opacity: 0;
-}
-
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 3000;
-  background: rgba(7, 12, 22, 0.9);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 72px 56px;
 }
 
 .side-column {
@@ -1210,82 +1036,6 @@ function goBack() {
   cursor: not-allowed;
 }
 
-.lightbox-media {
-  max-width: min(1200px, 92vw);
-  max-height: 86vh;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-}
-
-.lightbox-media img {
-  display: block;
-  width: 100%;
-  max-height: 86vh;
-  object-fit: contain;
-  user-select: none;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.lightbox-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  font-size: 28px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.lightbox-arrow--prev {
-  left: 18px;
-}
-
-.lightbox-arrow--next {
-  right: 18px;
-}
-
-.lightbox-dots {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-}
-
-.lightbox-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-}
-
-.lightbox-dot--active {
-  background: #fff;
-  transform: scale(1.2);
-}
-
 .not-found {
   min-height: 60vh;
   display: flex;
@@ -1399,13 +1149,6 @@ function goBack() {
     grid-template-columns: 1fr 1fr;
   }
 
-  .gallery-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .lightbox {
-    padding: 20px 58px 52px;
-  }
 }
 
 .form-row {
@@ -1486,35 +1229,6 @@ function goBack() {
     grid-template-columns: 1fr;
   }
 
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .lightbox {
-    padding: 16px 14px 42px;
-  }
-
-  .lightbox-arrow {
-    width: 38px;
-    height: 38px;
-    font-size: 24px;
-  }
-
-  .lightbox-arrow--prev {
-    left: 8px;
-  }
-
-  .lightbox-arrow--next {
-    right: 8px;
-  }
-
-  .lightbox-close {
-    top: 10px;
-    right: 10px;
-    width: 38px;
-    height: 38px;
-  }
-
   .booking-section {
     padding: 0 0 24px;
   }
@@ -1544,8 +1258,7 @@ function goBack() {
   .overview-card,
   .panel-reveal,
   .side-reveal,
-  .timeline-item,
-  .gallery-grid img {
+  .timeline-item {
     animation: none;
     opacity: 1;
     transform: none;

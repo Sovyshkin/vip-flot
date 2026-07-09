@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import CardCarousel from './CardCarousel.vue'
 import { useRouter } from 'vue-router'
 import { sailingYachts } from '@/data/sailing.js'
+import { navigateToSection } from '../utils/scrollToSection'
 
 const router = useRouter()
 const showAll = ref(false)
@@ -17,7 +18,7 @@ function goToCatalog() {
 }
 
 function goToBooking() {
-    router.push({ path: '/', hash: '#booking' })
+    navigateToSection(router, 'booking')
 }
 
 </script>

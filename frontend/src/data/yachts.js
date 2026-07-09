@@ -95,8 +95,6 @@ export const yachts = [
       "/images/imported/yachts/beluga/2B3A0674.jpg",
       "/images/imported/yachts/beluga/2B3A0702.jpg",
       "/images/imported/yachts/beluga/2B3A0691.jpg",
-      "/images/imported/yachts/beluga/2B3A9979.jpg",
-      "/images/imported/yachts/beluga/2B3A9654.jpg"
     ],
     features: [
       "Просторный панорамный салон с высоким потолком и длинным обеденным столом на 10 гостей",
@@ -141,6 +139,10 @@ export const yachts = [
     ],
     images: [
       "/images/imported/yachts/livadia/2024-07-05_090111.jpg",
+        "/images/imported/yachts/livadia/2024-07-05_090140.jpg",
+      "/images/imported/yachts/livadia/2024-07-05_090144.jpg",
+      "/images/imported/yachts/livadia/2024-07-05_090151.jpg",
+      "/images/imported/yachts/livadia/2024-07-05_090147.jpg",
       "/images/imported/yachts/livadia/2024-07-05_090129.jpg",
       "/images/imported/yachts/livadia/2024-07-05_090133.jpg",
       "/images/imported/yachts/livadia/2024-07-05_090158.jpg",
@@ -160,10 +162,6 @@ export const yachts = [
       "/images/imported/yachts/livadia/2024-07-05_090255.jpg",
       "/images/imported/yachts/livadia/2024-07-05_090258.jpg",
       "/images/imported/yachts/livadia/2024-07-05_090301.jpg",
-      "/images/imported/yachts/livadia/2024-07-05_090140.jpg",
-      "/images/imported/yachts/livadia/2024-07-05_090144.jpg",
-      "/images/imported/yachts/livadia/2024-07-05_090151.jpg",
-      "/images/imported/yachts/livadia/2024-07-05_090147.jpg"
     ],
     features: [
       "Закрытый салон с панорамным остеклением и мягкими сиденьями",
@@ -262,7 +260,6 @@ export const yachts = [
     ],
     images: [
       "/images/imported/yachts/monte-carlo/IMG_5713.jpg.webp",
-      "/images/imported/yachts/monte-carlo/IMG_5991_3.jpg.webp",
       "/images/imported/yachts/monte-carlo/IMG_5758.jpg.webp",
       "/images/imported/yachts/monte-carlo/IMG_5828.jpg",
       "/images/imported/yachts/monte-carlo/IMG_5877.jpg",
@@ -339,8 +336,6 @@ export const yachts = [
       "/images/imported/yachts/yalta/2B3A6662_57_11zon.jpeg",
       "/images/imported/yachts/yalta/2B3A6725_58_11zon.jpeg",
       "/images/imported/yachts/yalta/2B3A6757_59_11zon.jpeg",
-      "/images/imported/yachts/yalta/2B3A5805_24_11zon.jpeg",
-      "/images/imported/yachts/yalta/2B3A5837_26_11zon.jpeg"
     ],
     features: [
       "Крытый салон с панорамным остеклением и обеденной зоной",
@@ -518,6 +513,10 @@ export const yachts = [
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222.jpeg-1.webp",
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222.jpeg-2.webp",
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222.jpeg",
+           "/images/imported/yachts/azimut-55/photo_2023-08-08_222-17.jpeg",
+      "/images/imported/yachts/azimut-55/photo_2023-08-08_222-18.jpeg",
+      "/images/imported/yachts/azimut-55/photo_2023-08-08_222-19.jpeg",
+      "/images/imported/yachts/azimut-55/photo_2023-08-08_222-20.jpeg",
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222-1.jpeg",
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222-2.jpeg",
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222-3.jpeg",
@@ -534,10 +533,6 @@ export const yachts = [
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222-14.jpeg",
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222-15.jpeg",
       "/images/imported/yachts/azimut-55/photo_2023-08-08_222-16.jpeg",
-      "/images/imported/yachts/azimut-55/photo_2023-08-08_222-17.jpeg",
-      "/images/imported/yachts/azimut-55/photo_2023-08-08_222-18.jpeg",
-      "/images/imported/yachts/azimut-55/photo_2023-08-08_222-19.jpeg",
-      "/images/imported/yachts/azimut-55/photo_2023-08-08_222-20.jpeg"
     ],
     features: [
       "Две палубы: закрытая кают-компания и открытый флайбридж с панорамным обзором",
@@ -599,7 +594,6 @@ Azimut 62S выбирают, когда хочется совместить пр
       "2B3A5676.webp"
     ],
     images: [
-      "/images/imported/yachts/azimut-62s/2024-06-02_192355.jpg.webp",
       "/images/imported/yachts/azimut-62s/2024-06-02_192239.jpg.webp",
       "/images/imported/yachts/azimut-62s/2024-06-02_192248.jpg.webp",
       "/images/imported/yachts/azimut-62s/2024-06-02_192250.jpg",
@@ -622,7 +616,6 @@ Azimut 62S выбирают, когда хочется совместить пр
       "/images/imported/yachts/azimut-62s/2024-06-02_192342.jpg",
       "/images/imported/yachts/azimut-62s/2024-06-02_192345.jpg",
       "/images/imported/yachts/azimut-62s/2024-06-02_192348.jpg",
-      "/images/imported/yachts/azimut-62s/2024-06-02_192351.jpg"
     ],
     features: [
       "Три просторные каюты на 6 спальных мест для гостей",
@@ -990,9 +983,6 @@ Carver 62 MILA подойдёт тем, кому важен именно взр�
       "/images/imported/yachts/chudolodka/2024-06-02_204340.jpg",
       "/images/imported/yachts/chudolodka/2024-06-02_204343.jpg",
       "/images/imported/yachts/chudolodka/2024-06-02_204346.jpg",
-      "/images/imported/yachts/chudolodka/2024-06-02_204353.jpg",
-      "/images/imported/yachts/chudolodka/2024-06-02_204356.jpg",
-      "/images/imported/yachts/chudolodka/2024-06-02_204359.jpg"
     ],
     features: [
       "Панорамное остекление из закалённого стекла по всему периметру салона",
@@ -1284,7 +1274,6 @@ Elegance 65 стоит рассматривать тем, кто ищет не �
       "/images/imported/yachts/fairline-65/photo_2023-08-06_142-28.jpeg",
       "/images/imported/yachts/fairline-65/photo_2023-08-06_142-29.jpeg",
       "/images/imported/yachts/fairline-65/photo_2023-08-06_142-30.jpeg",
-      "/images/imported/yachts/fairline-65/photo_2023-08-06_142-31.jpeg"
     ],
     features: [
       "Мастер-каюта во всю ширину судна с собственным санузлом",
@@ -1433,9 +1422,6 @@ Galeon 440 Fly подойдёт для тех, кто ищет современ�
       "/images/imported/yachts/galeon-440-fly/_IMG_5605.jpg",
       "/images/imported/yachts/galeon-440-fly/_IMG_5661.jpg",
       "/images/imported/yachts/galeon-440-fly/_IMG_5883.jpg",
-      "/images/imported/yachts/galeon-440-fly/_IMG_5047.jpg",
-      "/images/imported/yachts/galeon-440-fly/_IMG_5147.jpg",
-      "/images/imported/yachts/galeon-440-fly/_DJI_0025.jpg"
     ],
     features: [
       "Три каюты на нижней палубе: мастер-каюта с двуспальной кроватью и диванной зоной + две каюты с двумя односпальными кроватями",
@@ -1565,6 +1551,8 @@ Galeon 640 подойдёт для дневной аренды, частного
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134.jpeg.webp",
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134.jpeg-1.webp",
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134.jpeg-2.webp",
+      "/images/imported/yachts/jocore-a/photo_2024-07-04_134-7.jpeg",
+      "/images/imported/yachts/jocore-a/photo_2024-07-04_134-8.jpeg",
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134.jpeg",
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134-1.jpeg",
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134-2.jpeg",
@@ -1572,8 +1560,6 @@ Galeon 640 подойдёт для дневной аренды, частного
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134-4.jpeg",
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134-5.jpeg",
       "/images/imported/yachts/jocore-a/photo_2024-07-04_134-6.jpeg",
-      "/images/imported/yachts/jocore-a/photo_2024-07-04_134-7.jpeg",
-      "/images/imported/yachts/jocore-a/photo_2024-07-04_134-8.jpeg"
     ],
     features: [
       "Четыре комфортабельные каюты для размещения гостей",
@@ -1643,9 +1629,6 @@ Leopard 23 понравится тем, кто хочет получить не 
       "/images/imported/yachts/leopard-23/photo_2024-05-31_170.jpeg.webp",
       "/images/imported/yachts/leopard-23/photo_2024-05-31_170-9.jpeg",
       "/images/imported/yachts/leopard-23/photo_2024-05-31_170-10.jpeg",
-      "/images/imported/yachts/leopard-23/photo_2024-05-31_170-11.jpeg",
-      "/images/imported/yachts/leopard-23/photo_2024-05-31_170-12.jpeg",
-      "/images/imported/yachts/leopard-23/leopard01.jpeg"
     ],
     features: [
       "Три просторные каюты для комфортного размещения гостей",
@@ -1747,10 +1730,6 @@ Majesty 44 стоит выбрать, если нужен универсальн
       "/images/imported/yachts/majesty-44/photo_2023-08-08_225-4.jpeg",
       "/images/imported/yachts/majesty-44/photo_2023-08-08_225-5.jpeg",
       "/images/imported/yachts/majesty-44/photo_2023-08-08_225-6.jpeg",
-      "/images/imported/yachts/majesty-44/photo_2023-08-08_225-7.jpeg",
-      "/images/imported/yachts/majesty-44/photo_2023-08-08_225-8.jpeg",
-      "/images/imported/yachts/majesty-44/photo_2023-08-08_225-9.jpeg",
-      "/images/imported/yachts/majesty-44/photo_2023-08-08_225-10.jpeg"
     ],
     features: [
       "Кают-компания, разделённая на три зоны: большой стол с диванами на 6–8 персон, столик на 4 персоны у лестницы в холл с каютами, вспомогательный штурвал с приборной панелью",
@@ -1810,7 +1789,6 @@ Majesty 44 стоит выбрать, если нужен универсальн
       "/images/imported/yachts/meridian-381/2B3A2979.jpg",
       "/images/imported/yachts/meridian-381/2B3A3023.jpg",
       "/images/imported/yachts/meridian-381/2B3A3047.jpg",
-      "/images/imported/yachts/meridian-381/2B3A8190.jpg"
     ],
     features: [
       "Две двуспальные каюты для комфортного ночлега",
@@ -1855,6 +1833,8 @@ Majesty 44 стоит выбрать, если нужен универсальн
       "/images/imported/yachts/princess-50/2024-05-31_214020.jpg.webp",
       "/images/imported/yachts/princess-50/2024-05-31_214016.jpg",
       "/images/imported/yachts/princess-50/2024-05-31_214023.jpg",
+      "/images/imported/yachts/princess-50/2024-05-31_214111.jpg",
+      "/images/imported/yachts/princess-50/2024-05-31_214114.jpg",
       "/images/imported/yachts/princess-50/2024-05-31_214027.jpg",
       "/images/imported/yachts/princess-50/2024-05-31_214030.jpg",
       "/images/imported/yachts/princess-50/2024-05-31_214033.jpg",
@@ -1870,10 +1850,6 @@ Majesty 44 стоит выбрать, если нужен универсальн
       "/images/imported/yachts/princess-50/2024-05-31_214101.jpg",
       "/images/imported/yachts/princess-50/2024-05-31_214108.jpg",
       "/images/imported/yachts/princess-50/2024-05-31_214105.jpg",
-      "/images/imported/yachts/princess-50/2024-05-31_214111.jpg",
-      "/images/imported/yachts/princess-50/2024-05-31_214114.jpg",
-      "/images/imported/yachts/princess-50/2024-05-31_214116.jpg",
-      "/images/imported/yachts/princess-50/2024-05-31_213924.jpg"
     ],
     features: [
       "Мастер-каюта с собственным санузлом",
@@ -1925,7 +1901,6 @@ Majesty 44 стоит выбрать, если нужен универсальн
       "/images/imported/yachts/princess-57/2B3A3085.jpg",
       "/images/imported/yachts/princess-57/2B3A2919.jpg",
       "/images/imported/yachts/princess-57/2B3A2919.jpg.webp",
-      "/images/imported/yachts/princess-57/2B3A2859.jpg"
     ],
     features: [
       "Большой флайбридж с тиковой отделкой, столиком и мягкими диванами",
@@ -2005,7 +1980,6 @@ Princess 58 Nord Star 62 подойдёт тем, кто ищет спокойн
       "/images/imported/yachts/princess-58/2024-05-31_215624.jpg",
       "/images/imported/yachts/princess-58/2024-05-31_215627.jpg",
       "/images/imported/yachts/princess-58/2024-05-31_215630.jpg",
-      "/images/imported/yachts/princess-58/2024-05-31_215433.jpg"
     ],
     features: [
       "Большой флайбридж с тиковой отделкой, столиком и двумя мягкими диванами на 10 человек",
@@ -2070,7 +2044,6 @@ Princess 58 Nord Star 62 подойдёт тем, кто ищет спокойн
       "/images/imported/yachts/princess-68/009_Princess_67.jpg",
       "/images/imported/yachts/princess-68/0091_Princess_67.jpg",
       "/images/imported/yachts/princess-68/0092_Princess_67.jpg",
-      "/images/imported/yachts/princess-68/WhatsApp_Image_2021--13.jpeg"
     ],
     features: [
       "Большой салон с кожаными диванами, оборудованный аудио- и видеоаппаратурой (DVD, караоке)",
@@ -2158,7 +2131,6 @@ Rodman 44 Holiday хороша для тех случаев, когда хоче
       "/images/imported/yachts/princess-68/009_Princess_67.jpg",
       "/images/imported/yachts/princess-68/0091_Princess_67.jpg",
       "/images/imported/yachts/princess-68/0092_Princess_67.jpg",
-      "/images/imported/yachts/princess-68/WhatsApp_Image_2021--13.jpeg"
     ],
     features: [
       "Три каюты: мастер-каюта с двуспальной кроватью и отдельным санузлом, каюта твин, каюта дабл",

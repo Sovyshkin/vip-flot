@@ -301,14 +301,12 @@ Wellcraft 330 «Бали» — это вместительное судно, р�
       "IMG_0348.webp"
     ],
     images: [
-      "/images/imported/boats/versal/IMG_2813-.jpg-1.webp",
       "/images/imported/boats/versal/4-1.jpg-1.webp",
       "/images/imported/boats/versal/photo_2022-08-12_23-.jpg-1.webp",
       "/images/imported/boats/versal/IMG_2808--1.jpg",
       "/images/imported/boats/versal/3-1.jpg",
       "/images/imported/boats/versal/2-1.jpg",
       "/images/imported/boats/versal/IMG_2813--1.jpg",
-      "/images/imported/boats/versal/4-1-1.jpg"
     ],
     features: [
       "Обеденный стол для комфортных трапез на воде",
@@ -362,7 +360,6 @@ Wellcraft 330 «Бали» — это вместительное судно, р�
       "2B3A9416.webp"
     ],
     images: [
-      "/images/imported/boats/vizantiya/vizantia12.jpeg-1.webp",
       "/images/imported/boats/vizantiya/vizantia01.jpeg-1.webp",
       "/images/imported/boats/vizantiya/vizantia06.jpeg-1.webp",
       "/images/imported/boats/vizantiya/vizantia03-1.jpeg",
@@ -378,7 +375,6 @@ Wellcraft 330 «Бали» — это вместительное судно, р�
       "/images/imported/boats/vizantiya/vizantia11-1.jpeg",
       "/images/imported/boats/vizantiya/vizantia13-1.jpeg",
       "/images/imported/boats/vizantiya/vizantia12-1.jpeg",
-      "/images/imported/boats/vizantiya/vizantia01-1.jpeg"
     ],
     features: [
       "Обеденный стол для комфортных застолий на воде",
@@ -444,8 +440,7 @@ Wellcraft 330 «Бали» — это вместительное судно, р�
       "/images/imported/boats/imperatrica/photo_2023-08-29_150-17.jpeg",
       "/images/imported/boats/imperatrica/photo_2023-08-29_150-18.jpeg",
       "/images/imported/boats/imperatrica/photo_2023-08-29_150-19.jpeg",
-      "/images/imported/boats/imperatrica/2024-06-11_154741-1.jpg",
-      "/images/imported/boats/imperatrica/photo_2023-08-29_150.jpeg-1.webp"
+
     ],
     features: [
       "Стеклянные бокалы для ваших любимых напитков",
@@ -499,8 +494,6 @@ VIP FLOT приглашает вас на прогулку на катере «�
       "/images/imported/boats/komitti-sanremo/2024-07-07_042340-1.jpg",
       "/images/imported/boats/komitti-sanremo/2024-07-07_042337-1.jpg",
       "/images/imported/boats/komitti-sanremo/2024-07-07_042344-1.jpg",
-      "/images/imported/boats/komitti-sanremo/2024-07-07_042327-1.jpg",
-      "/images/imported/boats/komitti-sanremo/2024-07-07_042351-1.jpg"
     ],
     features: [
       "Холодильник для охлаждения напитков и сохранения свежести продуктов",
@@ -547,7 +540,6 @@ VIP FLOT приглашает вас на прогулку на катере «�
       "IMG_0331.webp"
     ],
     images: [
-      "/images/imported/boats/konsul/2024-06-02_125240.jpg-1.webp",
       "/images/imported/boats/konsul/photo_2024-06-02_130.jpeg-1.webp",
       "/images/imported/boats/konsul/2024-06-02_125152.jpg-1.webp",
       "/images/imported/boats/konsul/2024-06-02_125200-1.jpg",
@@ -561,7 +553,6 @@ VIP FLOT приглашает вас на прогулку на катере «�
       "/images/imported/boats/konsul/2024-06-02_125232-1.jpg",
       "/images/imported/boats/konsul/2024-06-02_125236-1.jpg",
       "/images/imported/boats/konsul/2024-06-02_125240-1.jpg",
-      "/images/imported/boats/konsul/photo_2024-06-02_130-1.jpeg"
     ],
     features: [
       "Обеденный стол для комфортных застолий и перекусов на воде",
@@ -612,14 +603,12 @@ VIP FLOT приглашает вас на прогулку на катере «�
       "2B3A0650.webp"
     ],
     images: [
-      "/images/imported/boats/magnum/Zd5RcTCIpaI.jpg-1.webp",
       "/images/imported/boats/magnum/photo.jpg-2.webp",
       "/images/imported/boats/magnum/photo.jpg-3.webp",
       "/images/imported/boats/magnum/89612925-C489-4C17-B-1.jpeg",
       "/images/imported/boats/magnum/9F438F5F-ABCA-4931-B-1.jpeg",
       "/images/imported/boats/magnum/C737123E-0533-4B1D-B-1.jpeg",
       "/images/imported/boats/magnum/Zd5RcTCIpaI-1.jpg",
-      "/images/imported/boats/magnum/photo-1.jpg"
     ],
     features: [
       "Открытая палуба с мягкими кожаными диванами и столиком — идеальное место для отдыха на свежем воздухе",
@@ -689,15 +678,9 @@ VIP FLOT приглашает вас на прогулку на катере «�
       "/images/imported/boats/minor/2B3A0853-1.jpg",
       "/images/imported/boats/minor/2B3A0857-1.jpg",
       "/images/imported/boats/minor/2B3A0865-1.jpg",
-      "/images/imported/boats/minor/2B3A0882-1.jpg",
       "/images/imported/boats/minor/2B3A0904-1.jpg",
       "/images/imported/boats/minor/2B3A0922-1.jpg",
       "/images/imported/boats/minor/2B3A0958-1.jpg",
-      "/images/imported/boats/minor/2B3A1628-1.jpg",
-      "/images/imported/boats/minor/2B3A1685-1.jpg",
-      "/images/imported/boats/minor/2B3A1756-1.jpg",
-      "/images/imported/boats/minor/2B3A1791-1.jpg",
-      "/images/imported/boats/minor/2B3A1659-1.jpg"
     ],
     features: [
       "Обеденный стол для застолий и перекусов на воде",
@@ -767,9 +750,6 @@ VIP FLOT приглашает вас на прогулку на катере «�
       "/images/imported/boats/meverik/meverik-19-1.jpg",
       "/images/imported/boats/meverik/meverik-13-1.jpg",
       "/images/imported/boats/meverik/meverik-18-1.jpg",
-      "/images/imported/boats/meverik/meverik-5-1.jpg",
-      "/images/imported/boats/meverik/meverik-11-1.jpg",
-      "/images/imported/boats/meverik/meverik-1-1.jpg"
     ],
     features: [
       "Складной фуршетный стол для застолий и перекусов на воде",
@@ -839,10 +819,6 @@ VIP FLOT приглашает вас на борт катера Nordic 38 — э
       "/images/imported/boats/nordic-38/2024-06-25_172538-1.jpg",
       "/images/imported/boats/nordic-38/2024-06-25_172545-1.jpg",
       "/images/imported/boats/nordic-38/2024-06-25_172548-1.jpg",
-      "/images/imported/boats/nordic-38/2024-06-25_172552-1.jpg",
-      "/images/imported/boats/nordic-38/2024-06-25_172555-1.jpg",
-      "/images/imported/boats/nordic-38/2024-06-25_172558-1.jpg",
-      "/images/imported/boats/nordic-38/2024-06-25_172508-1.jpg"
     ],
     features: [
       "Обеденный стол для трапез на воде",
@@ -904,7 +880,6 @@ VIP FLOT приглашает вас на борт катера Nordic 38 — э
       "/images/imported/boats/premiere/2024-06-02_195635-1.jpg",
       "/images/imported/boats/premiere/2024-06-02_195642-1.jpg",
       "/images/imported/boats/premiere/2024-06-02_195645-1.jpg",
-      "/images/imported/boats/premiere/2024-06-02_195619-1.jpg"
     ],
     features: [
       "7 аккуратных столиков для комфортного размещения закусок и напитков",
@@ -963,8 +938,6 @@ VIP FLOT приглашает вас на борт катера Nordic 38 — э
       "/images/imported/boats/chelsi/photo_2024-07-05_084-11.jpeg",
       "/images/imported/boats/chelsi/photo_2024-07-05_084-12.jpeg",
       "/images/imported/boats/chelsi/photo_2024-07-05_084-13.jpeg",
-      "/images/imported/boats/chelsi/photo_2024-07-05_084-14.jpeg",
-      "/images/imported/boats/chelsi/photo_2024-07-05_084-15.jpeg"
     ],
     features: [
       "Кондиционер для поддержания комфортного микроклимата",
@@ -994,11 +967,14 @@ VIP FLOT приглашает вас на борт катера Nordic 38 — э
       "86.webp"
     ],
     images: [
-      "chelsi-open-1.webp",
       "chelsi-open-10.webp",
       "chelsi-open-75.webp",
       "chelsi-open-93.webp",
+      "chelsi-open-337.webp",
       "chelsi-open-98.webp",
+       "chelsi-open-276.webp",
+      "chelsi-open-279.webp",
+      "chelsi-open-283.webp",
       "chelsi-open-100.webp",
       "chelsi-open-105.webp",
       "chelsi-open-112.webp",
@@ -1012,12 +988,8 @@ VIP FLOT приглашает вас на борт катера Nordic 38 — э
       "chelsi-open-138.webp",
       "chelsi-open-145.webp",
       "chelsi-open-146.webp",
-      "chelsi-open-276.webp",
-      "chelsi-open-279.webp",
-      "chelsi-open-283.webp",
       "chelsi-open-323.webp",
       "chelsi-open-329.webp",
-      "chelsi-open-337.webp",
       "chelsi-open-343.webp",
       "chelsi-open-347.webp"
     ],
@@ -1086,11 +1058,6 @@ VIP FLOT приглашает вас на борт катера «Chaparral 330�
       "/images/imported/boats/efir/2023-07-31_095519-1.jpg",
       "/images/imported/boats/efir/2023-07-31_095522-1.jpg",
       "/images/imported/boats/efir/IMG-20180614-WA0013-1.jpg",
-      "/images/imported/boats/efir/2023-08-01_100129_4-1.JPG",
-      "/images/imported/boats/efir/2023-08-01_100129_6-1.JPG",
-      "/images/imported/boats/efir/2023-08-01_100129_3-1.JPG",
-      "/images/imported/boats/efir/2023-08-01_100130-1.JPG",
-      "/images/imported/boats/efir/2023-08-01_100129_5-1.JPG"
     ],
     features: [
       "Оборудованная кухня для приготовления и сервировки",
@@ -1155,8 +1122,6 @@ Aquador 23HT особенно хорош для тех, кто хочет сов
       "/images/imported/boats/akvador-23/2024-06-05_181309-1.jpg",
       "/images/imported/boats/akvador-23/2024-06-05_181312-1.jpg",
       "/images/imported/boats/akvador-23/2024-06-05_181315-1.jpg",
-      "/images/imported/boats/akvador-23/2024-06-05_181240-1.jpg",
-      "/images/imported/boats/akvador-23/2024-06-05_181315.jpg-1.webp"
     ],
     features: [
       "Уютный салон с мягкими диванами и столиком",
@@ -1211,7 +1176,6 @@ Aquador 23HT особенно хорош для тех, кто хочет сов
     images: [
       "/images/imported/boats/black-boat/2024-07-20_170842.jpg-1.webp",
       "/images/imported/boats/black-boat/2024-07-20_170851.jpg-1.webp",
-      "/images/imported/boats/black-boat/2024-07-20_170901-1.jpg",
       "/images/imported/boats/black-boat/2024-07-20_170906-1.jpg",
       "/images/imported/boats/black-boat/2024-07-20_170915-1.jpg",
       "/images/imported/boats/black-boat/2024-07-20_170919-1.jpg",
@@ -1232,8 +1196,6 @@ Aquador 23HT особенно хорош для тех, кто хочет сов
       "/images/imported/boats/black-boat/2024-07-20_171206-1.jpg",
       "/images/imported/boats/black-boat/2024-07-20_171214-1.jpg",
       "/images/imported/boats/black-boat/2024-07-20_171211-1.jpg",
-      "/images/imported/boats/black-boat/2024-07-20_170842-1.jpg",
-      "/images/imported/boats/black-boat/2024-07-20_171211.jpg-1.webp"
     ],
     features: [
       "Большая открытая палуба с кожаными диванами",
@@ -1288,7 +1250,6 @@ Blueberry идеально подходит для прогулок по рек�
       "2B3A3367.webp"
     ],
     images: [
-      "/images/imported/boats/blueberry/2B3A3747.jpg-1.webp",
       "/images/imported/boats/blueberry/2B3A3612.jpg-1.webp",
       "/images/imported/boats/blueberry/2B3A4499.jpg-1.webp",
       "/images/imported/boats/blueberry/2B3A4515-1.jpg",
@@ -1313,10 +1274,8 @@ Blueberry идеально подходит для прогулок по рек�
       "/images/imported/boats/blueberry/2B3A3297-1.jpg",
       "/images/imported/boats/blueberry/2B3A3353-1.jpg",
       "/images/imported/boats/blueberry/2B3A3494-1.jpg",
-      "/images/imported/boats/blueberry/2B3A3656-1.jpg",
       "/images/imported/boats/blueberry/2B3A3729-1.jpg",
       "/images/imported/boats/blueberry/2B3A3747-1.jpg",
-      "/images/imported/boats/blueberry/2B3A3612-1.jpg"
     ],
     features: [
       "Мягкая носовая зона для отдыха с видами",
@@ -1367,7 +1326,6 @@ Butterfly хорошо подойдёт тем, кто ищет не больш�
       "2B3A6621.webp"
     ],
     images: [
-      "/images/imported/boats/butterfly/Butterfly11.jpg-1.webp",
       "/images/imported/boats/butterfly/Butterfly2.jpg-1.webp",
       "/images/imported/boats/butterfly/Butterfly1.jpg-1.webp",
       "/images/imported/boats/butterfly/Butterfly4-1.jpg",
@@ -1455,9 +1413,6 @@ VIP FLOT приглашает вас на борт яхты «Чудолодка
       "/images/imported/boats/chudolodka/2024-06-02_204346-1.jpg",
       "/images/imported/boats/chudolodka/2024-06-02_204353-1.jpg",
       "/images/imported/boats/chudolodka/2024-06-02_204356-1.jpg",
-      "/images/imported/boats/chudolodka/2024-06-02_204359-1.jpg",
-      "/images/imported/boats/chudolodka/2024-06-02_204402-1.jpg",
-      "/images/imported/boats/chudolodka/2024-06-02_204238-1.jpg"
     ],
     features: [
       "Просторный салон с панорамным остеклением из закалённого стекла",
@@ -1524,9 +1479,6 @@ VIP FLOT приглашает вас на борт катера Dea — это �
       "/images/imported/boats/dea/2B3A5085-1.jpg",
       "/images/imported/boats/dea/2B3A5066-1.jpg",
       "/images/imported/boats/dea/2B3A5252-1.jpg",
-      "/images/imported/boats/dea/2B3A5545-1.jpg",
-      "/images/imported/boats/dea/2B3A5492-1.jpg",
-      "/images/imported/boats/dea/2B3A4286-1.jpg"
     ],
     features: [
       "Уютный салон с комфортными сиденьями",
@@ -1595,8 +1547,6 @@ Fiart 32 хорош в тех случаях, когда хочется полу
       "/images/imported/boats/fiart-32/photo_2023-08-29_152-30.jpeg",
       "/images/imported/boats/fiart-32/photo_2023-08-29_152-31.jpeg",
       "/images/imported/boats/fiart-32/photo_2023-08-29_152-32.jpeg",
-      "/images/imported/boats/fiart-32/photo_2023-08-29_152-33.jpeg",
-      "/images/imported/boats/fiart-32/photo_2023-08-29_152.jpeg-5.webp"
     ],
     features: [
       "Белоснежный салон с П-образным кожаным диваном",
@@ -1672,8 +1622,6 @@ Formula Ventum — это новый катер 2024 года постройки
       "/images/imported/boats/formula-ventum/2024-07-19_140416-1.jpg",
       "/images/imported/boats/formula-ventum/2024-07-19_140421-1.jpg",
       "/images/imported/boats/formula-ventum/2024-07-19_140356-1.jpg",
-      "/images/imported/boats/formula-ventum/2024-07-19_140319-1.jpg",
-      "/images/imported/boats/formula-ventum/2024-07-19_140313-1.jpg"
     ],
     features: [
       "Закрытая палуба с мягкими сиденьями и диваном",
@@ -1743,7 +1691,6 @@ Fortuna выбирают, когда нужен универсальный ка�
       "/images/imported/boats/fortuna/2024-07-06_142415-1.jpg",
       "/images/imported/boats/fortuna/2024-07-06_142429-1.jpg",
       "/images/imported/boats/fortuna/2024-07-06_142442-1.jpg",
-      "/images/imported/boats/fortuna/2024-07-06_142052-1.jpg"
     ],
     features: [
       "Просторная палуба с сиденьями и мягким диваном в носовой части",
@@ -1776,12 +1723,19 @@ Fortuna выбирают, когда нужен универсальный ка�
       "2B3A1980.webp"
     ],
     images: [
-      "italy-2B3A1724.webp",
       "italy-2B3A1759.webp",
       "italy-2B3A1834.webp",
       "italy-2B3A1903.webp",
       "italy-2B3A1980.webp",
       "italy-2B3A1985.webp",
+      "italy-2B3A2871.webp",
+      "italy-2B3A2887.webp",
+      "italy-2B3A2909.webp",
+      "italy-2B3A2927.webp",
+      "italy-2B3A2930.webp",
+      "italy-2B3A2945.webp",
+      "italy-2B3A2969.webp",
+      "italy-2B3A3002.webp",
       "italy-2B3A2096.webp",
       "italy-2B3A2125.webp",
       "italy-2B3A2148.webp",
@@ -1803,14 +1757,6 @@ Fortuna выбирают, когда нужен универсальный ка�
       "italy-2B3A2685.webp",
       "italy-2B3A2856.webp",
       "italy-2B3A2864.webp",
-      "italy-2B3A2871.webp",
-      "italy-2B3A2887.webp",
-      "italy-2B3A2909.webp",
-      "italy-2B3A2927.webp",
-      "italy-2B3A2930.webp",
-      "italy-2B3A2945.webp",
-      "italy-2B3A2969.webp",
-      "italy-2B3A3002.webp"
     ],
     features: [
       "Комфортный салон",
@@ -1854,16 +1800,10 @@ VIP FLOT приглашает вас на борт катера «Катарин
       "katarina-kater-v-spb-1.webp"
     ],
     images: [
-      "/images/imported/boats/katarina/katarina-kater-v-spb.jpg-3.webp",
       "/images/imported/boats/katarina/katarina-kater-v-spb.jpg-4.webp",
       "/images/imported/boats/katarina/katarina-kater-v-spb.jpg-5.webp",
-      "/images/imported/boats/katarina/katarina-kater-v-spb-2.jpg",
       "/images/imported/boats/katarina/katarina-kater-v-spb-4.jpg",
-      "/images/imported/boats/katarina/katarina-kater-v-spb.JPG",
-      "/images/imported/boats/katarina/katarina-kater-v-spb-1.JPG",
-      "/images/imported/boats/katarina/katarina-kater-v-spb-3.JPG",
       "/images/imported/boats/katarina/katarina-kater-v-spb-5.jpg",
-      "/images/imported/boats/katarina/katarina-kater-v-spb-6.jpg"
     ],
     features: [
       "Открытая палуба для прогулок с морскими брызгами",
@@ -1983,7 +1923,6 @@ VIP FLOT приглашает вас на борт катера Modena — эт�
       "https://optim.tildacdn.com/stor3962-3138-4437-b432-306236643966/-/resize/600x400/-/format/webp/62793040.jpg.webp"
     ],
     images: [
-      "/images/imported/boats/modena/2024-07-21_231955.jpg-1.webp",
       "/images/imported/boats/modena/2024-07-21_231818.jpg-1.webp",
       "/images/imported/boats/modena/2024-07-21_231827.jpg-1.webp",
       "/images/imported/boats/modena/2024-07-21_231833-1.jpg",
@@ -2000,7 +1939,6 @@ VIP FLOT приглашает вас на борт катера Modena — эт�
       "/images/imported/boats/modena/2024-07-21_231948-1.jpg",
       "/images/imported/boats/modena/2024-07-21_231951-1.jpg",
       "/images/imported/boats/modena/2024-07-21_231955-1.jpg",
-      "/images/imported/boats/modena/2024-07-21_231818-1.jpg"
     ],
     features: [
       "Открытый передний салон с панорамным видом и мягкими диванами",
@@ -2079,8 +2017,6 @@ VIP FLOT приглашает вас на борт катера Montferrand — 
       "/images/imported/boats/montferrand/photo_2024-05-31_163-34.jpeg",
       "/images/imported/boats/montferrand/photo_2024-05-31_163-35.jpeg",
       "/images/imported/boats/montferrand/photo_2024-05-31_163-36.jpeg",
-      "/images/imported/boats/montferrand/photo_2024-05-31_163-37.jpeg",
-      "/images/imported/boats/montferrand/photo_2024-05-31_163.jpeg-5.webp"
     ],
     features: [
       "Тёплый салон с панорамным остеклением",
@@ -2147,8 +2083,6 @@ VIP FLOT приглашает вас на борт катера Montferrand — 
       "/images/imported/boats/montferrand/photo_2024-05-31_163-34.jpeg",
       "/images/imported/boats/montferrand/photo_2024-05-31_163-35.jpeg",
       "/images/imported/boats/montferrand/photo_2024-05-31_163-36.jpeg",
-      "/images/imported/boats/montferrand/photo_2024-05-31_163-37.jpeg",
-      "/images/imported/boats/montferrand/photo_2024-05-31_163.jpeg-5.webp"
     ],
     features: [
       "Уютный салон с отделкой из морского винила и ореха",
@@ -2180,7 +2114,6 @@ VIP FLOT приглашает вас на борт катера Montferrand — 
       "2B3A4067.webp"
     ],
     images: [
-      "regal-265-2B3A3661.webp",
       "regal-265-2B3A4017.webp",
       "regal-265-2B3A4067.webp",
       "regal-265-2B3A4103.webp",
@@ -2190,7 +2123,8 @@ VIP FLOT приглашает вас на борт катера Montferrand — 
       "regal-265-2B3A4360.webp",
       "regal-265-2B3A4521.webp",
       "regal-265-2B3A4580.webp",
-      "regal-265-2B3A4655.webp"
+      "regal-265-2B3A4655.webp",
+      "regal-265-2B3A3661.webp",
     ],
     features: [
       "Комфортный салон",
@@ -2258,7 +2192,6 @@ VIP FLOT приглашает вас на борт катера Seladore — п�
       "/images/imported/boats/seladore/2024-07-07_034430-1.jpg",
       "/images/imported/boats/seladore/2024-07-07_034423-1.jpg",
       "/images/imported/boats/seladore/2024-07-07_034441-1.jpg",
-      "/images/imported/boats/seladore/2024-07-07_034653-1.jpg"
     ],
     features: [
       "Уютный салон с атмосферой настоящего ретро",
@@ -2308,8 +2241,6 @@ VIP FLOT приглашает вас на борт катера Seladore — п�
       "silver-2B3A9381.webp",
       "silver-2B3A9449.webp",
       "silver-2B3A9451.webp",
-      "silver-2B3A9480.webp",
-      "silver-2B3A9650.webp"
     ],
     features: [
       "Комфортный салон",
@@ -2360,13 +2291,13 @@ VIP FLOT приглашает вас на борт катера Soprano. По в
       "/images/imported/boats/soprano/soprano03.jpeg-1.webp",
       "/images/imported/boats/soprano/soprano01.jpeg-1.webp",
       "/images/imported/boats/soprano/soprano02.jpeg-1.webp",
+      "/images/imported/boats/soprano/soprano06-1.jpeg",
+      "/images/imported/boats/soprano/soprano03-1.jpeg",
       "/images/imported/boats/soprano/soprano07-1.jpeg",
       "/images/imported/boats/soprano/soprano04-1.jpeg",
       "/images/imported/boats/soprano/photo_2024-06-02_201-1.jpeg",
       "/images/imported/boats/soprano/soprano08-1.jpeg",
-      "/images/imported/boats/soprano/soprano06-1.jpeg",
-      "/images/imported/boats/soprano/soprano03-1.jpeg",
-      "/images/imported/boats/soprano/soprano01-1.jpeg"
+
     ],
     features: [
       "Тёплый салон с панорамным остеклением",
@@ -2438,7 +2369,6 @@ Sunseeker 48 станет идеальным выбором для большо�
       "/images/imported/boats/seladore/2024-07-07_034430-1.jpg",
       "/images/imported/boats/seladore/2024-07-07_034423-1.jpg",
       "/images/imported/boats/seladore/2024-07-07_034441-1.jpg",
-      "/images/imported/boats/seladore/2024-07-07_034653-1.jpg"
     ],
     features: [
       "Просторная кают-компания с мягкими зонами отдыха",
@@ -2492,11 +2422,11 @@ Velvette 33 «Белуга» подойдёт тем, кто хочет арен
       "2B3A3782.webp"
     ],
     images: [
-      "/images/imported/boats/velvette-33/img_6059-0000.jpg-1.webp",
       "/images/imported/boats/velvette-33/img_5622-0000.jpg-1.webp",
       "/images/imported/boats/velvette-33/img_5565-0000.jpg-1.webp",
       "/images/imported/boats/velvette-33/img_5606-0000-1.jpg",
       "/images/imported/boats/velvette-33/img_5638-0000-1.jpg",
+      "/images/imported/boats/velvette-33/img_6059-0000.jpg-1.webp",
       "/images/imported/boats/velvette-33/img_5665-0000-1.jpg",
       "/images/imported/boats/velvette-33/img_5962-0000-1.jpg",
       "/images/imported/boats/velvette-33/img_5973-0000-1.jpg",
@@ -2507,8 +2437,6 @@ Velvette 33 «Белуга» подойдёт тем, кто хочет арен
       "/images/imported/boats/velvette-33/img_5925-0000-1.jpg",
       "/images/imported/boats/velvette-33/img_5989-0000-1.jpg",
       "/images/imported/boats/velvette-33/img_6052-0000-1.jpg",
-      "/images/imported/boats/velvette-33/img_6059-0000-1.jpg",
-      "/images/imported/boats/velvette-33/img_5622-0000-1.jpg"
     ],
     features: [
       "Открытая палуба с мягкими диванами из светло-коричневой кожи",
@@ -2545,6 +2473,9 @@ Velvette 33 «Белуга» подойдёт тем, кто хочет арен
     images: [
       "/images/imported/boats/veneto/veneto06.jpeg-1.webp",
       "/images/imported/boats/veneto/veneto01.jpeg-1.webp",
+      "/images/imported/boats/veneto/veneto04-1.jpeg",
+      "/images/imported/boats/veneto/veneto05-1.png",
+      "/images/imported/boats/veneto/veneto06-1.jpeg",
       "/images/imported/boats/veneto/veneto02.png-1.webp",
       "/images/imported/boats/veneto/veneto03-1.jpeg",
       "/images/imported/boats/veneto/veneto09-1.jpeg",
@@ -2556,10 +2487,6 @@ Velvette 33 «Белуга» подойдёт тем, кто хочет арен
       "/images/imported/boats/veneto/veneto15-1.png",
       "/images/imported/boats/veneto/veneto13-1.jpeg",
       "/images/imported/boats/veneto/veneto14-1.jpeg",
-      "/images/imported/boats/veneto/veneto04-1.jpeg",
-      "/images/imported/boats/veneto/veneto05-1.png",
-      "/images/imported/boats/veneto/veneto06-1.jpeg",
-      "/images/imported/boats/veneto/veneto01-1.jpeg"
     ],
     features: [
       "Комфортный салон",
@@ -2633,9 +2560,6 @@ VIP FLOT приглашает вас на борт катера Venezia Nord —
       "/images/imported/boats/venezia-nord/2B3A7984.jpg",
       "/images/imported/boats/venezia-nord/2B3A8073.jpg",
       "/images/imported/boats/venezia-nord/2B3A7736.jpg",
-      "/images/imported/boats/venezia-nord/2B3A5423.jpg",
-      "/images/imported/boats/venezia-nord/2B3A8669.jpg",
-      "/images/imported/boats/venezia-nord/ven-nord7.jpg"
     ],
     features: [
       "Панорамный салон высотой в полный рост",
@@ -2710,8 +2634,6 @@ Venissa — это эксклюзивное судно для Санкт-Пет�
       "/images/imported/boats/venezia-nord/2B3A7984.jpg",
       "/images/imported/boats/venezia-nord/2B3A8073.jpg",
       "/images/imported/boats/venezia-nord/2B3A7736.jpg",
-      "/images/imported/boats/venezia-nord/2B3A5423.jpg",
-      "/images/imported/boats/venezia-nord/ven-nord7.jpg"
     ],
     features: [
       "Просторный салон из красного дерева и кожи с панорамными окнами",
@@ -2787,8 +2709,6 @@ Windsor особенно нравится тем, кто хочет получи
       "/images/imported/boats/windsor/2024-08-01_134547.jpg",
       "/images/imported/boats/windsor/2024-08-01_134550.jpg",
       "/images/imported/boats/windsor/2024-08-01_134553.jpg",
-      "/images/imported/boats/windsor/2024-08-01_134447.jpg",
-      "/images/imported/boats/windsor/2024-08-01_134553.jpg.webp"
     ],
     features: [
       "Просторный салон с отделкой из красного дерева и дорогой кожи",

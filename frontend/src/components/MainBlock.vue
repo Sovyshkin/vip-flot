@@ -232,7 +232,7 @@ function scrollToId(id) {
     .main-block {
         padding: 32px 20px 28px;
         gap: 16px;
-        min-height: 320px;
+        min-height: 260px;
     }
 
     .title-main-block {
@@ -300,18 +300,25 @@ function scrollToId(id) {
 
 @media (max-width: 480px) {
     .main-block {
-        padding: 28px 16px 24px;
-        min-height: 300px;
+        padding: 24px 16px 20px;
+        gap: 12px;
+        min-height: 250px;
     }
 
     .title-main-block {
-        font-size: 22px;
-        line-height: 28px;
+        font-size: 20px;
+        line-height: 24px;
     }
 
     .badge {
         padding: 8px 12px;
         font-size: 12px;
+    }
+
+    .subtitle-main-block {
+        font-size: 10px;
+        line-height: 14px;
+        letter-spacing: 1px;
     }
 
     .block,
