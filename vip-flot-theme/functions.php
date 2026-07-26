@@ -1,8 +1,8 @@
 <?php
 /**
- * VIP FLOT Theme Functions
+ * Галерея яхт Theme Functions
  * 
- * @package VIP_FLOT
+ * @package GALLERY_YACHTS
  */
 
 if (!defined('ABSPATH')) {
@@ -12,31 +12,31 @@ if (!defined('ABSPATH')) {
 /**
  * Подключение CORS обработчика
  */
-require_once get_template_directory() . '/vip-flot-cors.php';
+require_once get_template_directory() . '/gallery-yachts-cors.php';
 
 /**
  * Подключение AJAX обработчика
  */
-require_once get_template_directory() . '/vip-flot-ajax.php';
+require_once get_template_directory() . '/gallery-yachts-ajax.php';
 
 /**
  * Подключение стилей и скриптов темы
  */
-function vip_flot_enqueue_styles() {
+function gallery_yachts_enqueue_styles() {
     // Подключаем основной файл style.css
     wp_enqueue_style(
-        'vip-flot-style',
+        'gallery-yachts-style',
         get_stylesheet_uri(),
         array(),
         wp_get_theme()->get('Version')
     );
 }
-add_action('wp_enqueue_scripts', 'vip_flot_enqueue_styles');
+add_action('wp_enqueue_scripts', 'gallery_yachts_enqueue_styles');
 
 /**
  * Настройка темы
  */
-function vip_flot_theme_setup() {
+function gallery_yachts_theme_setup() {
     // Добавление поддержки заголовка документа
     add_theme_support('title-tag');
     
@@ -54,10 +54,10 @@ function vip_flot_theme_setup() {
     
     // Регистрация меню навигации
     register_nav_menus(array(
-        'primary' => __('Основное меню', 'vip-flot'),
+        'primary' => __('Основное меню', 'gallery-yachts'),
     ));
 }
-add_action('after_setup_theme', 'vip_flot_theme_setup');
+add_action('after_setup_theme', 'gallery_yachts_theme_setup');
 
 /**
  * Установка ширины контента
@@ -69,7 +69,7 @@ if (!isset($content_width)) {
 /**
  * Регистрация Custom Post Type для заявок на бронирование
  */
-function vip_flot_register_booking_post_type() {
+function gallery_yachts_register_booking_post_type() {
     $labels = array(
         'name'               => 'Заявки',
         'singular_name'      => 'Заявка',
@@ -97,26 +97,26 @@ function vip_flot_register_booking_post_type() {
         'menu_position'       => 5,
     );
 
-    register_post_type('vip_flot_booking', $args);
+    register_post_type('gallery_yachts_booking', $args);
 }
-add_action('init', 'vip_flot_register_booking_post_type');
+add_action('init', 'gallery_yachts_register_booking_post_type');
 
 /**
  * REST API endpoint для создания заявки
  */
-function vip_flot_register_booking_api() {
-    register_rest_route('vip-flot/v1', '/booking', array(
+function gallery_yachts_register_booking_api() {
+    register_rest_route('gallery-yachts/v1', '/booking', array(
         'methods'  => 'POST',
-        'callback' => 'vip_flot_create_booking',
+        'callback' => 'gallery_yachts_create_booking',
         'permission_callback' => '__return_true', // Публичный endpoint
     ));
 }
-add_action('rest_api_init', 'vip_flot_register_booking_api');
+add_action('rest_api_init', 'gallery_yachts_register_booking_api');
 
 /**
  * Обработчик создания заявки
  */
-function vip_flot_create_booking($request) {
+function gallery_yachts_create_booking($request) {
     $params = $request->get_json_params();
     
     // Валидация данных
@@ -144,7 +144,7 @@ function vip_flot_create_booking($request) {
     
     // Создание заявки
     $post_id = wp_insert_post(array(
-        'post_type'   => 'vip_flot_booking',
+        'post_type'   => 'gallery_yachts_booking',
         'post_title'  => sprintf('Заявка от %s - %s', $name, date('d.m.Y H:i')),
         'post_status' => 'publish',
         'meta_input'  => array(
@@ -167,7 +167,7 @@ function vip_flot_create_booking($request) {
     
     // Отправка email уведомления администратору (опционально)
     $admin_email = get_option('admin_email');
-    $subject = 'Новая заявка на бронирование - VIP Flot';
+    $subject = 'Новая заявка на бронирование - Галерея яхт';
     $message = sprintf(
         "Новая заявка на бронирование:\n\nИмя: %s\nТелефон: %s\nДата: %s\n\nПросмотреть: %s",
         $name,
@@ -188,7 +188,7 @@ function vip_flot_create_booking($request) {
 /**
  * Добавление колонок в админ-панель заявок
  */
-function vip_flot_booking_columns($columns) {
+function gallery_yachts_booking_columns($columns) {
     $new_columns = array(
         'cb'            => $columns['cb'],
         'title'         => 'Заявка',
@@ -199,12 +199,12 @@ function vip_flot_booking_columns($columns) {
     );
     return $new_columns;
 }
-add_filter('manage_vip_flot_booking_posts_columns', 'vip_flot_booking_columns');
+add_filter('manage_gallery_yachts_booking_posts_columns', 'gallery_yachts_booking_columns');
 
 /**
  * Заполнение колонок данными
  */
-function vip_flot_booking_column_content($column, $post_id) {
+function gallery_yachts_booking_column_content($column, $post_id) {
     switch ($column) {
         case 'booking_name':
             echo esc_html(get_post_meta($post_id, 'booking_name', true));
@@ -219,37 +219,37 @@ function vip_flot_booking_column_content($column, $post_id) {
             break;
     }
 }
-add_action('manage_vip_flot_booking_posts_custom_column', 'vip_flot_booking_column_content', 10, 2);
+add_action('manage_gallery_yachts_booking_posts_custom_column', 'gallery_yachts_booking_column_content', 10, 2);
 
 /**
  * Сортировка колонок
  */
-function vip_flot_booking_sortable_columns($columns) {
+function gallery_yachts_booking_sortable_columns($columns) {
     $columns['booking_name'] = 'booking_name';
     $columns['booking_date'] = 'booking_date';
     return $columns;
 }
-add_filter('manage_edit-vip_flot_booking_sortable_columns', 'vip_flot_booking_sortable_columns');
+add_filter('manage_edit-gallery_yachts_booking_sortable_columns', 'gallery_yachts_booking_sortable_columns');
 
 /**
  * Meta Box для отображения информации о заявке
  */
-function vip_flot_booking_meta_box() {
+function gallery_yachts_booking_meta_box() {
     add_meta_box(
-        'vip_flot_booking_details',
+        'gallery_yachts_booking_details',
         'Детали заявки',
-        'vip_flot_booking_meta_box_callback',
-        'vip_flot_booking',
+        'gallery_yachts_booking_meta_box_callback',
+        'gallery_yachts_booking',
         'normal',
         'high'
     );
 }
-add_action('add_meta_boxes', 'vip_flot_booking_meta_box');
+add_action('add_meta_boxes', 'gallery_yachts_booking_meta_box');
 
 /**
  * Вывод данных в Meta Box
  */
-function vip_flot_booking_meta_box_callback($post) {
+function gallery_yachts_booking_meta_box_callback($post) {
     $name = get_post_meta($post->ID, 'booking_name', true);
     $phone = get_post_meta($post->ID, 'booking_phone', true);
     $date = get_post_meta($post->ID, 'booking_date', true);

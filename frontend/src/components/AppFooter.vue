@@ -4,8 +4,19 @@
       <div class="footer-main">
         <div class="footer-column footer-brand">
           <div class="footer-logo">
-            <span class="footer-logo-text">ГАЛЕРЕЯ ЯХТ</span>
-            <span class="footer-logo-subtitle">Аренда яхт и катеров</span>
+            <img
+              src="/favicon.png"
+              alt="Галерея яхт"
+              class="footer-logo-mark"
+              width="60"
+              height="60"
+              loading="lazy"
+              decoding="async"
+            >
+            <span class="footer-logo-copy">
+              <span class="footer-logo-text">Галерея Яхт</span>
+              <span class="footer-logo-subtitle">Аренда яхт и катеров</span>
+            </span>
           </div>
           <div class="footer-socials">
             <a href="mailto:mail@mail.ru" class="social-link" aria-label="Telegram">
@@ -140,24 +151,38 @@ function scrollToSection(sectionId) {
 
 .footer-logo {
   display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-logo-mark {
+  width: 60px;
+  height: 60px;
+  flex: 0 0 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 24px rgba(0, 118, 252, 0.12));
+}
+
+.footer-logo-copy {
+  display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .footer-logo-text {
-  font-family: var(--font-logo);
-  font-weight: 600;
-  font-size: 25px;
-  letter-spacing: 9px;
-  text-transform: uppercase;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  font-size: 34px;
+  letter-spacing: 0.05em;
+  text-transform: none;
   color: #fff;
   line-height: 1;
 }
 
 .footer-logo-subtitle {
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 2.4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1;
@@ -288,6 +313,25 @@ function scrollToSection(sectionId) {
   .footer-brand {
     grid-column: 1 / -1;
     margin-bottom: 16px;
+  }
+
+  .footer-logo {
+    align-items: flex-start;
+  }
+
+  .footer-logo-mark {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+
+  .footer-logo-text {
+    font-size: 28px;
+  }
+
+  .footer-logo-subtitle {
+    font-size: 10px;
+    letter-spacing: 0.14em;
   }
 
   .footer-main > .footer-column {

@@ -4,7 +4,7 @@
 
 ### Общая концепция
 
-Все классы компонентов используют **префикс `.vipflot-`** для предотвращения конфликтов с:
+Все классы компонентов используют **префикс `.galleryyachts-`** для предотвращения конфликтов с:
 - WordPress плагинами
 - Другими темами
 - Сторонними библиотеками
@@ -13,35 +13,35 @@
 ### Структура именования (BEM-подобная)
 
 ```
-.vipflot-[компонент]__[элемент]--[модификатор]
+.galleryyachts-[компонент]__[элемент]--[модификатор]
 ```
 
 #### Примеры:
 
 **Базовый класс компонента:**
 ```css
-.vipflot-header { }
+.galleryyachts-header { }
 ```
 
 **Элемент внутри компонента:**
 ```css
-.vipflot-header__logo { }
-.vipflot-header__nav { }
-.vipflot-header__contacts { }
+.galleryyachts-header__logo { }
+.galleryyachts-header__nav { }
+.galleryyachts-header__contacts { }
 ```
 
 **Вложенный элемент:**
 ```css
-.vipflot-header__logo-text { }
-.vipflot-header__nav-item { }
-.vipflot-header__contacts-phone { }
+.galleryyachts-header__logo-text { }
+.galleryyachts-header__nav-item { }
+.galleryyachts-header__contacts-phone { }
 ```
 
 **Модификатор (состояние или вариант):**
 ```css
-.vipflot-button--primary { }
-.vipflot-button--disabled { }
-.vipflot-header--sticky { }
+.galleryyachts-button--primary { }
+.galleryyachts-button--disabled { }
+.galleryyachts-header--sticky { }
 ```
 
 ---
@@ -51,21 +51,21 @@
 ### Компонент Header (Шапка)
 
 ```html
-<header class="vipflot-header">
-    <div class="vipflot-header__logo">
-        <a class="vipflot-header__logo-link">
-            <span class="vipflot-header__logo-text">VIP FLOT</span>
-            <span class="vipflot-header__logo-subtitle">Аренда яхт и катеров</span>
+<header class="galleryyachts-header">
+    <div class="galleryyachts-header__logo">
+        <a class="galleryyachts-header__logo-link">
+            <span class="galleryyachts-header__logo-text">Галерея яхт</span>
+            <span class="galleryyachts-header__logo-subtitle">Аренда яхт и катеров</span>
         </a>
     </div>
     
-    <nav class="vipflot-header__nav">
-        <li class="vipflot-header__nav-item">Пункт меню</li>
+    <nav class="galleryyachts-header__nav">
+        <li class="galleryyachts-header__nav-item">Пункт меню</li>
     </nav>
     
-    <div class="vipflot-header__contacts">
-        <span class="vipflot-header__contacts-phone">+7 (812) 660-55-16</span>
-        <span class="vipflot-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
+    <div class="galleryyachts-header__contacts">
+        <span class="galleryyachts-header__contacts-phone">+7 000 000 0000</span>
+        <span class="galleryyachts-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
     </div>
 </header>
 ```
@@ -73,8 +73,8 @@
 ### Компонент Layout (Структура)
 
 ```html
-<main class="vipflot-layout__main">
-    <div class="vipflot-layout__container">
+<main class="galleryyachts-layout__main">
+    <div class="galleryyachts-layout__container">
         <!-- Контент -->
     </div>
 </main>
@@ -84,8 +84,8 @@
 
 ```html
 <article>
-    <h1 class="vipflot-page__title">Заголовок</h1>
-    <div class="vipflot-page__content">
+    <h1 class="galleryyachts-page__title">Заголовок</h1>
+    <div class="galleryyachts-page__content">
         <!-- Контент страницы -->
     </div>
 </article>
@@ -104,26 +104,26 @@
 ```css
 /* ============================================
    КОМПОНЕНТ: CARD (Карточка)
-   Префикс: .vipflot-card
+   Префикс: .galleryyachts-card
    ============================================ */
 
-.vipflot-card {
+.galleryyachts-card {
     /* Основные стили компонента */
 }
 
-.vipflot-card__header {
+.galleryyachts-card__header {
     /* Шапка карточки */
 }
 
-.vipflot-card__body {
+.galleryyachts-card__body {
     /* Тело карточки */
 }
 
-.vipflot-card__footer {
+.galleryyachts-card__footer {
     /* Подвал карточки */
 }
 
-.vipflot-card--featured {
+.galleryyachts-card--featured {
     /* Модификатор для выделенной карточки */
 }
 ```
@@ -131,11 +131,11 @@
 **Шаг 3:** Используйте в HTML/PHP:
 
 ```php
-<div class="vipflot-card">
-    <div class="vipflot-card__header">
-        <h3 class="vipflot-card__title">Заголовок</h3>
+<div class="galleryyachts-card">
+    <div class="galleryyachts-card__header">
+        <h3 class="galleryyachts-card__title">Заголовок</h3>
     </div>
-    <div class="vipflot-card__body">
+    <div class="galleryyachts-card__body">
         <p>Контент карточки</p>
     </div>
 </div>
@@ -146,10 +146,10 @@
 ```css
 /* ============================================
    КОМПОНЕНТ: BUTTON
-   Префикс: .vipflot-btn
+   Префикс: .galleryyachts-btn
    ============================================ */
 
-.vipflot-btn {
+.galleryyachts-btn {
     display: inline-block;
     padding: 12px 24px;
     border: none;
@@ -157,18 +157,18 @@
     transition: all 0.3s ease;
 }
 
-.vipflot-btn--primary {
+.galleryyachts-btn--primary {
     background-color: #1A1A1A;
     color: #fff;
 }
 
-.vipflot-btn--secondary {
+.galleryyachts-btn--secondary {
     background-color: transparent;
     border: 1px solid #1A1A1A;
     color: #1A1A1A;
 }
 
-.vipflot-btn--large {
+.galleryyachts-btn--large {
     padding: 16px 32px;
     font-size: 18px;
 }
@@ -176,8 +176,8 @@
 
 Использование:
 ```html
-<button class="vipflot-btn vipflot-btn--primary">Первичная кнопка</button>
-<button class="vipflot-btn vipflot-btn--secondary vipflot-btn--large">Большая вторичная</button>
+<button class="galleryyachts-btn galleryyachts-btn--primary">Первичная кнопка</button>
+<button class="galleryyachts-btn galleryyachts-btn--secondary galleryyachts-btn--large">Большая вторичная</button>
 ```
 
 ### 3. Пример: Секции
@@ -185,30 +185,30 @@
 ```css
 /* ============================================
    КОМПОНЕНТ: SECTION (Секция)
-   Префикс: .vipflot-section
+   Префикс: .galleryyachts-section
    ============================================ */
 
-.vipflot-section {
+.galleryyachts-section {
     padding: 60px 0;
 }
 
-.vipflot-section__title {
+.galleryyachts-section__title {
     font-family: "Bebas Neue", sans-serif;
     font-size: 42px;
     margin-bottom: 40px;
 }
 
-.vipflot-section__content {
+.galleryyachts-section__content {
     max-width: 800px;
     margin: 0 auto;
 }
 
-.vipflot-section--dark {
+.galleryyachts-section--dark {
     background-color: #1A1A1A;
     color: #fff;
 }
 
-.vipflot-section--no-padding {
+.galleryyachts-section--no-padding {
     padding: 0;
 }
 ```
@@ -226,59 +226,59 @@
 .nav-item { }
 
 /* Слишком глубокая вложенность */
-.vipflot-header .logo .text .inner .span { }
+.galleryyachts-header .logo .text .inner .span { }
 
 /* Использование ID для стилей */
 #header { }
 #main-nav { }
 
 /* Смешивание стилей компонентов */
-.vipflot-header .vipflot-card__title { }
+.galleryyachts-header .galleryyachts-card__title { }
 ```
 
 ### ✅ Правильно:
 
 ```css
 /* С префиксом */
-.vipflot-card { }
-.vipflot-btn { }
-.vipflot-header__nav-item { }
+.galleryyachts-card { }
+.galleryyachts-btn { }
+.galleryyachts-header__nav-item { }
 
 /* Плоская структура */
-.vipflot-header__logo-text { }
+.galleryyachts-header__logo-text { }
 
 /* Используйте классы */
-.vipflot-header { }
+.galleryyachts-header { }
 
 /* Каждый компонент независим */
-.vipflot-header__title { }
-.vipflot-card__title { }
+.galleryyachts-header__title { }
+.galleryyachts-card__title { }
 ```
 
 ---
 
 ## 🛠️ Утилитарные классы
 
-Для переиспользуемых стилей создайте утилитарные классы с префиксом `.vipflot-util-`:
+Для переиспользуемых стилей создайте утилитарные классы с префиксом `.galleryyachts-util-`:
 
 ```css
-.vipflot-util-text-center {
+.galleryyachts-util-text-center {
     text-align: center;
 }
 
-.vipflot-util-mb-20 {
+.galleryyachts-util-mb-20 {
     margin-bottom: 20px;
 }
 
-.vipflot-util-hidden {
+.galleryyachts-util-hidden {
     display: none;
 }
 
-.vipflot-util-flex {
+.galleryyachts-util-flex {
     display: flex;
 }
 
-.vipflot-util-grid {
+.galleryyachts-util-grid {
     display: grid;
 }
 ```
@@ -291,21 +291,21 @@
 
 ```css
 /* Компонент */
-.vipflot-hero {
+.galleryyachts-hero {
     padding: 100px 40px;
 }
 
-.vipflot-hero__title {
+.galleryyachts-hero__title {
     font-size: 64px;
 }
 
 /* Адаптивность компонента */
 @media (max-width: 768px) {
-    .vipflot-hero {
+    .galleryyachts-hero {
         padding: 60px 20px;
     }
     
-    .vipflot-hero__title {
+    .galleryyachts-hero__title {
         font-size: 36px;
     }
 }
@@ -331,7 +331,7 @@
 ```css
 /* ============================================
    КОМПОНЕНТ: [NAME] ([Описание])
-   Префикс: .vipflot-[name]
+   Префикс: .galleryyachts-[name]
    ============================================ */
 ```
 
@@ -341,17 +341,17 @@
 
 | Цель | Формат | Пример |
 |------|--------|--------|
-| Компонент | `.vipflot-[name]` | `.vipflot-card` |
-| Элемент | `.vipflot-[component]__[element]` | `.vipflot-card__title` |
-| Модификатор | `.vipflot-[component]--[modifier]` | `.vipflot-card--featured` |
-| Утилита | `.vipflot-util-[utility]` | `.vipflot-util-text-center` |
-| Вложенный элемент | `.vipflot-[component]__[element]-[subelement]` | `.vipflot-header__logo-text` |
+| Компонент | `.galleryyachts-[name]` | `.galleryyachts-card` |
+| Элемент | `.galleryyachts-[component]__[element]` | `.galleryyachts-card__title` |
+| Модификатор | `.galleryyachts-[component]--[modifier]` | `.galleryyachts-card--featured` |
+| Утилита | `.galleryyachts-util-[utility]` | `.galleryyachts-util-text-center` |
+| Вложенный элемент | `.galleryyachts-[component]__[element]-[subelement]` | `.galleryyachts-header__logo-text` |
 
 ---
 
 ## 📝 Контрольный список для нового компонента
 
-- [ ] Имя компонента начинается с `vipflot-`
+- [ ] Имя компонента начинается с `galleryyachts-`
 - [ ] Добавлен комментарий-заголовок секции в CSS
 - [ ] Все элементы используют двойное подчеркивание `__`
 - [ ] Модификаторы используют двойной дефис `--`

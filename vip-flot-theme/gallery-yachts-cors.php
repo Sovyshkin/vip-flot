@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: VIP FLOT CORS Handler
+ * Plugin Name: Галерея яхт CORS Handler
  * Description: Добавляет CORS заголовки для REST API
  * Version: 1.0
  */

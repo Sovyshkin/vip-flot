@@ -1,10 +1,10 @@
-# VIP FLOT - WordPress тема
+# Галерея яхт - WordPress тема
 
-Кастомная WordPress тема для сайта VIP FLOT - аренда яхт и катеров.
+Кастомная WordPress тема для сайта Галерея яхт - аренда яхт и катеров.
 
 ## 🚀 Ключевые особенности
 
-- ✅ **Защита от конфликтов стилей** - все классы используют префикс `vipflot-`
+- ✅ **Защита от конфликтов стилей** - все классы используют префикс `galleryyachts-`
 - ✅ **BEM-подобная методология** именования классов
 - ✅ **Адаптивный дизайн** - работает на всех устройствах
 - ✅ **Организованная структура CSS** - легко поддерживать и расширять
@@ -13,7 +13,7 @@
 ## 📁 Структура темы
 
 ```
-vip-flot-theme/
+gallery-yachts-theme/
 ├── style.css              # Основной файл стилей с метаданными темы
 ├── header.php             # Шаблон шапки сайта (AppHeader из Vue)
 ├── header-with-menu.php   # Альтернативная шапка с WordPress меню
@@ -27,17 +27,17 @@ vip-flot-theme/
 
 ## 📦 Установка темы
 
-1. Скопируйте папку `vip-flot-theme` в директорию `wp-content/themes/` вашего WordPress сайта
+1. Скопируйте папку `gallery-yachts-theme` в директорию `wp-content/themes/` вашего WordPress сайта
 
 2. Войдите в административную панель WordPress
 
 3. Перейдите в раздел **Внешний вид → Темы**
 
-4. Найдите тему "VIP FLOT Theme" и нажмите кнопку **Активировать**
+4. Найдите тему "Галерея яхт Theme" и нажмите кнопку **Активировать**
 
 ## 🎨 Система именования классов
 
-### Все классы компонентов используют префикс `vipflot-`
+### Все классы компонентов используют префикс `galleryyachts-`
 
 Это предотвращает конфликты с:
 - WordPress плагинами
@@ -47,14 +47,14 @@ vip-flot-theme/
 ### Формат именования (BEM-подобный)
 
 ```
-.vipflot-[компонент]__[элемент]--[модификатор]
+.galleryyachts-[компонент]__[элемент]--[модификатор]
 ```
 
 **Примеры:**
-- `.vipflot-header` - компонент шапки
-- `.vipflot-header__logo` - логотип внутри шапки
-- `.vipflot-header__nav-item` - элемент навигации
-- `.vipflot-btn--primary` - модификатор кнопки
+- `.galleryyachts-header` - компонент шапки
+- `.galleryyachts-header__logo` - логотип внутри шапки
+- `.galleryyachts-header__nav-item` - элемент навигации
+- `.galleryyachts-btn--primary` - модификатор кнопки
 
 ### 📖 Подробное руководство
 
@@ -74,22 +74,22 @@ vip-flot-theme/
 Шапка полностью повторяет структуру компонента AppHeader.vue с новыми классами:
 
 ```html
-<header class="vipflot-header">
-    <div class="vipflot-header__logo">
-        <a class="vipflot-header__logo-link">
-            <span class="vipflot-header__logo-text">VIP FLOT</span>
-            <span class="vipflot-header__logo-subtitle">Аренда яхт и катеров</span>
+<header class="galleryyachts-header">
+    <div class="galleryyachts-header__logo">
+        <a class="galleryyachts-header__logo-link">
+            <span class="galleryyachts-header__logo-text">Галерея яхт</span>
+            <span class="galleryyachts-header__logo-subtitle">Аренда яхт и катеров</span>
         </a>
     </div>
     
-    <nav class="vipflot-header__nav">
-        <li class="vipflot-header__nav-item">Наш флот</li>
+    <nav class="galleryyachts-header__nav">
+        <li class="galleryyachts-header__nav-item">Наш флот</li>
         <!-- ... -->
     </nav>
     
-    <div class="vipflot-header__contacts">
-        <span class="vipflot-header__contacts-phone">+7 (812) 660-55-16</span>
-        <span class="vipflot-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
+    <div class="galleryyachts-header__contacts">
+        <span class="galleryyachts-header__contacts-phone">+7 000 000 0000</span>
+        <span class="galleryyachts-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
     </div>
 </header>
 ```
@@ -101,12 +101,12 @@ CSS организован по компонентам с четкими сек�
 ```css
 /* ============================================
    КОМПОНЕНТ: HEADER (Шапка сайта)
-   Префикс: .vipflot-header
+   Префикс: .galleryyachts-header
    ============================================ */
 
-.vipflot-header { }
-.vipflot-header__logo { }
-.vipflot-header__nav { }
+.galleryyachts-header { }
+.galleryyachts-header__logo { }
+.galleryyachts-header__nav { }
 /* ... */
 ```
 
@@ -133,9 +133,9 @@ CSS организован по компонентам с четкими сек�
 Отредактируйте файл `header.php`, найдите блок:
 
 ```php
-<div class="vipflot-header__contacts">
-    <span class="vipflot-header__contacts-phone">+7 (812) 660-55-16</span>
-    <span class="vipflot-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
+<div class="galleryyachts-header__contacts">
+    <span class="galleryyachts-header__contacts-phone">+7 000 000 0000</span>
+    <span class="galleryyachts-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
 </div>
 ```
 
@@ -154,14 +154,14 @@ CSS организован по компонентам с четкими сек�
 ```css
 /* ============================================
    КОМПОНЕНТ: НАЗВАНИЕ
-   Префикс: .vipflot-название
+   Префикс: .galleryyachts-название
    ============================================ */
 
-.vipflot-название {
+.galleryyachts-название {
     /* Стили */
 }
 
-.vipflot-название__элемент {
+.galleryyachts-название__элемент {
     /* Стили элемента */
 }
 ```
@@ -191,7 +191,7 @@ CSS организован по компонентам с четкими сек�
 ### Перед добавлением кода:
 
 1. ✅ Прочитайте [CSS-NAMING-GUIDE.md](CSS-NAMING-GUIDE.md)
-2. ✅ Используйте префикс `vipflot-` для всех классов
+2. ✅ Используйте префикс `galleryyachts-` для всех классов
 3. ✅ Следуйте BEM-подобной структуре
 4. ✅ Добавляйте комментарии для секций
 5. ✅ Тестируйте на разных разрешениях
@@ -200,9 +200,9 @@ CSS организован по компонентам с четкими сек�
 
 | Тип | Формат | Пример |
 |-----|--------|--------|
-| Компонент | `.vipflot-[name]` | `.vipflot-card` |
-| Элемент | `.vipflot-[comp]__[elem]` | `.vipflot-card__title` |
-| Модификатор | `.vipflot-[comp]--[mod]` | `.vipflot-card--featured` |
+| Компонент | `.galleryyachts-[name]` | `.galleryyachts-card` |
+| Элемент | `.galleryyachts-[comp]__[elem]` | `.galleryyachts-card__title` |
+| Модификатор | `.galleryyachts-[comp]--[mod]` | `.galleryyachts-card--featured` |
 
 ## 🐛 Устранение проблем
 
@@ -215,9 +215,9 @@ CSS организован по компонентам с четкими сек�
 ### Конфликты стилей
 
 Если возникают конфликты с плагинами:
-1. Все классы темы имеют префикс `vipflot-`
+1. Все классы темы имеют префикс `galleryyachts-`
 2. Проверьте специфичность селекторов
-3. При необходимости увеличьте специфичность: `.vipflot-header.vipflot-header { }`
+3. При необходимости увеличьте специфичность: `.galleryyachts-header.galleryyachts-header { }`
 
 ## 📄 Лицензия
 

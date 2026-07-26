@@ -1,6 +1,6 @@
 <?php
 /**
- * VIP FLOT AJAX Handler
+ * Галерея яхт AJAX Handler
  * Обработчик AJAX запросов для форм бронирования
  */
 
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 /**
  * Обработчик AJAX для создания заявки (для неавторизованных пользователей)
  */
-function vip_flot_ajax_create_booking() {
+function gallery_yachts_ajax_create_booking() {
     // CORS заголовки
     $allowed_origins = array(
         'http://localhost:8080',
@@ -106,7 +106,7 @@ function vip_flot_ajax_create_booking() {
     
     // Создание заявки
     $post_id = wp_insert_post(array(
-        'post_type'   => 'vip_flot_booking',
+        'post_type'   => 'gallery_yachts_booking',
         'post_title'  => $post_title,
         'post_status' => 'publish',
         'meta_input'  => $meta_input,
@@ -120,7 +120,7 @@ function vip_flot_ajax_create_booking() {
     
     // Отправка email
     $admin_email = get_option('admin_email');
-    $subject = 'Новая заявка на бронирование - VIP Flot';
+    $subject = 'Новая заявка на бронирование - Галерея яхт';
     
     // Формирование тела письма
     $email_body = "Новая заявка на бронирование:\n\n";
@@ -166,6 +166,6 @@ function vip_flot_ajax_create_booking() {
 
 // Регистрация AJAX действий
 // wp_ajax_nopriv_ для неавторизованных пользователей
-add_action('wp_ajax_nopriv_vip_flot_booking', 'vip_flot_ajax_create_booking');
+add_action('wp_ajax_nopriv_gallery_yachts_booking', 'gallery_yachts_ajax_create_booking');
 // wp_ajax_ для авторизованных пользователей
-add_action('wp_ajax_vip_flot_booking', 'vip_flot_ajax_create_booking');
+add_action('wp_ajax_gallery_yachts_booking', 'gallery_yachts_ajax_create_booking');

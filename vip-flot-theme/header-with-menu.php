@@ -10,11 +10,11 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header class="vipflot-header">
-    <div class="vipflot-header__logo">
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="vipflot-header__logo-link">
-            <span class="vipflot-header__logo-text">VIP FLOT</span>
-            <span class="vipflot-header__logo-subtitle">Аренда яхт и катеров</span>
+<header class="galleryyachts-header">
+    <div class="galleryyachts-header__logo">
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="galleryyachts-header__logo-link">
+            <span class="galleryyachts-header__logo-text">Галерея яхт</span>
+            <span class="galleryyachts-header__logo-subtitle">Аренда яхт и катеров</span>
         </a>
     </div>
 
@@ -30,26 +30,26 @@
     if (has_nav_menu('primary')) :
         wp_nav_menu(array(
             'theme_location' => 'primary',
-            'menu_class'     => 'vipflot-header__nav',
+            'menu_class'     => 'galleryyachts-header__nav',
             'container'      => 'nav',
             'items_wrap'     => '<ul class="%2$s">%3$s</ul>',
-            'link_before'    => '<span class="vipflot-header__nav-item">',
+            'link_before'    => '<span class="galleryyachts-header__nav-item">',
             'link_after'     => '</span>',
         ));
     else :
         // Резервный вариант - статичное меню
         ?>
-        <nav class="vipflot-header__nav">
-            <li class="vipflot-header__nav-item"><a href="#">Наш флот</a></li>
-            <li class="vipflot-header__nav-item"><a href="#">Яхт-туры</a></li>
-            <li class="vipflot-header__nav-item"><a href="#">Маршруты</a></li>
-            <li class="vipflot-header__nav-item"><a href="#">Мероприятия</a></li>
-            <li class="vipflot-header__nav-item"><a href="#">Услуги</a></li>
+        <nav class="galleryyachts-header__nav">
+            <li class="galleryyachts-header__nav-item"><a href="#">Наш флот</a></li>
+            <li class="galleryyachts-header__nav-item"><a href="#">Яхт-туры</a></li>
+            <li class="galleryyachts-header__nav-item"><a href="#">Маршруты</a></li>
+            <li class="galleryyachts-header__nav-item"><a href="#">Мероприятия</a></li>
+            <li class="galleryyachts-header__nav-item"><a href="#">Услуги</a></li>
         </nav>
     <?php endif; ?>
 
-    <div class="vipflot-header__contacts">
-        <span class="vipflot-header__contacts-phone">+7 (812) 660-55-16</span>
-        <span class="vipflot-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
+    <div class="galleryyachts-header__contacts">
+        <span class="galleryyachts-header__contacts-phone">+7 000 000 0000</span>
+        <span class="galleryyachts-header__contacts-schedule">Пн-вс 9:00 - 23:00</span>
     </div>
 </header>

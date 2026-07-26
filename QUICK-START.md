@@ -1,4 +1,4 @@
-# Быстрая настройка VIP FLOT
+# Быстрая настройка Галерея яхт
 
 ## Шаг 1: Настройка WordPress
 
@@ -6,13 +6,13 @@
    
 2. **Скопируйте тему в WordPress:**
    ```bash
-   cp -r vip-flot-theme /path/to/wordpress/wp-content/themes/
+   cp -r gallery-yachts-theme /path/to/wordpress/wp-content/themes/
    ```
 
 3. **Активируйте тему:**
    - Войдите в админку WordPress
    - Перейдите: Внешний вид → Темы
-   - Активируйте "VIP FLOT"
+   - Активируйте "Галерея яхт"
 
 4. **Проверьте, что раздел "Заявки" появился** в меню админки
 
@@ -36,7 +36,7 @@
 4. **Измените API URL в .env:**
    ```env
    # Замените на ваш URL WordPress
-   VUE_APP_API_URL=http://localhost/wordpress/wp-json/vip-flot/v1/booking
+   VUE_APP_API_URL=http://localhost/wordpress/wp-json/gallery-yachts/v1/booking
    ```
 
 5. **Запустите dev-сервер:**
@@ -79,7 +79,7 @@
 **Решение 1:** Проверьте URL в .env
 ```bash
 # Убедитесь, что WordPress доступен
-curl http://localhost/wordpress/wp-json/vip-flot/v1/booking
+curl http://localhost/wordpress/wp-json/gallery-yachts/v1/booking
 ```
 
 **Решение 2:** Проверьте CORS

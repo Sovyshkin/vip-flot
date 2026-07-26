@@ -1,20 +1,20 @@
-# 🚀 Быстрый старт - VIP FLOT Theme
+# 🚀 Быстрый старт - Галерея яхт Theme
 
 ## ⚡ Установка за 5 минут
 
 ### Шаг 1: Установка темы
 ```bash
-# 1. Скопируйте папку vip-flot-theme в wp-content/themes/
-cp -r vip-flot-theme /path/to/wordpress/wp-content/themes/
+# 1. Скопируйте папку gallery-yachts-theme в wp-content/themes/
+cp -r gallery-yachts-theme /path/to/wordpress/wp-content/themes/
 
 # 2. Откройте WordPress админ-панель
 # 3. Перейдите: Внешний вид → Темы
-# 4. Активируйте "VIP FLOT Theme"
+# 4. Активируйте "Галерея яхт Theme"
 ```
 
 ### Шаг 2: Проверка
 Откройте ваш сайт — вы должны увидеть:
-- ✅ Шапку с логотипом "VIP FLOT"
+- ✅ Шапку с логотипом "Галерея яхт"
 - ✅ Навигационное меню
 - ✅ Контактный телефон в правом верхнем углу
 
@@ -34,8 +34,8 @@ cp -r vip-flot-theme /path/to/wordpress/wp-content/themes/
 
 Отредактируйте `header.php` (строки 24-25):
 ```php
-<span class="vipflot-header__contacts-phone">+7 (YOUR) PHONE-NUMBER</span>
-<span class="vipflot-header__contacts-schedule">Ваш график работы</span>
+<span class="galleryyachts-header__contacts-phone">+7 (YOUR) PHONE-NUMBER</span>
+<span class="galleryyachts-header__contacts-schedule">Ваш график работы</span>
 ```
 
 ### Настройка меню (опционально)
@@ -57,22 +57,22 @@ cp -r vip-flot-theme /path/to/wordpress/wp-content/themes/
 ```css
 /* ============================================
    КОМПОНЕНТ: SERVICES (Услуги)
-   Префикс: .vipflot-services
+   Префикс: .galleryyachts-services
    ============================================ */
 
-.vipflot-services {
+.galleryyachts-services {
     padding: 80px 40px;
     background: #F5F5F5;
 }
 
-.vipflot-services__title {
+.galleryyachts-services__title {
     font-family: "Bebas Neue", sans-serif;
     font-size: 48px;
     text-align: center;
     margin-bottom: 60px;
 }
 
-.vipflot-services__grid {
+.galleryyachts-services__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -80,20 +80,20 @@ cp -r vip-flot-theme /path/to/wordpress/wp-content/themes/
     margin: 0 auto;
 }
 
-.vipflot-services__item {
+.galleryyachts-services__item {
     background: #fff;
     padding: 30px;
     border-radius: 8px;
     text-align: center;
 }
 
-.vipflot-services__item-title {
+.galleryyachts-services__item-title {
     font-size: 24px;
     margin-bottom: 15px;
     color: #1A1A1A;
 }
 
-.vipflot-services__item-text {
+.galleryyachts-services__item-text {
     font-size: 14px;
     color: #666;
     line-height: 1.6;
@@ -107,23 +107,23 @@ cp -r vip-flot-theme /path/to/wordpress/wp-content/themes/
 /* Template Name: Услуги */
 get_header(); ?>
 
-<section class="vipflot-services">
-    <h2 class="vipflot-services__title">Наши услуги</h2>
+<section class="galleryyachts-services">
+    <h2 class="galleryyachts-services__title">Наши услуги</h2>
     
-    <div class="vipflot-services__grid">
-        <div class="vipflot-services__item">
-            <h3 class="vipflot-services__item-title">Аренда яхт</h3>
-            <p class="vipflot-services__item-text">Современные яхты для любого мероприятия</p>
+    <div class="galleryyachts-services__grid">
+        <div class="galleryyachts-services__item">
+            <h3 class="galleryyachts-services__item-title">Аренда яхт</h3>
+            <p class="galleryyachts-services__item-text">Современные яхты для любого мероприятия</p>
         </div>
         
-        <div class="vipflot-services__item">
-            <h3 class="vipflot-services__item-title">Круизы</h3>
-            <p class="vipflot-services__item-text">Незабываемые морские путешествия</p>
+        <div class="galleryyachts-services__item">
+            <h3 class="galleryyachts-services__item-title">Круизы</h3>
+            <p class="galleryyachts-services__item-text">Незабываемые морские путешествия</p>
         </div>
         
-        <div class="vipflot-services__item">
-            <h3 class="vipflot-services__item-title">Мероприятия</h3>
-            <p class="vipflot-services__item-text">Организация праздников на воде</p>
+        <div class="galleryyachts-services__item">
+            <h3 class="galleryyachts-services__item-title">Мероприятия</h3>
+            <p class="galleryyachts-services__item-text">Организация праздников на воде</p>
         </div>
     </div>
 </section>
@@ -144,17 +144,17 @@ get_header(); ?>
 
 ### Кнопка
 ```html
-<a href="#" class="vipflot-btn vipflot-btn--primary">Кнопка</a>
-<a href="#" class="vipflot-btn vipflot-btn--secondary">Кнопка</a>
-<a href="#" class="vipflot-btn vipflot-btn--primary vipflot-btn--large">Большая</a>
+<a href="#" class="galleryyachts-btn galleryyachts-btn--primary">Кнопка</a>
+<a href="#" class="galleryyachts-btn galleryyachts-btn--secondary">Кнопка</a>
+<a href="#" class="galleryyachts-btn galleryyachts-btn--primary galleryyachts-btn--large">Большая</a>
 ```
 
 ### Секция
 ```html
-<section class="vipflot-section">
-    <div class="vipflot-section__container">
-        <h2 class="vipflot-section__title">Заголовок</h2>
-        <div class="vipflot-section__content">
+<section class="galleryyachts-section">
+    <div class="galleryyachts-section__container">
+        <h2 class="galleryyachts-section__title">Заголовок</h2>
+        <div class="galleryyachts-section__content">
             <!-- Контент -->
         </div>
     </div>
@@ -163,10 +163,10 @@ get_header(); ?>
 
 ### Сетка
 ```html
-<div class="vipflot-grid vipflot-grid--3-cols">
-    <div class="vipflot-grid__item">Элемент 1</div>
-    <div class="vipflot-grid__item">Элемент 2</div>
-    <div class="vipflot-grid__item">Элемент 3</div>
+<div class="galleryyachts-grid galleryyachts-grid--3-cols">
+    <div class="galleryyachts-grid__item">Элемент 1</div>
+    <div class="galleryyachts-grid__item">Элемент 2</div>
+    <div class="galleryyachts-grid__item">Элемент 3</div>
 </div>
 ```
 
@@ -186,8 +186,8 @@ get_header(); ?>
 ## 🎯 Золотые правила
 
 ### ✅ Всегда:
-1. Используйте префикс `.vipflot-` для всех классов
-2. Следуйте структуре: `.vipflot-[компонент]__[элемент]--[модификатор]`
+1. Используйте префикс `.galleryyachts-` для всех классов
+2. Следуйте структуре: `.galleryyachts-[компонент]__[элемент]--[модификатор]`
 3. Добавляйте комментарии для новых секций CSS
 4. Тестируйте на мобильных устройствах
 5. Читайте [CSS-NAMING-GUIDE.md](CSS-NAMING-GUIDE.md) перед созданием компонентов
@@ -213,7 +213,7 @@ get_header(); ?>
 ### Конфликт с плагином
 ```css
 /* Увеличьте специфичность в style.css */
-.vipflot-header.vipflot-header {
+.galleryyachts-header.galleryyachts-header {
     /* Ваши стили */
 }
 ```
@@ -222,7 +222,7 @@ get_header(); ?>
 ```css
 /* Проверьте медиа-запросы в конце style.css */
 @media (max-width: 768px) {
-    .vipflot-YOUR-component {
+    .galleryyachts-YOUR-component {
         /* Адаптивные стили */
     }
 }
@@ -248,4 +248,4 @@ get_header(); ?>
 - ✅ Кастомизировать дизайн
 - ✅ Расширять функциональность
 
-**Приятной работы с VIP FLOT Theme!** 🚢
+**Приятной работы с Галерея яхт Theme!** 🚢

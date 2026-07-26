@@ -1,7 +1,7 @@
-# 📁 Структура темы VIP FLOT
+# 📁 Структура темы Галерея яхт
 
 ```
-vip-flot-theme/
+gallery-yachts-theme/
 │
 ├── 📄 ОСНОВНЫЕ ФАЙЛЫ ТЕМЫ
 │   ├── style.css                   # Главный файл стилей + метаданные темы
@@ -73,7 +73,7 @@ vip-flot-theme/
 **Назначение:** Шаблон шапки сайта
 - `<head>` с метатегами
 - Вызов `wp_head()`
-- HTML разметка header с классами `.vipflot-header*`
+- HTML разметка header с классами `.galleryyachts-header*`
 - Логотип с ссылкой на главную
 - Статичное меню навигации
 - Контактная информация
@@ -93,12 +93,12 @@ vip-flot-theme/
 **Назначение:** Главный шаблон (blog loop)
 - Используется для списка записей
 - Цикл WordPress (`while have_posts`)
-- Классы `.vipflot-layout__main` и `.vipflot-page__content`
+- Классы `.galleryyachts-layout__main` и `.galleryyachts-page__content`
 
 #### `page.php`
 **Назначение:** Шаблон отдельных страниц
 - Аналогично index.php, но для страниц
-- Добавлен заголовок `.vipflot-page__title`
+- Добавлен заголовок `.galleryyachts-page__title`
 
 ---
 
@@ -169,28 +169,28 @@ vip-flot-theme/
 
 ## 🎨 Система классов
 
-### Префикс: `vipflot-`
+### Префикс: `galleryyachts-`
 
 Все классы компонентов используют префикс для предотвращения конфликтов.
 
 ### Формат (BEM-подобный):
 
 ```
-.vipflot-[компонент]__[элемент]--[модификатор]
+.galleryyachts-[компонент]__[элемент]--[модификатор]
 ```
 
 ### Примеры:
 
 | Класс | Описание |
 |-------|----------|
-| `.vipflot-header` | Компонент шапки |
-| `.vipflot-header__logo` | Логотип в шапке |
-| `.vipflot-header__logo-text` | Текст логотипа |
-| `.vipflot-header__nav` | Навигация в шапке |
-| `.vipflot-header__nav-item` | Элемент навигации |
-| `.vipflot-btn` | Базовая кнопка |
-| `.vipflot-btn--primary` | Первичная кнопка (модификатор) |
-| `.vipflot-btn--large` | Большая кнопка (модификатор) |
+| `.galleryyachts-header` | Компонент шапки |
+| `.galleryyachts-header__logo` | Логотип в шапке |
+| `.galleryyachts-header__logo-text` | Текст логотипа |
+| `.galleryyachts-header__nav` | Навигация в шапке |
+| `.galleryyachts-header__nav-item` | Элемент навигации |
+| `.galleryyachts-btn` | Базовая кнопка |
+| `.galleryyachts-btn--primary` | Первичная кнопка (модификатор) |
+| `.galleryyachts-btn--large` | Большая кнопка (модификатор) |
 
 ---
 
@@ -223,26 +223,26 @@ vip-flot-theme/
 /* В style.css: */
 /* ============================================
    КОМПОНЕНТ: НАЗВАНИЕ
-   Префикс: .vipflot-название
+   Префикс: .galleryyachts-название
    ============================================ */
 
-.vipflot-название {
+.galleryyachts-название {
     /* Стили компонента */
 }
 
-.vipflot-название__элемент {
+.galleryyachts-название__элемент {
     /* Стили элемента */
 }
 
-.vipflot-название--модификатор {
+.galleryyachts-название--модификатор {
     /* Вариант компонента */
 }
 ```
 
 ```html
 <!-- В HTML/PHP: -->
-<div class="vipflot-название">
-    <div class="vipflot-название__элемент">
+<div class="galleryyachts-название">
+    <div class="galleryyachts-название__элемент">
         Контент
     </div>
 </div>
@@ -274,7 +274,7 @@ get_header(); ?>
 
 ### Перед добавлением компонента:
 - [ ] Изучены примеры в [COMPONENT-TEMPLATES.php](COMPONENT-TEMPLATES.php)
-- [ ] Выбрано уникальное имя с префиксом `vipflot-`
+- [ ] Выбрано уникальное имя с префиксом `galleryyachts-`
 - [ ] Подготовлена структура HTML
 - [ ] Подготовлены CSS стили
 

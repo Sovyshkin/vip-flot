@@ -1,15 +1,15 @@
-# VIP FLOT - Интеграция Vue + WordPress
+# Галерея яхт - Интеграция Vue + WordPress
 
 ## Структура проекта
 
 ```
-vip-flot/
+gallery-yachts/
 ├── app/                    # Vue.js фронтенд
 │   ├── src/
 │   │   └── components/
 │   │       └── RequestBook.vue  # Форма бронирования
 │   └── .env               # Конфигурация API
-└── vip-flot-theme/        # WordPress тема (бэкенд)
+└── gallery-yachts-theme/        # WordPress тема (бэкенд)
     └── functions.php      # API endpoints и админ-панель
 ```
 
@@ -17,19 +17,19 @@ vip-flot/
 
 ### 1. Установка темы
 
-1. Скопируйте папку `vip-flot-theme` в директорию тем WordPress:
+1. Скопируйте папку `gallery-yachts-theme` в директорию тем WordPress:
    ```
-   /wp-content/themes/vip-flot-theme
+   /wp-content/themes/gallery-yachts-theme
    ```
 
 2. Активируйте тему в админ-панели WordPress:
    - Перейдите в `Внешний вид` → `Темы`
-   - Активируйте тему "VIP FLOT"
+   - Активируйте тему "Галерея яхт"
 
 ### 2. Что добавлено в functions.php
 
-- **Custom Post Type** `vip_flot_booking` для хранения заявок
-- **REST API endpoint**: `/wp-json/vip-flot/v1/booking` (POST)
+- **Custom Post Type** `gallery_yachts_booking` для хранения заявок
+- **REST API endpoint**: `/wp-json/gallery-yachts/v1/booking` (POST)
 - **CORS настройки** для работы с localhost во время разработки
 - **Админ-панель** для просмотра заявок
 - **Email уведомления** администратору о новых заявках
@@ -67,12 +67,12 @@ cp .env.example .env
 
 **Для локальной разработки:**
 ```env
-VUE_APP_API_URL=http://localhost/wordpress/wp-json/vip-flot/v1/booking
+VUE_APP_API_URL=http://localhost/wordpress/wp-json/gallery-yachts/v1/booking
 ```
 
 **Для продакшена:**
 ```env
-VUE_APP_API_URL=https://yourdomain.com/wp-json/vip-flot/v1/booking
+VUE_APP_API_URL=https://yourdomain.com/wp-json/gallery-yachts/v1/booking
 ```
 
 ### 3. Запуск dev-сервера
@@ -116,7 +116,7 @@ npm run build
 
 ## API Endpoint
 
-### POST `/wp-json/vip-flot/v1/booking`
+### POST `/wp-json/gallery-yachts/v1/booking`
 
 **Тело запроса (JSON):**
 ```json
@@ -167,7 +167,7 @@ $allowed_origins = array(
 
 **Формат письма:**
 ```
-Тема: Новая заявка на бронирование - VIP Flot
+Тема: Новая заявка на бронирование - Галерея яхт
 
 Новая заявка на бронирование:
 
@@ -210,7 +210,7 @@ $allowed_origins = array(
 
 ### WordPress тема
 
-1. Загрузите папку `vip-flot-theme` на сервер в `/wp-content/themes/`
+1. Загрузите папку `gallery-yachts-theme` на сервер в `/wp-content/themes/`
 2. Активируйте тему
 3. Обновите `$allowed_origins` в `functions.php` с доменом фронтенда
 

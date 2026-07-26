@@ -1,8 +1,19 @@
 <template>
   <header class="site-header">
     <router-link to="/" class="site-header__logo">
-      <span class="site-header__logo-text">ГАЛЕРЕЯ ЯХТ</span>
-      <span class="site-header__logo-subtitle">Аренда яхт и катеров</span>
+      <img
+        src="/favicon.png"
+        alt="Галерея яхт"
+        class="site-header__logo-mark"
+        width="52"
+        height="52"
+        loading="eager"
+        decoding="async"
+      />
+      <span class="site-header__logo-copy">
+        <span class="site-header__logo-text">Галерея Яхт</span>
+        <span class="site-header__logo-subtitle">Аренда яхт и катеров</span>
+      </span>
     </router-link>
 
     <nav class="site-header__nav">
@@ -32,7 +43,21 @@
   <transition name="drawer">
     <div v-if="mobileMenuOpen" class="mobile-drawer">
       <div class="mobile-drawer__header">
-        <span class="mobile-drawer__logo">ГАЛЕРЕЯ ЯХТ</span>
+        <span class="mobile-drawer__logo">
+          <img
+            src="/favicon.png"
+            alt="Галерея яхт"
+            class="mobile-drawer__logo-mark"
+            width="34"
+            height="34"
+            loading="eager"
+            decoding="async"
+          />
+          <span class="mobile-drawer__logo-copy">
+            <span class="mobile-drawer__logo-text">Галерея Яхт</span>
+            <span class="mobile-drawer__logo-subtitle">Аренда яхт и катеров</span>
+          </span>
+        </span>
         <button class="mobile-drawer__close" @click="toggleMobileMenu" aria-label="Закрыть">×</button>
       </div>
 
@@ -137,13 +162,27 @@ function scrollToSection(sectionId) {
 /* Header - Блок Логотипа */
 .site-header__logo {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
-  min-height: 28px;
+  gap: 10px;
+  min-height: 52px;
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.2s ease;
+}
+
+.site-header__logo-mark {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(16, 42, 95, 0.14));
+}
+
+.site-header__logo-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 }
 
 .site-header__logo:hover {
@@ -151,20 +190,25 @@ function scrollToSection(sectionId) {
 }
 
 .site-header__logo-text {
-  font-family: var(--font-logo);
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: #1a1a1a;
-  line-height: 1;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #102a5f;
+  line-height: 0.95;
+  white-space: nowrap;
 }
 
 .site-header__logo-subtitle {
-  font-weight: 200;
+  font-family: var(--font-base);
+  font-weight: 500;
   font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: #949ca4;
   line-height: 1;
+  white-space: nowrap;
 }
 
 /* Header - Навигация */
@@ -327,16 +371,24 @@ function scrollToSection(sectionId) {
   }
   
   .site-header__logo-text {
-    font-size: 16px;
-    letter-spacing: 6px;
+    font-size: 15px;
+    letter-spacing: 0.03em;
   }
   
   .site-header__logo-subtitle {
-    font-size: 8px;
+    font-size: 6px;
+    letter-spacing: 0.12em;
   }
 
   .site-header__logo {
-    min-height: 28px;
+    gap: 8px;
+    min-height: 42px;
+  }
+
+  .site-header__logo-mark {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
   }
 }
 
@@ -370,10 +422,41 @@ function scrollToSection(sectionId) {
 }
 
 .mobile-drawer__logo {
-  font-family: var(--font-logo);
-  font-size: 26px;
-  letter-spacing: 8px;
-  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-drawer__logo-mark {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  object-fit: contain;
+}
+
+.mobile-drawer__logo-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-drawer__logo-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #102a5f;
+  line-height: 1;
+}
+
+.mobile-drawer__logo-subtitle {
+  font-family: var(--font-base);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #949ca4;
+  line-height: 1;
 }
 
 .mobile-drawer__close {
