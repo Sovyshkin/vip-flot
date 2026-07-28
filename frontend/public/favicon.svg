@@ -1,13 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" fill="#0076FC" rx="20"/>
-  <g fill="white">
-    <!-- Sail -->
-    <path d="M 35 25 L 35 70 L 60 45 Z" opacity="0.9"/>
-    <path d="M 35 45 L 35 70 L 70 60 Z" opacity="1"/>
-    <!-- Mast -->
-    <rect x="33" y="22" width="4" height="48" rx="2"/>
-    <!-- Hull -->
-    <ellipse cx="50" cy="70" rx="25" ry="6"/>
-    <path d="M 25 70 Q 30 75 50 76 Q 70 75 75 70 L 72 68 Q 68 72 50 73 Q 32 72 28 68 Z"/>
-  </g>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="40" y="40" width="432" height="432" rx="82" fill="#1A1A1A"/>
+  <path d="M151 335V218C151 148 202 104 276 104H397L366 155H276C228 155 199 183 199 229V283H249V230C249 202 269 184 300 184H357L342 229H304C296 229 291 234 291 242V335H151Z" fill="#FFFFFF"/>
+  <path d="M151 303C207 270 273 286 331 274C359 268 381 259 397 247C382 288 337 309 276 309C229 309 190 301 151 326V303Z" fill="#0076FC"/>
+  <path d="M151 356C206 324 270 338 324 329C344 326 361 321 374 314C358 356 317 378 258 377C216 376 181 376 151 395V356Z" fill="#0076FC"/>
 </svg>
