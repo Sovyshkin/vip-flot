@@ -1,17 +1,9 @@
 <template>
   <header class="site-header">
     <router-link to="/" class="site-header__logo">
-      <img
-        src="/favicon.png"
-        alt="Галерея яхт"
-        class="site-header__logo-mark"
-        width="52"
-        height="52"
-        loading="eager"
-        decoding="async"
-      />
       <span class="site-header__logo-copy">
-        <span class="site-header__logo-text">Галерея Яхт</span>
+        <span class="site-header__logo-text">Галерея</span>
+        <span class="site-header__logo-accent">Яхт</span>
         <span class="site-header__logo-subtitle">Аренда яхт и катеров</span>
       </span>
     </router-link>
@@ -44,17 +36,9 @@
     <div v-if="mobileMenuOpen" class="mobile-drawer">
       <div class="mobile-drawer__header">
         <span class="mobile-drawer__logo">
-          <img
-            src="/favicon.png"
-            alt="Галерея яхт"
-            class="mobile-drawer__logo-mark"
-            width="34"
-            height="34"
-            loading="eager"
-            decoding="async"
-          />
           <span class="mobile-drawer__logo-copy">
-            <span class="mobile-drawer__logo-text">Галерея Яхт</span>
+            <span class="mobile-drawer__logo-text">Галерея</span>
+            <span class="mobile-drawer__logo-accent">Яхт</span>
             <span class="mobile-drawer__logo-subtitle">Аренда яхт и катеров</span>
           </span>
         </span>
@@ -163,26 +147,17 @@ function scrollToSection(sectionId) {
 .site-header__logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 52px;
+  min-height: 44px;
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.2s ease;
 }
 
-.site-header__logo-mark {
-  width: 52px;
-  height: 52px;
-  flex: 0 0 52px;
-  object-fit: contain;
-  filter: drop-shadow(0 10px 18px rgba(16, 42, 95, 0.14));
-}
-
 .site-header__logo-copy {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
+  align-items: flex-start;
+  gap: 0;
 }
 
 .site-header__logo:hover {
@@ -190,12 +165,23 @@ function scrollToSection(sectionId) {
 }
 
 .site-header__logo-text {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 0.04em;
-  text-transform: none;
-  color: #102a5f;
+  font-family: var(--font-base);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+
+.site-header__logo-accent {
+  font-family: var(--font-base);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0076fc;
   line-height: 0.95;
   white-space: nowrap;
 }
@@ -203,10 +189,10 @@ function scrollToSection(sectionId) {
 .site-header__logo-subtitle {
   font-family: var(--font-base);
   font-weight: 500;
-  font-size: 8px;
-  letter-spacing: 0.16em;
+  font-size: 7px;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: #949ca4;
+  color: #1a1a1a;
   line-height: 1;
   white-space: nowrap;
 }
@@ -371,24 +357,22 @@ function scrollToSection(sectionId) {
   }
   
   .site-header__logo-text {
-    font-size: 15px;
-    letter-spacing: 0.03em;
+    font-size: 18px;
+    letter-spacing: 0.14em;
+  }
+
+  .site-header__logo-accent {
+    font-size: 18px;
+    letter-spacing: 0.12em;
   }
   
   .site-header__logo-subtitle {
     font-size: 6px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.26em;
   }
 
   .site-header__logo {
-    gap: 8px;
-    min-height: 42px;
-  }
-
-  .site-header__logo-mark {
-    width: 38px;
-    height: 38px;
-    flex-basis: 38px;
+    min-height: 40px;
   }
 }
 
@@ -424,38 +408,42 @@ function scrollToSection(sectionId) {
 .mobile-drawer__logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.mobile-drawer__logo-mark {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  object-fit: contain;
 }
 
 .mobile-drawer__logo-copy {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: flex-start;
+  gap: 0;
 }
 
 .mobile-drawer__logo-text {
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-base);
   font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #102a5f;
-  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  line-height: 0.9;
+}
+
+.mobile-drawer__logo-accent {
+  font-family: var(--font-base);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0076fc;
+  line-height: 0.95;
 }
 
 .mobile-drawer__logo-subtitle {
   font-family: var(--font-base);
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #949ca4;
+  color: #1a1a1a;
   line-height: 1;
 }
 
