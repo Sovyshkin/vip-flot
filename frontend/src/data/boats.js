@@ -1919,8 +1919,8 @@ Modena идеально подходит для незабываемых мер�
 
 Галерея яхт приглашает вас на борт катера Modena — это премиальное судно и безупречный сервис. По вашему желанию мы организуем кейтеринг, декор или пригласим опытного гида, чтобы ваша прогулка стала ещё ярче и познавательнее.`,
     cardImage: [
-      "https://optim.tildacdn.com/stor3939-3234-4337-b462-323362626238/-/resize/600x400/-/format/webp/a4ce7a34cadd411cdb8c0b8cc02196d1.webp",
-      "https://optim.tildacdn.com/stor3962-3138-4437-b432-306236643966/-/resize/600x400/-/format/webp/62793040.jpg.webp"
+      "/images/imported/boats/modena/2024-07-21_231818.jpg-1.webp",
+      "/images/imported/boats/modena/2024-07-21_231827.jpg-1.webp"
     ],
     images: [
       "/images/imported/boats/modena/2024-07-21_231818.jpg-1.webp",
