@@ -1640,7 +1640,7 @@ function onPhoneKeydown(e) {
 .fullscreen-carousel-wrapper {
   width: 100%;
   max-width: 1400px;
-  height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1664,13 +1664,21 @@ function onPhoneKeydown(e) {
 }
 
 .fullscreen-carousel-wrapper :deep(.carousel-slide) {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   background: #000 !important;
 }
 
 .fullscreen-carousel-wrapper :deep(.carousel-slide img) {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: #000 !important;
 }
 
 .thumbnails-strip {
@@ -1801,12 +1809,13 @@ function onPhoneKeydown(e) {
   }
 
   .fullscreen-modal {
-    padding: 70px 10px 50px;
+    padding: 58px 10px 12px;
   }
 
   .fullscreen-carousel-wrapper {
     max-width: 100%;
-    height: calc(100vh - 120px);
+    height: calc(100dvh - 70px);
+    max-height: calc(100dvh - 70px);
   }
 
   .fullscreen-carousel-wrapper :deep(.carousel) {
@@ -2129,11 +2138,12 @@ function onPhoneKeydown(e) {
   }
 
   .fullscreen-modal {
-    padding: 60px 5px 40px;
+    padding: 54px 5px 10px;
   }
 
   .fullscreen-carousel-wrapper {
-    height: calc(100vh - 100px);
+    height: calc(100dvh - 64px);
+    max-height: calc(100dvh - 64px);
   }
 
   .fullscreen-carousel-wrapper :deep(.carousel) {
