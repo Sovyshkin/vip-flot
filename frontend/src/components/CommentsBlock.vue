@@ -329,7 +329,7 @@ onBeforeUnmount(() => {
 
 .rating img {
     display: block;
-    width: 76px;
+    width: 64px;
     height: auto;
 }
 
