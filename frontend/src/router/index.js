@@ -41,6 +41,11 @@ const router = createRouter({
       return savedPosition
     }
     if (to.hash) {
+      if (window.__skipNextHashScroll === to.hash) {
+        window.__skipNextHashScroll = null
+        return false
+      }
+
       return new Promise((resolve) => {
         setTimeout(() => {
           const element = document.querySelector(to.hash)

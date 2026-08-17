@@ -1,23 +1,81 @@
-const HEADER_OFFSET = 68
+const DEFAULT_HEADER_OFFSET = 68
 const MAX_ELEMENT_WAIT_ATTEMPTS = 30
-const MAX_LAYOUT_SYNC_ATTEMPTS = 12
-const ELEMENT_RETRY_DELAY = 120
-const LAYOUT_RETRY_DELAY = 180
-const POSITION_TOLERANCE = 6
+const MAX_LAYOUT_SYNC_ATTEMPTS = 8
+const ELEMENT_RETRY_DELAY = 80
+const LAYOUT_RETRY_DELAY = 220
+const POSITION_TOLERANCE = 8
+const SCROLL_DURATION = 720
+
+let activeScrollFrame = null
+
+function getHeaderOffset() {
+  const header = document.querySelector('.site-header')
+  const headerHeight = header?.getBoundingClientRect().height || DEFAULT_HEADER_OFFSET
+
+  return Math.round(headerHeight + 12)
+}
 
 function getElementTop(id) {
   const element = document.getElementById(id)
 
   if (!element) return null
 
-  const top = element.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET
+  const top = element.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset()
   return Math.max(top, 0)
 }
 
-function smoothScrollTo(top) {
-  window.scrollTo({
-    top,
-    behavior: 'smooth'
+function easeInOutCubic(progress) {
+  return progress < 0.5
+    ? 4 * progress * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 3) / 2
+}
+
+function cancelActiveScroll() {
+  if (activeScrollFrame !== null) {
+    window.cancelAnimationFrame(activeScrollFrame)
+    activeScrollFrame = null
+  }
+}
+
+function smoothScrollToElement(id, duration = SCROLL_DURATION) {
+  cancelActiveScroll()
+
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    const reducedMotionTop = getElementTop(id)
+    if (reducedMotionTop !== null) {
+      window.scrollTo({ top: reducedMotionTop })
+    }
+    return Promise.resolve()
+  }
+
+  const startTop = window.pageYOffset
+  const startedAt = performance.now()
+
+  return new Promise((resolve) => {
+    function step(now) {
+      const targetTop = getElementTop(id)
+
+      if (targetTop === null) {
+        activeScrollFrame = null
+        resolve()
+        return
+      }
+
+      const progress = Math.min((now - startedAt) / duration, 1)
+      const nextTop = startTop + (targetTop - startTop) * easeInOutCubic(progress)
+
+      window.scrollTo({ top: nextTop })
+
+      if (progress < 1) {
+        activeScrollFrame = window.requestAnimationFrame(step)
+        return
+      }
+
+      activeScrollFrame = null
+      resolve()
+    }
+
+    activeScrollFrame = window.requestAnimationFrame(step)
   })
 }
 
@@ -41,6 +99,14 @@ function waitForElement(id, attempt = 0) {
   })
 }
 
+function waitForPaint() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(resolve)
+    })
+  })
+}
+
 function syncScrollWithLayout(id, attempt = 0) {
   const targetTop = getElementTop(id)
 
@@ -49,13 +115,10 @@ function syncScrollWithLayout(id, attempt = 0) {
   const distance = Math.abs(window.pageYOffset - targetTop)
 
   if (distance <= POSITION_TOLERANCE || attempt >= MAX_LAYOUT_SYNC_ATTEMPTS) {
-    if (distance > POSITION_TOLERANCE) {
-      window.scrollTo({ top: targetTop, behavior: 'auto' })
-    }
     return
   }
 
-  smoothScrollTo(targetTop)
+  window.scrollTo({ top: targetTop })
 
   window.setTimeout(() => {
     syncScrollWithLayout(id, attempt + 1)
@@ -65,13 +128,21 @@ function syncScrollWithLayout(id, attempt = 0) {
 export async function scrollToElementById(id) {
   const element = await waitForElement(id)
 
-  if (!element) return
+  if (!element) return false
 
-  smoothScrollTo(getElementTop(id))
+  await waitForPaint()
+
+  const targetTop = getElementTop(id)
+
+  if (targetTop === null) return false
+
+  await smoothScrollToElement(id)
 
   window.setTimeout(() => {
     syncScrollWithLayout(id)
   }, LAYOUT_RETRY_DELAY)
+
+  return true
 }
 
 export async function navigateToSection(router, id) {
@@ -79,10 +150,11 @@ export async function navigateToSection(router, id) {
   const currentRoute = router.currentRoute.value
 
   if (currentRoute.path !== '/' || currentRoute.hash !== hash) {
+    window.__skipNextHashScroll = hash
     await router.push({ path: '/', hash })
+  } else if (window.location.hash !== hash) {
+    window.history.replaceState(null, '', hash)
   }
 
-  window.requestAnimationFrame(() => {
-    scrollToElementById(id)
-  })
+  await scrollToElementById(id)
 }

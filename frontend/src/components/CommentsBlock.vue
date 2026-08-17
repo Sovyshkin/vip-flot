@@ -327,6 +327,12 @@ onBeforeUnmount(() => {
     letter-spacing: 0px;
 }
 
+.rating img {
+    display: block;
+    width: 76px;
+    height: auto;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .title {
@@ -381,6 +387,10 @@ onBeforeUnmount(() => {
     .text {
         font-size: 15px;
     }
+
+    .rating img {
+        width: 64px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -414,6 +424,10 @@ onBeforeUnmount(() => {
     
     .rating span {
         font-size: 13px;
+    }
+
+    .rating img {
+        width: 52px;
     }
 }
 </style>
