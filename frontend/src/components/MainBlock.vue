@@ -12,7 +12,7 @@
         <div class="blocks">
             <div class="block block-1" role="button" tabindex="0" @click="scrollToId('tours')" @keydown.enter="scrollToId('tours')">
                 <picture>
-                    <source media="(max-width: 768px)" srcset="../assets/block-1-mobile.webp">
+                    <source media="(max-width: 768px)" srcset="../assets/block-1.webp">
                     <img class="block-image" src="../assets/block-1.webp" alt="Выбираем маршрут" width="1200" height="900" loading="lazy" fetchpriority="low" decoding="async">
                 </picture>
                 <div class="block-icon">
@@ -25,7 +25,7 @@
             </div>
             <div class="block block-2" role="button" tabindex="0" @click="scrollToId('activities')" @keydown.enter="scrollToId('activities')">
                 <picture>
-                    <source media="(max-width: 768px)" srcset="../assets/block-2-mobile.webp">
+                    <source media="(max-width: 768px)" srcset="../assets/block-2.webp">
                     <img class="block-image" src="../assets/block-2.webp" alt="Выбираем повод" width="1200" height="900" loading="lazy" fetchpriority="low" decoding="async">
                 </picture>
                 <div class="block-icon">
