@@ -15,16 +15,16 @@
                     <span class="item-question">{{ item.q }}</span>
                     <img class="item-icon" :class="{ rotated: open[idx] }" src="../assets/arrow-faq.svg" alt="">
                 </div>
-                <p :ref="el => setAnswerRef(el, idx)" class="item-answer">
-                    <span class="answer-inner" v-html="item.a"></span>
-                </p>
+                <div class="item-answer">
+                    <p class="answer-inner" v-html="item.a"></p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue';
+import { ref } from 'vue';
 
 const faqs = [
     { q: 'С капитаном или без?', a: 'Большинство прогулок проходит с капитаном: так отдых получается спокойнее, а маршрут можно обсуждать прямо по ходу поездки. Если вас интересует аренда без капитана, подскажем, для каких судов и при каких условиях это возможно.' },
@@ -38,34 +38,10 @@ const faqs = [
 
 
 const open = ref(faqs.map(() => false));
-const answersRefs = ref([]);
-
-function setAnswerRef(el, idx) {
-    answersRefs.value[idx] = el;
-    if (!el) return;
-    // ensure element has correct maxHeight according to current open state
-    if (open.value[idx]) {
-        el.style.maxHeight = el.scrollHeight + 'px';
-    } else {
-        el.style.maxHeight = '0px';
-    }
-}
 
 function toggle(i) {
     const willOpen = !open.value[i];
-    // close all, then open only the target if willOpen
     open.value = open.value.map((_, idx) => (idx === i ? willOpen : false));
-    nextTick(() => {
-        // update maxHeight for all answer elements
-        answersRefs.value.forEach((el, idx) => {
-            if (!el) return;
-            if (open.value[idx]) {
-                el.style.maxHeight = el.scrollHeight + 'px';
-            } else {
-                el.style.maxHeight = '0px';
-            }
-        });
-    });
 }
 </script>
 <style>
@@ -128,17 +104,19 @@ function toggle(i) {
 }
 
 .item-answer {
-    overflow: hidden;
-    max-height: 0px;
-    transition: max-height 0.28s ease;
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.24s ease, opacity 0.2s ease, margin-top 0.24s ease;
     color: #333;
     margin: 0;
-    margin-top: 0; /* no gap when closed */
+    margin-top: 0;
 }
 
 .item-faq.open .item-answer {
-    /* max-height is set inline on toggle to exactly match content height */
-    margin-top: 12px; /* add spacing when open */
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 12px;
 }
 
 .item-faq {
@@ -148,14 +126,12 @@ function toggle(i) {
 /* inner content animation: slide+fade */
 .answer-inner {
     display: block;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity 0.22s ease, transform 0.22s ease;
-}
-
-.item-faq.open .answer-inner {
-    opacity: 1;
-    transform: translateY(0);
+    min-height: 0;
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
 }
 
 /* Responsive */
