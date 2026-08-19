@@ -128,6 +128,7 @@ function goToBooking() {
 .row-cards {
   display: flex;
   gap: 12px;
+  min-width: 0;
 }
 .row-1-card {
   flex: 1;
@@ -138,6 +139,7 @@ function goToBooking() {
 .card {
   position: relative;
   width: 100%;
+  min-width: 0;
   height: 192px;
   display: flex;
   align-items: flex-end;
@@ -200,6 +202,8 @@ function goToBooking() {
   color: #fff;
   letter-spacing: 0;
   z-index: 2;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 /* Responsive */
@@ -212,8 +216,23 @@ function goToBooking() {
         font-size: 16px;
     }
     
+    .row-cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .row-cards:last-child {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .card {
-        height: 160px;
+        height: 180px;
+        padding: 14px 18px;
+    }
+
+    .card-title {
+        font-size: 15px;
     }
 }
 
@@ -235,14 +254,18 @@ function goToBooking() {
     }
     
     .row-cards {
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
+    }
+
+    .row-cards:last-child {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     
     .row-1-card,
     .row-2-card {
-        flex: 0 0 calc(50% - 4px);
-        width: calc(50% - 4px);
+        width: 100%;
         height: 140px;
     }
     
@@ -271,8 +294,7 @@ function goToBooking() {
 
     .row-1-card,
     .row-2-card {
-        flex: 0 0 calc(50% - 4px);
-        width: calc(50% - 4px);
+        width: 100%;
         height: 120px;
     }
     

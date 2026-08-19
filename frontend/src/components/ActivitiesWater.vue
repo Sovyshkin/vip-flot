@@ -181,6 +181,7 @@ function goToActivity(slug) {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
 }
 
 
@@ -194,6 +195,7 @@ function goToActivity(slug) {
 .card {
     position: relative;
     width: 100%;
+    min-width: 0;
     display: flex;
     align-items: flex-end;
     gap: 16px;
@@ -245,12 +247,15 @@ function goToActivity(slug) {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    min-width: 0;
+    gap: 12px;
 }
 .card-info {
     display: flex;
     align-items: center;
     gap: 16px;
     z-index: 2;
+    min-width: 0;
 }
 
 .wrap-icon {
@@ -266,6 +271,8 @@ function goToActivity(slug) {
     color: #fff;
     font-weight: 600;
     font-size: 20px;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
 }
 
 .go-into-card {
@@ -290,15 +297,43 @@ function goToActivity(slug) {
     }
     
     .row-cards {
-        gap: 8px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        align-items: stretch;
     }
     
     .row-1-card {
-        height: 300px;
+        height: 260px;
     }
     
     .row-2-card {
-        height: 200px;
+        height: 220px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .card-info {
+        gap: 12px;
+    }
+
+    .title-card {
+        font-size: 18px;
+    }
+
+    .wrap-icon {
+        flex: 0 0 44px;
+        width: 44px;
+        height: 44px;
+        padding: 10px;
+    }
+
+    .go-into-card {
+        flex: 0 0 22px;
+        width: 22px;
+        height: 22px;
     }
 }
 

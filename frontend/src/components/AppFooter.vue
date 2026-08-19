@@ -125,11 +125,14 @@ function scrollToSection(sectionId) {
   color: #fff;
   padding: 60px 40px 30px;
   position: relative;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .footer-content {
   max-width: 1440px;
   margin: 0 auto;
+  min-width: 0;
 }
 
 .footer-main {
@@ -143,6 +146,7 @@ function scrollToSection(sectionId) {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 }
 
 .footer-brand {
@@ -248,6 +252,7 @@ function scrollToSection(sectionId) {
   text-decoration: none;
   transition: color 0.3s;
   line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .footer-links a:hover {
@@ -290,6 +295,13 @@ function scrollToSection(sectionId) {
   .footer-main {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 40px 30px;
+  }
+
+  .footer-bottom {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

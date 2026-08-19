@@ -60,6 +60,10 @@ body,
   background-color: #f5f5f5;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .main-content {
   padding-top: var(--header-height);
   flex: 1;
@@ -147,7 +151,7 @@ button:active {
 /* Responsive */
 @media (max-width: 1024px) {
   .wrap {
-    padding: 20px 30px;
+    padding: 20px 24px;
     gap: 56px;
   }
 }
@@ -158,7 +162,7 @@ button:active {
   }
 
   .wrap {
-    padding: 16px 24px;
+    padding: 16px;
     gap: 48px;
   }
 }

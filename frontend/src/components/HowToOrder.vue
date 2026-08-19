@@ -59,10 +59,12 @@
 .cards {
   display: flex;
   gap: 12px;
+  min-width: 0;
 }
 
 .card {
-    flex: 1;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -91,6 +93,8 @@
   text-transform: uppercase;
   letter-spacing: 0px;
   padding-top: 12px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 .card-desc {
@@ -107,7 +111,13 @@
     }
     
     .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
+    }
+
+    .card {
+        padding: 20px;
     }
     
     .count {
@@ -135,7 +145,7 @@
     }
     
     .cards {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         gap: 12px;
     }
     

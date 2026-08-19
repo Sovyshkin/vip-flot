@@ -378,6 +378,7 @@ onBeforeUnmount(() => {
     display: flex;
     gap: 15px;
     align-items: stretch;
+    min-width: 0;
     box-sizing: border-box;
     margin: -8px -4px -28px;
     padding: 8px 4px 28px;
@@ -413,6 +414,7 @@ onBeforeUnmount(() => {
     flex: 0 0 calc(33.333% - 10px);
     width: calc(33.333% - 10px);
     display: flex;
+    min-width: 0;
     min-height: 450px;
     flex-direction: column;
     gap: 24px;
@@ -455,6 +457,7 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     gap: 32px;
+    min-width: 0;
     padding: 0 24px 24px 24px;
     flex: 1;
 }
@@ -463,6 +466,7 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    min-width: 0;
     flex: 1;
 }
 
@@ -472,6 +476,8 @@ onBeforeUnmount(() => {
     font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
 }
 
 .card-desc {
@@ -499,7 +505,7 @@ onBeforeUnmount(() => {
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .title {
         font-size: 28px;
     }
