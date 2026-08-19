@@ -457,17 +457,118 @@ function scrollToSection(sectionId) {
 
 @media (max-width: 520px) {
   .site-footer {
-    padding: 36px 20px 22px;
+    padding: 32px 20px 24px;
   }
 
   .footer-main {
     grid-template-columns: 1fr;
     gap: 0;
-    margin-bottom: 34px;
+    margin-bottom: 30px;
+  }
+
+  .footer-brand {
+    align-items: center;
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-logo {
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-logo-mark {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
   }
 
   .footer-logo-text {
     font-size: 26px;
+  }
+
+  .footer-logo-subtitle {
+    max-width: 180px;
+    line-height: 1.25;
+  }
+
+  .footer-socials {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .social-link {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-contacts {
+    width: 100%;
+    align-items: stretch;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .footer-phone,
+  .footer-email {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 15px;
+  }
+
+  .footer-main > .footer-column:not(.footer-brand) {
+    margin-bottom: 0;
+    padding: 18px 0;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-main > .footer-column:not(.footer-brand):first-of-type {
+    padding-top: 0;
+  }
+
+  .footer-title {
+    margin-bottom: 0;
+    font-size: 16px;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px 16px;
+  }
+
+  .footer-column:nth-child(6) .footer-links,
+  .footer-column:nth-child(7) .footer-links {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .footer-bottom {
+    padding-top: 22px;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .footer-meta {
+    text-align: center;
+  }
+
+  .footer-copyright,
+  .footer-meta {
+    align-items: center;
   }
 }
 </style>
