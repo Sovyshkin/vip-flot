@@ -154,7 +154,12 @@ const routeContentMap = {
   }
 }
 
-const routeConfig = computed(() => routeContentMap[route.params.slug])
+const currentSlug = computed(() => {
+  const paramSlug = Array.isArray(route.params.slug) ? route.params.slug[0] : route.params.slug
+  return paramSlug || route.path.split('/').filter(Boolean).pop()
+})
+
+const routeConfig = computed(() => routeContentMap[currentSlug.value])
 
 function openBooking() {
   isBookingOpen.value = true

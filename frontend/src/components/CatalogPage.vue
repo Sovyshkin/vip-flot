@@ -41,8 +41,13 @@ function goToBoat(slug) {
   router.push({ name: 'BoatDetail', params: { slug } })
 }
 
-function goToRoute(slug) {
-  router.push({ name: 'RouteDetail', params: { slug } })
+function goToRoute(route) {
+  if (route?.link && !route.isPopup && route.link.startsWith('/')) {
+    router.push(route.link)
+    return
+  }
+
+  isBookingOpen.value = true
 }
 
 function setTab(tab) {
@@ -522,7 +527,7 @@ const filteredTours = computed(() => {
               <span class="card-desc" :class="{ 'card-desc--custom': isCustomRoute(route) }">{{ getCustomDescription(route) }}</span>
               <span v-if="isCustomRoute(route)" class="card-note">Согласуем время, точки посадки и высадки, маршрут и формат прогулки.</span>
             </div>
-            <button class="card-btn" @click="goToRoute(route.link ? route.link.split('/').pop() : '')">{{ getActionText(route) }}</button>
+            <button class="card-btn" @click="goToRoute(route)">{{ getActionText(route) }}</button>
           </div>
         </div>
       </div>

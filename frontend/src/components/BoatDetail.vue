@@ -145,6 +145,7 @@
             <h3 class="booking-title">Забронировать</h3>
             <div class="booking-price-block">
               <div class="booking-price-item" v-if="boat.pricePerHour">
+                <span class="booking-price-period">от</span>
                 <span class="booking-price-value">{{ boat.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
                 <span class="booking-price-period">/час</span>
               </div>

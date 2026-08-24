@@ -76,6 +76,7 @@
           <div class="booking-card">
             <h3 class="booking-title">Забронировать</h3>
             <div class="booking-price">
+              <span class="booking-price-period">от</span>
               <span class="booking-price-value">{{ route.pricePerHour.toLocaleString('ru-RU') }} ₽</span>
               <span class="booking-price-period">/час</span>
             </div>

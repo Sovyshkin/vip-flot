@@ -272,7 +272,10 @@ function goToActivity(slug) {
     font-weight: 600;
     font-size: 20px;
     line-height: 1.1;
-    overflow-wrap: anywhere;
+    min-width: 0;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
 }
 
 .go-into-card {
@@ -417,8 +420,17 @@ function goToActivity(slug) {
     .card {
         padding: 10px;
     }
+
+    .card-content {
+        gap: 6px;
+    }
+
+    .card-info {
+        gap: 8px;
+    }
     
     .wrap-icon {
+        flex: 0 0 34px;
         width: 34px;
         height: 34px;
         padding: 7px;
@@ -431,6 +443,7 @@ function goToActivity(slug) {
     
     .title-card {
         font-size: 13px;
+        line-height: 1.15;
     }
 
     .row-1-card,
@@ -439,8 +452,7 @@ function goToActivity(slug) {
     }
     
     .go-into-card {
-        width: 18px;
-        height: 18px;
+        display: none;
     }
 }
 </style>
