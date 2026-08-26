@@ -838,17 +838,17 @@ const filteredTours = computed(() => {
 /* Routes Tabs */
 .routes-tabs {
   display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 20px;
   border-bottom: 2px solid #E6E6E6;
 }
 
 .routes-tab-btn {
-  padding: 12px 24px;
+  padding: 9px 18px;
   background: none;
   border: none;
   color: #949CA4;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
@@ -1174,6 +1174,16 @@ const filteredTours = computed(() => {
     font-size: 15px;
   }
 
+  .routes-tabs {
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .routes-tab-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
   .toggle-filters-btn {
     padding: 10px 16px;
     font-size: 13px;
@@ -1274,6 +1284,16 @@ const filteredTours = computed(() => {
   .tab-btn {
     padding: 10px 16px;
     font-size: 14px;
+  }
+
+  .routes-tabs {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .routes-tab-btn {
+    padding: 7px 12px;
+    font-size: 12px;
   }
 
   .toggle-filters-btn {

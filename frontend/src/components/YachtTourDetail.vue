@@ -681,9 +681,10 @@ function goBack() {
   cursor: pointer;
   font-weight: 600;
   color: #1a1a1a;
-  padding: 14px 16px;
+  padding: 14px 48px 14px 16px;
   list-style: none;
   position: relative;
+  line-height: 1.3;
 }
 
 .faq-item summary::-webkit-details-marker {
@@ -791,6 +792,12 @@ function goBack() {
   margin: 0 0 10px;
   color: #1a1a1a;
   font-size: 16px;
+}
+
+.terms-group + .terms-group {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #edf1f7;
 }
 
 .terms-list {

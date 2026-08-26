@@ -49,8 +49,13 @@
           <h3 class="footer-title">Услуги</h3>
           <ul class="footer-links">
             <li><router-link to="/services/catering">Кейтеринг</router-link></li>
+            <li><router-link to="/services/guide">Гид</router-link></li>
+            <li><router-link to="/services/chef">Повар</router-link></li>
+            <li><router-link to="/services/bartender">Бармен</router-link></li>
             <li><router-link to="/services/photographer">Фотограф</router-link></li>
             <li><router-link to="/services/decoration">Украшение палубы</router-link></li>
+            <li><router-link to="/services/host">Ведущий</router-link></li>
+            <li><router-link to="/services/dj">Диджей</router-link></li>
             <li><router-link to="/services/live-music">Живая музыка</router-link></li>
           </ul>
         </div>
@@ -59,17 +64,26 @@
           <h3 class="footer-title">Маршруты</h3>
           <ul class="footer-links">
             <li><router-link to="/routes">Все маршруты</router-link></li>
-            <li><router-link to="/routes/reki-kanaly">Реки и каналы</router-link></li>
-            <li><router-link to="/routes/nevskiy-prospekt">Невский проспект</router-link></li>
-            <li><router-link to="/routes/kronshtadt">Кронштадт</router-link></li>
+            <li><router-link to="/routes/razvod-mostov">Развод мостов</router-link></li>
+            <li><router-link to="/routes/reki-i-kanaly">Реки и каналы</router-link></li>
+            <li><router-link to="/routes/neva">Прогулка по Неве</router-link></li>
+            <li><router-link to="/routes/finskij-zaliv">Финский залив</router-link></li>
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Яхт-туры</h3>
           <ul class="footer-links">
-            <li><router-link to="/routes/razvod-mostov">Развод мостов</router-link></li>
-            <li><router-link to="/tours/petergof">Петергоф морем</router-link></li>
+            <li><router-link to="/tours">Все яхт-туры</router-link></li>
+            <li><router-link to="/tours/valaam">Валаам</router-link></li>
+            <li><router-link to="/tours/kronshtadt">Кронштадт</router-link></li>
+            <li><router-link to="/tours/petergof">Петергоф</router-link></li>
+            <li><router-link to="/tours/krepost-oreshek">Крепость Орешек</router-link></li>
+            <li><router-link to="/tours/soloveckie-ostrova">Соловецкие острова</router-link></li>
+            <li><router-link to="/tours/kizhi">Кижи</router-link></li>
+            <li><router-link to="/tours/sortavala">Сортавала</router-link></li>
+            <li><router-link to="/tours/vyborg">Выборг</router-link></li>
+            <li><router-link to="/tours/moskva">Москва</router-link></li>
           </ul>
         </div>
 

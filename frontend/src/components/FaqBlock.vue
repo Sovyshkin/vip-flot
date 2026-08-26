@@ -87,6 +87,8 @@ function toggle(i) {
 }
 
 .item-question {
+    flex: 1 1 auto;
+    min-width: 0;
     font-size: 18px;
     font-weight: 600;
     color: #1A1A1A;
@@ -94,6 +96,7 @@ function toggle(i) {
 }
 
 .item-icon {
+    flex: 0 0 20px;
     width: 20px;
     height: 20px;
     transition: transform 0.22s ease;
@@ -194,6 +197,7 @@ function toggle(i) {
     }
     
     .item-icon {
+        flex-basis: 18px;
         width: 18px;
         height: 18px;
     }
